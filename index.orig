@@ -1,0 +1,17 @@
+# Eye On Evolution
+![](https://upload.wikimedia.org/wikipedia/commons/2/23/Scallop_eyes_banner.jpg) image by Matthew Krumins
+
+## [About this website](about.md)
+    This website explores evolution through the application of sequencing data and bioinformatics to biological questions. [More about this project and website](about.md)
+
+## Projects
+
+#### [Exploring phototransductive pathways in eyed and non-eyed species](EOE/phototransductionProject_landingPage.md)
+
+Eyes are literally the textbook example for how evolution can create an integrative, complex morphological structure by small increments.
+
+
+
+#### [White abalone genome assembly](whiteabalone/whiteAbalone__landingPage.md)
+
+Genome assembly is an important part of this NSF project that will require the assembly and annotation of five bivalves in the class [pteriomorphian](https://en.wikipedia.org/wiki/Pteriomorphia). Abalone is in the class [gastrapoda](https://en.wikipedia.org/wiki/Haliotis).  Both are in the phylum [molusca](https://en.wikipedia.org/wiki/Mollusca).  My group recently assembled a red abalone genome (in preparation) and in the last month (6/2018) obtained nanopore data for the white abalone to assemble its genome.  Since we have some time before we collect the samples this summer, I am going to spend some time exploring the nanopore data on the white abalone as a proxy for how well it can be used to assemble a mollusk species.  It is not part of the NSF proposal but is directly related so I have included it here in a separate folder in the github repo.
