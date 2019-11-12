@@ -103,7 +103,7 @@ social:
 analytics:
   provider               : #### Uncomment this line too here:### google # false (default), "google", "google-universal", "custom"
   google:
-    tracking_id          : #####  Need to create a new tracking number in analytics   UA-121562397-1
+    tracking_id          : UA-152061762-1
     anonymize_ip         : # true, false (default)
 
 

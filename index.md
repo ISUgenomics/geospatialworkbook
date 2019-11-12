@@ -3,8 +3,8 @@ layout: splash
 permalink: /
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/Scallop_eyes_banner.jpg
-excerpt: 'Roles of exaptive and adaptive co-option in the evolution of the eye'
+  overlay_image: /assets/images/pattern.png
+excerpt: 'GIS workbook'
 feature_row:
 
   - title: "Exploring phototransductive pathways in eyed and non-eyed species"
