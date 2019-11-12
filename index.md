@@ -8,9 +8,9 @@ excerpt: 'GIS workbook'
 feature_row:
 
   - title: "Exploring phototransductive pathways in eyed and non-eyed species"
-    image_path: /assets/images/Scallop_eyes2.jpg
+    image_path: /assets/images/pattern.png
     alt: "Programs"
-    url: "EOE/phototransductionProject_landingPage"
+    url: "IntroductionToCommandLine/IntroToCommandLine_landingPage.md"
     btn_label: "Learn More"
 
 ---
