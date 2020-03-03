@@ -7,12 +7,18 @@ header:
 excerpt: 'GIS workbook'
 feature_row:
 
-  - title: "Exploring phototransductive pathways in eyed and non-eyed species"
+  - title: "Introduction to Unix"
     image_path: /assets/images/pattern.png
     alt: "Programs"
-    url: "IntroductionToCommandLine/IntroToCommandLine_landingPage.md"
+    url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
     btn_label: "Learn More"
 
+  - image_path: /assets/images/computer.jpg
+    alt: "Command Line Basics"
+    title: "Command Line Basics and Useful Programs"
+    url: "/Appendix/programs"
+    btn_label: "Learn More"
+    caption: "photo credit [Arun Seetharam]"
 ---
 
 

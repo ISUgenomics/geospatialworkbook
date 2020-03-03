@@ -1,10 +1,12 @@
 ---
-title: "About Eye On Evolution"
+title: "GIS Workbook"
 
 permalink: /about.html
 layout: single
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/Scallop_eyes_banner.jpg
+  overlay_image: /assets/images/pattern.png
 ---
+
+
 # About
