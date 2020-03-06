@@ -13,13 +13,7 @@ feature_row:
     url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
     btn_label: "Learn More"
 
-  - image_path: /assets/images/computer.jpg
-    alt: "Command Line Basics"
-    title: "Command Line Basics and Useful Programs"
-    url: "/Appendix/programs"
-    btn_label: "Learn More"
-    caption: "photo credit [Arun Seetharam]"
----
+
 
 
 

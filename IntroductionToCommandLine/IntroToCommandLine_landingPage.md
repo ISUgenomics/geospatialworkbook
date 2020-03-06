@@ -3,7 +3,7 @@ title: "Useful Programs and Unix Basics"
 layout: single
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/dna.jpg
+  overlay_image: /assets/images/pattern.png
 ---
 
 
