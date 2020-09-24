@@ -3,6 +3,18 @@ adapted from https://github.com/willirath/dask_jobqueue_workshop_materials
 by Kerrie Geil, USDA-ARS
 August 2020
 
+---
+
+This tutorial is also provided as a python notebook, which can be fetched by right-clicking, and downloading the linked file.
+
+* [session3-intro-to-python-dask-on-ceres.ipynb](https://raw.githubusercontent.com/kerriegeil/SCINET-GEOSPATIAL-RESEARCH-WG/master/tutorials/session3-intro-to-python-dask-on-ceres.ipynb)
+
+Fetching the python notebook via `curl` or `wget` should also be possible.
+
+```
+curl https://raw.githubusercontent.com/kerriegeil/SCINET-GEOSPATIAL-RESEARCH-WG/master/tutorials/session3-intro-to-python-dask-on-ceres.ipynb
+```
+
 ## The Goal
 
 Interactive data analysis on very large datasets. The tools in this tutorial are most appropriate for analysis of large earth-science-type datasets. 

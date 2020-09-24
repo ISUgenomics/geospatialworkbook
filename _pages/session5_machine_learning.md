@@ -1,4 +1,17 @@
- # Distributed Machine Learning Pipeline: NDVI ~ Soil + Weather Dynamics
+# Distributed Machine Learning Pipeline: NDVI ~ Soil + Weather Dynamics
+By Kerrie Geil, USDA-ARS
+August 2020
+ ---
+
+This tutorial is also provided as a python notebook, which can be fetched by right-clicking, and downloading the linked file.
+
+* [session5\_machine\_learning.ipynb](https://raw.githubusercontent.com/kerriegeil/SCINET-GEOSPATIAL-RESEARCH-WG/master/tutorials/session5_machine_learning.ipynb)
+
+Fetching the python notebook via `curl` or `wget` should also be possible.
+
+```
+curl https://raw.githubusercontent.com/kerriegeil/SCINET-GEOSPATIAL-RESEARCH-WG/master/tutorials/session5_machine_learning.ipynb
+```
  
 This tutorial walks thru a machine learning pipeline. This example excludes the *Extract* component in the often referenced *ETL* (Extract, Transform, Learn) machine learning nomenclature. The overall goal of this analysis is to predict NDVI dynamics from soil and lagged precipitation, temperature, and vapor pressure deficit observations. The brief outline of the tutorial is:
 
