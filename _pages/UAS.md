@@ -1,6 +1,6 @@
 # UAS - Unmanned Aircraft Systems
 
-
+2020/09/30 - from material prepared by Joseph Millete (link to video here when published)
 
 ----
 
