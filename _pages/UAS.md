@@ -17,6 +17,7 @@ There is more than the cost of the aircraft
   * Hybrid Quad
   * Multicopter
   * Helicopter
+  * For the most up to date information on aircraft hardware, check [https://www.auvsi.org/](https://www.auvsi.org/)
   
 * Licensed pilot
 * 2nd observer for safety
@@ -42,4 +43,9 @@ Example applications
 * inspecting fields/mines/place of interest
 * crop/animal monitoring
 
+Example Publications
+
+* paper 1
+* paper 2
+* paper 3
 
