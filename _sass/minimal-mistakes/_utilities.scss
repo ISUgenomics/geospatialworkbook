@@ -136,6 +136,18 @@ body:hover .visually-hidden button {
   }
 }
 
+.align-left-profile {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:123px;
+
+  @include breakpoint($small) {
+    float: left;
+    margin-right: 1em;
+  }
+}
+
 /* image align right */
 
 .align-right {

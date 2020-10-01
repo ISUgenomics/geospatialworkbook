@@ -17,5 +17,5 @@ His PhD was in Biophysics/NMR spectroscopy. He did a Bioinformatics Postdoc in S
 
 ### Kerrie Geil
 
-![Kerrie](../assets/images/people/profile.jpg){: .align-left}
+![Kerrie](../assets/images/people/profile.jpg){: .align-left-profile }
 Two sentence bio here.
