@@ -140,14 +140,6 @@ author:
   xing             :
   youtube          : # "https://youtube.com/c/MichaelRoseDesign"
 
-Kerrie Geil:
-  name        : "Kerrie Geil"
-  bio         : "My main interests are X. Currently, I am working on various projects involving Y. My long-term goal is Z. "
-  avatar      : "/assets/images/people/profile.jpg"
-#  twitter     : "kerriegeil"
-#  email       : "mailto:arnstrm@iastate.edu"
-#  website     : "https://gif.biotech.iastate.edu"
-
 # Reading Files
 include:
   - .htaccess
