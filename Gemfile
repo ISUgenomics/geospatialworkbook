@@ -15,5 +15,5 @@ gem "jekyll-feed"
 gem "jemoji"
 gem "jekyll-include-cache"
 gem "jekyll-algolia"
-gem "jekyll-redirect-from"
+gem "rouge"
 end
