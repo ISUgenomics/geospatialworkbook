@@ -1,3 +1,13 @@
+---
+title: Machine Learning
+layout: single
+author: Kerrie Geil
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/pattern.png
+--- 
+
 # Distributed Machine Learning Pipeline: NDVI ~ Soil + Weather Dynamics
 By Kerrie Geil, USDA-ARS
 August 2020

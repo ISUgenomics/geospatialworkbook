@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Unix"
 layout: single
-author: Andrew Severin
+author: Kerrie Geil
 author_profile: true
 header:
   overlay_color: "444444"

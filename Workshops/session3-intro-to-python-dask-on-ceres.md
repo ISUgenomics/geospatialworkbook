@@ -1,3 +1,13 @@
+---
+title: Dask Parallel Computing
+layout: single
+author: Kerrie Geil
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/pattern.png
+--- 
+
 # Parallel Computing on Ceres with Python and Dask
 adapted from https://github.com/willirath/dask_jobqueue_workshop_materials
 by Kerrie Geil, USDA-ARS
