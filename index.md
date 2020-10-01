@@ -13,7 +13,6 @@ feature_row:
     url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
     btn_label: "Learn More"
 
-
 ---
 
 
