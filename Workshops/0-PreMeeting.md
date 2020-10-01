@@ -1,7 +1,6 @@
 ---
 title: Premeeting
 layout: single
-nav: true
 author: Kerrie Geil
 author_profile: true
 header:
