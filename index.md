@@ -13,6 +13,12 @@ feature_row:
     url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
     btn_label: "Learn More"
 
+  - title: "Introduction to Geospatial"
+    image_path: /assets/images/pattern.png
+    alt: "Programs2"
+    url: "Workshops/0-PreMeeting"
+    btn_label: "Learn More"
+
 ---
 
 
