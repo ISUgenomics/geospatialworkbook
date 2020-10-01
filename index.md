@@ -13,10 +13,22 @@ feature_row:
     url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
     btn_label: "Learn More"
 
-  - title: "Introduction to Geospatial"
+  - title: "Session 0 Premeeting"
     image_path: /assets/images/pattern.png
     alt: "Programs2"
     url: "Workshops/0-PreMeeting"
+    btn_label: "Learn More"
+
+  - title: "Session 0b Tutorials"
+    image_path: /assets/images/pattern.png
+    alt: "Programs3"
+    url: "Workshops/0b-tutorials.md"
+    btn_label: "Learn More"
+
+  - title: "Session 2 Ceres"
+    image_path: /assets/images/pattern.png
+    alt: "Programs3"
+    url: "Workshops/2-Session2-intro-to-ceres.md"
     btn_label: "Learn More"
 
 ---
