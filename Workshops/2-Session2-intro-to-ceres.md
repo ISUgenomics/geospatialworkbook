@@ -1,21 +1,28 @@
 ---
-title: Session2
-nav: true
---- 
+title: "Introduction to Unix"
+layout: single
+author: Andrew Severin
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/pattern.png
+---
+
+
 {% capture text %}
 We will stop approving new registrations about an hour before each session. Please register in advance of that cutoff so you don't get left out!
-{% endcapture %} 
+{% endcapture %}
 {% include alert.md text=text color='warning' %}
 
 # Session 2 Tutorial:
 
-# Introduction to the Ceres High-Performance Computing System Environment 
+# Introduction to the Ceres High-Performance Computing System Environment
 
 This page contains all the info you need to participate in Session 2 of the SCINet Geospatial Workshop 2020.
 
 {% capture text %}
 The session recording is available for anyone with a usda.gov email address and eAuthentication at (location coming soon).
-{% endcapture %} 
+{% endcapture %}
 {% include alert.md text=text %}
 <br><br>
 
@@ -78,7 +85,7 @@ The session recording is available for anyone with a usda.gov email address and 
 
 ## The SCINet Website
 
-The [SCINet Website](https://scinet.usda.gov/) is the source of much of the material presented in this tutorial. Use the SCINet website to request SCINet accounts, access SCINet/HPC user guides, get computing help or other support, and find out about upcoming and previous computational training events. 
+The [SCINet Website](https://scinet.usda.gov/) is the source of much of the material presented in this tutorial. Use the SCINet website to request SCINet accounts, access SCINet/HPC user guides, get computing help or other support, and find out about upcoming and previous computational training events.
 
 <br>
 
@@ -89,7 +96,7 @@ The [SCINet Website](https://scinet.usda.gov/) is the source of much of the mate
 
 ## High-Performance Computing (HPC) System Basics
 
-### What is an HPC System? 
+### What is an HPC System?
 
 A High Performance Computing (HPC) system provides a computational environment that can processes data and perform complex computations at high speeds. Generally HPC systems consists of 3 components:
 
@@ -152,7 +159,7 @@ The operating system running on Ceres is CentOS and the job scheduler is SLURM. 
 
 **Nodes**
 
-When you SSH into Ceres you are connecting to the login node. The login node should be used for navigating your directories, organizing your files, and running very minor scripts. All computing on Ceres should be done on compute nodes. **DON'T RUN YOUR COMPUTE SCRIPTS OR INSTALL SOFTWARE ON THE LOGIN NODE AS IT SLOWS THE NODE DOWN FOR EVERYONE.** 
+When you SSH into Ceres you are connecting to the login node. The login node should be used for navigating your directories, organizing your files, and running very minor scripts. All computing on Ceres should be done on compute nodes. **DON'T RUN YOUR COMPUTE SCRIPTS OR INSTALL SOFTWARE ON THE LOGIN NODE AS IT SLOWS THE NODE DOWN FOR EVERYONE.**
 
 When you use JupyterHub to login to Ceres you are placed on a compute node, not a login node.
 
@@ -292,9 +299,9 @@ Clicking on the hexagon icon on the far left will show you all the software modu
 
 **Step 1: Open a Jupyter Notebook**
 
-Click the launcher and launch a Python 3 notebook- notice the .ipynb file extension. 
+Click the launcher and launch a Python 3 notebook- notice the .ipynb file extension.
 
-Notice how it says "Python 3" at the top right of the notebook. You are working in a Python 3 environment or "kernel". You could change this by clicking on "Python 3" and selecting a different kernel from the dropdown list in the pop-up box. Don't choose a different kernel for now, but note that this is where you could select a Conda environment that you have created. We will cover this in the Session 4 Tutorial on computational reproducibility. 
+Notice how it says "Python 3" at the top right of the notebook. You are working in a Python 3 environment or "kernel". You could change this by clicking on "Python 3" and selecting a different kernel from the dropdown list in the pop-up box. Don't choose a different kernel for now, but note that this is where you could select a Conda environment that you have created. We will cover this in the Session 4 Tutorial on computational reproducibility.
 
 **Step 2: Add a Raw Text Cell**
 
@@ -317,9 +324,9 @@ Click inside the new cell that has appeared in your notebook, then at the top of
 Write some pretty text.
 ```
 
-Execute the Markdown cell. 
+Execute the Markdown cell.
 
-Learn more about JupyterHub markdown syntax [here](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Working%20With%20Markdown%20Cells.html) or [here](https://www.ibm.com/support/knowledgecenter/en/SSGNPV_2.0.0/dsx/markd-jupyter.html). A quick Google search on "JupyterHub markdown cheat sheet" will reveal tons of helpful sites. 
+Learn more about JupyterHub markdown syntax [here](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Working%20With%20Markdown%20Cells.html) or [here](https://www.ibm.com/support/knowledgecenter/en/SSGNPV_2.0.0/dsx/markd-jupyter.html). A quick Google search on "JupyterHub markdown cheat sheet" will reveal tons of helpful sites.
 
 **Step 4: Add a Code Cell**
 
@@ -358,7 +365,7 @@ At the top of JupyterLab click Run > Run All Cells
 
 Actually, JupyterLab is autosaving your notebook as you work, but you'll want to name your file.
 
-Right click on "Untitled.ipynb" either on the notebook tab or in the file browser on the left, then choose "Rename". In the pop-up window, name your file and click "Rename". 
+Right click on "Untitled.ipynb" either on the notebook tab or in the file browser on the left, then choose "Rename". In the pop-up window, name your file and click "Rename".
 
 <br>
 
@@ -369,13 +376,13 @@ Right click on "Untitled.ipynb" either on the notebook tab or in the file browse
 
 ## Basic Linux Commands
 
-Now we'll work through some basic linux commands. For more commands than we cover here see the [Unix Basics Tutorial from the bioinformatics workbook](https://bioinformaticsworkbook.org/Appendix/Unix/unix-basics-1.html#gsc.tab=0) created by Andrew Severin of Iowa State University/SCINet VRSC. 
+Now we'll work through some basic linux commands. For more commands than we cover here see the [Unix Basics Tutorial from the bioinformatics workbook](https://bioinformaticsworkbook.org/Appendix/Unix/unix-basics-1.html#gsc.tab=0) created by Andrew Severin of Iowa State University/SCINet VRSC.
 
-First an illustration of the following terms: 
-- **prompt**, 
-- **command**, 
-- **argument** (a.k.a options, flags), 
-- **standard out** (stdout), 
+First an illustration of the following terms:
+- **prompt**,
+- **command**,
+- **argument** (a.k.a options, flags),
+- **standard out** (stdout),
 - **standard error** (stderr)
 
 ![picture of terminal from bioinformaticsworkbook.org](/SCINET-GEOSPATIAL-RESEARCH-WG/images/andrews-graphic.png)
@@ -420,7 +427,7 @@ you will get the same result with:
 ```bash
 ls --all
 ```
-Note that many options are accessible using the long version which always starts with two dashes (--all) or using the abbreviated version which always starts with one dash (-a). 
+Note that many options are accessible using the long version which always starts with two dashes (--all) or using the abbreviated version which always starts with one dash (-a).
 
 Also, you can add multiple options to commands:
 ```bash
@@ -443,9 +450,9 @@ We'll come back to how to change file or directory permissions.
 ```bash
 man ls
 ```
-So many options! Don't worry, you don't have to know all the options for every command. To view the entire manual page, use your up/down arrows to scroll or your pg up/pg dn buttons. 
+So many options! Don't worry, you don't have to know all the options for every command. To view the entire manual page, use your up/down arrows to scroll or your pg up/pg dn buttons.
 
-NOTE: If you haven't discovered it already, **YOUR MOUSE DOESN'T WORK AT THE COMMAND LINE!** Notice the -a, -l, and -h on the man page for the ls command. 
+NOTE: If you haven't discovered it already, **YOUR MOUSE DOESN'T WORK AT THE COMMAND LINE!** Notice the -a, -l, and -h on the man page for the ls command.
 
 To exit/quit the man page:
 ```bash
@@ -550,7 +557,7 @@ tail file3.txt
 ```bash
 cat file3.txt
 ```
-```bash 
+```bash
 cat file1.txt file2.txt file3.txt
 ```
 
@@ -560,7 +567,7 @@ The last command should concatenate the printing of all three files to stdout.
 
 **Using cat to create textfiles**
 
-**cat** - concatenate and print all contents to stdout. 
+**cat** - concatenate and print all contents to stdout.
 
 You can actually use cat to create quick textfiles without using nano.
 ```bash
@@ -732,7 +739,7 @@ We can see on the man page for rm that -r means remove directories and their con
 
 If want to change who has access to certain files and directories, we use chmod (remember though that your home directory is private by default). View the permissions on your files with:
 ```bash
-ls -l 
+ls -l
 ```
 
 You should see that the file owner, and group members can read read and write to these files, but everyone else ("others") only has read privileges. To add write privileges for everyone else:
@@ -802,7 +809,7 @@ just a quick side note on working with the data file we downloaded...
 ncdump -h Land_and_Ocean_LatLong1.nc
 ```
 
-This shows metadata on all the data variables that are in the files including dimension information for each data variable (lat, lon, time). There is also metadata about the file history. 
+This shows metadata on all the data variables that are in the files including dimension information for each data variable (lat, lon, time). There is also metadata about the file history.
 
 Note: the -h flag means "header", without it you will get thousands of data values printed to stdout. If you do this by accident on a large file Ctl+c will stop the printing to stdout.
 
@@ -876,7 +883,7 @@ A geospatial researcher may write and debug their scripts using small to medium 
 
 Interactive computing essentially means that you are working directly on a compute node as opposed to using the SLURM job scheduler to submit compute jobs in batches. JupyterHub allows us easy access to interactive computing on the Ceres HPC. Just login to Ceres through JupyerHub and start coding in a Jupyter notebook- you will automatically be placed in an interactive compute session.
 
-But let's learn how to open an interactive computing session from the command line. This is important when you log in with SSH or if you've logged in with JupyterHub but want to compute or install software on a different node than where your JupyterLab session is running. 
+But let's learn how to open an interactive computing session from the command line. This is important when you log in with SSH or if you've logged in with JupyterHub but want to compute or install software on a different node than where your JupyterLab session is running.
 
 **Step 1: Open a terminal on Ceres**
 
@@ -944,7 +951,7 @@ nano my-first-batch-script.sbatch
 In the nano editor type:
 ```
 #!/bin/bash
-#SBATCH --job-name=HelloWorld 
+#SBATCH --job-name=HelloWorld
 #SBATCH -p short              #name of the partition (queue) you are submitting to
 #SBATCH -N 1                  #number of nodes in this job
 #SBATCH -n 2                  #number of cores/tasks in this job
@@ -953,7 +960,7 @@ In the nano editor type:
 #SBATCH -e "stderr.%j.%N"     #optional, prints our standard error
 
 module load python_3
-echo "you are running python" 
+echo "you are running python"
 python3 --version
 
 python3 hello-world.py
@@ -981,7 +988,7 @@ Also Note: **this is a serial job**, meaning that it will run on a single comput
 
 **a serial job that runs a python script five times**
 
-Let's now run a script that will execute the same python code 5 times in a row back to back. 
+Let's now run a script that will execute the same python code 5 times in a row back to back.
 
 First, delete all your stdout and stderr files so it's easier to see which new files have been generated:
 ```bash
@@ -991,7 +998,7 @@ rm std*
 Now modify your sbatch script using nano to look like this:
 ```
 #!/bin/bash
-#SBATCH --job-name=HelloWorld 
+#SBATCH --job-name=HelloWorld
 #SBATCH -p short              #name of the partition (queue) you are submitting to
 #SBATCH -N 1                  #number of nodes in this job
 #SBATCH -n 2                  #number of cores/tasks in this job
@@ -1000,7 +1007,7 @@ Now modify your sbatch script using nano to look like this:
 #SBATCH -e "stderr.%j.%N"     #optional, prints our standard error
 
 module load python_3
-echo "you are running python" 
+echo "you are running python"
 python3 --version
 
 for i {1..5}
@@ -1020,7 +1027,7 @@ Go ahead and delete your stdout and stderr files again.
 Let's now run a script that will execute the same python code 10 times simulataneously. Modify your sbatch script to look like this:
 ```
 #!/bin/bash
-#SBATCH --job-name=HelloWorld 
+#SBATCH --job-name=HelloWorld
 #SBATCH -p short              #name of the partition (queue) you are submitting to
 #SBATCH -N 1                 #number of nodes in this job
 #SBATCH -n 10                 #number of cores/tasks in this job
@@ -1031,7 +1038,7 @@ Let's now run a script that will execute the same python code 10 times simulatan
 #SBATCH --array=1-10          #job array index values
 
 module load python_3
-echo "you are running python" 
+echo "you are running python"
 python3 --version
 
 python3 hello-world.py
