@@ -4,6 +4,8 @@
 
 ----
 
+* PubMed Articles published using UAS - [see list](https://pubmed.ncbi.nlm.nih.gov/?term=UAS+unmanned+aerial+system)
+
 If you are planning on collecting geospatial data using a drone, or some kind of unmanned aircraft system (UAS), please check FAA for rules and regulations. The Main website will provide the most up-to-date information.
 
 * [https://www.faa.gov/uas/](https://www.faa.gov/uas/)
