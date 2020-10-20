@@ -6,3 +6,5 @@ The best way to learn how to analyze data is through examples of real world prob
 ## More Information:
 
 * Campbell, J.E. and Shin, M., 2011. [Essentials of geographic information systems.](https://open.umn.edu/opentextbooks/textbooks/67) https://www.saylor.org/books/.
+* Creating a Google Earth Engine App [Code Guide](https://developers.google.com/earth-engine/guides/apps)
+* Google Earth Engine online editor [Editor](https://code.earthengine.google.com/)
