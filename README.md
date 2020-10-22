@@ -16,3 +16,4 @@ The best way to learn how to analyze data is through examples of real world prob
   * [geopandas processing](https://geopandas.org/io.html)
 * Heavyweight Geospatial Analysis
   * [PostGIS Server](https://postgis.net/)
+* [Recent "geospatial information systems" PubMed Articles](https://pubmed.ncbi.nlm.nih.gov/?term=GIS+geographic+information+systems&sort=date)
