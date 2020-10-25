@@ -12,9 +12,16 @@ The best way to learn how to analyze data is through examples of real world prob
   * Publishing analysis via Google Earth Engine App - [Code Guide](https://developers.google.com/earth-engine/guides/apps)
   * Example Apps - [Global Forest Watch](https://www.globalforestwatch.org/map/?menu=eyJkYXRhc2V0Q2F0ZWdvcnkiOiJmb3Jlc3RDaGFuZ2UiLCJtZW51U2VjdGlvbiI6ImRhdGFzZXRzIn0%3D)
   * 9th Geo for Good Summit - [Watch On Demand](https://earthoutreachonair.withgoogle.com/events/geoforgood20)
+  * API to pull and analyze Landsat & Sentinal data, can also upload own datasets
 * Lightweight Geospatial Analysis
   * [SpatiaLite Database](https://www.gaia-gis.it/fossil/libspatialite/index)
   * [geopandas processing](https://geopandas.org/io.html)
 * Heavyweight Geospatial Analysis
   * [PostGIS Server](https://postgis.net/)
 * [Recent "geospatial information systems" PubMed Articles](https://pubmed.ncbi.nlm.nih.gov/?term=GIS+geographic+information+systems&sort=date)
+* Datasets
+  * Landsat - [NASA Description](https://landsat.gsfc.nasa.gov/landsat-8/)
+    * [Video: Landsat 8: Band by Band](https://youtu.be/A6WzAc1FTeA)
+  * Sentinal
+  * MODUS
+  * Customized Sensor/video/device
