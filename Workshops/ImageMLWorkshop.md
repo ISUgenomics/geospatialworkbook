@@ -42,11 +42,11 @@ Download the Jupyter Notebook and image data
 
 **If working on a laptop** (right click the links to download)
 
-[Tutorial1_Image_Processing_Essentials.ipynb](/tutorials/Tutorial1_Image_Processing_Essentials.ipynb)
+[Tutorial1_Image_Processing_Essentials.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial1_Image_Processing_Essentials.ipynb)
 
-[cameraman.png](/data_images/cameraman.png)
+[cameraman.png](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/cameraman.png)
 
-[peppers.png](/data_images/peppers.png)
+[peppers.png](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/peppers.png)
 
 save these items in your working directory
 
@@ -60,11 +60,11 @@ curl -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutori
 
 **To see a static notebook with all the outputs/answers:** 
 
-[Tutorial1_Image_Processing_Essentials_complete.html](/tutorials/Tutorial1_Image_Processing_Essentials_complete.html)
+[Tutorial1_Image_Processing_Essentials_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial1_Image_Processing_Essentials_complete.html)
 
 **To access the instructor's ipynb with the ad hoc cells added during instruction on 10/19/2020:**
 
-[Tutorial1_Image_Processing_Essentials_Boucheron.ipynb](/tutorials/Tutorial1_Image_Processing_Essentials_Boucheron.ipynb) (right click to download)
+[Tutorial1_Image_Processing_Essentials_Boucheron.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial1_Image_Processing_Essentials_Boucheron.ipynb) (right click to download)
 
 **To access the Zoom recording:**
 
@@ -79,14 +79,13 @@ Download the Jupyter Notebook and image data
 
 **If working on a laptop** 
 
-[Tutorial2_Classical_Machine_Learning.ipynb](/tutorials/Tutorial2_Classical_Machine_Learning.ipynb) (right click the link to download)
+[Tutorial2_Classical_Machine_Learning.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial2_Classical_Machine_Learning.ipynb) (right click the link to download)
 
 [CalTech101 dataset 101_ObjectCategories.tar.gz](http://www.vision.caltech.edu/Image_Datasets/Caltech101/101_ObjectCategories.tar.gz) (126 MB; follow the link to download)
 
 [CalTech101 dataset Annotations.tar](http://www.vision.caltech.edu/Image_Datasets/Caltech101/Annotations.tar) (13 MB; follow the link to download)
 
 Move the compressed image data folders to your working directory and unzip. Unzip using a terminal (e.g. Windows PowerShell) with ```tar -xvf filename```
-
 
 **If working on the ARS Ceres HPC**
 
@@ -106,15 +105,15 @@ Note: If you are following this tutorial after the workshop has ended and the NM
 
 **Presentation slides:** 
 
-[Day2_Rules_ML_DL.pdf](/slides/Day2_Rules_ML_DL.pdf)
+[Day2_Rules_ML_DL.pdf](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/slides/Day2_Rules_ML_DL.pdf)
 
 **To see a static notebook with all the outputs/answers:** 
 
-[Tutorial2_Classical_Machine_Learning_complete.html](/tutorials/Tutorial2_Classical_Machine_Learning_complete.html)
+[Tutorial2_Classical_Machine_Learning_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial2_Classical_Machine_Learning_complete.html)
 
 **To access the instructor's ipynb with the ad hoc cells added during instruction on 10/21/2020:**
 
-[Tutorial2_Classical_Machine_Learning_Boucheron.html](/tutorials/Tutorial2_Classical_Machine_Learning_Boucheron.ipynb)
+[Tutorial2_Classical_Machine_Learning_Boucheron.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial2_Classical_Machine_Learning_Boucheron.ipynb)
 
 **To access the Zoom recording:**
 
@@ -126,14 +125,13 @@ to be posted
 
 Download the Jupyter Notebook.
 
-Also make sure you have built the workshop Conda environment and then activate it (use the kernel) inside your Jupyter Notebook ([use the instructions on the setup page](/setup/)). You will not be able to run the Notebook for Day 3 if you haven't built and activated the workshop Conda environment successfully.
+Also make sure you have built the workshop Conda environment and then activate it (use the kernel) inside your Jupyter Notebook ([use the instructions on the setup page](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/setup/)). You will not be able to run the Notebook for Day 3 if you haven't built and activated the workshop Conda environment successfully.
 
 **If working on a laptop** 
 
-[Tutorial3_Deep_Learning_for_Images.ipynb](/tutorials/Tutorial3_Deep_Learning_for_Images.ipynb) 
+[Tutorial3_Deep_Learning_for_Images.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial3_Deep_Learning_for_Images.ipynb) 
 
 save to your working directory
-
 
 **If working on the ARS Ceres HPC**
 
@@ -145,17 +143,17 @@ curl -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutori
 
 **Presentation slides:** 
 
-[Day3_CNNs.pdf](/slides/Day3_CNNs.pdf)
+[Day3_CNNs.pdf](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/slides/Day3_CNNs.pdf)
 
-[Day3_CNN_Epic_Fails.pdf](/slides/Day3_CNN_Epic_Fails.pdf)
+[Day3_CNN_Epic_Fails.pdf](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/slides/Day3_CNN_Epic_Fails.pdf)
 
 **To see a static notebook with all the outputs/answers:** 
 
-[Tutorial3_Deep_Learning_for_Images_complete.html](/tutorials/Tutorial3_Deep_Learning_for_Images_complete.html)
+[Tutorial3_Deep_Learning_for_Images_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial3_Deep_Learning_for_Images_complete.html)
 
 **To access the instructor's ipynb with the ad hoc cells added during instruction on 10/23/2020:**
 
-[Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb](/tutorials/Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb)
+[Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb)
 
 **To access the Zoom recording:**
 
@@ -170,14 +168,13 @@ Download the Jupyter Notebook and image data
 
 **If working on a laptop** (right click the links to download)
 
-[Tutorial4_Visualizing_and_Modifying_DL_Networks.ipynb](/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks.ipynb)
+[Tutorial4_Visualizing_and_Modifying_DL_Networks.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks.ipynb)
 
-[my_digits1_compressed.jpg](/data_images/my_digits1_compressed.jpg)
+[my_digits1_compressed.jpg](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/my_digits1_compressed.jpg)
 
-[latest_256_0193.jpg](/data_images/latest_256_0193.jpg)
+[latest_256_0193.jpg](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/latest_256_0193.jpg)
 
 save these items in your working directory
-
 
 **If working on the ARS Ceres HPC**
 
@@ -189,11 +186,11 @@ curl -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutori
 
 **To see a static notebook with all the outputs/answers:** 
 
-[Tutorial4_Visualizing_and_Modifying_DL_Networks_complete.html](/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_complete.html)
+[Tutorial4_Visualizing_and_Modifying_DL_Networks_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_complete.html)
 
 **To access the instructor's ipynb with the ad hoc cells added during instruction on 10/26/2020:**
 
-[Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb](/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb)
+[Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb)
 
 **To access the Zoom recording:**
 
@@ -206,14 +203,13 @@ Download the Jupyter Notebook and model weights
 
 **If working on a laptop** 
 
-[Tutorial5_Advanced_DL_Networks.ipynb](/tutorials/Tutorial5_Advanced_DL_Networks.ipynb)
+[Tutorial5_Advanced_DL_Networks.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial5_Advanced_DL_Networks.ipynb)
 
 [https://pjreddie.com/media/files/yolov3.weights](https://pjreddie.com/media/files/yolov3.weights) (236 MB)
 
 [https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/zebra.jpg](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/zebra.jpg)
 
 save these items in your working directory
-
 
 **If working on the ARS Ceres HPC**
 
@@ -234,3 +230,4 @@ to be posted
 **To access the Zoom recording:**
 
 to be posted
+
