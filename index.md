@@ -4,7 +4,7 @@ permalink: /
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/pattern.png
-excerpt: 'GIS workbook'
+excerpt: 'Democratizing geospatial analysis through practical tutorials'
 feature_row:
 
   - title: "Introduction to Unix"
