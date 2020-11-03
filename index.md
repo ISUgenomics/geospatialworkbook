@@ -13,10 +13,16 @@ feature_row:
     url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
     btn_label: "Learn More"
 
-  - title: "Workshop"
+  - title: "SCINet Geospatial Workshop"
     image_path: /assets/images/pattern.png
     alt: "Programs2"
     url: "Workshops/Workshop"
+    btn_label: "Learn More"
+
+  - title: "USDA ARS Image ML Workshop"
+    image_path: /assets/images/pattern.png
+    alt: "Programs2"
+    url: "Workshops/ImageMLWorkshop"
     btn_label: "Learn More"
 
   - title: "Jupyter Notebooks"
