@@ -1,3 +1,13 @@
+---
+title: Premeeting
+layout: single
+author: Kerrie Geil
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/pattern.png
+--- 
+
 # Tutorial 3: Deep Learning for Images
 ## Laura E. Boucheron, Electrical & Computer Engineering, NMSU
 ### October 2020
