@@ -13,3 +13,15 @@ Remember to double check the following repos for updates. Notebook files are pro
 
 * [kerriegeil/NMSU-USDA-ARS-AI-Workshops](https://github.com/kerriegeil/NMSU-USDA-ARS-AI-Workshops)
 
+
+
+## Running or editing tutorials locally
+
+
+
+```bash
+cd tutorial         # folder containing jupyter notebooks
+# optional, start your conda environment which has the jupyter notebook package
+jupyter notebook    # Opens a browser window where you can open, edit and run a notebook file
+```
+
