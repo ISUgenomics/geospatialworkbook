@@ -3,7 +3,7 @@ title: "Image Machine Learning Workshop"
 layout: single
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/pattern.png
+  overlay_image: /assets/images/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
 ---
 
 Materials from the [USDA ARS AI Workshop 2020](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/).
