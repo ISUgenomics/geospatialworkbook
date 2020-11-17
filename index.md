@@ -3,7 +3,7 @@ layout: splash
 permalink: /
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/pattern.png
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash.jpg
 excerpt: 'Democratizing geospatial analysis through practical tutorials'
 feature_row:
 
