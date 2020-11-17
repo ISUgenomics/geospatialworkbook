@@ -5,7 +5,7 @@ author: Kerrie Geil
 author_profile: true
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/pattern.png
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 --- 
 
 # Tutorial 2: Classical Machine Learning Fundamentals
