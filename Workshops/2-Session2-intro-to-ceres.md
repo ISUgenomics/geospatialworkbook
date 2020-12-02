@@ -12,7 +12,9 @@ header:
 
 # Introduction to the Ceres High-Performance Computing System Environment
 
-This page was modified from Session 2 of the SCINet Geospatial Workshop 2020.
+This page was modified from Session 2 of the SCINet Geospatial Workshop 2020. Ceres HPC Resources have been used to publish scientific papers:
+
+* [List of articles on PMC which acknowledged Ceres HPC](https://www.ncbi.nlm.nih.gov/pmc/?term=ceres+scinet)
 
 **Learning Goals:**
 
