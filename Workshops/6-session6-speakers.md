@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-<!--NOTE: comment out --> 
+<!--NOTE: comment out -->
 
 # Session 6 Symposium:
 ## Challenges and opportunities in leveraging machine learning techniques to further sustainable and intensified agriculture

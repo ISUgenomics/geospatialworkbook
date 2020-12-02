@@ -8,22 +8,16 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-{% capture text %}
-We will stop approving new registrations about an hour before each session. Please register in advance of that cutoff so you don't get left out!
-{% endcapture %} 
-{% include alert.md text=text color='warning' %}
-
-All tutorials are hosted on Github at (repo location coming soon). 
+All tutorials are hosted on Github at (repo location coming soon).
 
 Below is a brief description of each tutorial as well as an instructional on how to download and run them on the SCINet Ceres HPC system.
 
-{% capture text %}
 * [**How to Run Tutorials on Ceres**](#how-to-run-tutorials-on-ceres)
 * [**Session 2 Tutorial: Intro to the Ceres HPC System Environment (SSH, JupyterHub, Basic Linux, SLURM batch script)**](#session-2-tutorial-intro-to-the-ceres-hpc-system-environment-ssh-jupyterhub-basic-linux-slurm-batch-script)
-* [**Session 3 Tutorial: Intro to Distributed Computing on the Ceres HPC System Using Python and Dask**](#session-3-tutorial-intro-to-distributed-computing-on-the-ceres-hpc-system-using-python-and-dask) 
-* [**Session 4 Tutorial: Computational Reproducibility Tools (Git/Github, Conda, Docker/Singularity containers**](#session-4-tutorial-computational-reproducibility-tools-git-github-conda-docker-singularity-containers) 
+* [**Session 3 Tutorial: Intro to Distributed Computing on the Ceres HPC System Using Python and Dask**](#session-3-tutorial-intro-to-distributed-computing-on-the-ceres-hpc-system-using-python-and-dask)
+* [**Session 4 Tutorial: Computational Reproducibility Tools (Git/Github, Conda, Docker/Singularity containers**](#session-4-tutorial-computational-reproducibility-tools-git-github-conda-docker-singularity-containers)
 * [**Session 5 Tutorial: Distributed Machine Learning: Using Gradient Boosting to Predict NDVI Dynamics**](#session-5-tutorial-distributed-machine-learning-using-gradient-boosting-to-predict-ndvi-dynamics)
-{% endcapture %}
+
 {% include card.md header="Table of Contents" text=text %}
 <br><br>
 
@@ -42,25 +36,25 @@ For Sessions 3 & 5 tutorials ("Intro to Distributed Computing" and "Distributed 
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Job Duration: ```02:00:00```<br>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Path to the container image: ```/lustre/project/geospatial_tutorials/wg_2020_ws/data_science_im_rs_vSCINetGeoWS_2020.sif```<br>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Container Exec Args: ```--bind /etc/munge --bind /var/log/munge --bind /var/run/munge --bind /usr/bin/squeue --bind /usr/bin/scancel --bind /usr/bin/sbatch --bind /usr/bin/scontrol --bind /usr/bin/sinfo --bind /system/slurm:/etc/slurm --bind /run/munge --bind /usr/lib64/libslurm.so --bind /usr/lib64/libmunge.so.2 --bind /usr/lib64/slurm --bind  /project --bind /lustre```
-   
+
     After a few minutes, a JupyterLab instance, running on the Ceres HPC, should open in your browser. After several attempts, if the spawner fails and JupyterLab does not open correctly, please contact the SCINet Virtual Research Support Core (VRSC) for assistance at scinet_vrsc@usda.gov.
 
 2. Download the tutorial material from the workshop GitHub repo
-   * Open a terminal: File-->New-->terminal (alternatively, click the "+" icon (launcher) on the left and then choose the "terminal" icon on the launcher screen) 
+   * Open a terminal: File-->New-->terminal (alternatively, click the "+" icon (launcher) on the left and then choose the "terminal" icon on the launcher screen)
    * Download the tutorials
-      * instruction coming soon 
+      * instruction coming soon
       <!-- ```bash
       git clone --single-branch https://github.com/kerriegeil/SCINET-GEOSPATIAL-RESEARCH-WG.git
       ```-->
 3. Run a notebook:
-   * instruction coming soon 
-  
+   * instruction coming soon
+
 <!--
    * You should now see a folder (file system extension on the left hand side of JuputerLab) titled *SCINET-GEOSPATIAL-RESEARCH-WG*.
    * Navigate to ```/SCINET-GEOSPATIAL-RESEARCH-WG/tutorials/```
    * Open the desired tutorial
    * Select the py_geo kernel (upper right corner in the notebook)
-   * Execute blocks of script by clicking the "play" icon in the notebook or typing Shift+Enter 
+   * Execute blocks of script by clicking the "play" icon in the notebook or typing Shift+Enter
 -->
 <br><br>
 

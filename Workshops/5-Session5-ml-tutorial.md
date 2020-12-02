@@ -60,7 +60,7 @@ This page contains all the info you need to participate in Session 5 of the SCIN
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Node Type: ```short```<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number of Cores: ```4```<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Job Duration: ```02:00:00```<br>
-{% capture text %}
+
 These next two fields are important to enter correctly on the Spawning Page or you will not be able to run the tutorials once you are logged in. Please use copy/paste to avoid mistakes instead of typing these lines:<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Path to the container image: ```/lustre/project/geospatial_tutorials/wg_2020_ws/data_science_im_rs_vSCINetGeoWS_2020.sif```<br>
