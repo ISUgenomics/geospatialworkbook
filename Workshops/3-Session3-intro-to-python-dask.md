@@ -8,7 +8,9 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-This page was modified from Session 3 of the SCINet Geospatial Workshop 2020.
+This page was modified from Session 3 of the SCINet Geospatial Workshop 2020. Ceres HPC Resources have been used to publish scientific papers:
+
+* [List of articles on PMC which mention the Dask Project](https://www.ncbi.nlm.nih.gov/pmc/?term=Dask+python)
 
 # Intro to Distributed Computing on the Ceres HPC System Using Python and Dask
 

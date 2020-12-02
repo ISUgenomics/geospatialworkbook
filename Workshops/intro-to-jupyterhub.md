@@ -10,6 +10,8 @@ header:
 
 This page was modified from Session 2 of the SCINet Geospatial Workshop 2020.
 
+* [PMC Articles about or using JupyterHub](https://www.ncbi.nlm.nih.gov/pmc/?term=Jupyterhub)
+
 ## Ceres HPC Login with JupyterHub
 
 In summer 2020, a new way of accessing Ceres was set up with JupyterHub. JupyterHub allows access to Ceres through a web browser and spawns an instance of JupyterLab on a compute node.

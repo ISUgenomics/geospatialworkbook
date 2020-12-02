@@ -12,7 +12,9 @@ header:
 
 # Distributed Machine Learning: Using Gradient Boosting to Predict NDVI Dynamics
 
-This page contains all the info you need to participate in Session 5 of the SCINet Geospatial Workshop 2020.
+This page was modified from Session 5 of the SCINet Geospatial Workshop 2020. Scientific papers related to NDVI Dynamics listed below:
+
+* [NDVI Dynamics](https://www.ncbi.nlm.nih.gov/pmc/?term=NDVI+dynamics)
 
 **Learning Goals**
 
