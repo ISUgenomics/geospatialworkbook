@@ -8,21 +8,18 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-{% capture text %}
-We will stop approving new registrations when we reach 100 participants. We already have 56 participants registered as of 3pm on Fri 8/28. Please register asap so you don't get left out!
-{% endcapture %} 
-{% include alert.md text=text color='warning' %}
+<!--NOTE: comment out --> 
 
 # Session 6 Symposium:
 ## Challenges and opportunities in leveraging machine learning techniques to further sustainable and intensified agriculture
 
 <br>
-The 2020 SCINet Geospatial Workshop concludes with a symposium showcasing four invited speakers, each giving a 30-minute presentation on how they use machine learning for agricultural research, followed by a panel discussion. 
+The 2020 SCINet Geospatial Workshop concludes with a symposium showcasing four invited speakers, each giving a 30-minute presentation on how they use machine learning for agricultural research, followed by a panel discussion.
 
 
 {% capture text %}
 The session recording is available for anyone with a usda.gov email address and eAuthentication at (location coming soon).
-{% endcapture %} 
+{% endcapture %}
 {% include alert.md text=text %}
 <br><br>
 
@@ -88,7 +85,7 @@ The session recording is available for anyone with a usda.gov email address and 
 
 **Abstract:** Capitalizing on over 52,000 on-the-ground vegetation plots we trained two machine learning style models to predict plant functional type fractional cover across western U.S. rangelands, annually from 1984-present. Random Forests provided the initial fractional cover product which we recently improved upon by using multi-task learning in temporal convolutional networks. The pros and cons of the two methods will be discussed as well as the multiple applications of the resulting fractional land cover products.
 
-**Related Publications:** 
+**Related Publications:**
 Allred, B.W., Bestelmeyer, B.T., Boyd, C.S., Brown, C., Davies, K.W., Ellsworth, L.M., Erickson, T.A., Fuhlendorf, S.D., Griffiths, T. V, Jansen, V., **Jones, M.O.**, Karl, J., Maestas, J.D., Maynard, J.J., McCord, S.E., Naugle, D.E., Starns, H.D., Twidwell, D., Uden, D.R., 2020. Improving Landsat predictions of rangeland fractional cover with multitask learning and uncertainty. bioRxiv preprint. [10.1101/2020.06.10.142489](https://www.biorxiv.org/content/10.1101/2020.06.10.142489v1)
 
 **Jones, M. O.**, Allred, B. W., Naugle, D. E., Maestas, J. D., Donnelly, P., Metz, L. J., Karl, J., Smith, R., Bestelmeyer, B., Boyd, C., Kerby, J. D., and McIver, J. D., 2018. Innovation in rangeland monitoring: annual, 30 m, plant functional type percent cover maps for U.S. rangelands, 1984–2017. *Ecosphere* 9( 9):e02430. [10.1002/ecs2.2430](https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.2430)
@@ -137,7 +134,7 @@ Maimaitijiang, M.; **Sagan, V.**; Sidike, P.; Daloye, A.M.; Erkbol, H.; Fritschi
 
 **Title:** Characterizing field-scale soil moisture dynamics with big data and machine learning: challenges and opportunities for digital agriculture
 
-**Abstract:** Knowledge of soil moisture dynamics at the field scale is essential for agricultural management such as irrigation and fertilization scheduling. However, soil moisture varies greatly in space and time. Neither in situ soil moisture sensor networks nor satellite remote sensing platforms can be directly used to guide field-scale agricultural management. Compared to mechanistic and statistical methods, machine learning models have recently shown the potential to leverage big data from remote sensing and in situ soil sensor network measurements and high-resolution land surface parameters for mapping and forecasting soil moisture dynamics at the field, regional, and global scales. Future work is required to improve the machine learning models (e.g. transferability, interpretability), integrate soil moisture forecasts into decision-support systems (e.g. cost-benefit analysis, economic and environmental trade-offs), and enhance cyberinfrastructure (e.g. FAIR principles) for sustainable and intensified agricultural production. 
+**Abstract:** Knowledge of soil moisture dynamics at the field scale is essential for agricultural management such as irrigation and fertilization scheduling. However, soil moisture varies greatly in space and time. Neither in situ soil moisture sensor networks nor satellite remote sensing platforms can be directly used to guide field-scale agricultural management. Compared to mechanistic and statistical methods, machine learning models have recently shown the potential to leverage big data from remote sensing and in situ soil sensor network measurements and high-resolution land surface parameters for mapping and forecasting soil moisture dynamics at the field, regional, and global scales. Future work is required to improve the machine learning models (e.g. transferability, interpretability), integrate soil moisture forecasts into decision-support systems (e.g. cost-benefit analysis, economic and environmental trade-offs), and enhance cyberinfrastructure (e.g. FAIR principles) for sustainable and intensified agricultural production.
 
 **Related Publications:**
 Chatterjee, S., **Huang, J.**, Hartemink, A.E., 2020. Establishing an Empirical Model for Surface Soil Moisture Retrieval at the U.S. Climate Reference Network Using Sentinel-1 Backscatter and Ancillary Data. *Remote Sens.* 12, 1242. [10.3390/rs12081242](https://doi.org/10.3390/rs12081242)

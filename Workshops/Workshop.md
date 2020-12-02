@@ -1,5 +1,5 @@
 ---
-title: "Workshop"
+title: "Introduction to Ceres HPC Workflows"
 layout: single
 header:
   overlay_color: "444444"
@@ -10,12 +10,15 @@ Materials from the [SCINet Geospatial Research Workshop 2020](https://kerriegeil
 
 ## Index
 
+* [Introduction to Ceres HPC](2-Session2-intro-to-ceres.md)
+* [Introduction to JupyterHub](intro-to-jupyterhub.md)
+* [Introduction to Python Dask](3-Session3-intro-to-python-dask.md)
+* [Research Reproducibility Workflow](4-Session4-reproducibility-tools.md)
+* [Machine Learning Case Study: Predicting NDVI Dynamics](5-Session5-ml-tutorial.md)
+
+
+<!-- Scrap
 * [Session 0 - Premeeting](0-PreMeeting.md)
 * [Session 0b - Tutorials](0b-tutorials.md)
-* [Session 2 - Ceres](2-Session2-intro-to-ceres.md)
-* [Session 3 - Dask](3-Session3-intro-to-python-dask.md)
-* [Session 4 - Reproducibility](4-Session4-reproducibility-tools.md)
-* [Session 5 - Machine Learning](5-Session5-ml-tutorial.md)
 * [Session 6 - Speakers](6-session6-speakers.md)
-
-
+-->

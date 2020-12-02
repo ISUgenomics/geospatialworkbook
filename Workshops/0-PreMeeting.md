@@ -6,17 +6,13 @@ author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
-
-{% capture text %}
+---
+<!-- NOTE: Replace with Ceres_HPC.md -->
 We will stop approving new registrations about an hour before each session. Please register in advance of that cutoff so you don't get left out!
-{% endcapture %} 
-{% include alert.md text=text color='warning' %}
 
 Please complete this pre-meeting checklist ahead of time if you plan to participate in any of the interactive follow-along tutorials (Sessions 2-5).
 
-{% capture text %}
-1. Have a SCINet account and be able to login. [Apply for an account](https://scinet.usda.gov/signup/) if you don't have one by 8/12/2020. 
+1. Have a SCINet account and be able to login. [Apply for an account](https://scinet.usda.gov/signup/) if you don't have one by 8/12/2020.
 2. If you need help accessing your SCINet account, attend [Session 0: Pre-meeting SCINet Account Login Assistance](/SCINET-GEOSPATIAL-RESEARCH-WG/#session-0-pre-meeting-scinet-account-login-assistance) on 8/19/2020 at 11am MDT.
 3. Know which tutorials you wish to attend and register for each one individually at least an hour ahead of the start time on the [workshop homepage](/SCINET-GEOSPATIAL-RESEARCH-WG/).
 4. [Create a free personal Github account](https://github.com/join) if you plan to participate in the Session 4 Tutorial: Computational Reproducibility Tools. Make sure you remember your Github username and password.
@@ -84,9 +80,8 @@ Git & GitHub allow you to version and archive your scientific codes (and more).
 
 Git is version control software that you use at the command line to keep track of edits to your scientific codes over time.
 
-GitHub is an online repository hosting service where you can archive your scientific codes online. You can [create a free personal Github account](https://github.com/join) where you can archive your scientific codes into different "repositories" within your account. If you keep your Github repos up to date, it also allows you to access your codes from anywhere. 
+GitHub is an online repository hosting service where you can archive your scientific codes online. You can [create a free personal Github account](https://github.com/join) where you can archive your scientific codes into different "repositories" within your account. If you keep your Github repos up to date, it also allows you to access your codes from anywhere.
 
-Much of the workshop materials will be accessible through the workshop's GitHub repository at (repo address coming soon). 
+Much of the workshop materials will be accessible through the workshop's GitHub repository at (repo address coming soon).
 
-You don't have to have your own Github account to participate in the workshop tutorials, but it is a good idea to create one for yourself (they are free) ahead of the workshop sessions if you want to begin to learn how to use Git/Github. Note: creation of a personal Github account is required if you want to follow along with the Github portion of the Session 4 Tutorial: Computational Reproducibility Tools. 
-
+You don't have to have your own Github account to participate in the workshop tutorials, but it is a good idea to create one for yourself (they are free) ahead of the workshop sessions if you want to begin to learn how to use Git/Github. Note: creation of a personal Github account is required if you want to follow along with the Github portion of the Session 4 Tutorial: Computational Reproducibility Tools.

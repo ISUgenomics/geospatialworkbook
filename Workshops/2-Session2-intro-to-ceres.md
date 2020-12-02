@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Unix"
+title: "Introduction to Ceres HPC"
 layout: single
 author: Kerrie Geil
 author_profile: true
@@ -8,23 +8,11 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-
-{% capture text %}
-We will stop approving new registrations about an hour before each session. Please register in advance of that cutoff so you don't get left out!
-{% endcapture %}
-{% include alert.md text=text color='warning' %}
-
-# Session 2 Tutorial:
+<!--# Session 2 Tutorial:-->
 
 # Introduction to the Ceres High-Performance Computing System Environment
 
-This page contains all the info you need to participate in Session 2 of the SCINet Geospatial Workshop 2020.
-
-{% capture text %}
-The session recording is available for anyone with a usda.gov email address and eAuthentication at (location coming soon).
-{% endcapture %}
-{% include alert.md text=text %}
-<br><br>
+This page was modified from Session 2 of the SCINet Geospatial Workshop 2020.
 
 **Learning Goals:**
 
@@ -56,11 +44,13 @@ The session recording is available for anyone with a usda.gov email address and 
 
 [Ceres HPC Login with Secure Shell (SSH)](#ceres-hpc-login-with-secure-shell-ssh)
 
+<!--
 [Ceres HPC Login with JupyterHub](#ceres-hpc-login-with-jupyterhub)
   - [Tour of JupyterLab](#tour-of-jupyterlab)
   - [Jupyter Notebook Basics](#jupyter-notebook-basics)
 
 [Basic Linux Commands](#basic-linux-commands)
+-->
 
 [Interactive Computing vs Batch Computing](#interactive-computing-vs-batch-computing)
   - [Interactive Computing on Ceres](#interactive-computing-on-ceres)
@@ -70,6 +60,7 @@ The session recording is available for anyone with a usda.gov email address and 
 
 ---
 
+<!--
 ## Session Rules
 
 **GREEN LIGHT, RED LIGHT** - Use the Zoom participant feedback indicators to show us if you are following along successfully as well as when you need help. To access participant feed back, click on the "Participants" icon to open the participants pane/window. Click the green "yes" to indicate that you are following along successfully, click the red "no" to indicate when you need help. Ideally, you will have either the red or green indicator displayed for yourself throughout the entire tutorial. We will pause every so often to work through solutions for participants displaying a red light.
@@ -82,6 +73,7 @@ The session recording is available for anyone with a usda.gov email address and 
 <br><br>
 
 ---
+-->
 
 ## The SCINet Website
 
@@ -251,6 +243,7 @@ There are two other HPC Systems coming to SCINet soon. Summaries of the systems 
 First, let's login to our SCINet (Ceres) accounts with SSH. You should have already successfully logged in this way at least once before today by following the instructions sent to you when your SCINet account was approved. The [Quick Start Guide](https://scinet.usda.gov/guide/quickstart#accessing-scinet) has instructions for SSH'ing to Ceres from Windows, Mac, and Linux Machines.
 
 If you haven't yet set up a config file for SSH'ing to Ceres (we won't cover it but instructions are at the Quick Start Guide link above) then:
+
 ```bash
 ssh -o TCPKeepAlive=yes -o ServerAliveInterval=20 -o ServerAliveCountMax=30 firstname.lastname@ceres.scinet.usda.gov
 ```
@@ -258,6 +251,7 @@ ssh -o TCPKeepAlive=yes -o ServerAliveInterval=20 -o ServerAliveCountMax=30 firs
 The keep alives are especially important for rural/satellite internet connections so that instantaneous breaks in service won't terminate your connection to the HPC.
 
 If you've set up your config file you can simply:
+
 ```bash
 ssh whatever-you-named-the-host-in-your-config
 ```
@@ -270,7 +264,7 @@ After a successful login you will see a list of all your quotas and used space.
 
 If you can't successfully login to your account, contact scinet_vrsc@usda.gov for assistance.
 
-To sign out of Ceres just close your terminal or type ```exit```.
+To sign out of Ceres just close your terminal or type `exit`.
 <br>
 
 [return to top of page](#session-2-tutorial)
@@ -278,6 +272,7 @@ To sign out of Ceres just close your terminal or type ```exit```.
 
 ---
 
+<!--
 ## Ceres HPC Login with JupyterHub
 
 In summer 2020, a new way of accessing Ceres was set up with JupyterHub. JupyterHub allows access to Ceres through a web browser and spawns an instance of JupyterLab on a compute node.
@@ -294,6 +289,7 @@ Clicking on the folder icon on the far left will show you the files and folders 
 
 Access to software modules:
 Clicking on the hexagon icon on the far left will show you all the software modules available on the Ceres HPC. Clicking load on any of the modules is equivalent to typing ```module load name-of-software``` (as described in the [Quick Start Guide](https://scinet.usda.gov/guide/quickstart#using-the-software-applications-on-ceres)). Note: there aren't a ton of software modules on Ceres that are relevant to the geospatial research community, so you likely won't need to use this feature often.
+
 
 ### Jupyter Notebook Basics
 
@@ -373,6 +369,9 @@ Right click on "Untitled.ipynb" either on the notebook tab or in the file browse
 <br><br>
 
 ---
+-->
+
+<!-- NOTE: should be in intro unix
 
 ## Basic Linux Commands
 
@@ -478,18 +477,22 @@ pwd
 You should be at /home/firstname.lastname/mynewdirectory
 
 To go up/back directory levels use "..":
+
 ```bash
 cd ../..
 ```
-takes you back two levels to the /home directory, where if you ```ls``` you will see the home directories all of users.
+
+takes you back two levels to the /home directory, where if you `ls` you will see the home directories all of users.
 
 Go back to mynewdirectory with:
+
 ```bash
 cd ~/mynewdirectory
 ```
 Note how the "~" is a shortcut for /home/firstname.lastname. Another shortcut for your home directory is $HOME. Replacing ~ with $HOME in the above command would yield the exact same result.
 
 To get back to your home directory from anywhere, just type cd with no arguments:
+
 ```bash
 cd
 ```
@@ -503,12 +506,15 @@ cd
 First, change directory into mynewdirectory.
 
 Then, open a new empty text file:
+
 ```bash
 nano
 ```
+
 You can recognize that you are now in the nano text editor due to the banners on the top and bottom of your terminal. The top banner will say the nano version, the bottom banner shows shortcut keys to help you use the editor.
 
 Let's write in our new text file:
+
 ```text
 
 1
@@ -518,6 +524,7 @@ dog
 then type Ctl+x, then y to save, the type the name file1.txt and hit enter.
 
 See that you made a file called file1.txt with:
+
 ```bash
 ls
 ```
@@ -527,6 +534,7 @@ nano file2.txt
 ```
 
 Inside nano type:
+
 ```text
 
 2
@@ -548,16 +556,14 @@ Let's create one more text file that we'll do more things with in a minute. Use 
 **cat** - concatenate and print all contents to stdout
 
 Let's try these out:
+
 ```bash
 head file3.txt
-```
-```bash
+
 tail file3.txt
-```
-```bash
+
 cat file3.txt
-```
-```bash
+
 cat file1.txt file2.txt file3.txt
 ```
 
@@ -826,25 +832,30 @@ rm Land_and_Ocean_LatLong1.nc
 ```
 
 <br><br>
+-->
 
 **loading software from the module system**
 
 view available software on Ceres with:
+
 ```bash
 module avail
 ```
 
 load software (in this case conda) from the module system:
+
 ```bash
 module load miniconda
 ```
 
 see what software modules you have loaded with:
+
 ```bash
 module list
 ```
 
 unload software from the module system with:
+
 ```bash
 module unload miniconda
 ```
@@ -890,24 +901,34 @@ But let's learn how to open an interactive computing session from the command li
 Since we are already in JupyterLab, use the launcher to open a terminal. We could also use Windows Powershell or Mac/Linux Terminal to SSH onto the Ceres login node instead.
 
 **Step 2: Start an Interactive Compute Session**
+
 The simplest way to start an interactive session is:
+
 ```bash
 salloc
 ```
+
 Issuing this command requests the SLURM job scheduler to allocate you a single hyper-threaded core (2 logical cores) with 6200 MB of allocated memory on one of the compute nodes. The session will last for 2 days, but will timeout after 1.5 hours of inactivity.
 
 View your runnning compute sessions/jobs with:
+
 ```bash
 squeue -u firstname.lastname
 ````
 
 To exit the interactive session:
+
 ```bash
 exit
 ```
 
-For more control over your interactive session you can use the ```srun``` command instead of ```salloc``` using the format:
-```srun --pty -p queuename -t hh:mm:ss -n cores -N nodes /bin/bash -l```
+For more control over your interactive session you can use the `srun` command instead of `salloc` using the format:
+
+```bash
+srun --pty -p queuename -t hh:mm:ss -n cores -N nodes /bin/bash -l
+```
+
+for example:
 
 ```bash
 srun --pty -p short -t 03:00:00 -n 4 -N 1 /bin/bash -l
@@ -928,13 +949,16 @@ Batch computing involves writing and executing a batch script that the SLURM job
 Let's practice by submitting a batch script.
 
 First create simple python program:
+
 ```bash
 cat > hello-world.py
 print('Hello, world!')
 ```
+
 then type Ctl-d to exit.
 
 View the file you just created:
+
 ```bash
 cat hello-world.py
 ```
@@ -944,12 +968,14 @@ cat hello-world.py
 **a serial job that runs a python script one time**
 
 Now create your batch script with nano or other text editor:
+
 ```bash
 nano my-first-batch-script.sbatch
 ```
 
 In the nano editor type:
-```
+
+```bash
 #!/bin/bash
 #SBATCH --job-name=HelloWorld
 #SBATCH -p short              #name of the partition (queue) you are submitting to
@@ -969,11 +995,13 @@ python3 hello-world.py
 Exit the nano editor with Ctl+O, enter, Ctl+X.
 
 Submit your batch script with:
+
 ```bash
 sbatch my-first-batch-script.sbatch
 ```
 
 Check out the output of your compute job. It's in the stdout file:
+
 ```bash
 ls
 cat stdout.######.ceres##-compute-##
@@ -996,7 +1024,8 @@ rm std*
 ```
 
 Now modify your sbatch script using nano to look like this:
-```
+
+```bash
 #!/bin/bash
 #SBATCH --job-name=HelloWorld
 #SBATCH -p short              #name of the partition (queue) you are submitting to
@@ -1025,6 +1054,7 @@ Go ahead and delete your stdout and stderr files again.
 **a parallel job that runs a python script 10 times simultaneously on different cores**
 
 Let's now run a script that will execute the same python code 10 times simulataneously. Modify your sbatch script to look like this:
+
 ```
 #!/bin/bash
 #SBATCH --job-name=HelloWorld

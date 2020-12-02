@@ -13,19 +13,19 @@ feature_row:
     url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
     btn_label: "Learn More"
 
-  - title: "SCINet Geospatial Workshop"
+  - title: "Introduction to Ceres HPC workflows"
     image_path: /assets/images/nasa-1lfI7wkGWZ4-unsplash.jpg
     alt: "Programs2"
     url: "Workshops/Workshop"
     btn_label: "Learn More"
 
-  - title: "USDA ARS Image ML Workshop"
+  - title: "Introduction to Image Analysis"
     image_path: /assets/images/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
     alt: "Programs2"
     url: "Workshops/ImageMLWorkshop"
     btn_label: "Learn More"
 
-  - title: "Jupyter Notebooks"
+  - title: "Index of Jupyter Notebooks"
     image_path: /assets/images/markus-spiske-qjnAnF0jIGk-unsplash.jpg
     alt: "Programs3"
     url: "Workshops/JupyterNtbk"
@@ -37,7 +37,3 @@ feature_row:
 {% include feature_row id="intro" type="center" %}
 
 {% include feature_row %}
-
-
-
-

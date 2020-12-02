@@ -1,5 +1,5 @@
 ---
-title: Session4
+title: Research Reproducibility
 layout: single
 author: Kerrie Geil
 author_profile: true
@@ -8,23 +8,12 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-{% capture text %}
-We will stop approving new registrations about an hour before each session. Please register in advance of that cutoff so you don't get left out!
-{% endcapture %} 
-{% include alert.md text=text color='warning' %}
+<!--NOTE: This needs to be split up -->
 
-# Session 4 Tutorial:
+This page was modified from Session 4 of the SCINet Geospatial Workshop 2020.
 
 # Computational Reproducibility Tools (Git/Github, Conda, Docker/Singularity containers)
 
-This page contains all the info you need to participate in Session 4 of the SCINet Geospatial Workshop 2020.
-
-**A note about running this tutorial in your home directory:** some participants got errors either downloading to or running the tutorial from their home directory because they did not have enough space free in their home directory. If this happens to you, download to and run the tutorial from a project directory. If you are a new HPC user and don't yet have a project directory, you can request a small increase in space to your home directory from the SCINet VRSC at scinet_vrsc@usda.gov.
-
-{% capture text %}
-The session recording is available for anyone with a usda.gov email address and eAuthentication at (location coming soon).
-{% endcapture %} 
-{% include alert.md text=text %}
 
 **Learning Goals:**
 
@@ -48,7 +37,7 @@ Containers
 
 ## Contents
 
-[Session Rules](#session-rules)
+<!--[Session Rules](#session-rules)-->
 
 [Git and Github](#git-and-github)
   - [Why Use Git/Github?](#why-use-gitgithub)
@@ -63,7 +52,7 @@ Containers
   - [Terminology](#conda-terminology)
   - [Accessing Conda on Ceres](#accessing-conda-on-ceres)
   - [Using Conda Environments to Create Isolated Software Workspaces](#using-conda-environments-to-create-isolated-software-workspaces)
-  
+
 [Containers (Docker and Singularity)](#containers-docker-and-singularity)
   - [Why Use Containers?](#why-use-containers)
   - [Terminology](#container-terminology)
@@ -74,6 +63,7 @@ Containers
 
 ---
 
+<!--
 ## Session Rules
 
 **GREEN LIGHT, RED LIGHT** - Use the Zoom participant feedback indicators to show us if you are following along successfully as well as when you need help. To access participant feed back, click on the "Participants" icon to open the participants pane/window. Click the green "yes" to indicate that you are following along successfully, click the red "no" to indicate when you need help. Ideally, you will have either the red or green indicator displayed for yourself throughout the entire tutorial. We will pause every so often to work through solutions for participants displaying a red light.
@@ -84,12 +74,13 @@ Containers
 
 **KEEP YOURSELF ON MUTE** - Please mute yourself unless you are called on.
 <br><br>
-
+-->
 ---
 
 # Git and Github
 
 ## Why Use Git/Github?
+
 "Git tracks the changes you make to files, so you have a record of what has been done, and you can revert to specific versions should you ever need to. Git also makes collaboration easier, allowing changes by multiple people to all be merged into one source. So regardless of whether you write code that only you will see, or work as part of a team, Git will be useful for you."
 
 \- [nobledesktop.com](https://www.nobledesktop.com/blog/what-is-git-and-why-should-you-use-it#:~:text=Git%20is%20the%20most%20commonly,be%20merged%20into%20one%20source.)
@@ -98,17 +89,20 @@ Git and Github may seem excessively complicated, but that is because these tools
 
 <br>
 
-**Version Control**<br>
+**Version Control**
+
 Git is a powerful tool for keeping track of edits to your files over time (version control). Using git eliminates the process of saving duplicate codes (e.g., project-code.py, project-code-rev1.py, project-code-rev2.py, project-code-test-this-or-that.py, project-code-latest.py, etc.). We've all done this type of insufficient versioning of our codes and thoroughly confused ourselves or lost track of which code contains which important changes, etc. Git solves this problem. Instead of creating multiple files, Git keeps track of your file changes in a much tidier way by attaching a change message called a "commit" each time you make a major change to your files. A commit is like a snapshot of your code at a point in time and you can revert back to that snapshot any time you want. Git also has a structure called "branches" that allows you to add/test new bits of experimental code inside an existing code you've developed without affecting your existing code file.     
 
 <br>
 
-**Backups**<br>
+**Backups**
+
 Github, being an online repository, can be used as a backup for the codes (and more) on your local computer. By pushing your work to Github every so often, you can create an online backup of your work. As a bonus, this also means you'll be able to access your codes (and more) from anywhere because they are online.
 
 <br>
 
-**Collaboration and Sharing**<br>
+**Collaboration and Sharing**
+
 Git and Github are amazing tools for collaborating on research computing. Collaborators can simultaneously code locally on their own machines, push their file changes to Github, and Github will discover any conflicts and help you merge all the changes together. Also, pushing your local code to Github allows you to give out a URL to anyone you want to share your codes (and more) with. Note: you can use Github for version control of manuscripts and figures, but you do lose some functionality when you are tracking something other than codes, markdown files, or html.
 
 <br>
@@ -139,11 +133,11 @@ Git and Github greatly improve computational reproducibility by enabling others 
 
 <br>
 
-**BRANCH** - each branch in a repo is an isolated space where you can work/develop your codes without affecting the work saved in other branches. Each repository has one default branch called Master (soon to be renamed Main) and can have multiple other branches. A new branch is always created from an existing branch. The following example is one way to use branches effectively. If you have a functioning code on the Master branch and you want to experiment with code changes without affecting your functioning code on Master, you can create a new branch called Dev, for example. You could then make changes to your code on the Dev branch which would be entirely separate from your code on the Master branch. If you like your changes, you could incorporate them into your code on the Master branch by merging the Dev branch into the Master branch. 
+**BRANCH** - each branch in a repo is an isolated space where you can work/develop your codes without affecting the work saved in other branches. Each repository has one default branch called Master (soon to be renamed Main) and can have multiple other branches. A new branch is always created from an existing branch. The following example is one way to use branches effectively. If you have a functioning code on the Master branch and you want to experiment with code changes without affecting your functioning code on Master, you can create a new branch called Dev, for example. You could then make changes to your code on the Dev branch which would be entirely separate from your code on the Master branch. If you like your changes, you could incorporate them into your code on the Master branch by merging the Dev branch into the Master branch.
 
 <br>
 
-**COMMIT** - the process of saving a "snapshot" or versions of your files. Similar to saving a file that's been edited, a commit records your changes to one or more files on a branch. Git assigns each commit a unique ID that indentifies the specific changes, when the changes were made, and who created the changes. When you make a commit, you also attached a short description of the changes you made. It's wise to group similar edits together and include them in a single commit and also to commit your changes every so often so that you have a good number of "snapshots" available to you in case you break your code and need to look back to earlier versions. For example, you could code all day and do one commit at the end of the day and have one snapshot/version of your code, but it may be more useful to commit more often that way you will have multiple snapshots of your work throughout the day that you could revert back to if necessary. 
+**COMMIT** - the process of saving a "snapshot" or versions of your files. Similar to saving a file that's been edited, a commit records your changes to one or more files on a branch. Git assigns each commit a unique ID that indentifies the specific changes, when the changes were made, and who created the changes. When you make a commit, you also attached a short description of the changes you made. It's wise to group similar edits together and include them in a single commit and also to commit your changes every so often so that you have a good number of "snapshots" available to you in case you break your code and need to look back to earlier versions. For example, you could code all day and do one commit at the end of the day and have one snapshot/version of your code, but it may be more useful to commit more often that way you will have multiple snapshots of your work throughout the day that you could revert back to if necessary.
 
 <br>
 
@@ -151,7 +145,7 @@ Git and Github greatly improve computational reproducibility by enabling others 
 
 <br>
 
-**PULL** - the process of updating your local repo to include changes made to the remote (online) repo. You "pull" down any edits from the online repo and merge them into your local repo. 
+**PULL** - the process of updating your local repo to include changes made to the remote (online) repo. You "pull" down any edits from the online repo and merge them into your local repo.
 
 <br>
 
@@ -177,8 +171,8 @@ Git and Github greatly improve computational reproducibility by enabling others 
 This example workflow demonstrates how to:
   - copy an existing Github repo to your own Github account [(Step 1)](#step-1-fork-a-github-repo-on-github-copy-an-existing-github-repo-to-your-own-github-account),
   - make a local copy of your Github repo on your computer, in this case your Ceres account [(Step 2)](#step-2-create-a-local-repo-on-ceres-from-your-github-repo-git-clone)
-  - make changes to the repo files locally [(Step 3)](#step-3-make-changes-to-your-local-repo-and-make-multiple-commits-git-add-git-commit), 
-  - push your local repo changes to your Github repo [(Step 4)](#step-4-push-your-local-changes-up-to-your-remote-repo-on-your-github-account-git-push), and 
+  - make changes to the repo files locally [(Step 3)](#step-3-make-changes-to-your-local-repo-and-make-multiple-commits-git-add-git-commit),
+  - push your local repo changes to your Github repo [(Step 4)](#step-4-push-your-local-changes-up-to-your-remote-repo-on-your-github-account-git-push), and
   - have your repo edits incorporated back into the online repo that you originally copied from on Github [(Step 5)](#step-5-make-a-pull-request-request-that-your-changes-be-incorporated-into-the-original-repo)
 <br>
 
@@ -190,7 +184,7 @@ b. Find the Github repo that you want to copy. Let's copy the repo called "Spoon
   - In the black Github search bar at the top left where it says "Search or jump to", type kerriegeil, and select the dropdown list option that says search kerriegeil All Github.
   - On the bottom of the resulting menu click Users, then click Kerrie Geil on the right to see all the public repos on her account.
   - Click on the Spoon-Knife repo. You should be here: https://github.com/kerriegeil/Spoon-Knife.
-  
+
 c. Click Fork on the top right of the repo page and then click on your github username when you are asked where to fork to. You have now copied the repo to your own account. Notice the URL you are at- it should be github.com/yourusername/reponame
 <br><br>
 
@@ -203,14 +197,17 @@ b. Navigate to the location on Ceres where you want to copy the repo. It's small
 c. Go back to Github to get the URL of your Github repo. On your repo page, click the green Code button to find the repo address. It should be in the form github.com/yourusername/Spoon-Knife.git
 
 d. Back at the command line type the following to make a local copy of your Github repo<br>
+
 ```bash
 git clone paste_or_type_the_full_repo_URL_including_https://
 ```
+
 <br>
 
 #### Step 3: Make Changes to Your Local Repo and Make Multiple Commits (git add, git commit)
 
 a. Create some new text files using your name as the file name<br>
+
 ```bash
 
 cd Spoon-Knife
@@ -219,11 +216,13 @@ ls
 ```
 
 b. Check the status of your edits. The changed files should appear as untracked files<br>
+
 ```bash
 git status
 ```
 
 c. Stage the edits before committing. You are "telling Git" what files you want to include in a future commit.<br>
+
 ```bash
 
 git add yourname1.txt
@@ -231,37 +230,45 @@ git add yourname2.txt yourname3.txt
 ```
 
 d. Check the status of your edits. The changed files should now appear as changes to be committed<br>
+
 ```bash
 git status
 ```
 
 e. Commit the edits to include them in a snapshot of your updated local repo<br>
+
 ```bash
 git commit -m "create new text files"
 ```
 
-f. Check the status of your edits again. The changed files should no longer appear in the status output. If you've committed all your changes you should see "nothing to commit, working directory clean"<br> 
+f. Check the status of your edits again. The changed files should no longer appear in the status output. If you've committed all your changes you should see "nothing to commit, working directory clean"<br>
+
 ```bash
 git status
 ```
 
 g. Let's do it again. Edit the file hi-my-name-is.txt to include your name<br>
+
 ```bash
 nano hi-my-name-is.txt
 ```
+
 then type your name, hit Ctl+O then enter to write, Ctl+X to exit
 
 h. Stage your edits<br>
+
 ```bash
 git add hi-my-name-is.txt
 ```
 
 f. Another commit<br>
+
 ```bash
 git commit -m "update with my name"
 ```
 
 g. Check the status of the changes. Working directory should now be clean, meaning all changes have been committed to an updated "snapshot"<br>
+
 ```bash
 git status
 ```
@@ -270,6 +277,7 @@ git status
 #### Step 4: Push Your Local Changes Up to Your Remote Repo on Your Github Account (git push)
 
 a. If you want to double check what remote repo(s) is/are associated with your local repo, at the command line type<br>
+
 ```bash
 git remote -v
 ```
@@ -277,6 +285,7 @@ git remote -v
 You should see that your remote repo is called "origin" for short and that the URL to the remote repo is github.com/yourusername/Spoon-Knife.git, the same URL we used when we cloned the repo to your local computer
 
 b. Push your local changes to your remote repo on your Github account with<br>
+
 ```bash
 git push -u origin master
 ```
@@ -310,6 +319,7 @@ Sometimes you'll want to start a brand new local repo right from the command lin
 #### Step 1: Initialize a New Local Git Repo
 
 a. Create a new local directory where you want your new local repo to live and navigate into it<br>
+
 ```bash
 
 cd
@@ -318,6 +328,7 @@ cd my_new_repo
 ```
 
 b. Initialize a new local git repository<br>
+
 ```bash
 git init
 ```
@@ -332,6 +343,7 @@ touch newfile.txt
 git add newfile.txt
 git commit -m "create new text file"
 ```
+
 <br><br>
 
 
@@ -346,6 +358,7 @@ c. Give your new Github repo the same name my_new_repo
 d. You can skip the section about creating a readme, license, gitignore because you'll be importing an existing repo
 
 e. Follow the instructions to push an existing repo from the command line<br>
+
 ```bash
 
 git remote add origin https://github.com/yourusername/my_new_repo.git
@@ -371,11 +384,13 @@ Upstream generally refers to the original repo on Github that you have forked fr
 When you fork a repo on Github, you are making a copy of the repo to your own Github account. When you clone one of your Github repos to your local computer the default remote repo "origin" is set to the location of your remote repo on your Github. You would use git push and git pull to upload/download changes between your local repo and your Github repo.
 
 To keep track of the repo you forked from originally you will have to add an additional remote repo called "upstream". Then you will be able to pull down changes that have been made to the original repo using git fetch.
+
 ```bash
 git remote add upstream https://github.com/username_who_you_copied_from/their_repo_name.git
 ```
 
 See your remote origin and upstream repositories with:
+
 ```bash
 git remote -v
 ```
@@ -387,18 +402,21 @@ git remote -v
 Even if you aren't collaborating with someone, it's a good idea to make sure your local repo and your repo on Github are in sync with each other each time you start and finish working. This way you can avoid merge conflicts later. Make sure your remote origin is set correctly as described in the remote repos section above.
 
 Push up your local changes to your Github repo every time you finish working locally:
+
 ```bash
 git push
 ```
 
 Pull down any changes that have been made to your remote Github repo when you start working locally:
+
 ```bash
 git pull
 ```
 
-This is especially important if you are working with a collaborator on a repo. You'll want to incorporate any changes your collaborator has made to the repo before you start working. If the original repo you are collaborating on was created in your own Github account, use the commands above. 
+This is especially important if you are working with a collaborator on a repo. You'll want to incorporate any changes your collaborator has made to the repo before you start working. If the original repo you are collaborating on was created in your own Github account, use the commands above.
 
 If the original repo was created on your collaborator's Github account and you forked it, you'll have to add their repo as remote upstream (described in the remote repos section above). Then to pull down changes from their repo to your local repo:
+
 ```bash
 git fetch upstream
 ```
@@ -408,6 +426,7 @@ git fetch upstream
 **access repo commit history**
 
 There are two ways to see every available snapshot of your repo (history of commits). On Github in your repo, click the commits link located right under the green Code button. From the command line:<br>
+
 ```bash
 git log
 ```
@@ -419,18 +438,21 @@ We won't cover how to revert your repo to a previous commit in this tutorial but
 **create and switch to a new branch**
 
 If you need a new isolated area to experiment with changes to your code without affecting your codes on the deafault Master branch, create a new branch and switch to it with<br>
+
 ```bash
 git checkout -b new_branch_name
 ```
 
 To show all your branches and which branch you are currently on:
+
 ```bash
-git branch 
+git branch
 ```
 
 To switch back to your Master branch:
+
 ```bash
-git checkout master 
+git checkout master
 ```
 
 Note: from the command line creating a new branch does not create a new folder in your repo directory. Be careful to always be aware of which branch you are working on- from the command line it is not obvious.
@@ -445,7 +467,8 @@ Note: from the command line creating a new branch does not create a new folder i
 # Anaconda (Conda)
 
 ## Why Use Conda?
-Conda is not only a tool that allows Ceres users to install software themselves on the HPC system, but it is awesome for reproducibility. 
+
+Conda is not only a tool that allows Ceres users to install software themselves on the HPC system, but it is awesome for reproducibility.
 
 Conda allows you to keep track of exactly what software (and all of the many dependencies) you are using to execute your scientific codes. This is very handy to know, especially if a software package update ends up breaking your code! You are able to save your entire software environment and recreate it any time you want if something goes wrong.
 
@@ -465,7 +488,7 @@ Conda also let's you run separate instances of the same software, for example, m
 
 <br>
 
-**ENVIRONMENT** - a conda software environment is a directory that contains a specific collection of conda packages that you have installed. It is isolated from your other conda environments such that when you change one environment, your other environments are not affected. 
+**ENVIRONMENT** - a conda software environment is a directory that contains a specific collection of conda packages that you have installed. It is isolated from your other conda environments such that when you change one environment, your other environments are not affected.
 
 <br>
 
@@ -477,7 +500,7 @@ Conda also let's you run separate instances of the same software, for example, m
 
 <br>
 
-**YML** - another type of file that contains information that can be used to recreate an environment. Operating system-specific packages can be excluded from a yml file in order to recreate similar environments across different operating systems. 
+**YML** - another type of file that contains information that can be used to recreate an environment. Operating system-specific packages can be excluded from a yml file in order to recreate similar environments across different operating systems.
 
 <br>
 [return to contents](#contents)
@@ -490,6 +513,7 @@ Conda is available on Ceres without users having to install it themselves. Actua
 
 ### From the Module System
 After SSHing into Ceres, it is easy to load Conda from the software module system.<br>
+
 ```bash
 module load miniconda
 ```
@@ -498,6 +522,7 @@ At the time of this writing, the default Conda on Ceres is miniconda/4.7.12.
 
 {% capture text %}
 You will then want to immediately issue the following command which will put you in the base environment:<br>
+
 ```bash
 source activate
 ```
@@ -505,23 +530,23 @@ source activate
 Note: If you forget to ```source activate``` and later try to ```conda activate my_env```, you will get a command not found error and will be instructed to ```conda init```. Despite the standard output instructions, **DO NOT EVER TYPE ```conda init``` ON THE CERES HPC**. It will make a permanent modification to your $PATH that doesn't play nice with the software module system or with Jupyter. If you accidentally ```conda init``` you will have to modify your .bashrc file to remove any conda initialization info. See the section of the [Guide to User-Installed Software on Ceres with Conda](https://scinet.usda.gov/guide/conda/) highlighted in red for more detail about how to fix your .bashrc in this case.
 
 After you ```source activate``` and are placed in the base environment, you will then be able to ```conda activate my_env``` with no problems.
-{% endcapture %} 
+{% endcapture %}
 {% include alert.md text=text color='warning' %}
 
 ### From JupyterHub
+
 When using JupyterHub to login to Ceres you will also have access to Conda.
 
 #### JupyterHub login with no container
-If you login to Ceres with JupyterHub and are not using a container, you will automatically have access to Conda- no need to load the module. At the time of this writing the default is miniconda/3.6. 
 
-{% capture text %}
+If you login to Ceres with JupyterHub and are not using a container, you will automatically have access to Conda- no need to load the module. At the time of this writing the default is miniconda/3.6.
+
 always remember to ```source activate``` immediately and to never ```conda init```
 
 see the above [From the Module System](#from-the-module-system) for more detail
-{% endcapture %} 
-{% include alert.md text=text color='warning' %}
 
-The Conda version shouldn't really matter, but if you run into problems with this older version you can always open a terminal in JupyterLab and execute the same commands as in the above section [From the Module System](#from-the-module-system) to load a more up-to-date Conda version from the software module system. 
+
+The Conda version shouldn't really matter, but if you run into problems with this older version you can always open a terminal in JupyterLab and execute the same commands as in the above section [From the Module System](#from-the-module-system) to load a more up-to-date Conda version from the software module system.
 
 #### JupyterHub login with a container
 If you login to Ceres with the workshop image "data_science_im_rs_vSCINetGeoWS_2020.sif" you will have access to miniconda/4.8.3.
@@ -530,7 +555,7 @@ If you login to Ceres with the workshop image "data_science_im_rs_vSCINetGeoWS_2
 always remember to ```source activate``` immediately and to never ```conda init```
 
 see above [From the Module System](#from-the-module-system) for more detail
-{% endcapture %} 
+{% endcapture %}
 {% include alert.md text=text color='warning' %}
 
 <br>
@@ -540,9 +565,9 @@ see above [From the Module System](#from-the-module-system) for more detail
 
 ## Using Conda Environments to Create Isolated Software Workspaces
 
-**The best practice for using Conda is to never install packages in the base environment**. 
+**The best practice for using Conda is to never install packages in the base environment**.
 
-One reason for this is because the base environment is a dynamic space that changes with Conda version updates whereas your other environments are isolated. You should create at least one other environment to install packages in. A better practice is to create a separate environment for each one of your projects. It's much easier to update certain software packages in your environments if your projects each have their own "sandbox". In addition, on Ceres you'll want to save the environments you create in your home directory or in your project /KEEP directory, whereas the base environment lives outside of your personal user account. 
+One reason for this is because the base environment is a dynamic space that changes with Conda version updates whereas your other environments are isolated. You should create at least one other environment to install packages in. A better practice is to create a separate environment for each one of your projects. It's much easier to update certain software packages in your environments if your projects each have their own "sandbox". In addition, on Ceres you'll want to save the environments you create in your home directory or in your project /KEEP directory, whereas the base environment lives outside of your personal user account.
 
 Many of the environments that we as geospatial researchers build contain enough software packages that the environment will take up multiple GBs of storage space. Because our environments are generally large, they take a while to build. **The best practice for creating Conda environments on Ceres is to first open an interactive compute session (i.e. don't create/remove environments or install packages on the login node).**
 
@@ -556,19 +581,22 @@ At this point you should be logged in to your Ceres home directory preferably by
 In this tutorial we will create an environment that you can run the Session 3 Tutorial with in JupyterLab.<br>
 
 To open an interactive compute session:
+
 ```bash
-salloc 
+salloc
 ```
 
 You are now on a compute node as opposed to the login node.
 
 To get into the base Conda environment:
+
 ```bash
-source activate 
+source activate
 ```
 
-Create a new environment with ```conda create --name environment_name package1 package2 package3```.<br> 
-```bash 
+Create a new environment with ```conda create --name environment_name package1 package2 package3```.<br>
+
+```bash
 conda create --name session3_env python=3.7 numpy dask dask-jobqueue
 ```
 
@@ -578,21 +606,25 @@ Make sure you hit enter when Conda asks if you want to proceed. This build will 
 #### **View all Environments**
 
 When the build is finished and your command prompt returns, view all your environments with:<br>
+
 ```bash
 conda env list
 ```
+
 <br>
 
 #### **Activate an Environment and Install More Software**
 
 To activate your new environment<br>
+
 ```bash
 conda activate session3_env
 ```
 
 To access this environment in JupyterLab you will need to install the ipykernel package. We could have done this with our ```conda create``` but are doing it after the fact to demonstrate how to add additional packages into an existing environment. Make sure your session3_env is activated and<br>
+
 ```bash
-conda install ipykernel -y 
+conda install ipykernel -y
 ```
 
 Notice how the -y allows you to bypass the "proceed ([y]/n)?"
@@ -602,34 +634,42 @@ Notice how the -y allows you to bypass the "proceed ([y]/n)?"
 #### **View Software in an Environment**
 
 To view all the packages in the active environment<br>
+
 ```bash
 conda list
 ```
+
 <br>
 
 #### **Change or Deactivate an Environment**
 
 To change environments<br>
+
 ```bash
 conda activate base
-``` 
+```
+
 will switch you to another environment, in this case the base environment.<br>
 Or, <br>
+
 ```bash
 conda deactivate
-``` 
+```
+
 will switch you from a non-base environment back to whichever environment you were in previously.
 <br><br>
 
 #### **Export the Environment Software List to a Specification File**
 
 Create a specification file that lists every single software package that's in an environment, including the packages that are specific to the operating system you are running on. You can save this file wherever you want. Here we'll save it in the Conda envs folder where the rest of your environment information lives.<br>
+
 ```bash
 conda activate session3_env
 conda list --explicit > ~/.conda/envs/session3_env_spec_file.txt
 ```
 
 View the file you just made<br>
+
 ```bash
 cat ~/.conda/envs/session3_env_spec_file.txt
 ```
@@ -640,12 +680,14 @@ Notice at the very top of the file there are instructions for recreating the env
 #### **Export the Environment Across OS Platforms**
 
 To use an environment across different operating systems you need create a yml file with a list of software that excludes all the OS-specific software in the environment and only includes the major software packages (without all the dependencies). For our session3_env this means the packages we explicitly installed: python 3.7, numpy, dask, dask-jobqueue, ipykernel.<br>
+
 ```bash
 
 conda env export --from-history > ~/.conda/envs/session3_env.yml
 ```
 
 View the file you just made<br>
+
 ```bash
 cat ~/.conda/envs/session3_env.yml
 ```
@@ -656,15 +698,18 @@ As with the specification file we made earlier, you can use this yml file to rec
 #### **Delete an Environment and Recreate from a Specification File**
 
 Let's say you run out of space to store all your environments. No problem, as long as you have a specification file that lists the environment software, you can go ahead and delete your environment because you'll be able to recreate it anytime.<br>
+
 ```bash
 conda deactivate
 conda env remove --name session3_env
 ```
 
 You can recreate the environment on the same machine you deleted it from<br>
+
 ```bash
 conda create --name session3_env --file ~/.conda/envs/session3_env_spec_file.txt
 ```
+
 <br>
 
 
@@ -687,7 +732,8 @@ Once you have the Session 3 Jupyter notebook open, on the top right of the noteb
 # Containers (Docker and Singularity)
 
 ## Why Use Containers?
-Containers are a virtualized run-time environment- they are like handing someone the computer you used to execute your code. They allow you to bundle your software and its dependencies (including operating-system specific dependencies) in one tidy package that will run a specific isolated software environment on an operating system (e.g, Windos, Max, Linux flavors). 
+
+Containers are a virtualized run-time environment- they are like handing someone the computer you used to execute your code. They allow you to bundle your software and its dependencies (including operating-system specific dependencies) in one tidy package that will run a specific isolated software environment on an operating system (e.g, Windos, Max, Linux flavors).
 
 If you've ever written code on one machine and then tried to run it without success on a different machine, then you could benefit from using containers. As you can imagine, using containers to make your code portable means that sharing code between collaborators is very simple. And portable code makes it much easier for others to reproduce your results.
 
@@ -710,9 +756,9 @@ This tutorial <mark>focuses on creating container images with Docker and running
 
 **CONTAINER** - a virtualized run-time environment where users can isolate applications from the underlying system. A container is created by running an image. On the Ceres HPC, we create containers using Singularity software to run Docker images.
 
-**CONTAINER IMAGE** - or just image for short. A read-only file that contains a collection of files such as source code, libraries, dependencies, tools, and other files needed to run a container. The steps in producing an image are added in layers. In this tutorial, we are working with Docker and Singularity images. When an image is run it becomes a container. 
+**CONTAINER IMAGE** - or just image for short. A read-only file that contains a collection of files such as source code, libraries, dependencies, tools, and other files needed to run a container. The steps in producing an image are added in layers. In this tutorial, we are working with Docker and Singularity images. When an image is run it becomes a container.
 
-**DOCKERFILE** - a script of instructions that define how to build a specific Docker image 
+**DOCKERFILE** - a script of instructions that define how to build a specific Docker image
 
 **SINGULARITY DEFINITION FILE** - Singularity's equivalent of a dockerfile
 
@@ -729,7 +775,7 @@ Several organizations maintain excellent data science container stacks:
 2. **Rocker**:  (Interactive computing with RStudio, focusing on R): [Documentation](https://www.rocker-project.org/) - [GitHub](https://github.com/rocker-org/rocker) - [Docker Hub](https://hub.docker.com/u/rocker)
 3. **RapidsAI**: (Interactive computing with Jupyter+Python and GPUs): [Documentation](https://hub.docker.com/r/rapidsai/rapidsai) - [GitHub](https://github.com/rapidsai/docker) - [Docker Hub](https://hub.docker.com/u/rapidsai)
 
-If you've downloaded Docker on your laptop, you can search Docker Hub at the command line with ```docker search your-search-term```, very similar to how you can search for packages with Conda. In addition, you can simply do a key-word on Docker Hub website of the +100,000 public containers. One limitation of Singularity on Ceres is that ```singularity search``` won't search Docker Hub- it can only search it's own singularity-hub registry. 
+If you've downloaded Docker on your laptop, you can search Docker Hub at the command line with ```docker search your-search-term```, very similar to how you can search for packages with Conda. In addition, you can simply do a key-word on Docker Hub website of the +100,000 public containers. One limitation of Singularity on Ceres is that ```singularity search``` won't search Docker Hub- it can only search it's own singularity-hub registry.
 
 <br>
 
@@ -792,20 +838,26 @@ delete the container
 rm alpine_latest.sif
 ```
 it is no longer in the folder
+
 ```bash
 ls
 ```
 Now lets shell into the alpine image.
+
 ```bash
 singularity shell docker://alpine:latest
 ```
+
 Note that we did not need to download or rebuild the container. Singularity checks the local (cached) container against the container in the Hub repository. If they are the same, it will use the cached container. If the local container and the container in the Hub are different, it will download and rebuild the container. Now let's exit the container and the Ceres compute node with:
 
 exit the container
+
 ```bash
 exit
 ```
+
 exit the compute node
+
 ```bash
 exit
 ```
