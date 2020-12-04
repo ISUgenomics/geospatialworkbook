@@ -1,12 +1,12 @@
 ---
-title: Premeeting
+title: "Classical Machine Learning Fundamentals"
 layout: single
 author: Kerrie Geil
 author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+---
 
 # Tutorial 2: Classical Machine Learning Fundamentals
 ## Laura E. Boucheron, Electrical & Computer Engineering, NMSU
@@ -125,6 +125,12 @@ for k, category in enumerate(categories):
     plt.title(os.path.basename(category)) # strip off basename for title
 ```
 
+
+    
+![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_7_0.png)
+    
+
+
 ## Section 1.2 Exploring the Annotations
 ### Section 1.2.1 Plotting the annotations as a boundary over the image
 The annotations are stored in Matlab's `.mat` format, which the `scipy.io` library in python can load.  Above, we have imported `scipy.io` as `spio`.  The image annotations can be read in with the `spio.loadmat` function, e.g., `ann=spio.loadmat('filename.mat')`.  The `spio.loadmat` function returns a dictionary with variable names as keys.  In the CalTech101 annotations, dictionary entry `ann['box_coord']` is a $1\times4$ vector of bounding box coordinates and `ann['obj_contour']` is a $2\times K$ vector of pixel locations which outline the contour of the object, where $K$ will be different for different annotations.  
@@ -164,6 +170,31 @@ plt.title('Annotated Emu')
 plt.show()
 ```
 
+    box_coord
+    [[  7 247  72 293]]
+    obj_contour
+    [[ 16.57982456  14.46578947  11.50614035   9.39210526  18.27105263
+       29.26403509  36.8745614   39.83421053  47.86754386  36.45175439
+       31.37807018  43.21666667  77.46403509 104.52368421 127.77807018
+      159.06578947 189.93070175 204.30614035 215.29912281 213.60789474
+      163.29385965 141.30789474 123.12719298  92.68508772  74.92719298
+       50.82719298  19.11666667   6.85526316   6.00964912  17.4254386
+       17.4254386 ]
+     [ 78.93070175  53.98508772  28.19385965  10.43596491   2.8254386
+        5.3622807   13.81842105  25.23421053  34.95877193  35.38157895
+       42.99210526  81.04473684 119.94298246 117.82894737 123.3254386
+      141.08333333 168.98859649 196.47105263 229.87280702 240.02017544
+      240.44298246 217.18859649 240.44298246 240.02017544 232.83245614
+      223.10789474 193.51140351 163.49210526 113.60087719  78.50789474
+       78.50789474]]
+
+
+
+    
+![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_9_1.png)
+    
+
+
 ### Section 1.2.2 Some common coordinate issues that may be encountered with annotations
 We noted above that since we first displayed the image using `plt.imshow`, the axes for the figure are assumed to have the origin in the top left.  The `plt.plot` command will use the plotting coordinate conventions of x-axis, y-axis, but will follow the origin set up by the image visualization.  We further explore this issue by using the same plotting command `plt.plot(ann['obj_contour'][0,:]+ann['box_coord'][0,2]-1,ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,'r')` as above, but without first visualizing the image.  This means that the `plt.plot` command is expected to use the plotting coordinate conventions of x-axis, y-axis and have the origin in the bottom left.
 
@@ -176,6 +207,12 @@ plt.title('Emu Annotation Alone')
 plt.axis('image') # this just makes the aspect ratio consistent rather than "stretching" the image
 plt.show()
 ```
+
+
+    
+![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_11_0.png)
+    
+
 
 #### Reversing coordinates 
 A very common mistake in plotting (x,y) coordinates on top of images is accidentally reversing the order of the coordinates.  Given the rotated coordinate system used for images, this can cause a common "rotation" of expected results.  If we accidentally plotted the annotation in row, column order, we would achieve something like follows.
@@ -190,6 +227,12 @@ plt.axis('off')
 plt.title('Annotated Emu')
 plt.show()
 ```
+
+
+    
+![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_13_0.png)
+    
+
 
 ### Section 1.2.3 Computing a binary object mask from the annotation data
 You can use the object contour outline to define a binary image image mask with `r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,ann['obj_contour'][0,:]+ann['box_coord'][0,2]-1,(M,N)); A=np.zeros(M,N); A[r,c]=1;` (note that the object contour indices are swapped here versus the plot command used above due to the difference in coordinate systems of image versus plot) where `M`, `N` are the dimensions of the image. 
@@ -212,6 +255,12 @@ plt.axis('off')
 plt.title('Binary Emu Mask')
 plt.show()
 ```
+
+
+    
+![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_15_0.png)
+    
+
 
 ## <span style='color:Green'> Your turn: </span>
 Using what you have learned about using lists to loop over categories, load the first annotation (`annotation_0001.mat`) from each of the 101 categories, use the corresponding `obj_contour` to define an object mask, and display that mask in one location of an $11\times10$  subplot.  Title each of those locations of the subplot with the category name.  You might find it handy to read in the image corresponding to the annotation in order to easily get the dimensions.  The visualizations from the previous part can be used here to spot-check the correctness of the annotations.
@@ -243,6 +292,74 @@ for k, im_category in enumerate(im_categories):
     plt.axis('off')
     plt.title(os.path.basename(im_category)) # strip off basename for title
 ```
+
+
+    ---------------------------------------------------------------------------
+
+    NotADirectoryError                        Traceback (most recent call last)
+
+    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in _open_file(file_like, appendmat, mode)
+         38     try:
+    ---> 39         return open(file_like, mode), True
+         40     except IOError:
+
+
+    NotADirectoryError: [Errno 20] Not a directory: 'Annotations/FeatureDetectionQuality.mat/annotation_0001.mat'
+
+    
+    During handling of the above exception, another exception occurred:
+
+
+    NotADirectoryError                        Traceback (most recent call last)
+
+    <ipython-input-7-88e66b3f12e9> in <module>
+         11 for k, im_category in enumerate(im_categories):
+         12     an_category = an_categories[k] # category has full path
+    ---> 13     ann = spio.loadmat(an_category+'/annotation_0001.mat')
+         14     I = imageio.imread(im_category+'/image_0001.jpg')
+         15     r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+\
+
+
+    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in loadmat(file_name, mdict, appendmat, **kwargs)
+        220     """
+        221     variable_names = kwargs.pop('variable_names', None)
+    --> 222     with _open_file_context(file_name, appendmat) as f:
+        223         MR, _ = mat_reader_factory(f, **kwargs)
+        224         matfile_dict = MR.get_variables(variable_names)
+
+
+    ~/miniconda/envs/geo_env/lib/python3.7/contextlib.py in __enter__(self)
+        110         del self.args, self.kwds, self.func
+        111         try:
+    --> 112             return next(self.gen)
+        113         except StopIteration:
+        114             raise RuntimeError("generator didn't yield") from None
+
+
+    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in _open_file_context(file_like, appendmat, mode)
+         15 @contextmanager
+         16 def _open_file_context(file_like, appendmat, mode='rb'):
+    ---> 17     f, opened = _open_file(file_like, appendmat, mode)
+         18     try:
+         19         yield f
+
+
+    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in _open_file(file_like, appendmat, mode)
+         43             if appendmat and not file_like.endswith('.mat'):
+         44                 file_like += '.mat'
+    ---> 45             return open(file_like, mode), True
+         46         else:
+         47             raise IOError('Reader needs file name or open file-like object')
+
+
+    NotADirectoryError: [Errno 20] Not a directory: 'Annotations/FeatureDetectionQuality.mat/annotation_0001.mat'
+
+
+
+    
+![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_17_1.png)
+    
+
 
 ## Section 2: Feature Extraction
 In this section we will define several functions designed to extract different categories of features from images.  These functions will span several common categories of features, but are by no means a comprehensive list.  These feature extraction methods are illustration of so-called "hand-designed" features.  These are features that are specifically implemented as features that are expected to be helpful for discriminating between different image categories.
@@ -297,6 +414,14 @@ print('feature names')
 print(fnames)
 ```
 
+    feature vector
+    [ 89.66263904  41.77544731  85.           3.         255.
+      60.43520174  36.47920188  53.           0.         250.
+      70.16239913  37.50792712  63.           0.         255.        ]
+    feature names
+    ('R_mean', 'R_std', 'R_median', 'R_min', 'R_max', 'G_mean', 'G_std', 'G_median', 'G_min', 'G_max', 'B_mean', 'B_std', 'B_median', 'B_min', 'B_max')
+
+
 ## <span style='color:Green'> Your turn: </span>
 Create a feature extraction function `f,fnames=extract_color_features_hsv(im,mask)` with inputs `im`, the image from which to extract features, and the binary annotation mask, `mask`.  Outputs will be a length-15 feature vector `f` describing statistics of the colors in HSV space within the image object and a length-15 list `fnames` with the feature names.  Extract statistics from the hue, saturation, and value channels of the image.  From each channel, compute the mean, standard deviation, median, min, and max value of pixels within the object mask.  In order to convert between the RGB and HSV color space, use the command `skimage.color.rgb2hsv`.  Order the features by channel first in the order given above and by statistic second in the order given above (i.e., the first and second features will be mean and standard deviation of the hue channel).  Assign brief, descriptive strings for each feature and store those in `fnames` (e.g., `'H_mean'`, and `'H_std'` as names for the first two features).  
 
@@ -341,6 +466,14 @@ print(f)
 print('feature names')
 print(fnames)
 ```
+
+    feature vector
+    [0.93191605 0.07237925 0.94736842 0.         0.99666667 0.36125379
+     0.11130164 0.34951456 0.01960784 1.         0.35243261 0.16304442
+     0.33333333 0.01960784 1.        ]
+    feature names
+    ('H_mean', 'H_std', 'H_median', 'H_min', 'H_max', 'S_mean', 'S_std', 'S_median', 'S_min', 'S_max', 'V_mean', 'V_std', 'V_median', 'V_min', 'V_max')
+
 
 ### Section 2.2 Region features
 In this section, we will extract a set of features designed to characterize the size and shape of an image object.  We use the annotation mask as defined above to define the object of interest.
@@ -401,6 +534,20 @@ print('feature names')
 print(fnames)
 ```
 
+    feature vector
+    [22925 49742 28789 0.86209198262317 170.8479340321492 1
+     0.46087813115676896 22925 270.70752758375147 137.18153400649817
+     array([2.51094162e-01, 2.20473857e-02, 6.43740783e-03, 1.26777654e-03,
+           2.54548085e-06, 1.25658455e-05, 2.57636709e-06])
+     824.5655839020935 0.7963110910417173]
+    feature names
+    ('area', 'bbox_area', 'convex_area', 'eccentricity', 'equivalent_diameter', 'euler_number', 'extent', 'filled_area', 'major_axis_length', 'minor_axis_length', 'moments_hu', 'perimeter', 'solidity')
+
+
+    /Users/jenchang/miniconda/envs/geo_env/lib/python3.7/site-packages/ipykernel_launcher.py:8: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+      
+
+
 ## <span style='color:Green'> Your turn: </span>
 We are designing functions that can extract a vector of features from image regions.  What issue do you note with the feature vector that is returned by `extract_region_features_try1`?
 
@@ -408,6 +555,38 @@ We are designing functions that can extract a vector of features from image regi
 ```python
 whos
 ```
+
+    Variable                       Type        Data/Info
+    ----------------------------------------------------
+    A                              ndarray     334x290x3: 290580 elems, type `float64`, 2324640 bytes (2.216949462890625 Mb)
+    I                              Array       [[[135 142 135]\n  [145 1<...>7  90]\n  [ 50  65  88]]]
+    an_categories                  list        n=106
+    an_category                    str         Annotations/FeatureDetectionQuality.mat
+    ann                            dict        n=5
+    c                              ndarray     22925: 22925 elems, type `int64`, 183400 bytes (179.1015625 kb)
+    categories                     list        n=102
+    category                       str         101_ObjectCategories/yin_yang
+    extract_color_features_hsv     function    <function extract_color_f<...>es_hsv at 0x7fdc2e1d44d0>
+    extract_color_features_rgb     function    <function extract_color_f<...>es_rgb at 0x7fdc2e1d47a0>
+    extract_region_features_try1   function    <function extract_region_<...>s_try1 at 0x7fdc2dc10050>
+    f                              ndarray     13: 13 elems, type `object`, 104 bytes
+    fnames                         tuple       n=13
+    glob                           module      <module 'glob' from '/Use<...>v/lib/python3.7/glob.py'>
+    im                             ndarray     248x300x3: 223200 elems, type `uint8`, 223200 bytes (217.96875 kb)
+    im_categories                  list        n=102
+    im_category                    str         101_ObjectCategories/Leopards
+    imageio                        module      <module 'imageio' from '/<...>ges/imageio/__init__.py'>
+    k                              int         3
+    mask                           ndarray     248x300: 74400 elems, type `float64`, 595200 bytes (581.25 kb)
+    np                             module      <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
+    os                             module      <module 'os' from '/Users<...>env/lib/python3.7/os.py'>
+    plt                            module      <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
+    r                              ndarray     22925: 22925 elems, type `int64`, 183400 bytes (179.1015625 kb)
+    skimage                        module      <module 'skimage' from '/<...>ges/skimage/__init__.py'>
+    sklearn                        module      <module 'sklearn' from '/<...>ges/sklearn/__init__.py'>
+    spio                           module      <module 'scipy.io' from '<...>es/scipy/io/__init__.py'>
+    svm                            module      <module 'sklearn.svm' fro<...>sklearn/svm/__init__.py'>
+
 
 The feature vector is of type "object" indicating that it is not a simple feature vector.  The vector feature from the Hu moments have not been appended to the feature vector as individual elements. 
 
@@ -454,6 +633,16 @@ print(f)
 print('feature names')
 print(fnames)
 ```
+
+    feature vector
+    [2.29250000e+04 4.97420000e+04 2.87890000e+04 8.62091983e-01
+     1.70847934e+02 1.00000000e+00 4.60878131e-01 2.29250000e+04
+     2.70707528e+02 1.37181534e+02 2.51094162e-01 2.20473857e-02
+     6.43740783e-03 1.26777654e-03 2.54548085e-06 1.25658455e-05
+     2.57636709e-06 8.24565584e+02 7.96311091e-01]
+    feature names
+    ('area', 'bbox_area', 'convex_area', 'eccentricity', 'equivalent_diameter', 'euler_number', 'extent', 'filled_area', 'major_axis_length', 'minor_axis_length', 'moments_hu1', 'moments_hu2', 'moments_hu3', 'moments_hu4', 'moments_hu5', 'moments_hu6', 'moments_hu7', 'perimeter', 'solidity')
+
 
 Now we notice that the feature vector is a true vector since we have individually appended each of the 7 Hu moments.  Since there were only 7, we expicitly typed out all seven vector elements and feature names, but note that we could use iteration for longer feature vectors.
 
@@ -515,6 +704,23 @@ print(f)
 print('feature names')
 print(fnames)
 ```
+
+    feature vector
+    [6.11324265e-01 5.59225027e-01 4.79792054e-01 4.29846997e-01
+     4.12875202e-02 2.94518620e-02 1.22013521e-02 1.04584654e-02
+     9.44795021e-03 8.91621988e-03 8.49414681e-03 8.26354227e-03
+     6.40602380e-04 3.13705857e-04 1.51332668e-04 1.57924464e-04
+     9.71457997e-02 9.44111478e-02 9.21600423e-02 9.08999193e-02
+     3.26248410e-03 1.65983452e-03 8.20617638e-04 8.64257319e-04
+     2.60085612e+00 2.75670895e+00 2.96004591e+00 3.09156989e+00
+     1.20573130e-01 8.59555132e-02 4.33562527e-02 5.85714661e-02
+     3.72965154e-01 3.55317937e-01 3.37690195e-01 3.26456920e-01
+     1.91489099e-02 1.13961311e-02 7.42917505e-03 8.08769450e-03
+     1.56044800e+01 1.74694492e+01 2.01266035e+01 2.17261141e+01
+     1.57594074e+00 1.06371099e+00 5.02286894e-01 4.12576946e-01]
+    feature names
+    ['GLCM_correlation_d1_mean', 'GLCM_correlation_d2_mean', 'GLCM_correlation_d3_mean', 'GLCM_correlation_d4_mean', 'GLCM_correlation_d1_std', 'GLCM_correlation_d2_std', 'GLCM_correlation_d3_std', 'GLCM_correlation_d4_std', 'GLCM_ASM_d1_mean', 'GLCM_ASM_d2_mean', 'GLCM_ASM_d3_mean', 'GLCM_ASM_d4_mean', 'GLCM_ASM_d1_std', 'GLCM_ASM_d2_std', 'GLCM_ASM_d3_std', 'GLCM_ASM_d4_std', 'GLCM_energy_d1_mean', 'GLCM_energy_d2_mean', 'GLCM_energy_d3_mean', 'GLCM_energy_d4_mean', 'GLCM_energy_d1_std', 'GLCM_energy_d2_std', 'GLCM_energy_d3_std', 'GLCM_energy_d4_std', 'GLCM_dissimilarity_d1_mean', 'GLCM_dissimilarity_d2_mean', 'GLCM_dissimilarity_d3_mean', 'GLCM_dissimilarity_d4_mean', 'GLCM_dissimilarity_d1_std', 'GLCM_dissimilarity_d2_std', 'GLCM_dissimilarity_d3_std', 'GLCM_dissimilarity_d4_std', 'GLCM_homogeneity_d1_mean', 'GLCM_homogeneity_d2_mean', 'GLCM_homogeneity_d3_mean', 'GLCM_homogeneity_d4_mean', 'GLCM_homogeneity_d1_std', 'GLCM_homogeneity_d2_std', 'GLCM_homogeneity_d3_std', 'GLCM_homogeneity_d4_std', 'GLCM_contrast_d1_mean', 'GLCM_contrast_d2_mean', 'GLCM_contrast_d3_mean', 'GLCM_contrast_d4_mean', 'GLCM_contrast_d1_std', 'GLCM_contrast_d2_std', 'GLCM_contrast_d3_std', 'GLCM_contrast_d4_std']
+
 
 ## Section 3: Setting up a Feature Matrix and Label Vector
 Now that we have defined functions that compute several different categories of features from an image object, we need to aggregate those features into a feature matrix.  This feature matrix will be  $N\times M$ where $N$ is the total number of images that we use as input and $M$ is the total number of features that we extract from each of the $N$ images. If we use all features from above we have a total of 97 features for each image (97 = 15 RGB features + 15 HSV features + 19 region features + 48 texture features).  This feature matrix is used as input to the classification algorithm to describe the image objects.
@@ -578,15 +784,153 @@ print('y_train is length '+str(len(y_train)))
 print('y_test is length '+str(len(y_test)))
 ```
 
+    X_train is shape (107, 97)
+    X_test is shape (13, 97)
+    y_train is length 107
+    y_test is length 13
+
+
 
 ```python
 filenames_train
 ```
 
 
+
+
+    ['101_ObjectCategories/emu/image_0001.jpg',
+     '101_ObjectCategories/emu/image_0002.jpg',
+     '101_ObjectCategories/emu/image_0003.jpg',
+     '101_ObjectCategories/emu/image_0004.jpg',
+     '101_ObjectCategories/emu/image_0005.jpg',
+     '101_ObjectCategories/emu/image_0006.jpg',
+     '101_ObjectCategories/emu/image_0007.jpg',
+     '101_ObjectCategories/emu/image_0008.jpg',
+     '101_ObjectCategories/emu/image_0009.jpg',
+     '101_ObjectCategories/emu/image_0010.jpg',
+     '101_ObjectCategories/emu/image_0011.jpg',
+     '101_ObjectCategories/emu/image_0012.jpg',
+     '101_ObjectCategories/emu/image_0013.jpg',
+     '101_ObjectCategories/emu/image_0014.jpg',
+     '101_ObjectCategories/emu/image_0015.jpg',
+     '101_ObjectCategories/emu/image_0016.jpg',
+     '101_ObjectCategories/emu/image_0017.jpg',
+     '101_ObjectCategories/emu/image_0018.jpg',
+     '101_ObjectCategories/emu/image_0019.jpg',
+     '101_ObjectCategories/emu/image_0020.jpg',
+     '101_ObjectCategories/emu/image_0021.jpg',
+     '101_ObjectCategories/emu/image_0022.jpg',
+     '101_ObjectCategories/emu/image_0023.jpg',
+     '101_ObjectCategories/emu/image_0024.jpg',
+     '101_ObjectCategories/emu/image_0025.jpg',
+     '101_ObjectCategories/emu/image_0026.jpg',
+     '101_ObjectCategories/emu/image_0027.jpg',
+     '101_ObjectCategories/emu/image_0028.jpg',
+     '101_ObjectCategories/emu/image_0029.jpg',
+     '101_ObjectCategories/emu/image_0030.jpg',
+     '101_ObjectCategories/emu/image_0031.jpg',
+     '101_ObjectCategories/emu/image_0032.jpg',
+     '101_ObjectCategories/emu/image_0033.jpg',
+     '101_ObjectCategories/emu/image_0034.jpg',
+     '101_ObjectCategories/emu/image_0035.jpg',
+     '101_ObjectCategories/emu/image_0036.jpg',
+     '101_ObjectCategories/emu/image_0037.jpg',
+     '101_ObjectCategories/emu/image_0038.jpg',
+     '101_ObjectCategories/emu/image_0039.jpg',
+     '101_ObjectCategories/emu/image_0040.jpg',
+     '101_ObjectCategories/emu/image_0041.jpg',
+     '101_ObjectCategories/emu/image_0042.jpg',
+     '101_ObjectCategories/emu/image_0043.jpg',
+     '101_ObjectCategories/emu/image_0044.jpg',
+     '101_ObjectCategories/emu/image_0045.jpg',
+     '101_ObjectCategories/emu/image_0046.jpg',
+     '101_ObjectCategories/emu/image_0047.jpg',
+     '101_ObjectCategories/flamingo/image_0001.jpg',
+     '101_ObjectCategories/flamingo/image_0002.jpg',
+     '101_ObjectCategories/flamingo/image_0003.jpg',
+     '101_ObjectCategories/flamingo/image_0004.jpg',
+     '101_ObjectCategories/flamingo/image_0005.jpg',
+     '101_ObjectCategories/flamingo/image_0006.jpg',
+     '101_ObjectCategories/flamingo/image_0007.jpg',
+     '101_ObjectCategories/flamingo/image_0008.jpg',
+     '101_ObjectCategories/flamingo/image_0009.jpg',
+     '101_ObjectCategories/flamingo/image_0010.jpg',
+     '101_ObjectCategories/flamingo/image_0011.jpg',
+     '101_ObjectCategories/flamingo/image_0012.jpg',
+     '101_ObjectCategories/flamingo/image_0013.jpg',
+     '101_ObjectCategories/flamingo/image_0014.jpg',
+     '101_ObjectCategories/flamingo/image_0015.jpg',
+     '101_ObjectCategories/flamingo/image_0016.jpg',
+     '101_ObjectCategories/flamingo/image_0017.jpg',
+     '101_ObjectCategories/flamingo/image_0018.jpg',
+     '101_ObjectCategories/flamingo/image_0019.jpg',
+     '101_ObjectCategories/flamingo/image_0020.jpg',
+     '101_ObjectCategories/flamingo/image_0021.jpg',
+     '101_ObjectCategories/flamingo/image_0022.jpg',
+     '101_ObjectCategories/flamingo/image_0023.jpg',
+     '101_ObjectCategories/flamingo/image_0024.jpg',
+     '101_ObjectCategories/flamingo/image_0025.jpg',
+     '101_ObjectCategories/flamingo/image_0026.jpg',
+     '101_ObjectCategories/flamingo/image_0027.jpg',
+     '101_ObjectCategories/flamingo/image_0028.jpg',
+     '101_ObjectCategories/flamingo/image_0029.jpg',
+     '101_ObjectCategories/flamingo/image_0030.jpg',
+     '101_ObjectCategories/flamingo/image_0031.jpg',
+     '101_ObjectCategories/flamingo/image_0032.jpg',
+     '101_ObjectCategories/flamingo/image_0033.jpg',
+     '101_ObjectCategories/flamingo/image_0034.jpg',
+     '101_ObjectCategories/flamingo/image_0035.jpg',
+     '101_ObjectCategories/flamingo/image_0036.jpg',
+     '101_ObjectCategories/flamingo/image_0037.jpg',
+     '101_ObjectCategories/flamingo/image_0038.jpg',
+     '101_ObjectCategories/flamingo/image_0039.jpg',
+     '101_ObjectCategories/flamingo/image_0040.jpg',
+     '101_ObjectCategories/flamingo/image_0041.jpg',
+     '101_ObjectCategories/flamingo/image_0042.jpg',
+     '101_ObjectCategories/flamingo/image_0043.jpg',
+     '101_ObjectCategories/flamingo/image_0044.jpg',
+     '101_ObjectCategories/flamingo/image_0045.jpg',
+     '101_ObjectCategories/flamingo/image_0046.jpg',
+     '101_ObjectCategories/flamingo/image_0047.jpg',
+     '101_ObjectCategories/flamingo/image_0048.jpg',
+     '101_ObjectCategories/flamingo/image_0049.jpg',
+     '101_ObjectCategories/flamingo/image_0050.jpg',
+     '101_ObjectCategories/flamingo/image_0051.jpg',
+     '101_ObjectCategories/flamingo/image_0052.jpg',
+     '101_ObjectCategories/flamingo/image_0053.jpg',
+     '101_ObjectCategories/flamingo/image_0054.jpg',
+     '101_ObjectCategories/flamingo/image_0055.jpg',
+     '101_ObjectCategories/flamingo/image_0056.jpg',
+     '101_ObjectCategories/flamingo/image_0057.jpg',
+     '101_ObjectCategories/flamingo/image_0058.jpg',
+     '101_ObjectCategories/flamingo/image_0059.jpg',
+     '101_ObjectCategories/flamingo/image_0060.jpg']
+
+
+
+
 ```python
 y_test
 ```
+
+
+
+
+    ['emu',
+     'emu',
+     'emu',
+     'emu',
+     'emu',
+     'emu',
+     'flamingo',
+     'flamingo',
+     'flamingo',
+     'flamingo',
+     'flamingo',
+     'flamingo',
+     'flamingo']
+
+
 
 ### Section 3.2: Normalizing the feature matrices
 Some of the features have a larger range than others.  We don’t want those features to have undue influence on the classification.  We will thus normalize the feature matrices to have range [0,1].  There will be two slightly different procedures for normalizing `X_train` and `X_test`.  
@@ -630,10 +974,32 @@ print(mn[0::10])
 print(Xn_train,0)
 ```
 
+    [1.62585068e+02 1.49270702e+02 6.62355494e-01 4.11760000e+04
+     4.94653353e-01 7.29980052e-01 4.11441678e-02 7.78317514e-03
+     7.58791574e-01 1.14100275e+02]
+    [5.92357806e+01 4.65543384e+01 0.00000000e+00 3.22500000e+03
+     1.82432150e-01 2.35479973e-01 1.56000740e-03 2.71493316e-04
+     1.98773687e-02 1.09397469e+00]
+    [[0.18714424 0.30808148 0.2184466  ... 0.08276854 0.04043092 0.01677172]
+     [0.37860799 0.53429145 0.33009709 ... 0.3573213  0.18900107 0.12418165]
+     [0.         0.41250965 0.         ... 0.04236502 0.0725881  0.09919185]
+     ...
+     [0.79179517 0.51591778 0.75728155 ... 0.18946762 0.25496932 0.29846329]
+     [0.5683703  0.36744634 0.45631068 ... 0.12068367 0.12440309 0.15122178]
+     [0.52946132 0.3911888  0.55825243 ... 0.09361418 0.12736017 0.1760575 ]] 0
+
+
 
 ```python
 Xn_train.min()
 ```
+
+
+
+
+    0.0
+
+
 
 
 ```python
@@ -641,10 +1007,22 @@ Xn_train.max()
 ```
 
 
+
+
+    1.0
+
+
+
+
 ```python
 Xn_test = normalize_feature_columns(X_test,mx,mn)
 print(Xn_test[:,0].T)
 ```
+
+    [0.3936947  0.12898959 0.37507987 0.25596447 0.49204136 0.30238921
+     0.54268833 0.88367621 0.5326359  0.7839688  0.59299773 0.39906093
+     0.92917099]
+
 
 
 ```python
@@ -652,9 +1030,23 @@ Xn_test.min()
 ```
 
 
+
+
+    -0.5476190476190478
+
+
+
+
 ```python
 Xn_test.max()
 ```
+
+
+
+
+    1.980450033113281
+
+
 
 ## Section 4: Classification
 In this section we will use the support vector machine (SVM) classifier from `sklearn` as an example for how you can use the training data in `X_train` and `y_train` to train a classifier.  We we also use other supporting functions from `sklearn` to assess the performance of the SVM on the test data `X_test`.  The basic setup of the training and testing process for the SVM will be easily transferred to application of other common classifiers available in `sklearn`.  
@@ -671,9 +1063,467 @@ clf.fit(Xn_train,y_train)
 ```
 
 
+
+
+    SVC(kernel='linear')
+
+
+
+
 ```python
 help(svm.SVC)
 ```
+
+    Help on class SVC in module sklearn.svm._classes:
+    
+    class SVC(sklearn.svm._base.BaseSVC)
+     |  SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, max_iter=-1, decision_function_shape='ovr', break_ties=False, random_state=None)
+     |  
+     |  C-Support Vector Classification.
+     |  
+     |  The implementation is based on libsvm. The fit time scales at least
+     |  quadratically with the number of samples and may be impractical
+     |  beyond tens of thousands of samples. For large datasets
+     |  consider using :class:`sklearn.svm.LinearSVC` or
+     |  :class:`sklearn.linear_model.SGDClassifier` instead, possibly after a
+     |  :class:`sklearn.kernel_approximation.Nystroem` transformer.
+     |  
+     |  The multiclass support is handled according to a one-vs-one scheme.
+     |  
+     |  For details on the precise mathematical formulation of the provided
+     |  kernel functions and how `gamma`, `coef0` and `degree` affect each
+     |  other, see the corresponding section in the narrative documentation:
+     |  :ref:`svm_kernels`.
+     |  
+     |  Read more in the :ref:`User Guide <svm_classification>`.
+     |  
+     |  Parameters
+     |  ----------
+     |  C : float, default=1.0
+     |      Regularization parameter. The strength of the regularization is
+     |      inversely proportional to C. Must be strictly positive. The penalty
+     |      is a squared l2 penalty.
+     |  
+     |  kernel : {'linear', 'poly', 'rbf', 'sigmoid', 'precomputed'}, default='rbf'
+     |      Specifies the kernel type to be used in the algorithm.
+     |      It must be one of 'linear', 'poly', 'rbf', 'sigmoid', 'precomputed' or
+     |      a callable.
+     |      If none is given, 'rbf' will be used. If a callable is given it is
+     |      used to pre-compute the kernel matrix from data matrices; that matrix
+     |      should be an array of shape ``(n_samples, n_samples)``.
+     |  
+     |  degree : int, default=3
+     |      Degree of the polynomial kernel function ('poly').
+     |      Ignored by all other kernels.
+     |  
+     |  gamma : {'scale', 'auto'} or float, default='scale'
+     |      Kernel coefficient for 'rbf', 'poly' and 'sigmoid'.
+     |  
+     |      - if ``gamma='scale'`` (default) is passed then it uses
+     |        1 / (n_features * X.var()) as value of gamma,
+     |      - if 'auto', uses 1 / n_features.
+     |  
+     |      .. versionchanged:: 0.22
+     |         The default value of ``gamma`` changed from 'auto' to 'scale'.
+     |  
+     |  coef0 : float, default=0.0
+     |      Independent term in kernel function.
+     |      It is only significant in 'poly' and 'sigmoid'.
+     |  
+     |  shrinking : bool, default=True
+     |      Whether to use the shrinking heuristic.
+     |      See the :ref:`User Guide <shrinking_svm>`.
+     |  
+     |  probability : bool, default=False
+     |      Whether to enable probability estimates. This must be enabled prior
+     |      to calling `fit`, will slow down that method as it internally uses
+     |      5-fold cross-validation, and `predict_proba` may be inconsistent with
+     |      `predict`. Read more in the :ref:`User Guide <scores_probabilities>`.
+     |  
+     |  tol : float, default=1e-3
+     |      Tolerance for stopping criterion.
+     |  
+     |  cache_size : float, default=200
+     |      Specify the size of the kernel cache (in MB).
+     |  
+     |  class_weight : dict or 'balanced', default=None
+     |      Set the parameter C of class i to class_weight[i]*C for
+     |      SVC. If not given, all classes are supposed to have
+     |      weight one.
+     |      The "balanced" mode uses the values of y to automatically adjust
+     |      weights inversely proportional to class frequencies in the input data
+     |      as ``n_samples / (n_classes * np.bincount(y))``
+     |  
+     |  verbose : bool, default=False
+     |      Enable verbose output. Note that this setting takes advantage of a
+     |      per-process runtime setting in libsvm that, if enabled, may not work
+     |      properly in a multithreaded context.
+     |  
+     |  max_iter : int, default=-1
+     |      Hard limit on iterations within solver, or -1 for no limit.
+     |  
+     |  decision_function_shape : {'ovo', 'ovr'}, default='ovr'
+     |      Whether to return a one-vs-rest ('ovr') decision function of shape
+     |      (n_samples, n_classes) as all other classifiers, or the original
+     |      one-vs-one ('ovo') decision function of libsvm which has shape
+     |      (n_samples, n_classes * (n_classes - 1) / 2). However, one-vs-one
+     |      ('ovo') is always used as multi-class strategy. The parameter is
+     |      ignored for binary classification.
+     |  
+     |      .. versionchanged:: 0.19
+     |          decision_function_shape is 'ovr' by default.
+     |  
+     |      .. versionadded:: 0.17
+     |         *decision_function_shape='ovr'* is recommended.
+     |  
+     |      .. versionchanged:: 0.17
+     |         Deprecated *decision_function_shape='ovo' and None*.
+     |  
+     |  break_ties : bool, default=False
+     |      If true, ``decision_function_shape='ovr'``, and number of classes > 2,
+     |      :term:`predict` will break ties according to the confidence values of
+     |      :term:`decision_function`; otherwise the first class among the tied
+     |      classes is returned. Please note that breaking ties comes at a
+     |      relatively high computational cost compared to a simple predict.
+     |  
+     |      .. versionadded:: 0.22
+     |  
+     |  random_state : int or RandomState instance, default=None
+     |      Controls the pseudo random number generation for shuffling the data for
+     |      probability estimates. Ignored when `probability` is False.
+     |      Pass an int for reproducible output across multiple function calls.
+     |      See :term:`Glossary <random_state>`.
+     |  
+     |  Attributes
+     |  ----------
+     |  support_ : ndarray of shape (n_SV,)
+     |      Indices of support vectors.
+     |  
+     |  support_vectors_ : ndarray of shape (n_SV, n_features)
+     |      Support vectors.
+     |  
+     |  n_support_ : ndarray of shape (n_class,), dtype=int32
+     |      Number of support vectors for each class.
+     |  
+     |  dual_coef_ : ndarray of shape (n_class-1, n_SV)
+     |      Dual coefficients of the support vector in the decision
+     |      function (see :ref:`sgd_mathematical_formulation`), multiplied by
+     |      their targets.
+     |      For multiclass, coefficient for all 1-vs-1 classifiers.
+     |      The layout of the coefficients in the multiclass case is somewhat
+     |      non-trivial. See the :ref:`multi-class section of the User Guide
+     |      <svm_multi_class>` for details.
+     |  
+     |  coef_ : ndarray of shape (n_class * (n_class-1) / 2, n_features)
+     |      Weights assigned to the features (coefficients in the primal
+     |      problem). This is only available in the case of a linear kernel.
+     |  
+     |      `coef_` is a readonly property derived from `dual_coef_` and
+     |      `support_vectors_`.
+     |  
+     |  intercept_ : ndarray of shape (n_class * (n_class-1) / 2,)
+     |      Constants in decision function.
+     |  
+     |  fit_status_ : int
+     |      0 if correctly fitted, 1 otherwise (will raise warning)
+     |  
+     |  classes_ : ndarray of shape (n_classes,)
+     |      The classes labels.
+     |  
+     |  probA_ : ndarray of shape (n_class * (n_class-1) / 2)
+     |  probB_ : ndarray of shape (n_class * (n_class-1) / 2)
+     |      If `probability=True`, it corresponds to the parameters learned in
+     |      Platt scaling to produce probability estimates from decision values.
+     |      If `probability=False`, it's an empty array. Platt scaling uses the
+     |      logistic function
+     |      ``1 / (1 + exp(decision_value * probA_ + probB_))``
+     |      where ``probA_`` and ``probB_`` are learned from the dataset [2]_. For
+     |      more information on the multiclass case and training procedure see
+     |      section 8 of [1]_.
+     |  
+     |  class_weight_ : ndarray of shape (n_class,)
+     |      Multipliers of parameter C for each class.
+     |      Computed based on the ``class_weight`` parameter.
+     |  
+     |  shape_fit_ : tuple of int of shape (n_dimensions_of_X,)
+     |      Array dimensions of training vector ``X``.
+     |  
+     |  Examples
+     |  --------
+     |  >>> import numpy as np
+     |  >>> from sklearn.pipeline import make_pipeline
+     |  >>> from sklearn.preprocessing import StandardScaler
+     |  >>> X = np.array([[-1, -1], [-2, -1], [1, 1], [2, 1]])
+     |  >>> y = np.array([1, 1, 2, 2])
+     |  >>> from sklearn.svm import SVC
+     |  >>> clf = make_pipeline(StandardScaler(), SVC(gamma='auto'))
+     |  >>> clf.fit(X, y)
+     |  Pipeline(steps=[('standardscaler', StandardScaler()),
+     |                  ('svc', SVC(gamma='auto'))])
+     |  
+     |  >>> print(clf.predict([[-0.8, -1]]))
+     |  [1]
+     |  
+     |  See also
+     |  --------
+     |  SVR
+     |      Support Vector Machine for Regression implemented using libsvm.
+     |  
+     |  LinearSVC
+     |      Scalable Linear Support Vector Machine for classification
+     |      implemented using liblinear. Check the See also section of
+     |      LinearSVC for more comparison element.
+     |  
+     |  References
+     |  ----------
+     |  .. [1] `LIBSVM: A Library for Support Vector Machines
+     |      <http://www.csie.ntu.edu.tw/~cjlin/papers/libsvm.pdf>`_
+     |  
+     |  .. [2] `Platt, John (1999). "Probabilistic outputs for support vector
+     |      machines and comparison to regularizedlikelihood methods."
+     |      <http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.41.1639>`_
+     |  
+     |  Method resolution order:
+     |      SVC
+     |      sklearn.svm._base.BaseSVC
+     |      sklearn.base.ClassifierMixin
+     |      sklearn.svm._base.BaseLibSVM
+     |      sklearn.base.BaseEstimator
+     |      builtins.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, *, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, max_iter=-1, decision_function_shape='ovr', break_ties=False, random_state=None)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  __abstractmethods__ = frozenset()
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from sklearn.svm._base.BaseSVC:
+     |  
+     |  decision_function(self, X)
+     |      Evaluates the decision function for the samples in X.
+     |      
+     |      Parameters
+     |      ----------
+     |      X : array-like of shape (n_samples, n_features)
+     |      
+     |      Returns
+     |      -------
+     |      X : ndarray of shape (n_samples, n_classes * (n_classes-1) / 2)
+     |          Returns the decision function of the sample for each class
+     |          in the model.
+     |          If decision_function_shape='ovr', the shape is (n_samples,
+     |          n_classes).
+     |      
+     |      Notes
+     |      -----
+     |      If decision_function_shape='ovo', the function values are proportional
+     |      to the distance of the samples X to the separating hyperplane. If the
+     |      exact distances are required, divide the function values by the norm of
+     |      the weight vector (``coef_``). See also `this question
+     |      <https://stats.stackexchange.com/questions/14876/
+     |      interpreting-distance-from-hyperplane-in-svm>`_ for further details.
+     |      If decision_function_shape='ovr', the decision function is a monotonic
+     |      transformation of ovo decision function.
+     |  
+     |  predict(self, X)
+     |      Perform classification on samples in X.
+     |      
+     |      For an one-class model, +1 or -1 is returned.
+     |      
+     |      Parameters
+     |      ----------
+     |      X : {array-like, sparse matrix} of shape (n_samples, n_features) or                 (n_samples_test, n_samples_train)
+     |          For kernel="precomputed", the expected shape of X is
+     |          (n_samples_test, n_samples_train).
+     |      
+     |      Returns
+     |      -------
+     |      y_pred : ndarray of shape (n_samples,)
+     |          Class labels for samples in X.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from sklearn.svm._base.BaseSVC:
+     |  
+     |  predict_log_proba
+     |      Compute log probabilities of possible outcomes for samples in X.
+     |      
+     |      The model need to have probability information computed at training
+     |      time: fit with attribute `probability` set to True.
+     |      
+     |      Parameters
+     |      ----------
+     |      X : array-like of shape (n_samples, n_features) or                 (n_samples_test, n_samples_train)
+     |          For kernel="precomputed", the expected shape of X is
+     |          (n_samples_test, n_samples_train).
+     |      
+     |      Returns
+     |      -------
+     |      T : ndarray of shape (n_samples, n_classes)
+     |          Returns the log-probabilities of the sample for each class in
+     |          the model. The columns correspond to the classes in sorted
+     |          order, as they appear in the attribute :term:`classes_`.
+     |      
+     |      Notes
+     |      -----
+     |      The probability model is created using cross validation, so
+     |      the results can be slightly different than those obtained by
+     |      predict. Also, it will produce meaningless results on very small
+     |      datasets.
+     |  
+     |  predict_proba
+     |      Compute probabilities of possible outcomes for samples in X.
+     |      
+     |      The model need to have probability information computed at training
+     |      time: fit with attribute `probability` set to True.
+     |      
+     |      Parameters
+     |      ----------
+     |      X : array-like of shape (n_samples, n_features)
+     |          For kernel="precomputed", the expected shape of X is
+     |          [n_samples_test, n_samples_train]
+     |      
+     |      Returns
+     |      -------
+     |      T : ndarray of shape (n_samples, n_classes)
+     |          Returns the probability of the sample for each class in
+     |          the model. The columns correspond to the classes in sorted
+     |          order, as they appear in the attribute :term:`classes_`.
+     |      
+     |      Notes
+     |      -----
+     |      The probability model is created using cross validation, so
+     |      the results can be slightly different than those obtained by
+     |      predict. Also, it will produce meaningless results on very small
+     |      datasets.
+     |  
+     |  probA_
+     |  
+     |  probB_
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from sklearn.base.ClassifierMixin:
+     |  
+     |  score(self, X, y, sample_weight=None)
+     |      Return the mean accuracy on the given test data and labels.
+     |      
+     |      In multi-label classification, this is the subset accuracy
+     |      which is a harsh metric since you require for each sample that
+     |      each label set be correctly predicted.
+     |      
+     |      Parameters
+     |      ----------
+     |      X : array-like of shape (n_samples, n_features)
+     |          Test samples.
+     |      
+     |      y : array-like of shape (n_samples,) or (n_samples, n_outputs)
+     |          True labels for X.
+     |      
+     |      sample_weight : array-like of shape (n_samples,), default=None
+     |          Sample weights.
+     |      
+     |      Returns
+     |      -------
+     |      score : float
+     |          Mean accuracy of self.predict(X) wrt. y.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from sklearn.base.ClassifierMixin:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from sklearn.svm._base.BaseLibSVM:
+     |  
+     |  fit(self, X, y, sample_weight=None)
+     |      Fit the SVM model according to the given training data.
+     |      
+     |      Parameters
+     |      ----------
+     |      X : {array-like, sparse matrix} of shape (n_samples, n_features)                 or (n_samples, n_samples)
+     |          Training vectors, where n_samples is the number of samples
+     |          and n_features is the number of features.
+     |          For kernel="precomputed", the expected shape of X is
+     |          (n_samples, n_samples).
+     |      
+     |      y : array-like of shape (n_samples,)
+     |          Target values (class labels in classification, real numbers in
+     |          regression)
+     |      
+     |      sample_weight : array-like of shape (n_samples,), default=None
+     |          Per-sample weights. Rescale C per sample. Higher weights
+     |          force the classifier to put more emphasis on these points.
+     |      
+     |      Returns
+     |      -------
+     |      self : object
+     |      
+     |      Notes
+     |      -----
+     |      If X and y are not C-ordered and contiguous arrays of np.float64 and
+     |      X is not a scipy.sparse.csr_matrix, X and/or y may be copied.
+     |      
+     |      If X is a dense array, then the other methods will not support sparse
+     |      matrices as input.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from sklearn.svm._base.BaseLibSVM:
+     |  
+     |  coef_
+     |  
+     |  n_support_
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from sklearn.base.BaseEstimator:
+     |  
+     |  __getstate__(self)
+     |  
+     |  __repr__(self, N_CHAR_MAX=700)
+     |      Return repr(self).
+     |  
+     |  __setstate__(self, state)
+     |  
+     |  get_params(self, deep=True)
+     |      Get parameters for this estimator.
+     |      
+     |      Parameters
+     |      ----------
+     |      deep : bool, default=True
+     |          If True, will return the parameters for this estimator and
+     |          contained subobjects that are estimators.
+     |      
+     |      Returns
+     |      -------
+     |      params : mapping of string to any
+     |          Parameter names mapped to their values.
+     |  
+     |  set_params(self, **params)
+     |      Set the parameters of this estimator.
+     |      
+     |      The method works on simple estimators as well as on nested objects
+     |      (such as pipelines). The latter have parameters of the form
+     |      ``<component>__<parameter>`` so that it's possible to update each
+     |      component of a nested object.
+     |      
+     |      Parameters
+     |      ----------
+     |      **params : dict
+     |          Estimator parameters.
+     |      
+     |      Returns
+     |      -------
+     |      self : object
+     |          Estimator instance.
+    
+
 
 ### Section 4.2: Testing the SVM Classifier
 Now that we have trained the classifier by showing it the training data, we will test your classifier by predicting the labels for the test data.  We call the predicted labels `y_test_hat` where the `_hat` is in nod to the typical mathematical notation for an estimate.  Now that we have the predicted class labels `y_test_hat`, we compare them to the known class labels in `y_test`.  Here, we use two metrics to help us interpret the performance: the confusion matrix and the accuracy.  There are many other metrics available, see the documentation for `sklearn` at  https://scikit-learn.org/stable/user_guide.html.  
@@ -692,6 +1542,16 @@ acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
 
+    The confusion matrix is:
+    [[6 0]
+     [0 7]]
+    The overall accuracy is: 1.0
+
+
+    /Users/jenchang/miniconda/envs/geo_env/lib/python3.7/site-packages/sklearn/utils/validation.py:70: FutureWarning: Pass labels=('emu', 'flamingo') as keyword args. From version 0.25 passing these as positional arguments will result in an error
+      FutureWarning)
+
+
 
 ```python
 y_train_hat = clf.predict(Xn_train)
@@ -701,6 +1561,16 @@ print(C)
 acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
+
+    The confusion matrix is:
+    [[46  1]
+     [ 0 60]]
+    The overall accuracy is: 0.9906542056074766
+
+
+    /Users/jenchang/miniconda/envs/geo_env/lib/python3.7/site-packages/sklearn/utils/validation.py:70: FutureWarning: Pass labels=('emu', 'flamingo') as keyword args. From version 0.25 passing these as positional arguments will result in an error
+      FutureWarning)
+
 
 
 ```python
@@ -713,6 +1583,15 @@ for i in misclass_idx[0]:
     plt.imshow(I)
     plt.show()
 ```
+
+    The image 101_ObjectCategories/emu/image_0017.jpg is misclassified
+
+
+
+    
+![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_65_1.png)
+    
+
 
 ## <span style='color:Green'> Your turn: </span>
 What does this confusion matrix and accuracy tell you about the performance of the SVM classifier?
@@ -773,6 +1652,16 @@ acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
 
+    The confusion matrix is:
+    [[6 0]
+     [0 7]]
+    The overall accuracy is: 1.0
+
+
+    /Users/jenchang/miniconda/envs/geo_env/lib/python3.7/site-packages/sklearn/utils/validation.py:70: FutureWarning: Pass labels=('emu', 'flamingo') as keyword args. From version 0.25 passing these as positional arguments will result in an error
+      FutureWarning)
+
+
 ### Section 4.4 Exploring discriminative capabilities of different features
 We can train an SVM using only a subset of the features that we have defined.  This is essentially an exploration of the discriminatory potential of different individual features or sets of features via ablation.  In the code below, we re-compute the feature matrices and label vectors for the `'emu'` versus `'flamingo'` problem.  Since we will be using subsets of features, we extract all features here and will use slicing to send a subset of features to the SVM classifier.
 
@@ -832,6 +1721,13 @@ acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
 
+    Color features only:
+    The confusion matrix is:
+    [[4 2]
+     [2 5]]
+    The overall accuracy is: 0.6923076923076923
+
+
 
 ```python
 clf = svm.SVC(kernel='linear')
@@ -845,6 +1741,13 @@ acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
 
+    Region features only:
+    The confusion matrix is:
+    [[6 0]
+     [1 6]]
+    The overall accuracy is: 0.9230769230769231
+
+
 
 ```python
 clf = svm.SVC(kernel='linear')
@@ -857,6 +1760,13 @@ print(C)
 acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
+
+    Texture features only:
+    The confusion matrix is:
+    [[4 2]
+     [1 6]]
+    The overall accuracy is: 0.7692307692307693
+
 
 ## <span style='color:Green'> Your turn: </span>
 Choose two or more categories from the CalTech101 dataset that you think might be more or less amenable to discrimination using certain feature subsets.  Using those categories, explore the discriminative capabilities of different feature subsets.  The basic code for using color features only for the `'emu'` versus `'flamingo'` classification problem is copied into the cell below for ease of editing.
@@ -908,6 +1818,13 @@ print(C)
 acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
+
+    Color features only:
+    The confusion matrix is:
+    [[4 2]
+     [2 5]]
+    The overall accuracy is: 0.6923076923076923
+
 
 ### Section 4.5 Other Classifiers
 There are many other classifiers available in the `sklearn` package, see https://scikit-learn.org/stable/user_guide.html for documentation.  
@@ -966,6 +1883,12 @@ acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
 
+    The confusion matrix is:
+    [[5 1]
+     [3 4]]
+    The overall accuracy is: 0.6923076923076923
+
+
 
 ```python
 from sklearn import neighbors
@@ -1013,6 +1936,12 @@ print(C)
 acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 ```
+
+    The confusion matrix is:
+    [[6 0]
+     [1 6]]
+    The overall accuracy is: 0.9230769230769231
+
 
 
 ```python
@@ -1062,6 +1991,12 @@ acc = np.diag(C).sum().astype(float)/C.sum()
 print('The overall accuracy is: '+ str(acc))
 
 ```
+
+    The confusion matrix is:
+    [[6 0]
+     [0 7]]
+    The overall accuracy is: 1.0
+
 
 
 ```python
