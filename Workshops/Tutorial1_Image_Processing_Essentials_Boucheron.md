@@ -1,4 +1,14 @@
-# Image Processing Fundamentals
+---
+title: Image Processing Fundamentals
+layout: single
+author: Kerrie Geil
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+--- 
+
+# Tutorial 1: Image Processing Fundamentals
 
 This tutorial was modified from the 2020 AI Workshop which itself was modifed from tutorials given by Laura E. Boucheron, Electrical & Computer Engineering, NMSU
 
