@@ -1,26 +1,23 @@
----
-title: Premeeting
-layout: single
-author: Kerrie Geil
-author_profile: true
-header:
-  overlay_color: "444444"
-  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+# Image Processing Fundamentals
 
-# Tutorial 1: Image Processing Fundamentals
-## Laura E. Boucheron, Electrical & Computer Engineering, NMSU
-### October 2020
-Copyright (C) 2020  Laura E. Boucheron
+This tutorial was modified from the 2020 AI Workshop which itself was modifed from tutorials given by Laura E. Boucheron, Electrical & Computer Engineering, NMSU
 
-This information is free; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-
-This work is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this work in a file `COPYING.TXT`; if not, see <https://www.gnu.org/licenses/>.
+> Copyright (C) 2020  Laura E. Boucheron
+> 
+> This information is free; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+> 
+> This work is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+> 
+> You should have received a copy of the GNU General Public License along with this work in a file `COPYING.TXT`; if not, see <https://www.gnu.org/licenses/>.
+> 
 
 ## Overview
+
 In this tutorial, we present a brief overview of image processing concepts necessary to understand machine learning and deep learning.  Completion of this tutorial should give participants the basic background and terminology necessary for an understanding of the basics of image processing and the common manipulations of images used for machine learning and deep learning.
+
+A jupyter notebook is made available so you can interactively work through the tutorial. If you haven't already, see [Introduction to Jupyter Notebook] and return after you are done.
+
+* [Tutorial1_Image_Processing_Essentials_Boucheron.ipynb](https://geospatial.101workbook.org/tutorials/Tutorial1_Image_Processing_Essentials_Boucheron.ipynb)
 
 This tutorial contains 5 sections:
   - **Section 0: Preliminaries**: some notes on using this notebook and how to download the two images that we will use for this tutorial
@@ -28,11 +25,12 @@ This tutorial contains 5 sections:
   - **Section 2: Working with Color Images**: how to read, query characteristics, interpret, and display color images
   - **Section 3: Transforming Images**: how to convert between grayscale and color images, how to rescale the spatial dimensions of an image through cropping and resizing, and other geometric transformations
   - **Section 4: Filtering Images**: the basics of filtering images through convolution with a filter kernel
-  
+
 There are subsections with the heading **<span style='color:Green'> Your turn: </span>** throughout this tutorial in which you will be asked to apply what you have learned.
 
-# Section 0: Preliminaries 
-## Section 0.1 A Note on Jupyter Notebooks
+# Section 1: Preliminaries 
+
+## Section 0.1 A reminder on Jupyter Notebooks
 
 There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes. 
 
@@ -49,7 +47,21 @@ Once you have completed (all or part) of this notebook, you can share your resul
 ## Section 0.2 Downloading Images
 First, we need to download images to work with in this tutorial.  Download `cameraman.png` and `peppers.png` from the DL workshop website (https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/) and save them to the same directory as this notebook.  Both of these images are common example images used in image processing and are often included as part of the distribution of image processing toolboxes.
 
+cameraman.png|peppers.png            
+:-------------------------:|:-------------------------:
+<img src="https://geospatial.101workbook.org/tutorials/data/cameraman.png">   | <img src="https://geospatial.101workbook.org/tutorials/data/peppers.png">
+
+You can download the images by right clicking the images above, and saving to your computer. If you are working from an HPC or terminal, you can also use the `wget` command.
+
+```bash
+wget https://geospatial.101workbook.org/tutorials/data/cameraman.png
+wget https://geospatial.101workbook.org/tutorials/data/peppers.png
+```
+
+Notice how the left image `cameraman.png` is in grayscale while the `peppers.png` is in color. This means the amount of information (bands) per region of picture is going to be different.   Sometimes you want to focus on certain features which is better rendered/analyzed in grayscale or in color. You may be reducing the datasize by converting the color image to grayscale, or mapping an important band (more on that later) to a color.
+
 ## Section 0.3a Import Necessary Libraries (For users using a local machine)
+
 First, we import necessary libraries:
   - We `import numpy as np` mostly out of habit since `numpy` contains many common mathematical and scientific functions
   - We import the `matplotlib` plotting library which provides many common plotting routines (including image visualization).  There are other plotting libraries, but `matplotlib` was designed to mimic much of the functionality of Matlab plotting and is thus very nice for those of us who transitioned from Matlab to python.
@@ -72,7 +84,9 @@ import scipy.ndimage as ndimage
 ```
 
 ## Section 0.3b Build the Conda Environment (For users using the ARS HPC Ceres with JupyterLab)
+
 Open a terminal from inside JupyterLab (File > New > Terminal) and type the following commands
+
 ```
 source activate
 wget https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/aiworkshop.yml
@@ -87,6 +101,8 @@ When the environment finishes building, select this environment as your kernel i
 
 You will want to do this BEFORE the workshop starts.
 
+To see more information about Conda Environments, see this tutorial.
+
 # Section 1: Working with Grayscale Images
 
 ## 1.1 Reading in the image
@@ -94,7 +110,8 @@ We can read in the images using the `imageio.imread` command.  We explicitly cas
 
 
 ```python
-I_camera = np.asarray(imageio.imread('cameraman.png'))
+INFILE='data/cameraman.png'                    # path to image
+I_camera = np.asarray(imageio.imread(INFILE))  # load image and convert to array
 ```
 
 ## 1.2 Displaying the image
@@ -102,10 +119,16 @@ Let's display this image.  We use the `matplotlib` `imshow` command.
 
 
 ```python
-plt.figure() # open a new figure window
-plt.imshow(I_camera,cmap='gray') # visualize the I_camera image with a grayscale colormap
-plt.show() # show the plot
+plt.figure()                      # open a new figure window
+plt.imshow(I_camera, cmap='gray') # visualize the I_camera image with a grayscale colormap
+plt.show()                        # show the plot
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_10_0.png)
+​    
+
 
 ### A note about coordinate conventions
 
@@ -123,36 +146,52 @@ There are various choices in display that you can make, including:
 
 ```python
 plt.rcParams.update({'font.size': 20})
-plt.figure(figsize=(20,20)) # open a new figure window of size 20x20 (artbitrary units)
-plt.imshow(I_camera,cmap='gray') # visualize the I_camera image with a grayscale colormap
-plt.axis('off') # turn off the axis labels
-plt.xlabel('flamingos') # provide a label for the x axis
-plt.ylabel('emus') # provide a label for the y axis
-plt.title('Emus versus flamingos') # provide a title for the plot
-plt.show() # show the plot
+plt.figure(figsize=(10,10))              # open a new figure window of size 10x10 (artbitrary units)
+plt.imshow(I_camera, cmap='gray')        # visualize the I_camera image with a grayscale colormap
+plt.axis('off')                          # turn off the axis labels
+plt.xlabel('flamingos')                  # provide a label for the x axis
+plt.ylabel('emus')                       # provide a label for the y axis
+plt.title('Emus versus flamingos')       # provide a title for the plot
+plt.show()                               # show the plot
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_13_0.png)
+​    
+
 
 ## <span style='color:Green'> Your turn:  </span>
 Choose a figure size so that the image fills the width of your notebook and provide a descriptive title to your image.  You may also choose to label your axes or not, per your preference.  For what it's worth, image processing people don't tend to display axis labels. 
 
 
 ```python
-plt.figure(figsize=(20,20)) # open a new figure window of size 20x20 (artbitrary units)
-plt.imshow(I_camera,cmap='gray') # visualize the I_camera image with a grayscale colormap
+plt.figure(figsize=(10,10))           # open a new figure window of size 20x20 (artbitrary units)
+plt.imshow(I_camera, 
+           cmap='gray')     # visualize the I_camera image with a grayscale colormap
 plt.axis('off') # turn off the axis labels
 plt.title('Cameraman, grayscale') # provide a title for the plot
 plt.show() # show the plot
 ```
 
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_15_0.png)
+​    
+
+
 ## 1.4 Printing Image Characteristics
-We can check on important characteristics of `I_camera` using the `%whos` magic ipython command.  Note--within some environments, including jupyter notebooks, you can drop the `%` althought it's probably best practice to get used to including it.
+We can check on important characteristics of `I_camera` using the `%whos` magic ipython command.  Note--within some environments, including jupyter notebooks, you can drop the `%` althought it's probably best practice to get used to including it. `%whos` prints out all variables (data) defined so far. For those who are familiar with R, this is similar to RStudio's environment pane, or R's `ls()` command. To learn more please see [ipython %whos documentation](https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-whos)
 
 ### 1.4.1 Using the %whos command
 
 
 ```python
-%whos
+%whos        # prints out each variable and type, similar to RStudio's environment panel
 ```
+
+    No variables match your requested type.
+
 
 ### A note on common image variable types
 We see that `I_camera` is an `ndarray` of size $256\times256$ pixels and of variable type `uint8` (unsigned 8-bit integer).  Remember that computers store data natively in binary (base-2) format.  The `uint8` variable type means we have 8 bits (the `'8'` in `uint8`) to represent a range of positive (the `'u'` in `uint8`) integers (the `'int'` in `uint8`).  It is very common that image pixels are represented as `uint8` variables, which also indicates that the pixels are within the range $[0,255]$ (since $2^0-1=0$ and $2^8-1=255$).  
@@ -160,13 +199,17 @@ We see that `I_camera` is an `ndarray` of size $256\times256$ pixels and of vari
 Since there is only one color channel, i.e., `I_camera` is a 2D array $\in\mathbb{R}^{N\times M}$ rather than a 3D array $\in\mathbb{R}^{N\times M\times C}$ (more on that later), we also know that this is a grayscale image.
 
 ### 1.4.2 Printing the max and min values of an image
-We can check for the actual maximum and minimum values of the image.
+We can check for the actual maximum and minimum values of the image to find the darkest and lightest pixel values. If the image is the same shade, min will equal max.
 
 
 ```python
-print('The minimum value of I_camera is '+str(I_camera.min()))
-print('The maximum value of I_camera is '+str(I_camera.max()))
+print('The minimum value of I_camera is ' + str(I_camera.min()))
+print('The maximum value of I_camera is ' + str(I_camera.max()))
 ```
+
+    The minimum value of I_camera is 7
+    The maximum value of I_camera is 253
+
 
 ### A note on image intensity conventions
 We note that this ```I_camera``` image spans the range $[7,253]$.  In grayscale images, it is common interpretation that **darker pixels have smaller intensity values and lighter pixels have larger intensity values**.  
@@ -176,9 +219,21 @@ It is also important to remember that the computer "sees" only an array of value
 
 
 ```python
-print(I_camera[100:110,100:110])
-I_camera_portion = I_camera[100:110,100:110]
+print(I_camera[100:110, 100:110])               # subregion that is 10 x 10 pixels          
+I_camera_portion = I_camera[100:110, 100:110]
 ```
+
+    [[  9  11  13  11  11  11  16 106 178  68]
+     [ 12  12  12  11  12  11  69 181  62  15]
+     [ 13  12  12  11  12  82 168  60  14  13]
+     [ 11  10   9  10  69 182  67  14  12  14]
+     [ 10  10  10  71 200  81  15  12  14  14]
+     [ 12  12  58 204  91  17  12  14  14  17]
+     [ 11  46 201 106  18  14  16  15  16  16]
+     [ 34 185 122  23  10  14  17  16  13  13]
+     [186 135  30  11   9   9  10  10   9  10]
+     [154  33  11  13  12   9   9   9   9  11]]
+
 
 ## <span style='color:Green'> Your turn:  </span>
 What does this printout tell us about the structure in that part of the image?  
@@ -191,11 +246,18 @@ We could use `plt.imshow` to display that small portion of the image.
 
 ```python
 plt.figure()
-plt.imshow(I_camera[100:110,100:110],cmap='gray')
+plt.imshow(I_camera[100:110, 100:110], 
+           cmap='gray')
 plt.axis('off')
 plt.title('Cameraman portion, grayscale') 
 plt.show() 
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_28_0.png)
+​    
+
 
 ## <span style='color:Green'> Your turn:  </span>
 Does this display of the image verify your interpretation from the printout of the pixel values?
@@ -208,15 +270,21 @@ Here, we maintain the display of the whole image, and plot a yellow box around t
 
 ```python
 plt.figure(figsize=(10,10)) 
-plt.imshow(I_camera,cmap='gray') 
+plt.imshow(I_camera, cmap='gray') 
 plt.axis('off') 
 plt.title('Cameraman, grayscale') 
-plt.plot([100,100],[100,110],'y-',linewidth=3)
-plt.plot([110,110],[100,110],'y-',linewidth=3)
-plt.plot([100,110],[100,100],'y-',linewidth=3)
-plt.plot([100,110],[110,110],'y-',linewidth=3)
+plt.plot([100,100], [100,110], 'y-',linewidth=3)       # Draws the yellow rectangle
+plt.plot([110,110], [100,110], 'y-',linewidth=3)
+plt.plot([100,110], [100,100], 'y-',linewidth=3)
+plt.plot([100,110], [110,110], 'y-',linewidth=3)
 plt.show() 
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_32_0.png)
+​    
+
 
 ## <span style='color:Green'> Your turn:  </span>
 What happens if you plot the image using `imshow` but "forget" to specify the colormap as `gray`?
@@ -244,13 +312,19 @@ Now, we turn to the color `peppers.png` image.  We use the same command to read 
 
 
 ```python
-I_pepper = np.asarray(imageio.imread('peppers.png'))
+I_pepper = np.asarray(imageio.imread('data/peppers.png'))
 plt.figure(figsize=(5,5)) # open a new figure window of size 20x20 (artbitrary units)
 plt.imshow(I_pepper) # visualize the I_pepper image with a default colormap
 plt.axis('off') # turn off the axis labels
 plt.title('Peppers, RGB') # provide a title for the plot
 plt.show() # show the plot
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_38_0.png)
+​    
+
 
 ## 2.2 Printing image characteristics
 We can check on important characteristics of `I_pepper`.
@@ -262,6 +336,19 @@ We can check on important characteristics of `I_pepper`.
 %whos
 ```
 
+    Variable           Type       Data/Info
+    ---------------------------------------
+    INFILE             str        data/cameraman.png
+    I_camera           ndarray    256x256: 65536 elems, type `uint8`, 65536 bytes
+    I_camera_portion   ndarray    10x10: 100 elems, type `uint8`, 100 bytes
+    I_pepper           ndarray    384x512x3: 589824 elems, type `uint8`, 589824 bytes (576.0 kb)
+    imageio            module     <module 'imageio' from '/<...>ges/imageio/__init__.py'>
+    ndimage            module     <module 'scipy.ndimage' f<...>ipy/ndimage/__init__.py'>
+    np                 module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
+    plt                module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
+    skimage            module     <module 'skimage' from '/<...>ges/skimage/__init__.py'>
+
+
 ### A note on color channel conventions
 We see that `I_pepper` is an `ndarray` of size $384\times512\times 3$ pixels and of variable type `uint8` (unsigned 8-bit integer).  We thus have a 3-channel image where the three channels are assumed to be a red (R), green (G), and blue (B) channel, i.e., an RGB image.  **By convention, the first channel is assumed to be R, the second G, and the third B.**
 
@@ -272,19 +359,33 @@ We can check for the actual maximum and minimum values of the image or of the R,
 
 
 ```python
-print('Max and min values of the image:')
+print('Max and min values of the image:')          # Min and max across all channels
 print('    Min: '+str(I_pepper.min()))
 print('    Max: '+str(I_pepper.max()))
-print('Max and min values of the red channel:')
+print('Max and min values of the red channel:')    # The zero [:,:,0] indices is R (red) channel
 print('    Min: '+str(I_pepper[:,:,0].min()))
 print('    Max: '+str(I_pepper[:,:,0].max()))
-print('Max and min values of the green channel:')
+print('Max and min values of the green channel:')  # The one [:,:,1] indices is G (green) channel
 print('    Min: '+str(I_pepper[:,:,1].min()))
 print('    Max: '+str(I_pepper[:,:,1].max()))
-print('Max and min values of the blue channel:')
+print('Max and min values of the blue channel:')   # The two [:,:,2] indices is B (blue) channel
 print('    Min: '+str(I_pepper[:,:,2].min()))
 print('    Max: '+str(I_pepper[:,:,2].max()))
 ```
+
+    Max and min values of the image:
+        Min: 0
+        Max: 255
+    Max and min values of the red channel:
+        Min: 5
+        Max: 255
+    Max and min values of the green channel:
+        Min: 1
+        Max: 255
+    Max and min values of the blue channel:
+        Min: 0
+        Max: 255
+
 
 ### A note on intensity conventions in color images
 We note that this ```I_pepper``` image spans the range $[5,255]$ in R, $[1,255]$ in G, and $[0,255]$ in B.  We also note that when we didn't specify a color channel, python returned the max and min across the three color channels.
@@ -297,12 +398,47 @@ Since we have three color channels in this color image, we print out each of the
 
 ```python
 print('Red:')
-print(I_pepper[100:110,100:110,0])
+print(I_pepper[100:110,100:110,0])         # This is taking a similar 10 x 10 pixel portion
 print('Green')
 print(I_pepper[100:110,100:110,1])
 print('Blue')
 print(I_pepper[100:110,100:110,2])
 ```
+
+    Red:
+    [[ 62  60  60  61  61  61  60  57  61  67]
+     [ 64  61  59  60  59  56  55  56  59  64]
+     [ 62  62  61  59  56  52  62  73  85  92]
+     [ 64  63  61  66  67  77  92 101 108 112]
+     [ 63  60  59  71  86  96 102 109 110 114]
+     [ 71  67  71  84  96 100 106 115 119 120]
+     [107 104 100  99 104 109 112 123 126 127]
+     [118 116 116 113 114 118 113 117 129 135]
+     [120 119 117 110 105 108 110 107 114 127]
+     [129 129 123 121 115 115 111 105 103 105]]
+    Green
+    [[ 34  35  36  36  33  32  32  34  34  38]
+     [ 37  36  36  36  33  33  33  33  34  41]
+     [ 35  36  37  39  38  37  44  58  72  85]
+     [ 36  36  35  38  47  69  87  99 108 114]
+     [ 39  37  39  57  82  97 103 107 113 117]
+     [ 55  49  60  85  96 105 110 114 119 122]
+     [104 100  99 101 103 108 116 119 121 124]
+     [115 113 114 114 114 115 114 116 125 133]
+     [116 112 110 109 105 106 107 108 111 123]
+     [123 124 120 117 113 111 108 104 100  99]]
+    Blue
+    [[60 63 64 61 58 56 55 55 61 66]
+     [66 63 61 60 60 59 56 57 55 55]
+     [60 63 67 62 58 56 50 46 40 34]
+     [61 61 64 60 50 44 29 21 16 11]
+     [66 60 55 43 36 28 16 10 15 21]
+     [49 48 37 26 22 19 13  6 10 16]
+     [23 23 21 20 19 18 14  9 10  6]
+     [24 21 23 24 24 30 23 17 19 22]
+     [32 32 31 28 23 26 27 22 15 22]
+     [32 26 15 11 12  7  8 15 12 14]]
+
 
 ## <span style='color:Green'> Your turn:  </span>
 What does this printout tell us about the structure in that part of the image?  It can be a bit harder to interpret this sort of printout for a color image since we must keep track of multiple color channels simultaneously.  There are other color spaces in which color interpretation are easier (e.g., HSV), but that is outside the scope of this tutorial.
@@ -360,9 +496,30 @@ I_pepper_gray.shape
 ```
 
 
+
+
+    (384, 512)
+
+
+
+
 ```python
 %whos
 ```
+
+    Variable           Type       Data/Info
+    ---------------------------------------
+    INFILE             str        data/cameraman.png
+    I_camera           ndarray    256x256: 65536 elems, type `uint8`, 65536 bytes
+    I_camera_portion   ndarray    10x10: 100 elems, type `uint8`, 100 bytes
+    I_pepper           ndarray    384x512x3: 589824 elems, type `uint8`, 589824 bytes (576.0 kb)
+    I_pepper_gray      ndarray    384x512: 196608 elems, type `float64`, 1572864 bytes (1.5 Mb)
+    imageio            module     <module 'imageio' from '/<...>ges/imageio/__init__.py'>
+    ndimage            module     <module 'scipy.ndimage' f<...>ipy/ndimage/__init__.py'>
+    np                 module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
+    plt                module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
+    skimage            module     <module 'skimage' from '/<...>ges/skimage/__init__.py'>
+
 
 The image `I_pepper_gray` is $385\times512$ pixels (the same spatial dimensions as `I_pepper`) and has one color channel.  It is of variable type `float64`.
 
@@ -372,6 +529,11 @@ print('Max and min values of the image:')
 print('    Min: '+str(I_pepper_gray.min()))
 print('    Max: '+str(I_pepper_gray.max()))
 ```
+
+    Max and min values of the image:
+        Min: 0.029147450980392158
+        Max: 1.0
+
 
 
 ```python
@@ -384,9 +546,23 @@ I_pepper_float.min()
 ```
 
 
+
+
+    0.0
+
+
+
+
 ```python
 I_pepper_float.max()
 ```
+
+
+
+
+    1.0
+
+
 
 Another example of the importance of variable types and the implied ranges:
 
@@ -400,14 +576,34 @@ plt.show()
 ```
 
 
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_65_0.png)
+​    
+
+
+
 ```python
 I_pepper_gray_uint8.min()
 ```
 
 
+
+
+    0
+
+
+
+
 ```python
 I_pepper_gray_uint8.max()
 ```
+
+
+
+
+    1
+
+
 
 
 ```python
@@ -417,6 +613,12 @@ plt.figure(figsize=(7,7))
 plt.imshow(I_pepper_andrew,cmap='gray')
 plt.show()
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_68_0.png)
+​    
+
 
 ### A note about float-valued images
 You will probably have noticed that the variable `I_pepper_gray` is now a float-valued array, and that the range is now within $[0,1]$.  This is another common range for images.  Some functions, e.g., functions that write out to standard image formats, may expect `uint8` variables.  You can always cast back to `uint8` as needed, e.g., `I_pepper_gray_uint8=(I_pepper_gray*255).astype(np.uint8)`.
@@ -439,6 +641,12 @@ plt.title('Peppers, rgb2gray')
 plt.show()
 ```
 
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_71_0.png)
+​    
+
+
 ## 3.2 Grayscale to Color
 We can similarly convert a grayscale image to a color image using a standard command included in Scikit-Image.  It is important to note that this conversion is really just creation of an image with a third dimension.  Each of the color channels will be identical since we cannot infer color from solely a grayscale image.
 
@@ -456,9 +664,23 @@ type(I_camera_rgb[0][0][0])
 ```
 
 
+
+
+    numpy.uint8
+
+
+
+
 ```python
 type(I_camera_rgb)
 ```
+
+
+
+
+    numpy.ndarray
+
+
 
 
 ```python
@@ -466,9 +688,34 @@ I_camera_rgb.dtype
 ```
 
 
+
+
+    dtype('uint8')
+
+
+
+
 ```python
 %whos
 ```
+
+    Variable              Type       Data/Info
+    ------------------------------------------
+    INFILE                str        data/cameraman.png
+    I_camera              ndarray    256x256: 65536 elems, type `uint8`, 65536 bytes
+    I_camera_portion      ndarray    10x10: 100 elems, type `uint8`, 100 bytes
+    I_camera_rgb          ndarray    256x256x3: 196608 elems, type `uint8`, 196608 bytes (192.0 kb)
+    I_pepper              ndarray    384x512x3: 589824 elems, type `uint8`, 589824 bytes (576.0 kb)
+    I_pepper_andrew       ndarray    384x512: 196608 elems, type `float64`, 1572864 bytes (1.5 Mb)
+    I_pepper_float        ndarray    384x512x3: 589824 elems, type `float64`, 4718592 bytes (4.5 Mb)
+    I_pepper_gray         ndarray    384x512: 196608 elems, type `float64`, 1572864 bytes (1.5 Mb)
+    I_pepper_gray_uint8   ndarray    384x512: 196608 elems, type `uint8`, 196608 bytes (192.0 kb)
+    imageio               module     <module 'imageio' from '/<...>ges/imageio/__init__.py'>
+    ndimage               module     <module 'scipy.ndimage' f<...>ipy/ndimage/__init__.py'>
+    np                    module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
+    plt                   module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
+    skimage               module     <module 'skimage' from '/<...>ges/skimage/__init__.py'>
+
 
 The image `I_camera_rgb` is $256\times256$ pixels (the same spatial dimensions as `I_camera`) and has three color channel.  It is of variable type `uint8`.
 
@@ -488,6 +735,20 @@ print('    Min: '+str(I_camera_rgb[:,:,2].min()))
 print('    Max: '+str(I_camera_rgb[:,:,2].max()))
 ```
 
+    Max and min values of the image:
+        Min: 7
+        Max: 253
+    Max and min values of the red channel:
+        Min: 7
+        Max: 253
+    Max and min values of the green channel:
+        Min: 7
+        Max: 253
+    Max and min values of the blue channel:
+        Min: 7
+        Max: 253
+
+
 ## <span style='color:Green'> Your turn:  </span>
 We expect that the three color channels in this `I_camera_rgb` image are identical.  Print out a small portion of the image to verify this to yourself.
 
@@ -501,23 +762,64 @@ print('Blue')
 print(I_camera_rgb[100:110,100:110,2])
 ```
 
+    Red:
+    [[  9  11  13  11  11  11  16 106 178  68]
+     [ 12  12  12  11  12  11  69 181  62  15]
+     [ 13  12  12  11  12  82 168  60  14  13]
+     [ 11  10   9  10  69 182  67  14  12  14]
+     [ 10  10  10  71 200  81  15  12  14  14]
+     [ 12  12  58 204  91  17  12  14  14  17]
+     [ 11  46 201 106  18  14  16  15  16  16]
+     [ 34 185 122  23  10  14  17  16  13  13]
+     [186 135  30  11   9   9  10  10   9  10]
+     [154  33  11  13  12   9   9   9   9  11]]
+    Green
+    [[  9  11  13  11  11  11  16 106 178  68]
+     [ 12  12  12  11  12  11  69 181  62  15]
+     [ 13  12  12  11  12  82 168  60  14  13]
+     [ 11  10   9  10  69 182  67  14  12  14]
+     [ 10  10  10  71 200  81  15  12  14  14]
+     [ 12  12  58 204  91  17  12  14  14  17]
+     [ 11  46 201 106  18  14  16  15  16  16]
+     [ 34 185 122  23  10  14  17  16  13  13]
+     [186 135  30  11   9   9  10  10   9  10]
+     [154  33  11  13  12   9   9   9   9  11]]
+    Blue
+    [[  9  11  13  11  11  11  16 106 178  68]
+     [ 12  12  12  11  12  11  69 181  62  15]
+     [ 13  12  12  11  12  82 168  60  14  13]
+     [ 11  10   9  10  69 182  67  14  12  14]
+     [ 10  10  10  71 200  81  15  12  14  14]
+     [ 12  12  58 204  91  17  12  14  14  17]
+     [ 11  46 201 106  18  14  16  15  16  16]
+     [ 34 185 122  23  10  14  17  16  13  13]
+     [186 135  30  11   9   9  10  10   9  10]
+     [154  33  11  13  12   9   9   9   9  11]]
+
+
 ## <span style='color:Green'> Your turn:  </span>
 Display this new RGB image `I_camera_rgb`.
 
 
 ```python
-plt.figure(figsize=(20,20)) 
+plt.figure(figsize=(10,10)) 
 plt.imshow(I_camera_rgb) 
 plt.axis('off') 
 plt.title('Cameraman, gray2rgb')
 plt.show()
 ```
 
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_84_0.png)
+​    
+
+
 ### A note about why we might convert a grayscale image to a "color" image
 We note, unsurprisingly, that the `I_camera_rgb` still appears as a grayscale image.  It just happens to have 3 identical color channels.  In the meantime, we may be using three times the space to represent this image, but the fact that it now has 3 color channels instead of 1 will be key when we begin studying deep learning networks.  
 
 # 3.3 Cropping
-Suppose that we have a network that expects a $256\times256$ image as input, i.e., the dimensionality of the `cameraman.png` image.  If we want to input `peppers.png` we have two problems: it has three color channels and it is of spatial dimension $384\times512$.  We know that we can convert the RGB image to a grayscale image.  Now we have to figure out how to rescale the spatial dimensions
+Suppose that we have a network that expects a $256\times256$ image as input, i.e., the **dimensionality** of the `cameraman.png` image.  If we want to input `peppers.png` we have two problems: it has three color channels and it is of spatial dimension $384\times512$.  We know that we can convert the RGB image to a grayscale image.  Now we have to figure out how to rescale the spatial dimensions
 
 If we crop the image, we choose some $256\times256$ pixels to retain.  For example if we kept the upper left corner of the image, we would have an image such as follows.
 
@@ -530,6 +832,12 @@ plt.axis('off')
 plt.title('Peppers, gray, cropped')
 plt.show()
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_87_0.png)
+​    
+
 
 ### Cropping removes parts of the image
 We note, unsurprisingly, that we have completely removed parts of the pepper image.
@@ -549,6 +857,12 @@ plt.axis('off')
 plt.title('Peppers, gray, resized')
 plt.show()
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_90_0.png)
+​    
+
 
 ### Resizing can distort the aspect ratio
 Here we note that we have distorted the aspect ratio of the original ```peppers.png``` image.  In some applications this may not matter and in others it might matter a great deal.  In general, depending on the application, you may want to consider a combination of resizing and cropping.  
@@ -570,6 +884,12 @@ plt.axis('off')
 plt.title('Peppers, gray, cropped and resized')
 plt.show()
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_94_0.png)
+​    
+
 
 
 ```python
@@ -596,10 +916,16 @@ plt.title('Cameraman, color, resized and cropped')
 plt.show()
 ```
 
-# Section 4: Filtering Images
-We will find that a key element of convolutional neural networks (CNNs) is a convolutional layer.  It is thus critical that we understand the basics of image convolution and how to interpret those results. 
 
-Convolution is the means to filter an image in the spatial domain.  This requires the definition of a filter kernel.  The filter kernel is a 2D or 3D array of filter coefficients, generally much smaller in spatial extent than the image.
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_97_0.png)
+​    
+
+
+# Section 4: Filtering Images
+We will find that a key element of [convolutional neural networks (CNNs)](https://en.wikipedia.org/wiki/Convolutional_neural_network) is a **convolutional layer**.  It is thus critical that we understand the basics of **image convolution** and how to interpret those results. 
+
+Convolution is the means to filter an image in the spatial domain.  This requires the definition of a **filter kernel**.  The filter kernel is a 2D or 3D array of filter coefficients, generally much smaller in spatial extent than the image.
 
 ## 4.1 Low Pass (Smoothing) Filters
 Many commonly used image filters are defined in `scipy.ndimage`.  Here, we explore how to explicity define a filter kernel and convolve that kernel with an image.  This will prepare us better to interpret the convolutional layers in CNNs.  We will use the `ndimage.filters.convolve` function here.
@@ -637,6 +963,12 @@ plt.title('h2')
 plt.show()
 ```
 
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_103_0.png)
+​    
+
+
 ## <span style='color:Green'> Your turn:  </span>
 What effect has each of the filters `h1` and `h2` had on the image?
 
@@ -645,7 +977,7 @@ Both filters have blurred the image, with `h2` having a more pronounced effect (
 ## 4.2 High Pass (Edge Enhancing) Filters
 
 ### 4.2.1 Define the filter kernels
-We define two filters `h3` and `h4`.  These are very simple highpass (edge enhancing) filters called the Sobel filters.
+We define two filters `h3` and `h4`.  These are very simple highpass (edge enhancing) filters called the [Sobel filters](https://en.wikipedia.org/wiki/Sobel_operator).
 
 
 ```python
@@ -675,6 +1007,14 @@ print('    Min: '+str(I_camera_h4.min()))
 print('    Max: '+str(I_camera_h4.max()))
 ```
 
+    Max and min values of the h3 filtered image:
+        Min: -861.0
+        Max: 893.0
+    Max and min values of the h4 filtered image:
+        Min: -900.0
+        Max: 882.0
+
+
 The Sobel filters are designed to approximate the first derivative of the image.  As such, we might expect that the derivative (think slope) will potentially be positive or negative and could span a different absolute range than the original $[0,255]$.  We can get a better sense of the edge enhancement capabilities of `h3` and `h4` if we look only at the positive values.  Looking only at the positive values rather than the absolute value will be more consistent with the activation function we will use in convolutional neural networks.  We first clip all negative values in the images to zero and then visualize the filtered output.
 
 
@@ -696,6 +1036,12 @@ plt.axis('off')
 plt.title('h4')
 plt.show()
 ```
+
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_114_0.png)
+​    
+
 
 Keeping both positive and negative.  Notice that zero intensity manifests as medium gray now.  Large positive are white.  Large negative are black.
 
@@ -723,9 +1069,12 @@ plt.show()
 ```
 
 
-```python
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_116_0.png)
+​    
+
+
 Looking at absolute value of the filtered image.
-```
 
 
 ```python
@@ -748,9 +1097,12 @@ plt.title('h4')
 plt.show()
 ```
 
+
+​    
+![png](images/Tutorial1_Image_Processing_Essentials_Boucheron_118_0.png)
+​    
+
+
 When we focus only on the positive values of the filtered output, we see that the majority of the filtered image is now close to a value of 0 (i.e., black), and it is only at the edges of the image objects that we see a response (i.e., lighter values). We see that `h3` has enhanced edges oriented in a horizontal direction and `h4` has enhanced edges oriented in a vertical direction.
 
-
-```python
-
-```
+We have idnetified the edges in the image (in white) shown in h4, the rightmost image.

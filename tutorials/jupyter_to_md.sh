@@ -5,4 +5,4 @@ set -u
 
 JUPYTER_NOTEBOOK=$1
 
-jupyter nbconvert --to markdown ${JUPYTER_NOTEBOOK}
+jupyter nbconvert --output-dir='./docs' --to markdown ${JUPYTER_NOTEBOOK}

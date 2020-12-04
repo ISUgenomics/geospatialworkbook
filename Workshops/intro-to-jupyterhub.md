@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-This page was modified from Session 2 of the SCINet Geospatial Workshop 2020.
+* This page was modified from Session 2 of the SCINet Geospatial Workshop 2020.
 
 * [PMC Articles about or using JupyterHub](https://www.ncbi.nlm.nih.gov/pmc/?term=Jupyterhub)
 

@@ -10,8 +10,7 @@ Materials from the [USDA ARS AI Workshop 2020](https://kerriegeil.github.io/NMSU
 
 ## Index
 
-* [Tutorial1_Image_Processing_Essentials](Tutorial1_Image_Processing_Essentials.md)
-* [Tutorial1_Image_Processing_Essentials_Boucheron](Tutorial1_Image_Processing_Essentials_Boucheron.md)
+* [Tutorial1: Image_Processing_Essentials](Tutorial1_Image_Processing_Essentials_Boucheron.md)
 * [Tutorial2_Classical_Machine_Learning](Tutorial2_Classical_Machine_Learning.md)
 * [Tutorial2_Classical_Machine_Learning_Boucheron](Tutorial2_Classical_Machine_Learning_Boucheron.md)
 * [Tutorial3_Deep_Learning_for_Images](Tutorial3_Deep_Learning_for_Images.md)
