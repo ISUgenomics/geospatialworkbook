@@ -1,0 +1,97 @@
+---
+title: "R_Image_Processing"
+author: "Jennifer Chang"
+date: "12/3/2020"
+output:
+  github_document
+editor_options:
+  chunck_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "images/R_"
+)
+```
+
+## Overview
+
+In this tutorial, we present a brief overview of image processing concepts necessary to understand machine learning and deep learning. Completion of this tutorial should give participants the basic background and terminology necessary for an understanding of the basics of image processing and the common manipulations of images used for machine learning and deep learning.
+
+## Downloading Images
+
+We will be using the following two images:
+
+* [cameraman.png](https://geospatial.101workbook.org/Workshops/Tutorial1_Image_Processing_Essentials_Boucheron.html)
+* [peppers.png]()
+
+cameraman.png|peppers.png            
+:-------------------------:|:-------------------------:
+<img src="https://geospatial.101workbook.org/tutorials/data/cameraman.png">   | <img src="https://geospatial.101workbook.org/tutorials/data/peppers.png">
+
+## Loading images into R
+
+There are many R libraries, however for this tutorial we will be using the `imager` library available on CRAN.
+
+```{r}
+# install.packages("imager")       # <= uncomment to install
+library(imager)
+```
+
+Load and display image
+
+```{r I_camera}
+I_camera = load.image('../tutorials/data/cameraman.png')
+plot(I_camera)
+```
+
+## Subsetting the image
+
+```{r sub_I_camera}
+str(I_camera)     # cimg
+
+sub_I_camera = as.cimg(I_camera[100:110,100:110,,] )
+plot(sub_I_camera)
+```
+
+```{r}
+sub_I_camera[,,,1]
+min(sub_I_camera[,,,1])
+max(sub_I_camera[,,,1])
+```
+
+Load `peppers.png`.
+
+```{r I_pepper}
+I_pepper = load.image('../tutorials/data/peppers.png')
+plot(I_pepper)
+```
+
+Convert to grayscale
+
+```{r gray_I_pepper}
+gray_I_pepper = grayscale(I_pepper)
+plot(gray_I_pepper)
+```
+
+Now an image is really a matrix of numbers.
+
+```{r}
+dim(gray_I_pepper)   # Width_in_pixels Height_in_pixels Depth(layers) color(1=grayscale, 3=RGB)
+```
+
+```{r}
+dim(I_pepper)    # Color version
+```
+
+Identify edges
+
+```{r edge_I_camera}
+dx <- imgradient(I_camera,"x")
+dy <- imgradient(I_camera,"y")
+grad.mag <- sqrt(dx^2+dy^2)
+plot(grad.mag,main="Gradient magnitude")
+```
