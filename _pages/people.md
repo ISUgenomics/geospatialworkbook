@@ -40,6 +40,15 @@ Suzy is an ARS SCINet postdoc in the research group of Dr. Deb Peters in Las Cru
 
 <!--Suzy began working as a SCINet Postdoc in Las Cruces, NM in Dr. Deb Peters’ research group in July, 2020. After receiving her PhD in hydrometeorology from the University of Arizona, she worked at the Desert Research Institute in Las Vegas, NV, where her main research focus included climate analyses for DoD and DoE. Her background is in evaluating and improving the hydrologic observing system through combining data from a variety of sources. Some of her research that excites her most includes working towards understanding the impact of atmospheric rivers on Colorado River yield and the influence of topography on precipitation in the western US. Her research interests include making the best use of the already available suite of hydrologic observational data to gain a better understanding of the future hydroclimate.-->
 
+### Amy Hudson
+![Amy](../assets/images/people/AmyHudson.jpg){: .align-left-profile }
+Amy began her SCINet postdoc in May 2020 working with Dr. Debra Peters in Las Cruces, NM after recently completing a PhD in Natural Resources from the University of Arizona. Her research background is in examining climate-ecosystem interactions at regional to hemispheric scales by integrating multiple data sources. Past projects have focused on how changes in the Northern Hemisphere jet stream influence surface climate conditions, with impacts on the length of the growing season and continental insect migration. By leveraging signatures of climate on annual tree growth, Amy has also worked on teams to reconstruct Hadley Cell extent and summer temperatures in the US Northern Rockies, lending historical context to recent observed climate. Amy is currently involved in ARS research projects that include 1) a cross-site synthesis of the impacts of climate on long-term ecology at dryland sites and 2) determining the influence of broadscale climate on the spatial spread of the vector-borne virus Vesicular Stomatitis.
+
+
+### Yanghui Kang
+![Yanghui](../assets/images/people/YanghuiKang.jpg){: .align-left-profile }
+Yanghui started her SCINet Postdoc position in May 2020 after receiving a Ph.D. degree in Geography from the University of Wisconsin-Madison. She works with Dr. Feng Gao and Dr. Martha Anderson at the Hydrology and Remote Sensing Laboratory in the Beltsville Agricultural Research Center, Beltsville, Maryland. Yanghui’s research projects have focused on the large-scale high-resolution monitoring of core agroecosystem variables (e.g., Leaf Area Index (LAI), crop yield), with the help of satellite remote sensing, machine learning, crop growth modeling, and data assimilation techniques. At ARS, Yanghui is currently developing a machine-learning-based approach to map LAI from Landsat and Sentinel-2 images over the entire globe. She is also interested in deriving crop phenological stages from satellite observations and monitoring agroecosystem dynamics through data assimilation.
+
 ### Jennifer Chang
 
 ![Jennifer](../assets/images/people/JenChang.png){: .align-left-profile }

@@ -1,7 +1,7 @@
 ---
 title: Predicting NDVI Dynamics
 layout: single
-author: Kerrie Geil
+author: Rowan Gaffney
 author_profile: true
 header:
   overlay_color: "444444"

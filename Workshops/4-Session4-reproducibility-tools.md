@@ -2,6 +2,7 @@
 title: Research Reproducibility
 layout: single
 author: Kerrie Geil
+author1: Rowan Gaffney
 author_profile: true
 header:
   overlay_color: "444444"

@@ -1,12 +1,12 @@
 ---
 title: Premeeting
 layout: single
-author: Kerrie Geil
+author: Laura Boucheron
 author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+---
 
 # Tutorial 4: Visualizing and Modifying DL Networks
 ## Laura E. Boucheron, Electrical & Computer Engineering, NMSU
@@ -20,7 +20,7 @@ This work is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 You should have received a copy of the GNU General Public License along with this work; if not, If not, see <https://www.gnu.org/licenses/>.
 
 ## Overview
-In this tutorial, we pick up with the trained MNIST Network from Tutorial 2 and explore some ways of probing the characteristics of the trained network to help us debug common pitfalls in adapting network architectures.  
+In this tutorial, we pick up with the trained MNIST Network from Tutorial 2 and explore some ways of probing the characteristics of the trained network to help us debug common pitfalls in adapting network architectures. 
 
 This tutorial contains 5 sections:
   - **Section 0: Preliminaries**: some notes on using this notebook, how to download the image dataset that we will use for this tutorial, and import commands for the libraries necessary for this tutorial
@@ -28,15 +28,15 @@ This tutorial contains 5 sections:
   - **Section 2: Visualizing Activations** how to filter an example image through thhe MNIST network and visualize the activations
   - **Section 3: Inputting New and Different Data to the Network** how to process new data to be compatible with the MNIST network and the effects of showing a non-digit image to the network
   - **Section 4: The VGG Network** an exploration of the VGG16 network.
-  
+
 There are a few subsections with the heading "**<span style='color:Green'> Your turn: </span>**" throughout this tutorial in which you will be asked to apply what you have learned.  
 
 Portions of this tutorial have been taken or adapted from https://machinelearningmastery.com/how-to-visualize-filters-and-feature-maps-in-convolutional-neural-networks/ and the documentation at https://keras.io.
 
-# Section 0: Preliminaries 
+# Section 0: Preliminaries
 ## A Note on Jupyter Notebooks
 
-There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes. 
+There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes.
 
 Markdown cells can be augmented with a number of text formatting features, including
   - bulleted
@@ -89,7 +89,7 @@ from keras.utils import np_utils # functions to wrangle label vectors
 from keras.models import Sequential # the basic deep learning model
 from keras.layers import Dense, Flatten, Convolution2D, MaxPooling2D # important CNN layers
 from keras.models import load_model # to load a pre-saved model (may require hdf libraries installed)
-from keras.preprocessing.image import load_img # keras method to read in images 
+from keras.preprocessing.image import load_img # keras method to read in images
 from keras.preprocessing.image import img_to_array # keras method to convert images to numpy array
 from keras.applications.vgg16 import preprocess_input # keras method to transform images to VGG16 expected characteristics
 from keras.applications.vgg16 import decode_predictions # keras method to present highest ranked categories
@@ -107,11 +107,11 @@ source activate
 wget https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/aiworkshop.yml
 conda env create --prefix /project/your_project_name/envs/aiworkshop -f aiworkshop.yml
 ```
-This will build the environment in one of your project directories. It may take 5 minutes to build the Conda environment. 
+This will build the environment in one of your project directories. It may take 5 minutes to build the Conda environment.
 
 See https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/setup/ for more information.
 
-When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select) 
+When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select)
 
 You will want to do this BEFORE the workshop starts.
 
@@ -202,7 +202,7 @@ help(layer.activation)
 ```
 
 ## 1.2 A layer-wise summary of input and output shapes
-While the `summary` method of the model prints some useful information, there are additional pieces of information that can be very useful.  Below is a function definition  which will print a layer-wise summary of the input and output shapes.  This information can be very helpful in helping to understand and debug the workings (or non-workings) of the model.  This code loops over each layer in the model using the `layers` attribute of the model. 
+While the `summary` method of the model prints some useful information, there are additional pieces of information that can be very useful.  Below is a function definition  which will print a layer-wise summary of the input and output shapes.  This information can be very helpful in helping to understand and debug the workings (or non-workings) of the model.  This code loops over each layer in the model using the `layers` attribute of the model.
 
 
 ```python
@@ -288,7 +288,7 @@ The MNIST model that we trained yesterday has **more than 600,000 parameters** t
 
 We note a few things about the number of parameters per layer:
   - The second conv layer has a lot more parameters than the first.  That is due to the fact that the second conv layer filters across all 32 channels of the activations from the first conv layer.  
-  - The max pool and flatten layers don't have any parameters. 
+  - The max pool and flatten layers don't have any parameters.
   - The fully connected (dense) layers are the source of a large proportion of the total parameters in this network.
 
 ## **<span style='color:Green'> Your turn: </span>**
@@ -301,7 +301,7 @@ model1_clone.set_weights(model1.get_weights())
 
 for layer in model1_clone.layers[:-1]:
     layer.trainable=False
-    
+
 print_params(model1_clone)
 print('')
 print_shapes(model1_clone)
@@ -322,9 +322,9 @@ Each node in a fully connected layer is connected to every node in the previous 
 In this section we will explore means to visualize the activations in different layers throughout the network.
 
 ## Section 2.1 Wrangling the example input image dimensions
-The responses (activations) for each filter in a layer can be computed by sending an example image through the network and requesting that the network report the output at the layer of interest (rather than at the output layer). 
+The responses (activations) for each filter in a layer can be computed by sending an example image through the network and requesting that the network report the output at the layer of interest (rather than at the output layer).
 
-First, we need to choose an image to filter through the network.  It is this image for which the activations will be computed.  We begin here with the first test image.  Recall that the network expects a tensor in the form samples$\times28\times28\times1$.  In this case, we'll be providing only one sample, so we need our input to be $1\times28\times28\times1$. 
+First, we need to choose an image to filter through the network.  It is this image for which the activations will be computed.  We begin here with the first test image.  Recall that the network expects a tensor in the form samples$\times28\times28\times1$.  In this case, we'll be providing only one sample, so we need our input to be $1\times28\times28\times1$.
 
 The following code reshapes the zeroth test image with is shape $28\times28\times1$ into a tensor of shape $1\times28\times28\times1$ where the leading dimension of 1 is just wrangling the dimensionality to the samples$\times28\times28\times1$ format expected of an input tensor.
 
@@ -361,7 +361,7 @@ Now, we modify our `model1` to output the activations after the first convolutio
 model1_layer0 = Model(inputs=model1.inputs, outputs=model1.layers[0].output)
 ```
 
-Now if we ask for the prediction of the model for `X_example`, the model will output the activations at the first convolutional layer instead of the activations at the final softmax layer. 
+Now if we ask for the prediction of the model for `X_example`, the model will output the activations at the first convolutional layer instead of the activations at the final softmax layer.
 
 
 ```python
@@ -653,7 +653,7 @@ I_gray = 1-I_gray # invert colors
 I0 = I_gray[295:445,1160:1310] # crop out the digit 0
 I0 = skimage.transform.resize(I0,(28,28)) # resize to 28x28
 
-I1 = I_gray[355:505,2035:2190] 
+I1 = I_gray[355:505,2035:2190]
 I1 = skimage.transform.resize(I1,(28,28))
 
 I2 = I_gray[425:625,2900:3100]
@@ -1015,7 +1015,7 @@ plt.show()
 The network is torn between classifying this image of the sun as a "tick", "French loaf", or a "nail".  Hmmm.... Things aren't looking so good anymore.  But we must remember that we never showed the network ground truth of the sun in 193 angstroms during training.  We can't really expect that it can jump to that conclusion.
 
 ## **<span style='color:Green'> Your turn: </span>**
-What class does the VGG16 network think your data belong to?  If you don't have data with you, you can peruse the internet for images of something that you want to try classifying with the network.  Just save the image to the same directory as this notebook and use the code above to classify it. 
+What class does the VGG16 network think your data belong to?  If you don't have data with you, you can peruse the internet for images of something that you want to try classifying with the network.  Just save the image to the same directory as this notebook and use the code above to classify it.
 
 ## **<span style='color:Green'> Your turn: </span>**
 Using an image of your choice, use the methods we learned above to explore the workings of the VGG16 model.
@@ -1044,7 +1044,7 @@ new_output = Dense(101,activation='softmax')(new_output) # operate on that outpu
 model2_vgg = Model(inputs=model2_vgg.input,outputs=new_output) # define a new model with the new output
 ```
 
-Up to this point we have defined a new architecture, where we amputated the final fully connected layer and stitched back on a new one.  If we look at the layers of this new model using the modified `print_params` function, 
+Up to this point we have defined a new architecture, where we amputated the final fully connected layer and stitched back on a new one.  If we look at the layers of this new model using the modified `print_params` function,
 
 
 ```python
@@ -1078,7 +1078,7 @@ Next, we use the `flow_from_directory` function of the `ImageDataGenerator` to d
   - `batch_size` the number of images to process per batch in the training
   - `class_mode` which specifies that this is a multi-class classification problem
   - `shuffle` which specifies that the batches will be selected randomly rather than in alphanumerical order
-  
+
 There are other options available, see `help(train_datagen.flow_from_directory)`.
 
 

@@ -1,12 +1,12 @@
 ---
 title: Premeeting
 layout: single
-author: Kerrie Geil
+author: Laura Boucheron
 author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+---
 
 # Tutorial 5: Advanced DL Networks
 ## Laura E. Boucheron, Electrical & Computer Engineering, NMSU
@@ -24,16 +24,16 @@ In this tutorial, we study some more deep learning architectures for both image 
 
 This tutorial contains 4 sections:
   - **Section 0: Preliminaries**: some notes on using this notebook, how to download the image dataset that we will use for this tutorial, and import commands for the libraries necessary for this tutorial
-  - **Section 1: YOLO-v3 for Object Detection** 
-  - **Section 2: Mask-RCNN for Object Segmentation** 
-  - **Section 3: Time Series Prediction with an LSTM** 
-  
+  - **Section 1: YOLO-v3 for Object Detection**
+  - **Section 2: Mask-RCNN for Object Segmentation**
+  - **Section 3: Time Series Prediction with an LSTM**
+
 There are a few subsections with the heading "**<span style='color:Green'> Your turn: </span>**" throughout this tutorial in which you will be asked to apply what you have learned.  
 
-# Section 0: Preliminaries 
+# Section 0: Preliminaries
 ## A Note on Jupyter Notebooks
 
-There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes. 
+There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes.
 
 Markdown cells can be augmented with a number of text formatting features, including
   - bulleted
@@ -60,7 +60,7 @@ import string
 import re
 from pickle import load
 from pickle import dump
-from unicodedata import normalize 
+from unicodedata import normalize
 
 import matplotlib.pyplot as plt # visualization
 from matplotlib.patches import Rectangle
@@ -109,11 +109,11 @@ source activate
 wget https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/aiworkshop.yml
 conda env create --prefix /project/your_project_name/envs/aiworkshop -f aiworkshop.yml
 ```
-This will build the environment in one of your project directories. It may take 5 minutes to build the Conda environment. 
+This will build the environment in one of your project directories. It may take 5 minutes to build the Conda environment.
 
-See https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/setup/ for more information. 
+See https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/setup/ for more information.
 
-When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select) 
+When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select)
 
 You will want to do this BEFORE the workshop starts.
 
@@ -177,7 +177,7 @@ def _conv_block(inp, convs, skip=True):
         if conv['bnorm']: x = BatchNormalization(epsilon=0.001, name='bnorm_' + str(conv['layer_idx']))(x)
         if conv['leaky']: x = LeakyReLU(alpha=0.1, name='leaky_' + str(conv['layer_idx']))(x)
     return add([skip_connection, x]) if skip else x
- 
+
 def make_yolov3_model():
     input_image = Input(shape=(None, None, 3))
     # Layer  0 => 4
@@ -254,7 +254,7 @@ def make_yolov3_model():
                                {'filter': 255, 'kernel': 1, 'stride': 1, 'bnorm': False, 'leaky': False, 'layer_idx': 105}], skip=False)
     model = Model(input_image, [yolo_82, yolo_94, yolo_106])
     return model
- 
+
 class WeightReader:
     def __init__(self, weight_file):
         with open(weight_file, 'rb') as w_f:
@@ -269,11 +269,11 @@ class WeightReader:
             binary = w_f.read()
         self.offset = 0
         self.all_weights = np.frombuffer(binary, dtype='float32')
- 
+
     def read_bytes(self, size):
         self.offset = self.offset + size
         return self.all_weights[self.offset-size:self.offset]
- 
+
     def load_weights(self, model):
         for i in range(106):
             try:
@@ -300,7 +300,7 @@ class WeightReader:
                     conv_layer.set_weights([kernel])
             except ValueError:
                 print("no convolution #" + str(i))
- 
+
     def reset(self):
         self.offset = 0
 ```
@@ -334,8 +334,8 @@ We use the `print_params` function to display some information about the structu
  - **Add** - Adds the output tensors from two layers.
  - **Concatenate** - Concatenates two tensors.
  - **UpSampling2D** - Increases the spatial dimensionality of the activations.
- 
-Many of these additional layers are necessary for the "skip connections" in the YOLO architecture.  For one illustration of the skip connection and the concatenation afterwards, see Figure 4 in 
+
+Many of these additional layers are necessary for the "skip connections" in the YOLO architecture.  For one illustration of the skip connection and the concatenation afterwards, see Figure 4 in
 L. Varela, L. E. Boucheron, N. Malone, and N. Spurlock, “Streak detection in wide field of view images using Convolutional Neural Networks (CNNs),” In proceedings: The Advanced Maui Optical and Space Surveillance Technologies Conference (AMOS), 2019. available: https://amostech.com/TechnicalPapers/2019/Machine-Learning-for-SSA-Applications/Varela.pdf
 
 
@@ -407,7 +407,7 @@ We also notice that the prediction from YOLO-v3 is a list of arrays.  We need to
 ```python
 # the following code adapted from https://machinelearningmastery.com/how-to-perform-object-detection-with-yolov3-in-keras/
 # which based the code on https://github.com/experiencor/keras-yolo3 (see MIT License statement above)
- 
+
 class BoundBox:
     def __init__(self, xmin, ymin, xmax, ymax, objness = None, classes = None):
         self.xmin = xmin
@@ -418,22 +418,22 @@ class BoundBox:
         self.classes = classes
         self.label = -1
         self.score = -1
- 
+
     def get_label(self):
         if self.label == -1:
             self.label = np.argmax(self.classes)
- 
+
         return self.label
- 
+
     def get_score(self):
         if self.score == -1:
             self.score = self.classes[self.get_label()]
- 
+
         return self.score
- 
+
 def _sigmoid(x):
     return 1. / (1. + np.exp(-x))
- 
+
 def decode_netout(netout, anchors, obj_thresh, net_h, net_w):
     grid_h, grid_w = netout.shape[:2]
     nb_box = 3
@@ -444,7 +444,7 @@ def decode_netout(netout, anchors, obj_thresh, net_h, net_w):
     netout[..., 4:]  = _sigmoid(netout[..., 4:])
     netout[..., 5:]  = netout[..., 4][..., np.newaxis] * netout[..., 5:]
     netout[..., 5:] *= netout[..., 5:] > obj_thresh
- 
+
     for i in range(grid_h*grid_w):
         row = i / grid_w
         col = i % grid_w
@@ -463,7 +463,7 @@ def decode_netout(netout, anchors, obj_thresh, net_h, net_w):
             box = BoundBox(x-w/2, y-h/2, x+w/2, y+h/2, objectness, classes)
             boxes.append(box)
     return boxes
- 
+
 def correct_yolo_boxes(boxes, image_h, image_w, net_h, net_w):
     new_w, new_h = net_w, net_h
     for i in range(len(boxes)):
@@ -473,7 +473,7 @@ def correct_yolo_boxes(boxes, image_h, image_w, net_h, net_w):
         boxes[i].xmax = int((boxes[i].xmax - x_offset) / x_scale * image_w)
         boxes[i].ymin = int((boxes[i].ymin - y_offset) / y_scale * image_h)
         boxes[i].ymax = int((boxes[i].ymax - y_offset) / y_scale * image_h)
-        
+
 def _interval_overlap(interval_a, interval_b):
     x1, x2 = interval_a
     x3, x4 = interval_b
@@ -496,7 +496,7 @@ def bbox_iou(box1, box2):
     w2, h2 = box2.xmax-box2.xmin, box2.ymax-box2.ymin
     union = w1*h1 + w2*h2 - intersect
     return float(intersect) / union
- 
+
 def do_nms(boxes, nms_thresh):
     if len(boxes) > 0:
         nb_class = len(boxes[0].classes)
@@ -527,7 +527,7 @@ def load_image_pixels(filename, shape):
     # add a dimension so that we have one sample
     image = np.expand_dims(image, 0)
     return image, width, height
- 
+
 # get all of the results above a threshold
 def get_boxes(boxes, labels, thresh):
     v_boxes, v_labels, v_scores = list(), list(), list()
@@ -542,7 +542,7 @@ def get_boxes(boxes, labels, thresh):
                 v_scores.append(box.classes[i]*100)
                 # don't break, many labels may trigger for one box
     return v_boxes, v_labels, v_scores
- 
+
 # draw all results
 def draw_boxes(filename, v_boxes, v_labels, v_scores):
     # load the image
@@ -720,7 +720,7 @@ If this command runs successfully, you should see the following message at the e
 ```
 Finished processing dependencies for mask-rcnn==2.1
 ```
-If you run the following command, 
+If you run the following command,
 ```
 pip show mask-rcn
 ```
@@ -734,8 +734,8 @@ Author: Matterport
 Author-email: waleed.abdulla@gmail.com
 License: MIT
 Location: /home/lboucher/anaconda3/envs/mask_rcnn/lib/python3.8/site-packages/mask_rcnn-2.1-py3.8.egg
-Requires: 
-Required-by: 
+Requires:
+Required-by:
 ```
 
 **Step 6**: Download the Mask RCNN weights trained on the MSCOCO dataset from https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5.  This download is 246 MB.
@@ -750,7 +750,7 @@ It is also important to note that you need to be very careful to actually reload
 License information for the matterport Mask-RCNN code at https://github.com/matterport/Mask_RCNN:
 
 Mask R-CNN
-  
+
 The MIT License (MIT)
 
 Copyright (c) 2017 Matterport, Inc.
@@ -778,7 +778,7 @@ The code below loads in an example image `elephant.jpg` available from https://3
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/
 
 # define the test configuration
@@ -795,11 +795,11 @@ The code below additionally uses a method `display_instances` included as part o
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/
 
 # example of inference with a pre-trained coco model
- 
+
 # define 81 classes that the coco model knowns about
 class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
                'bus', 'train', 'truck', 'boat', 'traffic light',
@@ -844,7 +844,7 @@ In the code below, instead of using only the first prediction, we loop over all 
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/
 
 # define the model
@@ -867,7 +867,7 @@ Modify the code above to see how the network behaves on different images.  For y
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/how-to-perform-object-detection-in-photographs-with-mask-r-cnn-in-keras/
 
 # define the model
@@ -897,7 +897,7 @@ The ultimate goal will be, given some amount of "history" in this data to predic
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
 # fix random seed for reproducibility
 np.random.seed(42)
@@ -908,7 +908,7 @@ In the following code, the first column of the data (the date) is discarded sinc
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
 # load the dataset
 dataframe = pd.read_csv('airline-passengers.txt', usecols=[1], engine='python')
@@ -924,7 +924,7 @@ The following code uses the `MinMaxScaler` function from `sklearn.preprocessing`
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
 # normalize the dataset
 scaler = MinMaxScaler(feature_range=(0, 1))
@@ -936,12 +936,12 @@ train, test = dataset[0:train_size,:], dataset[train_size:len(dataset),:]
 print(len(train), len(test))
 ```
 
-### Define function to rearrange data 
+### Define function to rearrange data
 The following function rearranges the time series data into windows of data of length `look_back` which are used to predict the subsequent value.  This function is defined to be general so that we can use it for any length of `look_back` windows.
 
 
 ```python
-# the following code adapted from 
+# the following code adapted from
 # https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):

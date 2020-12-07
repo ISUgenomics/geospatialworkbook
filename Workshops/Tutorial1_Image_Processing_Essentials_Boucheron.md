@@ -1,25 +1,25 @@
 ---
 title: Image Processing Fundamentals
 layout: single
-author: Kerrie Geil
+author: Laura Boucheron
 author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+---
 
 # Tutorial 1: Image Processing Fundamentals
 
 This tutorial was modified from the 2020 AI Workshop which itself was modifed from tutorials given by Laura E. Boucheron, Electrical & Computer Engineering, NMSU
 
 > Copyright (C) 2020  Laura E. Boucheron
-> 
+>
 > This information is free; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-> 
+>
 > This work is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-> 
+>
 > You should have received a copy of the GNU General Public License along with this work in a file `COPYING.TXT`; if not, see <https://www.gnu.org/licenses/>.
-> 
+>
 
 ## Overview
 
@@ -38,11 +38,11 @@ This tutorial contains 5 sections:
 
 There are subsections with the heading **<span style='color:Green'> Your turn: </span>** throughout this tutorial in which you will be asked to apply what you have learned.
 
-# Section 1: Preliminaries 
+# Section 1: Preliminaries
 
 ## Section 0.1 A reminder on Jupyter Notebooks
 
-There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes. 
+There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes.
 
 Markdown cells can be augmented with a number of text formatting features, including
   - bulleted
@@ -85,7 +85,7 @@ It would be best to run this next cell before the workshop starts to make sure y
 
 ```python
 import numpy as np
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 %matplotlib inline
 import imageio
 import skimage.color
@@ -103,11 +103,11 @@ wget https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/aiworkshop.yml
 conda env create --prefix /project/your_project_name/envs/aiworkshop -f aiworkshop.yml
 ```
 
-This will build the environment in one of your project directories. It may take 5 minutes to build the Conda environment. 
+This will build the environment in one of your project directories. It may take 5 minutes to build the Conda environment.
 
 See https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/setup/ for more information.
 
-When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select) 
+When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select)
 
 You will want to do this BEFORE the workshop starts.
 
@@ -142,7 +142,7 @@ plt.show()                        # show the plot
 
 ### A note about coordinate conventions
 
-By default, axis labels are included which demarcate pixel counts.  You may notice that the origin of an image is interpreted as the **upper left** corner and not the lower left corner as you might have expected.  This is a consequence of the fact that we use standard linear algebra style indexing for images where pixel $(n,m)$ is indexed in row, column order.  For those of you who might be particularly concerned, this coordinate system still describes a right-handed system. 
+By default, axis labels are included which demarcate pixel counts.  You may notice that the origin of an image is interpreted as the **upper left** corner and not the lower left corner as you might have expected.  This is a consequence of the fact that we use standard linear algebra style indexing for images where pixel $(n,m)$ is indexed in row, column order.  For those of you who might be particularly concerned, this coordinate system still describes a right-handed system.
 
 This coordinate system can cause issues later on if you accidentally swap indices.  You might think you are looking in the upper right but are actually looking in the lower left.  You might think you are traversing left to right and are actually traversing up to down.
 
@@ -172,12 +172,12 @@ plt.show()                               # show the plot
 
 
 ## <span style='color:Green'> Your turn:  </span>
-Choose a figure size so that the image fills the width of your notebook and provide a descriptive title to your image.  You may also choose to label your axes or not, per your preference.  For what it's worth, image processing people don't tend to display axis labels. 
+Choose a figure size so that the image fills the width of your notebook and provide a descriptive title to your image.  You may also choose to label your axes or not, per your preference.  For what it's worth, image processing people don't tend to display axis labels.
 
 
 ```python
 plt.figure(figsize=(10,10))           # open a new figure window of size 20x20 (artbitrary units)
-plt.imshow(I_camera, 
+plt.imshow(I_camera,
            cmap='gray')     # visualize the I_camera image with a grayscale colormap
 plt.axis('off') # turn off the axis labels
 plt.title('Cameraman, grayscale') # provide a title for the plot
@@ -256,11 +256,11 @@ We could use `plt.imshow` to display that small portion of the image.
 
 ```python
 plt.figure()
-plt.imshow(I_camera[100:110, 100:110], 
+plt.imshow(I_camera[100:110, 100:110],
            cmap='gray')
 plt.axis('off')
-plt.title('Cameraman portion, grayscale') 
-plt.show() 
+plt.title('Cameraman portion, grayscale')
+plt.show()
 ```
 
 
@@ -279,15 +279,15 @@ Here, we maintain the display of the whole image, and plot a yellow box around t
 
 
 ```python
-plt.figure(figsize=(10,10)) 
-plt.imshow(I_camera, cmap='gray') 
-plt.axis('off') 
-plt.title('Cameraman, grayscale') 
+plt.figure(figsize=(10,10))
+plt.imshow(I_camera, cmap='gray')
+plt.axis('off')
+plt.title('Cameraman, grayscale')
 plt.plot([100,100], [100,110], 'y-',linewidth=3)       # Draws the yellow rectangle
 plt.plot([110,110], [100,110], 'y-',linewidth=3)
 plt.plot([100,110], [100,100], 'y-',linewidth=3)
 plt.plot([100,110], [110,110], 'y-',linewidth=3)
-plt.show() 
+plt.show()
 ```
 
 
@@ -309,7 +309,7 @@ plt.show() # show the plot
 ```
 
 ### A note on colormaps
-You should have found that the grayscale image now appears colored.  How can that be if the image is a single channel, i.e., grayscale image?  In this case, python is applying the default colormap to the intensities.  In this default colormap, dark pixels appear dark blue, medium intensity pixels appear green or blue, and light pixels appear yellow. (Your computer may use a different default colormap in which case the colors noted above may not be correct). 
+You should have found that the grayscale image now appears colored.  How can that be if the image is a single channel, i.e., grayscale image?  In this case, python is applying the default colormap to the intensities.  In this default colormap, dark pixels appear dark blue, medium intensity pixels appear green or blue, and light pixels appear yellow. (Your computer may use a different default colormap in which case the colors noted above may not be correct).
 
 You can choose any number of colormaps (see https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html for a comprehensive list and examples).
 
@@ -644,9 +644,9 @@ Display this new grayscale image `I_pepper_gray`.
 
 
 ```python
-plt.figure(figsize=(20,20)) 
-plt.imshow(I_pepper_gray,cmap='gray') 
-plt.axis('off') 
+plt.figure(figsize=(20,20))
+plt.imshow(I_pepper_gray,cmap='gray')
+plt.axis('off')
 plt.title('Peppers, rgb2gray')
 plt.show()
 ```
@@ -812,9 +812,9 @@ Display this new RGB image `I_camera_rgb`.
 
 
 ```python
-plt.figure(figsize=(10,10)) 
-plt.imshow(I_camera_rgb) 
-plt.axis('off') 
+plt.figure(figsize=(10,10))
+plt.imshow(I_camera_rgb)
+plt.axis('off')
 plt.title('Cameraman, gray2rgb')
 plt.show()
 ```
@@ -836,9 +836,9 @@ If we crop the image, we choose some $256\times256$ pixels to retain.  For examp
 
 ```python
 I_pepper_gray_crop = I_pepper_gray[0:256,0:256]
-plt.figure(figsize=(5,5)) 
-plt.imshow(I_pepper_gray_crop,cmap='gray') 
-plt.axis('off') 
+plt.figure(figsize=(5,5))
+plt.imshow(I_pepper_gray_crop,cmap='gray')
+plt.axis('off')
 plt.title('Peppers, gray, cropped')
 plt.show()
 ```
@@ -861,9 +861,9 @@ We note that there are many options to the resize command, including specificati
 ```python
 I_pepper_gray_resize = skimage.transform.resize(I_pepper_gray,\
                                                 (256,256))
-plt.figure(figsize=(5,5)) 
-plt.imshow(I_pepper_gray_resize,cmap='gray') 
-plt.axis('off') 
+plt.figure(figsize=(5,5))
+plt.imshow(I_pepper_gray_resize,cmap='gray')
+plt.axis('off')
 plt.title('Peppers, gray, resized')
 plt.show()
 ```
@@ -888,9 +888,9 @@ Combine cropping and resizing to yield a $256\times256$ pixel grayscale peppers 
 # peppers is 384x512, so take center 384x384 section
 # (512-384)/2=64
 I_pepper_gray_myresize = skimage.transform.resize(I_pepper_gray[:,65:65+384],(256,256))
-plt.figure(figsize=(5,5)) 
-plt.imshow(I_pepper_gray_myresize,cmap='gray') 
-plt.axis('off') 
+plt.figure(figsize=(5,5))
+plt.imshow(I_pepper_gray_myresize,cmap='gray')
+plt.axis('off')
 plt.title('Peppers, gray, cropped and resized')
 plt.show()
 ```
@@ -911,7 +911,7 @@ How would you reconfigure the `cameraman` image to be the $384\times512\times3$ 
 
 
 ```python
-# first make camera square with largest dimension of peppers--square to avoid 
+# first make camera square with largest dimension of peppers--square to avoid
 # distorting aspect ratio and largest dimension because we'll crop back
 I_camera_myresize = skimage.transform.resize(I_camera,(512,512))
 # next, crop vertical dimension to 384, keeping center of image
@@ -919,9 +919,9 @@ I_camera_myresize = skimage.transform.resize(I_camera,(512,512))
 I_camera_myresize = I_camera_myresize[65:65+384,:]
 # finally, convert to color
 I_camera_myresize = skimage.color.gray2rgb(I_camera_myresize)
-plt.figure(figsize=(5,5)) 
-plt.imshow(I_camera_myresize,cmap='gray') 
-plt.axis('off') 
+plt.figure(figsize=(5,5))
+plt.imshow(I_camera_myresize,cmap='gray')
+plt.axis('off')
 plt.title('Cameraman, color, resized and cropped')
 plt.show()
 ```
@@ -933,7 +933,7 @@ plt.show()
 
 
 # Section 4: Filtering Images
-We will find that a key element of [convolutional neural networks (CNNs)](https://en.wikipedia.org/wiki/Convolutional_neural_network) is a **convolutional layer**.  It is thus critical that we understand the basics of **image convolution** and how to interpret those results. 
+We will find that a key element of [convolutional neural networks (CNNs)](https://en.wikipedia.org/wiki/Convolutional_neural_network) is a **convolutional layer**.  It is thus critical that we understand the basics of **image convolution** and how to interpret those results.
 
 Convolution is the means to filter an image in the spatial domain.  This requires the definition of a **filter kernel**.  The filter kernel is a 2D or 3D array of filter coefficients, generally much smaller in spatial extent than the image.
 

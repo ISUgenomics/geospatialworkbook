@@ -45,3 +45,19 @@ Rowan Gaffney:
   twitter     : "someone"
   email       : "mailto:someone@iastate.edu"
   website     : "https://gif.biotech.iastate.edu"
+
+Amy Hudson:
+  name        : "Amy Hudson"
+  bio         : "Amy is a SCINet postdoc working with Dr. Debra Peters in Las Cruces, NM after completing a PhD in Natural Resources from University of Arizona. Her research background is in examining climate-ecosystem interactions at regional to hemispheric scales by integrating multiple data sources. Amy is currently involved in ARS research projects that include 1) a cross-site synthesis of the impacts of climate on long-term ecology at dryland sites and 2) determining the influence of broadscale climate on the spatial spread of the vector-borne virus Vesicular Stomatitis."
+  avatar      : "/assets/images/people/AmyHudson.jpg"
+  twitter     : "someone"
+  email       : "mailto:someone@iastate.edu"
+  website     : "https://gif.biotech.iastate.edu"
+
+Yanghui Kang:
+  name        : "Yanghui Kang"
+  bio         : "Yanghui is a SCINet postdoc with a Ph.D. degree in Geography from the University of Wisconsin-Madison. She works with Dr. Feng Gao and Dr. Martha Anderson at the Hydrology and Remote Sensing Laboratoryin the Beltsville Agricultural Research Center, MD. Yanghui’s research projects have focused on the large-scale high-resolution monitoring of core agroecosystem variables (e.g., Leaf Area Index (LAI), crop yield), with the help of satellite remote sensing, machine learning, crop growth modeling, and data assimilation techniques. Current projects include developing a machine-learning-based approach to map LAI from Landsat and Sentinel-2 images over the entire globe."
+  avatar      : "/assets/images/people/YanghuiKang.jpg"
+  twitter     : "someone"
+  email       : "mailto:someone@iastate.edu"
+  website     : "https://gif.biotech.iastate.edu"

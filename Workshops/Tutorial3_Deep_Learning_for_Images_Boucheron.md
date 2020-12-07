@@ -1,12 +1,12 @@
 ---
 title: Deep Learning for Images
 layout: single
-author: Kerrie Geil
+author: Laura Boucheron
 author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+---
 
 # Tutorial 3: Deep Learning for Images
 ## Laura E. Boucheron, Electrical & Computer Engineering, NMSU
@@ -20,7 +20,7 @@ This work is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 You should have received a copy of the GNU General Public License along with this work; if not, If not, see <https://www.gnu.org/licenses/>.
 
 ## Overview
-In this tutorial, we will introduce the basic structure and common components (convolutional layers, pooling layers, nonlinearities, fully connected layers, etc.) of deep learning networks through a combination of illustrations and hands-on implementation of a network.  By the end of this tutorial, we will have built from scratch a deep convolutional neural network to operate on the standard MNIST handwritten digits dataset.  We will then explore some ways of probing the characteristics of the trained network to help us debug common pitfalls in adapting network architectures.  
+In this tutorial, we will introduce the basic structure and common components (convolutional layers, pooling layers, nonlinearities, fully connected layers, etc.) of deep learning networks through a combination of illustrations and hands-on implementation of a network.  By the end of this tutorial, we will have built from scratch a deep convolutional neural network to operate on the standard MNIST handwritten digits dataset.  We will then explore some ways of probing the characteristics of the trained network to help us debug common pitfalls in adapting network architectures. 
 
 This tutorial contains 7 sections:
   - **Section 0: Preliminaries**: some notes on using this notebook, how to download the image dataset that we will use for this tutorial, and import commands for the libraries necessary for this tutorial
@@ -31,15 +31,15 @@ This tutorial contains 7 sections:
   - **Section 4: Testing the Trained CNN** how to test the accuracy of the trained network and locate those images incorrectly classified
   - **Section 5: Transfer Learning for MNIST** how to adapt a previously trained network to a new dataset
   - **Section 6: Saving a Trained Model** how to save a trained model so that you can load it and use it later.
-  
+
 There are a few subsections with the heading "**Your turn**" throughout this tutorial in which you will be asked to apply what you have learned.  
 
 Portions of this tutorial have been taken or adapted from https://elitedatascience.com/keras-tutorial-deep-learning-in-python and the documentation at https://keras.io.
 
-# Section 0: Preliminaries 
+# Section 0: Preliminaries
 ## A Note on Jupyter Notebooks
 
-There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes. 
+There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes.
 
 Markdown cells can be augmented with a number of text formatting features, including
   - bulleted
@@ -120,9 +120,9 @@ Open a terminal from inside JupyterLab (File > New > Terminal) and type the foll
 source activate
 conda create --name NMSU-AI-Workshop_image-processing python=3.7 numpy matplotlib imageio scikit-image ipykernel -y
 ```
-It may take 5 minutes to build the Conda environment. 
+It may take 5 minutes to build the Conda environment.
 
-When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select) 
+When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select)
 
 You will want to do this BEFORE the workshop starts.
 
@@ -175,24 +175,24 @@ help(mnist.load_data)
 ```
 
     Help on function load_data in module keras.datasets.mnist:
-    
+
     load_data(path='mnist.npz')
         Loads the MNIST dataset.
-        
+
         # Arguments
             path: path where to cache the dataset locally
                 (relative to ~/.keras/datasets).
-        
+
         # Returns
             Tuple of Numpy arrays: `(x_train, y_train), (x_test, y_test)`.
-    
+
 
 
 ### A note on the variable name conventions
 In loading the MNIST data, we are storing the data (images) in `X_train` and `X_test` and the corresponding labels in `y_train` and `y_test`.  It is common convention to label the input data with a capital 'X' and the labels with a lowercase 'y'.  Since these data are images which can be represented as arrays, the convention of using 'X' and 'y' comes from matrix notation where vectors are assigned a lowercase variable and matrices an uppercase variable.  
 
 ## 1.3 Checking dimensionality of the MNIST data variables
-We know that the MNIST dataset consists of 70,000 examples of $28\times28$ pixels images of handwritten digits from 0-9.  We also know that there are 60,000 images reserved for training and 10,000 reserved for testing.  As such, we expect that the dimensionality of `X_train` and `X_test` to reflect this.  We print the shape of the two variables. 
+We know that the MNIST dataset consists of 70,000 examples of $28\times28$ pixels images of handwritten digits from 0-9.  We also know that there are 60,000 images reserved for training and 10,000 reserved for testing.  As such, we expect that the dimensionality of `X_train` and `X_test` to reflect this.  We print the shape of the two variables.
 
 
 ```python
@@ -275,9 +275,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_22_0.png)
-    
+
 
 
 
@@ -332,9 +332,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_26_0.png)
-    
+
 
 
 There does not appear to be any order to the digits--they appear to be random.
@@ -350,7 +350,7 @@ print(y_train[0])
     5
 
 
-This indicates that the image we plotted above corresponds to a ground truth label of '5'. 
+This indicates that the image we plotted above corresponds to a ground truth label of '5'.
 
 ## <span style='color:Green'> Your turn: </span>
 Revise your code from above to title your plot with the ground truth label.
@@ -367,9 +367,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_32_0.png)
-    
+
 
 
 ## 1.5 A visualization of the digit variation in MNIST
@@ -394,9 +394,9 @@ for d in range(0,10): # loop over the digits 0 through 9
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_34_0.png)
-    
+
 
 
 # Section 2: Data Preprocessing (Dimensionality Wrangling)
@@ -449,9 +449,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_43_0.png)
-    
+
 
 
 Depending on your library versions, you may have found that your visualization code from above no longer works.  If you get an error, it is likely similar to
@@ -474,9 +474,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_46_0.png)
-    
+
 
 
 ## 2.2 Input data intensity scaling considerations
@@ -669,7 +669,7 @@ Next we define our first model, which we call `model1`.  We'll cycle back to und
  - The `MaxPooling2D` layer reduces the spatial dimensions of the input tensor.  We again explicitly specify `'channels_last'` for the `data_format`.
  - The `Flatten` layer essentially reshapes the dimensions of the data.  In this case it takes the $28\times28\times32$ tensor output from the second convolutional layer and reshapes it into a length $28*28*32=25088$ vector.
  - The `Dense` layer is the layer type for fully connected (i.e., dense) layers.  This type of layer defines a connection from all nodes in the previous layer to all nodes in the subsequent layer.  The first layer defined here takes the 25088 inputs and outputs 128 values.  The second fully connected layer takes those 128 as input and outputs 10 values.  
- - Note that the size of the output layer is consistent with the number of classes in our dataset (10 in this case) and that we have specified a `'softmax'` activation. This means that the output will be the probability of an example belonging to each of the 10 classes. 
+ - Note that the size of the output layer is consistent with the number of classes in our dataset (10 in this case) and that we have specified a `'softmax'` activation. This means that the output will be the probability of an example belonging to each of the 10 classes.
 
 
 ```python
@@ -683,7 +683,7 @@ model1.add(Dense(10, activation='softmax'))
 ```
 
     WARNING:tensorflow:From /Users/jenchang/miniconda/envs/geo_env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
-    
+
 
 
 ## 3.3 Compile the model
@@ -700,7 +700,7 @@ model1.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accur
 ## 3.4 Train the model
 Now we finally start the actual training of this model.  We input the `X_train` and `Y_train` variables that we worked with above, and specify a few simulation parameters such as `batch_size` and `epochs` which we will cycle back to in a while.  We specify `verbose=1` in order to print out status so we can keep track of where we are in the training process.
 
-You may get one or more warnings, but as long as you don't get any errors, you should see 
+You may get one or more warnings, but as long as you don't get any errors, you should see
 something of the form
 ```
 Epoch 1/10
@@ -715,7 +715,7 @@ model1.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
 ```
 
     WARNING:tensorflow:From /Users/jenchang/miniconda/envs/geo_env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
-    
+
     Epoch 1/1
     60000/60000 [==============================] - 84s 1ms/step - loss: 0.1385 - accuracy: 0.9585
 
@@ -792,7 +792,7 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
 
     InvalidArgumentError: Negative dimension size caused by subtracting 3 from 1 for 'conv2d_5/convolution' (op: 'Conv2D') with input shapes: [?,28,1,28], [3,3,28,32].
 
-    
+
     During handling of the above exception, another exception occurred:
 
 
@@ -819,7 +819,7 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
         488             # collecting output(s), mask(s), and shape(s).
     --> 489             output = self.call(inputs, **kwargs)
         490             output_mask = self.compute_mask(inputs, previous_mask)
-        491 
+        491
 
 
     ~/miniconda/envs/geo_env/lib/python3.7/site-packages/keras/layers/convolutional.py in call(self, inputs)
@@ -842,8 +842,8 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
         892       data_format=data_format,
         893       dilations=dilation_rate,
     --> 894       name=name)
-        895 
-        896 
+        895
+        896
 
 
     ~/miniconda/envs/geo_env/lib/python3.7/site-packages/tensorflow/python/ops/nn_ops.py in convolution_internal(input, filters, strides, padding, data_format, dilations, name)
@@ -867,14 +867,14 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
         787                          input_types=input_types, attrs=attr_protos,
     --> 788                          op_def=op_def)
         789       return output_structure, op_def.is_stateful, op
-        790 
+        790
 
 
     ~/miniconda/envs/geo_env/lib/python3.7/site-packages/tensorflow/python/util/deprecation.py in new_func(*args, **kwargs)
         505                 'in a future version' if date is None else ('after %s' % date),
         506                 instructions)
     --> 507       return func(*args, **kwargs)
-        508 
+        508
         509     doc = _add_deprecated_arg_notice_to_docstring(
 
 
@@ -890,7 +890,7 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
        2025           op_def, inputs, node_def.attr)
        2026       self._c_op = _create_c_op(self._graph, node_def, grouped_inputs,
     -> 2027                                 control_input_ops)
-       2028 
+       2028
        2029     # Initialize self._outputs.
 
 
@@ -898,7 +898,7 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
        1865   except errors.InvalidArgumentError as e:
        1866     # Convert to ValueError for backwards compatibility.
     -> 1867     raise ValueError(str(e))
-       1868 
+       1868
        1869   return c_op
 
 
@@ -930,15 +930,15 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
 
     <ipython-input-34-b42bce916ce9> in <module>
           9 model2.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accuracy'])
-         10 
+         10
     ---> 11 model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
-    
+
 
     ~/miniconda/envs/geo_env/lib/python3.7/site-packages/keras/engine/training.py in fit(self, x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle, class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps, validation_freq, max_queue_size, workers, use_multiprocessing, **kwargs)
        1152             sample_weight=sample_weight,
        1153             class_weight=class_weight,
     -> 1154             batch_size=batch_size)
-       1155 
+       1155
        1156         # Prepare validation data.
 
 
@@ -946,7 +946,7 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
         619                 feed_output_shapes,
         620                 check_batch_axis=False,  # Don't enforce the batch size.
     --> 621                 exception_prefix='target')
-        622 
+        622
         623             # Generate sample-wise weight values given the `sample_weight` and
 
 
@@ -986,15 +986,15 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
 
     <ipython-input-35-2e1393361a52> in <module>
           9 model2.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accuracy'])
-         10 
+         10
     ---> 11 model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
-    
+
 
     ~/miniconda/envs/geo_env/lib/python3.7/site-packages/keras/engine/training.py in fit(self, x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle, class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps, validation_freq, max_queue_size, workers, use_multiprocessing, **kwargs)
        1152             sample_weight=sample_weight,
        1153             class_weight=class_weight,
     -> 1154             batch_size=batch_size)
-       1155 
+       1155
        1156         # Prepare validation data.
 
 
@@ -1002,7 +1002,7 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
         619                 feed_output_shapes,
         620                 check_batch_axis=False,  # Don't enforce the batch size.
     --> 621                 exception_prefix='target')
-        622 
+        622
         623             # Generate sample-wise weight values given the `sample_weight` and
 
 
@@ -1011,7 +1011,7 @@ model2.fit(X_train, Y_train, batch_size=64, epochs=1, verbose=1)
         144                             str(shape) + ' but got array with shape ' +
     --> 145                             str(data_shape))
         146     return data
-        147 
+        147
 
 
     ValueError: Error when checking target: expected dense_8 to have shape (128,) but got array with shape (10,)
@@ -1087,7 +1087,7 @@ The accuracies that you see reported as the network trains are the accuracies on
 
 There is concern, however, that the network has "learned the data" instead of learned a more general classifier.  That is why we set aside a separate test set.  All of the data in the test set were unseen in training and thus are brand new to the network.  If the network is good and has not overfit the training data (learned the training data), we expect to see a good accuracy on the test data.  We expect that the test accuracy will likely be a bit lower than the training accuracy.
 
-We can take the trained model and evaluate it on a dataset using the `evaluate` method of the trained model.  As a sanity check, if we were to input the training data again, we would expect exactly the last accuracy reported in training. 
+We can take the trained model and evaluate it on a dataset using the `evaluate` method of the trained model.  As a sanity check, if we were to input the training data again, we would expect exactly the last accuracy reported in training.
 
 We again use the `verbose=1` option here to track the progress of evaluating the model on all 10,000 test images.  
 
@@ -1274,9 +1274,9 @@ for k in range(0,9): # choose 10 examples
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_123_0.png)
-    
+
 
 
 In many of these cases, the digits do not appear "typical" in form and it is thus not surprising that the network may have had difficulty correctly classifying them.  In most cases, it is also easy to postulate what structures in the image may have resulted in the incorrect classification that did result.
@@ -1350,7 +1350,7 @@ print(Y_predict)
 
 The issues with `model3` were probably apparent in the training stage, in that the accuracy reported was very low.  You may also have noticed that the predicted one-hot labels `Y_predict` are not consistent with the probabilities that we get for a `softmax` activation.  In some cases, you may get values in `Y_predict` that are not-a-number (`nan`) which is another indication that the training has gone very wrong.
 
-The issues with `model4` are much more subtle.  You should have noticed that the accuracy reported by `keras`' `evaluate` function is not the same as when we compute it by hand.  From the documentation (https://keras.io/api/losses/probabilistic_losses/), we note that `'binary_crossentropy'` should be used "when there are only two label classes" whereas `'categorical_crossentropy'` should be used "when there are two or more label classes." 
+The issues with `model4` are much more subtle.  You should have noticed that the accuracy reported by `keras`' `evaluate` function is not the same as when we compute it by hand.  From the documentation (https://keras.io/api/losses/probabilistic_losses/), we note that `'binary_crossentropy'` should be used "when there are only two label classes" whereas `'categorical_crossentropy'` should be used "when there are two or more label classes."
 
 # Section 5: Transfer Learning
 ## 5.1 Applying the MNIST Network Directly to Fashion-MNIST
@@ -1406,9 +1406,9 @@ print('This image is class '+str(y_test[0])+' in the Fashion-MNIST dataset')
 ```
 
 
-    
+
 ![png](images/Tutorial3_Deep_Learning_for_Images_Boucheron_134_0.png)
-    
+
 
 
     This image is class 7 in the Fashion-MNIST dataset
@@ -1446,7 +1446,7 @@ This network has decided that this image of a "sneaker" is the digit "2" (the ne
 
 ## 5.2 Adapting the MNIST Model for Fashion-MNIST (Transfer Learning)
 
-In transfer learning, we can "transfer" knowledge learned in one domain (e.g., MNIST) to another domain (e.g., Fashion-MNIST).  The idea of transfer learning is predicated on the assumption that all images share the same basic primitives (edges, corners, etc.) which are essentially the features of images that we hand-designed in the second tutorial.  In transfer learning, we re-use those image primitives and only have to relearn how to combine those primitives together in order to correctly classify a new domain of images.  To do this, we will copy our MNIST `model1` architecture and "freeze" all layers except the last layer by setting the `trainable` attribute of layers to `False`.  All the parameters from the two convolutional layers and the first fully connected layer will remain in the state that we converged to when training the network on MNIST.  It is only that final fully connected layer that will change in order to (hopefully) learn to correctly classify the Fashion-MNIST data. 
+In transfer learning, we can "transfer" knowledge learned in one domain (e.g., MNIST) to another domain (e.g., Fashion-MNIST).  The idea of transfer learning is predicated on the assumption that all images share the same basic primitives (edges, corners, etc.) which are essentially the features of images that we hand-designed in the second tutorial.  In transfer learning, we re-use those image primitives and only have to relearn how to combine those primitives together in order to correctly classify a new domain of images.  To do this, we will copy our MNIST `model1` architecture and "freeze" all layers except the last layer by setting the `trainable` attribute of layers to `False`.  All the parameters from the two convolutional layers and the first fully connected layer will remain in the state that we converged to when training the network on MNIST.  It is only that final fully connected layer that will change in order to (hopefully) learn to correctly classify the Fashion-MNIST data.
 
 
 ```python
@@ -1455,7 +1455,7 @@ model1_f.set_weights(model1.get_weights())
 
 for layer in model1_f.layers[:-1]:
     layer.trainable=False
-    
+
 model1_f.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accuracy'])
 
 model1_f.fit(X_train_f, Y_train_f, batch_size=64, epochs=1, verbose=1)
@@ -1514,7 +1514,7 @@ model1_f.set_weights(model1.get_weights())
 
 for layer in model1_f.layers[:-2]:
     layer.trainable=False
-    
+
 model1_f.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accuracy'])
 
 model1_f.fit(X_train_f, Y_train_f, batch_size=64, epochs=1, verbose=1)
@@ -1564,7 +1564,7 @@ model1_f = load_model('model1_f.h5')
         490                 os.remove(tmp_filepath)
         491             return res
     --> 492         return load_function(*args, **kwargs)
-        493 
+        493
         494     return load_wrapper
 
 

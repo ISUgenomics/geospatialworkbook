@@ -6,7 +6,7 @@ author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+---
 
 # Parallel Computing on Ceres with Python and Dask
 adapted from https://github.com/willirath/dask_jobqueue_workshop_materials
@@ -27,9 +27,9 @@ curl https://raw.githubusercontent.com/kerriegeil/SCINET-GEOSPATIAL-RESEARCH-WG/
 
 ## The Goal
 
-Interactive data analysis on very large datasets. The tools in this tutorial are most appropriate for analysis of large earth-science-type datasets. 
+Interactive data analysis on very large datasets. The tools in this tutorial are most appropriate for analysis of large earth-science-type datasets.
 
-For large dataset analysis, you'll want to run parallel (instead of serial) computations to save time. On a high-performance computer (HPC), you could divide your computing into independent segments (batching) and submit multiple batch scripts to run compute jobs simultaneously or you could parallelize your codes using MPI (Message Passing Interface), a traditional method for parallel computing if your code is in C or Fortran. Actually, there is also an "MPI for Python" package, but the methods in this tutorial are much *much* simpler. Both the batching and MPI methods of parallelization do not allow for interactive analysis, such as analysis using a Jupyter notebook, which is often desired by the earth science research community. Note that interactive analysis here does *not* mean constant visual presentation of the data with a graphical user interface (GUI) such as in ArcGIS. 
+For large dataset analysis, you'll want to run parallel (instead of serial) computations to save time. On a high-performance computer (HPC), you could divide your computing into independent segments (batching) and submit multiple batch scripts to run compute jobs simultaneously or you could parallelize your codes using MPI (Message Passing Interface), a traditional method for parallel computing if your code is in C or Fortran. Actually, there is also an "MPI for Python" package, but the methods in this tutorial are much *much* simpler. Both the batching and MPI methods of parallelization do not allow for interactive analysis, such as analysis using a Jupyter notebook, which is often desired by the earth science research community. Note that interactive analysis here does *not* mean constant visual presentation of the data with a graphical user interface (GUI) such as in ArcGIS.
 
 For earth-science-type data and analysis with Python, one of the simplest ways to run parallel computations in an interactive environment is with the Dask package.
 
@@ -42,14 +42,14 @@ Using Dask to:
 - use adaptive clusters
 - view Dask diagnostics
 
-This tutorial will demonstrate how to use Dask to manage compute jobs on a SLURM cluster (including setting up your SLURM compute cluster, scaling the cluster, and how to use an adaptive cluster to save compute resources for others). The tutorial will also explain how to access the Dask diagnostics dashboard to view the cluster working in real time. 
+This tutorial will demonstrate how to use Dask to manage compute jobs on a SLURM cluster (including setting up your SLURM compute cluster, scaling the cluster, and how to use an adaptive cluster to save compute resources for others). The tutorial will also explain how to access the Dask diagnostics dashboard to view the cluster working in real time.
 
 
 --------------------------------------------------------------------
 
 # Begin Tutorial: Parallel Computing on Ceres with Python and Dask
 
-In this tutorial we will compute in parallel using Python's Dask package to communicate with the Ceres HPC SLURM job scheduler. 
+In this tutorial we will compute in parallel using Python's Dask package to communicate with the Ceres HPC SLURM job scheduler.
 
 SLURM (Simple Linux Utility for Resource Management) is a workload manager for HPC systems. From the [SLURM documentation](https://slurm.schedmd.com/quickstart.html), SLURM is "an open source... cluster management and job scheduling system for large and small Linux clusters. As a cluster workload manager, SLURM has three key functions. First, it allocates exclusive and/or non-exclusive access to resources (compute nodes) to users for some duration of time so they can perform work. Second, it provides a framework for starting, executing, and monitoring work (normally a parallel job) on the set of allocated nodes. Finally, it arbitrates contention for resources by managing a queue of pending work."
 
@@ -67,10 +67,10 @@ import os
 homedir = os.environ['HOME']
 daskpath=os.path.join(homedir, "dask-worker-space-can-be-deleted")
 
-try: 
-    os.mkdir(daskpath) 
-except OSError as error: 
-    print(error) 
+try:
+    os.mkdir(daskpath)
+except OSError as error:
+    print(error)
 ```
 
     [Errno 17] File exists: '/home/kerrie.geil/dask-worker-space-can-be-deleted'
@@ -85,18 +85,18 @@ The first step is to create a SLURM cluster using the dask.distributed and dask_
 **Here's a key to the dask_jobqueue.SLURMCluster input parameters in the code block below:**
 
 **cores** = Number of logical cores per job. This will be divided among the processes/workers. Can't be more than the lowest number of logical cores per node in the queue you choose, see https://scinet.usda.gov/guide/ceres/#partitions-or-queues.
-   
-**processes** = Number of processes per job (also known as Dask "workers" or "worker processes"). The number of cores per worker will be cores/processes. Can use 1 but more than 1 may help keep your computations running if cores/workers fail. For numeric computations (Numpy, Pandas, xarray, etc.), less workers may run significantly faster due to reduction in communication time. If your computations are mostly pure Python, it may be better to run with many workers each associated with only 1 core. [Here is more info than you'll probably ever want to know about Dask workers](https://distributed.dask.org/en/latest/worker.html). 
 
-**memory** =  Memory per job. This will be divided among the processes/workers. See https://scinet.usda.gov/guide/ceres/#partitions-or-queues for the maximum memory per core you can request on each queue. 
+**processes** = Number of processes per job (also known as Dask "workers" or "worker processes"). The number of cores per worker will be cores/processes. Can use 1 but more than 1 may help keep your computations running if cores/workers fail. For numeric computations (Numpy, Pandas, xarray, etc.), less workers may run significantly faster due to reduction in communication time. If your computations are mostly pure Python, it may be better to run with many workers each associated with only 1 core. [Here is more info than you'll probably ever want to know about Dask workers](https://distributed.dask.org/en/latest/worker.html).
+
+**memory** =  Memory per job. This will be divided among the processes/workers. See https://scinet.usda.gov/guide/ceres/#partitions-or-queues for the maximum memory per core you can request on each queue.
 
 **queue** = Name of the Ceres queue, a.k.a. partition (e.g. short, medium, long, long60, mem, longmem, mem768, debug, brief-low, scavenger, etc.).
 
 **walltime** = Time allowed before the job is timed out.
 
-**local_directory** = local spill location if the core memory is exceeded, use /local/scratch a.k.a $TMPDIR 
+**local_directory** = local spill location if the core memory is exceeded, use /local/scratch a.k.a $TMPDIR
 
-**log_directory** = Location to write the stdout and stderr files for each worker process. Simplest choice may be the directory you are running your code from. 
+**log_directory** = Location to write the stdout and stderr files for each worker process. Simplest choice may be the directory you are running your code from.
 
 **python** = The python executable. Add this parameter if you are running in a container to tell SLURM what container and conda env to use. Otherwise, it's not needed.
 <br><br>
@@ -138,11 +138,11 @@ To see the job script that will be used to start a job running on the Ceres HPC 
 
 **-p** = Name of the Ceres queue/partition. This comes from the SLURMCLuster "queue" parameter.
 
-**-n** = Number of nodes. 
+**-n** = Number of nodes.
 
 **--cpus-per-task** = Number of cores per job (same as -N). This comes from the SLURMCluster "cores" parameter.
 
-**--mem** = Memory per job. This comes from the SLURMCluster "memory" parameter. 
+**--mem** = Memory per job. This comes from the SLURMCluster "memory" parameter.
 
 **-t** = Time allowed before the job is timed out. This comes from the SLURMCluster parameter "walltime".
 <br>
@@ -153,7 +153,7 @@ print(cluster.job_script())
 ```
 
     #!/usr/bin/env bash
-    
+
     #SBATCH -J dask-worker
     #SBATCH -e /home/kerrie.geil/dask-worker-space-can-be-deleted/dask-worker-%J.err
     #SBATCH -o /home/kerrie.geil/dask-worker-space-can-be-deleted/dask-worker-%J.out
@@ -162,9 +162,9 @@ print(cluster.job_script())
     #SBATCH --cpus-per-task=40
     #SBATCH --mem=112G
     #SBATCH -t 00:10:00
-    
+
     singularity -vv exec /lustre/project/geospatial_tutorials/wg_2020_ws/data_science_im_rs_vSCINetGeoWS_2020.sif /opt/conda/envs/py_geo/bin/python -m distributed.cli.dask_worker tcp://10.1.4.113:40929 --nthreads 40 --memory-limit 120.00GB --name name --nanny --death-timeout 60 --local-directory $TMPDIR
-    
+
 
 
 <br><br>
@@ -214,7 +214,7 @@ Click on the "workers" box to open a separate tab for visualizing the dask worke
 
 ## Scale the Cluster to Start Computing
 
-Now let's start multiple SLURM jobs computing. 
+Now let's start multiple SLURM jobs computing.
 
 
 
@@ -252,7 +252,7 @@ client
 
 
 
-The .scale() method actually starts the jobs running as shown in the Cluster information above. 
+The .scale() method actually starts the jobs running as shown in the Cluster information above.
 
 A quick check of squeue will now show your multiple jobs running as well. Or click over to your Dask Workers tab and you'll see you have workers ready to compute.
 
@@ -262,12 +262,12 @@ When we set up our original cluster (equivalent of 1 SLURM job) we requested 40 
 
 Now we will use the [Monte-Carlo method of estimating $\pi$](https://en.wikipedia.org/wiki/Pi#Monte_Carlo_methods)  to demonstrate how Dask can execute parallel computations with the SLURM Cluster we've built and scaled.
 
-We estimate the number $\pi$ by exploiting that the area of a quarter circle of unit radius is $\pi/4$ and that hence the probability of any randomly chosen point in a unit square to lie in a unit circle centerd at a corner of the unit square is $\pi/4$ as well. 
+We estimate the number $\pi$ by exploiting that the area of a quarter circle of unit radius is $\pi/4$ and that hence the probability of any randomly chosen point in a unit square to lie in a unit circle centerd at a corner of the unit square is $\pi/4$ as well.
 
 So for N randomly chosen pairs $(x, y)$ with $x\in[0, 1)$ and $y\in[0, 1)$, we count the number $N_{circ}$ of pairs that also satisfy $(x^2 + y^2) < 1$ and estimate $\pi \approx 4 \cdot N_{circ} / N$.
 
-[<img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Pi_30K.gif" 
-     width="50%" 
+[<img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Pi_30K.gif"
+     width="50%"
      align=top
      alt="PI monte-carlo estimate">](https://en.wikipedia.org/wiki/Pi#Monte_Carlo_methods)
 
@@ -281,14 +281,14 @@ import numpy as np
 
 def calc_pi_mc(size_in_bytes, chunksize_in_bytes=200e6):  
     """Calculate PI using a Monte Carlo estimate."""
-    
+
     size = int(size_in_bytes / 8)      # size= no. of random numbers to generate (x & y vals), divide 8 bcz numpy float64's generated by random.uniform are 8 bytes
     chunksize = int(chunksize_in_bytes / 8)
-    
+
     xy = da.random.uniform(0, 1,                          # this generates a set of x and y value pairs on the interval [0,1) of type float64
                            size=(size / 2, 2),            # divide 2 because we are generating an equal number of x and y values (to get our points)
                            chunks=(chunksize / 2, 2))     
-    
+
     in_circle = ((xy ** 2).sum(axis=-1) < 1)     # a boolean array, True for points that fall inside the unit circle (x**2 + y**2 < 1)
     pi = 4 * in_circle.mean()                    # mean= sum the number of True elements, divide by the total number of elements in the array
 
@@ -310,7 +310,7 @@ We loop over different volumes (1GB, 10GB, and 100GB) of double-precision random
 
 ```python
 for size in (1e9 * n for n in (1, 10, 100)):
-    
+
     start = time()
     pi = calc_pi_mc(size).compute()
     elaps = time() - start
@@ -387,8 +387,8 @@ client
 
 ```python
 for size in (1e9 * n for n in (1, 10, 100)):
-    
-        
+
+
     start = time()
     pi = calc_pi_mc(size).compute()
     elaps = time() - start
@@ -456,14 +456,14 @@ Now, we'll repeat the calculations with our adaptive cluster and a larger worklo
 
 ```python
 for size in (n * 1e9 for n in (1, 10, 100, 1000)):
-    
+
     start = time()
     pi = calc_pi_mc(size, min(size / 1000, 500e6)).compute()
     elaps = time() - start
 
     print_pi_stats(size, pi, time_delta=elaps,
                    num_workers=len(cluster.scheduler.workers))
-    
+
 sleep(5)  # allow for scale-down time
 client
 ```
@@ -910,7 +910,7 @@ What are the use cases for the adaptive cluster feature? Personally, I will be u
     https://conda.anaconda.org/conda-forge/noarch/splot-1.1.3-py_0.tar.bz2
     https://conda.anaconda.org/conda-forge/noarch/xrviz-0.1.4-py_1.tar.bz2
     https://conda.anaconda.org/conda-forge/noarch/pysal-2.2.0-py_0.tar.bz2
-    
+
     Note: you may need to restart the kernel to use updated packages.
 
 

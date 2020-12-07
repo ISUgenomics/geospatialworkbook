@@ -110,3 +110,7 @@ R --version
 ```
 
 However since this will load base R without the R libraries, you may need to install your own R libraries which are installed to home directory by default.
+
+## Using Rstudio Server on SCINet
+
+Recently, Ceres HPC was configured to run Rstudio Server. This allows you to run an RStudio like interface to the Ceres HPC. See full instructions on the SCINet website: [https://scinet.usda.gov/guide/rstudio/](https://scinet.usda.gov/guide/rstudio/)

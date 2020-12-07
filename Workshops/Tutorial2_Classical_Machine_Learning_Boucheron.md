@@ -1,7 +1,7 @@
 ---
 title: "Classical Machine Learning Fundamentals"
 layout: single
-author: Kerrie Geil
+author: Laura Boucheron
 author_profile: true
 header:
   overlay_color: "444444"
@@ -31,13 +31,13 @@ This tutorial contains 5 sections:
     - **Section 2.3: Texture Features**: measures of the distribution of intensities within the image object
   - **Section 3: Setting up a Feature Matrix and Label Vector**: aggregating features into a feature matrix in the format expected by machine learning algorithms along with definition of a label vector
   - **Section 4: Classification**: examples of common classification methods, including training and testing on the CalTech101 dataset
-  
+
 There are subsections with the heading "**<span style='color:Green'> Your turn: </span>**" throughout this tutorial in which you will be asked to apply what you have learned.
 
-# Section 0: Preliminaries 
+# Section 0: Preliminaries
 ## Section 0.1: A Note on Jupyter Notebooks
 
-There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes. 
+There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes.
 
 Markdown cells can be augmented with a number of text formatting features, including
   - bulleted
@@ -93,9 +93,9 @@ Open a terminal from inside JupyterLab (File > New > Terminal) and type the foll
 source activate
 conda create --name NMSU-AI-Workshop_image-processing python=3.7 numpy matplotlib imageio scikit-image ipykernel -y
 ```
-It may take 5 minutes to build the Conda environment. 
+It may take 5 minutes to build the Conda environment.
 
-When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select) 
+When the environment finishes building, select this environment as your kernel in your Jupyter Notebook (click top right corner where you see Python 3, select your new kernel from the dropdown menu, click select)
 
 You will want to do this BEFORE the workshop starts.
 
@@ -120,15 +120,15 @@ for k, category in enumerate(categories):
     if len(I.shape)==2:
         plt.set_cmap('gray') # change colormap to be gray
     plt.subplot(11,10,k+1) # access the k-th supblot in an 11x10 grid
-    plt.imshow(I) 
+    plt.imshow(I)
     plt.axis('off')
     plt.title(os.path.basename(category)) # strip off basename for title
 ```
 
 
-    
+
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_7_0.png)
-    
+
 
 
 ## Section 1.2 Exploring the Annotations
@@ -157,9 +157,9 @@ print(ann['box_coord'])
 print('obj_contour')
 print(ann['obj_contour'])
 
-# ann['box_coord'] appears to have the bounding box vertices specified as 
+# ann['box_coord'] appears to have the bounding box vertices specified as
 # [row_min, row_max, col_min, col_max] or [y_min, y_max, x_min, x_max]
-# ann['obj_contour'] appears to have the column indices (x-axis) in the zeroth row and the 
+# ann['obj_contour'] appears to have the column indices (x-axis) in the zeroth row and the
 # row indices (y-axis) in the first row
 
 # plot expects the x-axis first and the y-axis second (col first, row second)
@@ -190,9 +190,9 @@ plt.show()
 
 
 
-    
+
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_9_1.png)
-    
+
 
 
 ### Section 1.2.2 Some common coordinate issues that may be encountered with annotations
@@ -209,12 +209,12 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_11_0.png)
-    
 
 
-#### Reversing coordinates 
+
+#### Reversing coordinates
 A very common mistake in plotting (x,y) coordinates on top of images is accidentally reversing the order of the coordinates.  Given the rotated coordinate system used for images, this can cause a common "rotation" of expected results.  If we accidentally plotted the annotation in row, column order, we would achieve something like follows.
 
 
@@ -229,13 +229,13 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_13_0.png)
-    
+
 
 
 ### Section 1.2.3 Computing a binary object mask from the annotation data
-You can use the object contour outline to define a binary image image mask with `r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,ann['obj_contour'][0,:]+ann['box_coord'][0,2]-1,(M,N)); A=np.zeros(M,N); A[r,c]=1;` (note that the object contour indices are swapped here versus the plot command used above due to the difference in coordinate systems of image versus plot) where `M`, `N` are the dimensions of the image. 
+You can use the object contour outline to define a binary image image mask with `r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,ann['obj_contour'][0,:]+ann['box_coord'][0,2]-1,(M,N)); A=np.zeros(M,N); A[r,c]=1;` (note that the object contour indices are swapped here versus the plot command used above due to the difference in coordinate systems of image versus plot) where `M`, `N` are the dimensions of the image.
 
 
 ```python
@@ -257,9 +257,9 @@ plt.show()
 ```
 
 
-    
+
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_15_0.png)
-    
+
 
 
 ## <span style='color:Green'> Your turn: </span>
@@ -267,10 +267,10 @@ Using what you have learned about using lists to loop over categories, load the 
 
 
 ```python
-# ann['box_coord'] appears to have the bounding box vertices specified 
-# as [row_min, col_min, row_max, col_max] or [y_min, x_min, y_max, 
+# ann['box_coord'] appears to have the bounding box vertices specified
+# as [row_min, col_min, row_max, col_max] or [y_min, x_min, y_max,
 # x_max]
-# ann['obj_contour'] appears to have the row indices (y-axis) in the 
+# ann['obj_contour'] appears to have the row indices (y-axis) in the
 # zeroth row and the column indices (x-axis) in the first row
 
 im_categories = sorted(glob.glob('101_ObjectCategories/*'))
@@ -306,7 +306,7 @@ for k, im_category in enumerate(im_categories):
 
     NotADirectoryError: [Errno 20] Not a directory: 'Annotations/FeatureDetectionQuality.mat/annotation_0001.mat'
 
-    
+
     During handling of the above exception, another exception occurred:
 
 
@@ -356,9 +356,9 @@ for k, im_category in enumerate(im_categories):
 
 
 
-    
+
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_17_1.png)
-    
+
 
 
 ## Section 2: Feature Extraction
@@ -367,7 +367,7 @@ In this section we will define several functions designed to extract different c
 ### Section 2.1 Color Features
 In this section, we will extract a set of features designed to charaterize the colors present in an image.  We use the annotation mask as defined above to focus our attention on features only within the object of interest rather than features of the entire image.
 
-### Section 2.1.1 Defining color statistics 
+### Section 2.1.1 Defining color statistics
 Here we create a function `f,fnames=extract_color_features_rgb(im,mask)` with inputs `im`, the image from which to extract features, and the binary annotation mask, `mask`.  Outputs will be a length-15 feature vector `f` describing statistics of the colors within the image object and a length-15 list `fnames` with the feature names.  We extract statistics from the red, green, and blue channels of the image.  From each channel, we compute the mean, standard deviation, median, min, and max value of pixels *within the object mask*.  We order the features by channel first in the order given above and by statistic second in the order given above (i.e., the first and second features will be mean and standard deviation of the red channel).  We assign brief, descriptive strings for each feature and store those in `fnames` (e.g., `'R_mean'`, and `'R_std'` as names for the first two features).  Note that we also need to take care of the situation in which the image is a grayscale image, i.e., only one channel by using the `skimage.color.gray2rgb` function to convert to an RGB image.
 
 
@@ -378,7 +378,7 @@ def extract_color_features_rgb(im,mask):
     R = im[:,:,0]
     G = im[:,:,1]
     B = im[:,:,2]
-    
+
     f = np.array([])
     f = np.append(f,[R[mask>0].mean(), R[mask>0].std(), np.median(R[mask>0]), \
                      R[mask>0].min(), R[mask>0].max()])
@@ -405,7 +405,7 @@ r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,\
                            (im.shape[0],im.shape[1]))
 mask = np.zeros((im.shape[0],im.shape[1]))
 mask[r,c] = 1
-    
+
 f,fnames = extract_color_features_rgb(im,mask)
 
 print('feature vector')
@@ -434,7 +434,7 @@ def extract_color_features_hsv(im,mask):
     H = HSV[:,:,0]
     S = HSV[:,:,1]
     V = HSV[:,:,2]
-    
+
     f = np.array([])
     f = np.append(f,[H[mask>0].mean(), H[mask>0].std(), np.median(H[mask>0]), \
                      H[mask>0].min(),  H[mask>0].max()])
@@ -458,7 +458,7 @@ r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,\
                            (im.shape[0],im.shape[1]))
 mask = np.zeros((im.shape[0],im.shape[1]))
 mask[r,c] = 1
-    
+
 f,fnames = extract_color_features_hsv(im,mask)
 
 print('feature vector')
@@ -509,7 +509,7 @@ def extract_region_features_try1(mask):
               'equivalent_diameter', 'euler_number', 'extent', 'filled_area',\
               'major_axis_length', 'minor_axis_length', 'moments_hu',\
               'perimeter', 'solidity')
-        
+
     return f,fnames
 ```
 
@@ -525,7 +525,7 @@ r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,\
                            (im.shape[0],im.shape[1]))
 mask = np.zeros((im.shape[0],im.shape[1]))
 mask[r,c] = 1
-    
+
 f,fnames = extract_region_features_try1(mask.astype(int))
 
 print('feature vector')
@@ -545,7 +545,7 @@ print(fnames)
 
 
     /Users/jenchang/miniconda/envs/geo_env/lib/python3.7/site-packages/ipykernel_launcher.py:8: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
-      
+
 
 
 ## <span style='color:Green'> Your turn: </span>
@@ -588,7 +588,7 @@ whos
     svm                            module      <module 'sklearn.svm' fro<...>sklearn/svm/__init__.py'>
 
 
-The feature vector is of type "object" indicating that it is not a simple feature vector.  The vector feature from the Hu moments have not been appended to the feature vector as individual elements. 
+The feature vector is of type "object" indicating that it is not a simple feature vector.  The vector feature from the Hu moments have not been appended to the feature vector as individual elements.
 
 ## <span style='color:Green'> Your turn: </span>
 Here is a modification to the region feature extraction code called simply `extract_region_features`.  Use this function to compare and contrast the output to the output from `extract_region_features_try1`.
@@ -612,7 +612,7 @@ def extract_region_features(mask):
               'major_axis_length', 'minor_axis_length', 'moments_hu1', 'moments_hu2',\
               'moments_hu3', 'moments_hu4', 'moments_hu5', 'moments_hu6',\
               'moments_hu7', 'perimeter', 'solidity')
-        
+
     return f,fnames
 ```
 
@@ -625,7 +625,7 @@ r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+ann['box_coord'][0,0]-1,\
                            (im.shape[0],im.shape[1]))
 mask = np.zeros((im.shape[0],im.shape[1]))
 mask[r,c] = 1
-    
+
 f,fnames = extract_region_features(mask.astype(int))
 
 print('feature vector')
@@ -680,7 +680,7 @@ def extract_texture_features(im,mask):
             fnames.append('GLCM_'+GLCM_feat+'_d'+str(d)+'_mean')
         for d in range(1,5):
             fnames.append('GLCM_'+GLCM_feat+'_d'+str(d)+'_std')
-    
+
     return f, fnames
 ```
 
@@ -736,7 +736,7 @@ Here, as an example, we specify the `'emu'` and `'flamingo'` directories, comput
 
 
 ```python
-categories = ('emu', 'flamingo') 
+categories = ('emu', 'flamingo')
 
 # instantiate empty feature matrices and label vectors
 X_train = np.empty((0,97),float)
@@ -746,7 +746,7 @@ X_test = np.empty((0,97),float)
 y_test = list()
 filenames_test = list()
 for category in categories: # loop over categories
-    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images 
+    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images
     ans = sorted(glob.glob('Annotations/'+category+'/*.mat')) # corresponding list of annotations
     N_train = np.floor(len(ims)*0.9) # compute number of training samples
     N_test = len(ims) - N_train # compute number of testing samples
@@ -942,7 +942,7 @@ To normalize `X_test`, from each column we subtract the corresponding minimum fr
 
 ```python
 def normalize_feature_columns(*argv):
-  
+
     if len(argv)==1:
         X = argv[0]
         mn = np.amin(X,0) # minimum of feature (along columns)
@@ -1075,7 +1075,7 @@ help(svm.SVC)
 ```
 
     Help on class SVC in module sklearn.svm._classes:
-    
+
     class SVC(sklearn.svm._base.BaseSVC)
      |  SVC(*, C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, max_iter=-1, decision_function_shape='ovr', break_ties=False, random_state=None)
      |  
@@ -1522,7 +1522,7 @@ help(svm.SVC)
      |      -------
      |      self : object
      |          Estimator instance.
-    
+
 
 
 ### Section 4.2: Testing the SVM Classifier
@@ -1588,9 +1588,9 @@ for i in misclass_idx[0]:
 
 
 
-    
+
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_65_1.png)
-    
+
 
 
 ## <span style='color:Green'> Your turn: </span>
@@ -1606,7 +1606,7 @@ Use what you learned above to create a three-class classifier using input from t
 
 
 ```python
-categories = ('emu', 'flamingo') 
+categories = ('emu', 'flamingo')
 
 # instantiate empty feature matrices and label vectors
 X_train = np.empty((0,97),float)
@@ -1614,7 +1614,7 @@ y_train = list()
 X_test = np.empty((0,97),float)
 y_test = list()
 for category in categories: # loop over categories
-    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images 
+    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images
     ans = sorted(glob.glob('Annotations/'+category+'/*.mat')) # corresponding list of annotations
     N_train = np.floor(len(ims)*0.9) # compute number of training samples
     N_test = len(ims) - N_train # compute number of testing samples
@@ -1637,7 +1637,7 @@ for category in categories: # loop over categories
         else: # append to testing feature matrix and label vector
             X_test = np.vstack((X_test,np.concatenate((f_rgb,f_hsv,f_region,f_texture))))
             y_test.append(category)
-            
+
 Xn_train,mx,mn = normalize_feature_columns(X_train)
 Xn_test = normalize_feature_columns(X_test,mx,mn)
 
@@ -1667,7 +1667,7 @@ We can train an SVM using only a subset of the features that we have defined.  T
 
 
 ```python
-categories = ('emu', 'flamingo') 
+categories = ('emu', 'flamingo')
 
 # instantiate empty feature matrices and label vectors
 X_train = np.empty((0,97),float)
@@ -1675,7 +1675,7 @@ y_train = list()
 X_test = np.empty((0,97),float)
 y_test = list()
 for category in categories: # loop over categories
-    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images 
+    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images
     ans = sorted(glob.glob('Annotations/'+category+'/*.mat')) # corresponding list of annotations
     N_train = np.floor(len(ims)*0.9) # compute number of training samples
     N_test = len(ims) - N_train # compute number of testing samples
@@ -1698,7 +1698,7 @@ for category in categories: # loop over categories
         else: # append to testing feature matrix and label vector
             X_test = np.vstack((X_test,np.concatenate((f_rgb,f_hsv,f_region,f_texture))))
             y_test.append(category)
-            
+
 Xn_train,mx,mn = normalize_feature_columns(X_train)
 Xn_test = normalize_feature_columns(X_test,mx,mn)
 ```
@@ -1773,7 +1773,7 @@ Choose two or more categories from the CalTech101 dataset that you think might b
 
 
 ```python
-categories = ('emu', 'flamingo') 
+categories = ('emu', 'flamingo')
 
 # instantiate empty feature matrices and label vectors
 X_train = np.empty((0,97),float)
@@ -1781,7 +1781,7 @@ y_train = list()
 X_test = np.empty((0,97),float)
 y_test = list()
 for category in categories: # loop over categories
-    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images 
+    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images
     ans = sorted(glob.glob('Annotations/'+category+'/*.mat')) # corresponding list of annotations
     N_train = np.floor(len(ims)*0.9) # compute number of training samples
     N_test = len(ims) - N_train # compute number of testing samples
@@ -1804,7 +1804,7 @@ for category in categories: # loop over categories
         else: # append to testing feature matrix and label vector
             X_test = np.vstack((X_test,np.concatenate((f_rgb,f_hsv,f_region,f_texture))))
             y_test.append(category)
-            
+
 Xn_train,mx,mn = normalize_feature_columns(X_train)
 Xn_test = normalize_feature_columns(X_test,mx,mn)
 
@@ -1838,7 +1838,7 @@ Explore the capabilities of other classifiers.  If you don't know where to start
 
 ```python
 from sklearn import discriminant_analysis
-categories = ('emu', 'flamingo') 
+categories = ('emu', 'flamingo')
 
 # instantiate empty feature matrices and label vectors
 X_train = np.empty((0,97),float)
@@ -1846,7 +1846,7 @@ y_train = list()
 X_test = np.empty((0,97),float)
 y_test = list()
 for category in categories: # loop over categories
-    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images 
+    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images
     ans = sorted(glob.glob('Annotations/'+category+'/*.mat')) # corresponding list of annotations
     N_train = np.floor(len(ims)*0.9) # compute number of training samples
     N_test = len(ims) - N_train # compute number of testing samples
@@ -1869,7 +1869,7 @@ for category in categories: # loop over categories
         else: # append to testing feature matrix and label vector
             X_test = np.vstack((X_test,np.concatenate((f_rgb,f_hsv,f_region,f_texture))))
             y_test.append(category)
-            
+
 Xn_train,mx,mn = normalize_feature_columns(X_train)
 Xn_test = normalize_feature_columns(X_test,mx,mn)
 
@@ -1892,7 +1892,7 @@ print('The overall accuracy is: '+ str(acc))
 
 ```python
 from sklearn import neighbors
-categories = ('emu', 'flamingo') 
+categories = ('emu', 'flamingo')
 
 # instantiate empty feature matrices and label vectors
 X_train = np.empty((0,97),float)
@@ -1900,7 +1900,7 @@ y_train = list()
 X_test = np.empty((0,97),float)
 y_test = list()
 for category in categories: # loop over categories
-    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images 
+    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images
     ans = sorted(glob.glob('Annotations/'+category+'/*.mat')) # corresponding list of annotations
     N_train = np.floor(len(ims)*0.9) # compute number of training samples
     N_test = len(ims) - N_train # compute number of testing samples
@@ -1923,7 +1923,7 @@ for category in categories: # loop over categories
         else: # append to testing feature matrix and label vector
             X_test = np.vstack((X_test,np.concatenate((f_rgb,f_hsv,f_region,f_texture))))
             y_test.append(category)
-            
+
 Xn_train,mx,mn = normalize_feature_columns(X_train)
 Xn_test = normalize_feature_columns(X_test,mx,mn)
 
@@ -1946,7 +1946,7 @@ print('The overall accuracy is: '+ str(acc))
 
 ```python
 from sklearn import ensemble
-categories = ('emu', 'flamingo') 
+categories = ('emu', 'flamingo')
 
 # instantiate empty feature matrices and label vectors
 X_train = np.empty((0,97),float)
@@ -1954,7 +1954,7 @@ y_train = list()
 X_test = np.empty((0,97),float)
 y_test = list()
 for category in categories: # loop over categories
-    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images 
+    ims = sorted(glob.glob('101_ObjectCategories/'+category+'/*.jpg')) # list of images
     ans = sorted(glob.glob('Annotations/'+category+'/*.mat')) # corresponding list of annotations
     N_train = np.floor(len(ims)*0.9) # compute number of training samples
     N_test = len(ims) - N_train # compute number of testing samples
@@ -1977,7 +1977,7 @@ for category in categories: # loop over categories
         else: # append to testing feature matrix and label vector
             X_test = np.vstack((X_test,np.concatenate((f_rgb,f_hsv,f_region,f_texture))))
             y_test.append(category)
-            
+
 Xn_train,mx,mn = normalize_feature_columns(X_train)
 Xn_test = normalize_feature_columns(X_test,mx,mn)
 
