@@ -44,6 +44,8 @@ header:
 
 * [Viewing Files In Remote Machine Without Downloading](/HPC/viewing-files-in-remote-machine-without-downloading-locally.md)
 
+* [Setup R](../Workshops/R_Setup.md)
+
 ---
 
 [Next](Unix/unix-basics-1.md){: .btn  .btn--primary}
