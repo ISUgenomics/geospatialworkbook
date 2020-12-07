@@ -72,7 +72,7 @@ R functions are made available as libraries (also referred to as packages) which
   ```R
   install.packages("BiocManager")
   biocond_pkgs = c ("wgcna", "deseq2")    # List one or multiple libraries
-  BiocManager::install()
+  BiocManager::install(biocond_pkgs)
   ```
 
 * **GitHub R libraries** tend to be the most recently developed libraries and may not have been submitted to Bioconductor or CRAN yet.

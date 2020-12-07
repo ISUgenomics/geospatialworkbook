@@ -6,6 +6,14 @@ Andrew Severin:
   email       : "mailto:severin@iastate.edu"
   website     : "https://gif.biotech.iastate.edu"
 
+Laura Boucheron:
+  name        : "Laura Boucheron"
+  bio         : "Laura E. Boucheron received the B.S. and M.S. degrees in electrical engineering from New Mexico State University, Las Cruces, in 2001 and 2003, respectively, and the Ph.D. degree in electrical and computer engineering from the University of California, Santa Barbara, in 2008. She has intern and graduate research experience at both Sandia National Laboratories and Los Alamos National Laboratory and postdoctoral and research faculty experience in the Klipsch School of Electrical and Computer Engineering at New Mexico State University. She is currently an Associate Professor in the Klipsch School. Her teaching interests include signals & systems, digital signal processing, digital image processing, and pattern recognition and machine learning. Her research interests include image analysis, feature extraction, pattern recognition and machine learning, temporal image analysis, interdisciplinary research, solar image analysis, and biomedical image analysis."
+  avatar      : "/assets/images/people/LauraBoucheron.jpg"
+  twitter     : "someone"
+  email       : "mailto:someone@iastate.edu"
+  website     : "https://gif.biotech.iastate.edu"
+
 Kerrie Geil:
   name        : "Kerrie Geil"
   bio         : "Kerrie is an ARS SCINet postdoc in the research group of Dr. Deb Peters in Las Cruces, NM. Her M.S. and Ph.D. degrees are in Atmospheric Sciences and her research background is in climate modeling."
@@ -21,3 +29,11 @@ Jennifer Chang:
   twitter     : "jenchang212"
   email       : "mailto:jenchang@iastate.edu"
   website     : "https://j23414.github.io"
+
+Suzy Stillman:
+  name        : "Suzy Stillman"
+  bio         : "Suzy is an ARS SCINet postdoc in the research group of Dr. Deb Peters in Las Cruces, NM. Her M.S. and Ph.D. degrees are in Hydrometeorology and her research background is in hydrologic observations and projections."
+  avatar      : "/assets/images/people/SuzyStillman.png"
+  twitter     : "someone"
+  email       : "mailto:someone@iastate.edu"
+  website     : "https://gif.biotech.iastate.edu"
