@@ -37,3 +37,15 @@ Suzy Stillman:
   twitter     : "someone"
   email       : "mailto:someone@iastate.edu"
   website     : "https://gif.biotech.iastate.edu"
+
+Rowan Gaffney:
+  name        : "Rowan Gaffney"
+  bio         : "Rowan is the Remote Sensing Specialist in the Rangeland Resource & Systems Research Unit at Fort Collins, CO."
+  avatar      : "/assets/images/people/profile.jpg"
+  twitter     : "someone"
+  email       : "mailto:someone@iastate.edu"
+  website     : "https://gif.biotech.iastate.edu"
+
+  ### Rowan Gaffney
+  ![Rowan](../assets/images/people/profile.png){: .align-left-profile }
+  Rowan Gaffney
