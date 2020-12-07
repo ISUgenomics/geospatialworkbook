@@ -1,7 +1,7 @@
 ---
-title: "R Setup"
+title: R Setup
 layout: single
-Author: Jennifer Chang
+author: Jennifer Chang
 author_profile: true
 header:
   overlay_color: "444444"
@@ -54,8 +54,6 @@ ggplot(data, aes(x = x, y = y)) +
   geom_point() +
   labs(title = "Hello World")
 ```
-
-
 
 ## Installing R Libraries
 
