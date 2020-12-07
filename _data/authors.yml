@@ -16,7 +16,7 @@ Kerrie Geil:
 
 Jennifer Chang:
   name        : "Jennifer Chang"
-  bio         : "Her PhD was in Bioinformatics and Computational Biology with a minor in Statistics. Programming in multiple languages since 2006, she enjoys designing workflows to reduce tedium and increase joy of discovery."
+  bio         : "Her PhD was in Bioinformatics and Computational Biology with a minor in Statistics. During her PhD, she developed the C++ software Mango Graph Studio which has been licensed to a startup. Since then, she has worked on automating the Influenza A Virus in Swine reports and recently has been designing Nextflow pipelines for highly scalable and reproducible pipelines. She enjoys designing workflows to reduce tedium and increase joy of discovery."
   avatar      : "/assets/images/people/JenChang.png"
   twitter     : "jenchang212"
   email       : "mailto:jenchang@iastate.edu"
