@@ -24,7 +24,9 @@ Kerrie served as a AAAS Policy Fellow at USDA ARS in Beltsville MD from 2018-202
 
 ### Rowan Gaffney
 ![Rowan](../assets/images/people/profile.jpg){: .align-left-profile }
-Rowan Gaffney is the Remote Sensing Specialist in the Rangeland Resource & Systems Research Unit at Fort Collins, CO.
+Rowan Gaffney is the Remote Sensing Specialist in the Rangeland Resource & Systems Research Unit at Fort Collins, CO. <br /> <br />
+
+
 
 ### Laura Boucheron
 
@@ -33,7 +35,7 @@ Laura E. Boucheron received the B.S. and M.S. degrees in electrical engineering 
 
 ### Suzy Stillman
 
-![Suzy](../assets/images/people/KerrieGeil.png){: .align-left-profile }
+![Suzy](../assets/images/people/SuzyStillman.png){: .align-left-profile }
 Suzy is an ARS SCINet postdoc in the research group of Dr. Deb Peters in Las Cruces, NM. Her M.S. and Ph.D. degrees are in Hydrometeorology and her research background is in hydrologic observations and projections.
 
 <!--Suzy began working as a SCINet Postdoc in Las Cruces, NM in Dr. Deb Peters’ research group in July, 2020. After receiving her PhD in hydrometeorology from the University of Arizona, she worked at the Desert Research Institute in Las Vegas, NV, where her main research focus included climate analyses for DoD and DoE. Her background is in evaluating and improving the hydrologic observing system through combining data from a variety of sources. Some of her research that excites her most includes working towards understanding the impact of atmospheric rivers on Colorado River yield and the influence of topography on precipitation in the western US. Her research interests include making the best use of the already available suite of hydrologic observational data to gain a better understanding of the future hydroclimate.-->
