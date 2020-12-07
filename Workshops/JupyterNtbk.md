@@ -1,5 +1,5 @@
 ---
-title: "Jupyter Notebooks"
+title: "Interactive Notebooks"
 layout: single
 header:
   overlay_color: "444444"
@@ -10,5 +10,16 @@ Any Jupyter notebooks are listed here.
 
 ## Index
 
-* [Dask Jupyter Notebook](session3-intro-to-python-dask-on-ceres.md)
-* [Machine Jupyter Notebook](session5_machine_learning.md)
+**Jupyter Notebooks**
+
+* [session3-intro-to-dask-on-ceres.ipynb](http://geospatial.101workbook.org/tutorials/session3-intro-to-python-dask-on-ceres.ipynb)
+* [session5_machine_learning.ipynb](http://geospatial.101workbook.org/tutorials/session5_machine_learning.ipynb)
+* [Tutorial1_Image_Processing_Essentials_Boucheron.pynb](http://geospatial.101workbook.org/tutorials/Tutorial1_Image_Processing_Essentials_Boucheron.ipynb)
+* [Tutorial2_Classical_Machine_Learning_Boucheron.ipynb](http://geospatial.101workbook.org/tutorials/Tutorial2_Classical_Machine_Learning_Boucheron.ipynb)
+* [Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb](http://geospatial.101workbook.org/tutorials/Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb)
+* [Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb](http://geospatial.101workbook.org/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb)
+* [Tutorial5_Advanced_DL_Networks_Boucheron.ipynb](http://geospatial.101workbook.org/tutorials/Tutorial5_Advanced_DL_Networks_Boucheron.ipynb)
+
+**R Markdown Notebooks**
+
+* [R_Image_Processing.Rmd](http://geospatial.101workbook.org/Workshops/R_Image_Processing.Rmd)

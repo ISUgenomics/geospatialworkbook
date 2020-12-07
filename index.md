@@ -25,7 +25,7 @@ feature_row:
     url: "Workshops/ImageMLWorkshop"
     btn_label: "Learn More"
 
-  - title: "Index of Jupyter Notebooks"
+  - title: "Index of Jupyter/R Notebooks"
     image_path: /assets/images/markus-spiske-qjnAnF0jIGk-unsplash.jpg
     alt: "Programs3"
     url: "Workshops/JupyterNtbk"
