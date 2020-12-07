@@ -1,12 +1,12 @@
 ---
 title: Image Processing Fundamentals
 layout: single
-author: Kerrie Geil
+author: Jennifer Chang
 author_profile: true
 header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
---- 
+---
 
 R\_Image\_Processing
 ================
@@ -42,19 +42,19 @@ the `imager` library available on CRAN.
 # install.packages("imager")       # <= uncomment to install
 library(imager)
 #> Loading required package: magrittr
-#> 
+#>
 #> Attaching package: 'imager'
 #> The following object is masked from 'package:magrittr':
-#> 
+#>
 #>     add
 #> The following objects are masked from 'package:stats':
-#> 
+#>
 #>     convolve, spectrum
 #> The following object is masked from 'package:graphics':
-#> 
+#>
 #>     frame
 #> The following object is masked from 'package:base':
-#> 
+#>
 #>     save.image
 ```
 

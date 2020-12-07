@@ -8,8 +8,16 @@ Andrew Severin:
 
 Kerrie Geil:
   name        : "Kerrie Geil"
-  bio         : "Bio text here"
-  avatar      : "/assets/images/people/profile.jpg"
+  bio         : "Kerrie is an ARS SCINet postdoc in the research group of Dr. Deb Peters in Las Cruces, NM. Her M.S. and Ph.D. degrees are in Atmospheric Sciences and her research background is in climate modeling."
+  avatar      : "/assets/images/people/KerrieGeil.png"
   twitter     : "someone"
   email       : "mailto:someone@iastate.edu"
   website     : "https://gif.biotech.iastate.edu"
+
+Jennifer Chang:
+  name        : "Jennifer Chang"
+  bio         : "Her PhD was in Bioinformatics and Computational Biology with a minor in Statistics. During her PhD, she developed the C++ software Mango Graph Studio which has been licensed to a startup. Since then, she has worked on automating the Influenza A Virus in Swine reports and recently has been designing nextflow pipelines for highly scalable and reproducible pipelines. She enjoys designing workflows to reduce tedium and increase joy of discovery."
+  avatar      : "/assets/images/people/JenChang.png"
+  twitter     : "jenchang212"
+  email       : "mailto:jenchang@iastate.edu"
+  website     : "https://j23414.github.io"
