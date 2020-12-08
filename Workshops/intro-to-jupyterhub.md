@@ -40,6 +40,7 @@ Notice how it says "Python 3" at the top right of the notebook. You are working 
 **Step 2: Add a Raw Text Cell**
 
 At the top of the notebook click "Code" and change it to "Raw". Click on the cell and type the following:
+
 ```bash
 author: your name
 date: today's date
@@ -51,6 +52,7 @@ To execute the cell type Shift+Enter or click the run button at the top of the n
 **Step 3: Add a Markdown Cell**
 
 Click inside the new cell that has appeared in your notebook, then at the top of the notebook click again on "Code" and change it to "Markdown". Click inside the Markdown cell and type:
+
 ```bash
 # Make Notes in Your Codes Prettier Using Markdown
 ## add a subtitle
@@ -65,6 +67,7 @@ Learn more about JupyterHub markdown syntax [here](https://jupyter-notebook.read
 **Step 4: Add a Code Cell**
 
 If you executed the previous cell, a new code cell should have automagically appeared. Type:
+
 ```bash
 print('Hello, Jupyter world!')
 ```
@@ -81,6 +84,7 @@ Right click on the cell and choose "Delete Cells" or place your cursor in the ce
 **Step 6: Insert a Cell**
 
 Insert a cell under the markdown cell by clicking on the markdown cell and then clicking the plus button at the top of the notebook (next to the scissors). Type:
+
 ```bash
 print('How awesome is this?!')
 ```

@@ -33,12 +33,14 @@ First you will need to install Python or have access to an Python environment. D
    1. [conda](https://docs.conda.io/projects/conda/en/latest/) / [miniconda](https://docs.conda.io/en/latest/miniconda.html)
    2. [venv](https://docs.python.org/3/library/venv.html)
 
-Regardless of IDE, a python environment should have a way to edit code. Many of the geospatial workbook tutorials are written in a Jupyter Notebook. This is an interactive report where blocks of text are either code, or documentation
+Regardless of IDE, a python environment should have a way to edit code. Many of the geospatial workbook tutorials are written in a Jupyter Notebook. This is an interactive report where blocks of text are either code, or documentation:
 
 1. **Code Block**
 2. **Text Block**
 
-Together these panes allow you to interactively design an Python pipeline.
+Work through the [Introduction to JupyterHub](intro-to-jupyterhub.md) tutorial.
+
+Together these panes allow you to interactively design a Python pipeline.
 
 ### Hands-On Exercise - using Jupyter Notebooks
 
@@ -89,14 +91,20 @@ conda env create -f environment.yml
 
 ## Using Python on SCINet
 
-On the SCINet HPC resources (Ceres and Atlas), R should be available as a module.
+On the SCINet HPC resources (Ceres and Atlas), python should be available as a module. We recommend using miniconda environment for managing and creating python environments.
 
 ```bash
-module load miniconda
-conda env create -f environment.yml
+module load miniconda                   # start miniconda
+conda env create -f environment.yml     # create environment
+conda env list                          # list existing environments
+conda activate env_name                 # activate a python environment
 ```
 
-However since this will load base R without the R libraries, you may need to install your own R libraries which are installed to home directory by default.
+However since this will load base python without the libraries, you may need to install your own python libraries which are installed to home directory by default.
+
+Since the home directory may have restricted space, see the SCINet documentation on linking libraries on the HPC.
+
+* SCINet Package Install - [https://scinet.usda.gov/guide/packageinstall/](https://scinet.usda.gov/guide/packageinstall/)
 
 ## Using JupyterLab on SCINet
 

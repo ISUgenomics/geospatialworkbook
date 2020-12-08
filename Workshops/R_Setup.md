@@ -59,7 +59,7 @@ ggplot(data, aes(x = x, y = y)) +
 
 R functions are made available as libraries (also referred to as packages) which need to be installed from somewhere. R libraries can be indexed on CRAN, bioconductor and GitHub. What's the difference between installing from these locations?
 
-* **CRAN** R libraries have undergone a high quality control process. [CRAN Website](https://cran.r-project.org/)
+* **CRAN** R libraries have undergone a stringent quality control process. [CRAN Website](https://cran.r-project.org/)
 
   ```R
   cran_pkgs = c("ggplot2", "devtools")    # List one or multiple libraries
@@ -110,6 +110,10 @@ R --version
 ```
 
 However since this will load base R without the R libraries, you may need to install your own R libraries which are installed to home directory by default.
+
+Since the home directory may have restricted space, see the SCINet documentation on linking libraries on the HPC.
+
+* SCINet Package Install - [https://scinet.usda.gov/guide/packageinstall/](https://scinet.usda.gov/guide/packageinstall/)
 
 ## Using Rstudio Server on SCINet
 
