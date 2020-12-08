@@ -40,14 +40,14 @@ def main():
     plt.title('Original')
 
     plt.subplot(1,3,2)
-    I_camera_v[I_camera_v < 0] = 0
-    plt.imshow(I_camera_v, cmap='gray')
+#    I_camera_v[I_camera_v < 0] = 0
+    plt.imshow(abs(I_camera_v), cmap='gray')
     plt.axis('off')
     plt.title('vertical_filter')
 
     plt.subplot(1,3,3)
-    I_camera_h[I_camera_h < 0] = 0
-    plt.imshow(I_camera_h, cmap='gray')
+#    I_camera_h[I_camera_h < 0] = 0
+    plt.imshow(abs(I_camera_h), cmap='gray')
     plt.axis('off')
     plt.title('horizontal_filter')
 
