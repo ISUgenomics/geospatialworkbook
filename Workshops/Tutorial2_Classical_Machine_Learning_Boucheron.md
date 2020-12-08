@@ -26,14 +26,15 @@ header:
 In this tutorial, we present a brief overview of classical machine learning concepts as applicable to image classification applications.  Completion of this tutorial should give participants the basic background and terminology necessary for an understanding of the basics of classical machine learning as applied to image classification.  In this tutorial, we will develop a classical machine learning algorithm capable of discriminating between objects present in an image.
 
 This tutorial contains 5 sections:
-  - **Section 0: Preliminaries**: some notes on using this notebook, how to download the image dataset that we will use for this tutorial, and import commands for the libraries necessary for this tutorial
-  - **Section 1: Working with the CalTech101 Dataest**: how to traverse and use the directory structure and files provided in the CalTech101 Dataset
-  - **Section 2: Feature Extraction**: examples of extraction of different feature categories from images, including color, region, and texture features
-    - **Section 2.1: Color Features**: statistics of the color within an image object
-    - **Section 2.2: Region Features**: measures of the size and shape of the image object
-    - **Section 2.3: Texture Features**: measures of the distribution of intensities within the image object
-  - **Section 3: Setting up a Feature Matrix and Label Vector**: aggregating features into a feature matrix in the format expected by machine learning algorithms along with definition of a label vector
-  - **Section 4: Classification**: examples of common classification methods, including training and testing on the CalTech101 dataset
+
+  * **Section 0: Preliminaries**: some notes on using this notebook, how to download the image dataset that we will use for this tutorial, and import commands for the libraries necessary for this tutorial
+  * **Section 1: Working with the CalTech101 Dataest**: how to traverse and use the directory structure and files provided in the CalTech101 Dataset
+  * **Section 2: Feature Extraction**: examples of extraction of different feature categories from images, including color, region, and texture features
+    * **Section 2.1: Color Features**: statistics of the color within an image object
+    * **Section 2.2: Region Features**: measures of the size and shape of the image object
+    * **Section 2.3: Texture Features**: measures of the distribution of intensities within the image object
+  * **Section 3: Setting up a Feature Matrix and Label Vector**: aggregating features into a feature matrix in the format expected by machine learning algorithms along with definition of a label vector
+  * **Section 4: Classification**: examples of common classification methods, including training and testing on the CalTech101 dataset
 
 There are subsections with the heading "**<span style='color:Green'> Your turn: </span>**" throughout this tutorial in which you will be asked to apply what you have learned.
 
@@ -41,6 +42,14 @@ There are subsections with the heading "**<span style='color:Green'> Your turn: 
 ## Section 0.1: A Note on Jupyter Notebooks
 
 There are two main types of cells in this notebook: code and markdown (text).  You can add a new cell with the plus sign in the menu bar above and you can change the type of cell with the dropdown menu in the menu bar above.  As you complete this tutorial, you may wish to add additional code cells to try out your own code and markdown cells to add your own comments or notes.
+
+A jupyter notebook with code and markdown (text) sections is provided for your convenience. 
+
+ * [Tutorial2\_Classical\_Machine\_Learning\_Boucheron.ipynb](https://geospatial.101workbook.org/tutorials/Tutorial2_Classical_Machine_Learning_Boucheron.ipynb)
+
+See [Introduction to JupyterHub](intro-to-jupyterhub.md) for a review on how to use Jupyter notebooks.
+
+<!--
 
 Markdown cells can be augmented with a number of text formatting features, including
   - bulleted
@@ -52,19 +61,61 @@ You can edit a cell by double clicking on it.  If you double click on this cell,
 
 Once you have completed (all or part) of this notebook, you can share your results with colleagues by sending them the `.ipynb` file.  Your colleagues can then open the file and will see your markdown and code cells as well as any results that were printed or displayed at the time you saved the notebook.  If you prefer to send a notebook without results displayed (like this notebook appeared when you downloaded it), you can select ("Restart & Clear Output") from the Kernel menu above.  You can also export this notebook in a non-executable form, e.g., `.pdf` through the File, Save As menu.
 
-## Section 0.2 Downloading Images
-In this tutorial, we will use the CalTech101 dataset, which is a standard dataset used for image classification.  You can find important information about this dataset at (http://www.vision.caltech.edu/Image_Datasets/Caltech101/).  From that webpage, download the dataset itself (http://www.vision.caltech.edu/Image_Datasets/Caltech101/101_ObjectCategories.tar.gz) (126 MB) and also the annotations (http://www.vision.caltech.edu/Image_Datasets/Caltech101/Annotations.tar) (13 MB) which will allow us to focus our feature extraction on only the objects in the images.  
+-->
 
-Extract the image dataset and the annotations in your working directory.  The images will extract to a `101_ObjectCategories/` directory, under which there are 102 directories named according to the object contained in the image (e.g., `accordion/` or `pizza/`), under which are files with file format `image_XXXX.jpg`, where `XXXX` is a four digit number.  The annotations will extract to an `Annotations/` directory, underneath which there are 101 directories named the same categories (for the most part) as the `101_ObjectCategories/` categories, under which  are files `annotation_XXXX.mat`, where `XXXX` is a four digit number.  There are also 5 other files in the `Annotations/` directory.  In order to make subsequent code run more easily:
-  - Within `101_ObjectCategories/`:
-        ◦ Delete directory `BACKGROUND_Google/`
-  - Within `Annotations/`:
-        ◦ Delete `*.mat`
-        ◦ Delete `README*`
-        ◦ Move (rename) directory `Airplanes_Side_2/` to `airplanes/`
-        ◦ Move (rename) directory `Faces_2/` to `Faces/`
-        ◦ Move (rename) directory `Faces_3/` to `Faces_easy/`
-        ◦ Move (rename) directory `Motorbikes_16/` to `Motorbikes/`
+## Section 0.2 Downloading Images
+
+In this tutorial, we will use the CalTech101 dataset, which is a standard dataset used for image classification. Please read through the description of the dataset.
+
+* [http://www.vision.caltech.edu/Image_Datasets/Caltech101/](http://www.vision.caltech.edu/Image_Datasets/Caltech101/)
+
+You will need the dataset of images and the annoations
+
+* 101_ObjectCategories.tar.gz (126 MB)
+* Annotations.tar (13 MB)
+
+Which will allow us to focus our feature extraction on only the objects in the images. 
+
+Extract the image dataset and the annotations in your working directory.  The images will extract to a `101_ObjectCategories/` directory, under which there are 102 directories named according to the object contained in the image (e.g., `accordion/` or `pizza/`), under which are files with file format `image_XXXX.jpg`, where `XXXX` is a four digit number. After extracing the files you should be left with a folder structure similar to:
+
+```text
+101_ObjectCategories/
+  |_ Faces/
+  |_ Faces_easy/
+  |_ Leopards/
+  |_ Motorbikes/
+  .... several more folders containing images
+```
+
+Cleanup by removing or archiving the `BACKGROUND_Google/` folder.
+
+```bash
+mkdir archive
+mv 101_ObjectCategories/BACKGROUND_Google archive/.
+```
+
+The annotations will extract to an `Annotations/` directory, underneath which there are 101 directories named the same categories (for the most part) as the `101_ObjectCategories/` categories, under which  are files `annotation_XXXX.mat`, where `XXXX` is a four digit number.  There are also 5 other files in the `Annotations/` directory.  In order to make subsequent code run more easily:
+
+  * Within `101_ObjectCategories/`:
+    * Delete directory `BACKGROUND_Google/`
+  * Within `Annotations/`:
+    * Delete `*.mat`
+    * Delete `README*`
+    * Move (rename) directory `Airplanes_Side_2/` to `airplanes/`
+    * Move (rename) directory `Faces_2/` to `Faces/`
+    * Move (rename) directory `Faces_3/` to `Faces_easy/`
+    * Move (rename) directory `Motorbikes_16/` to `Motorbikes/`
+
+From commandline, you can cleanup by running: 
+
+```bash
+mv Annotations/*.mat archive/.
+mv Annotations/README* archive/.
+mv Annotations/Airplanes_Side_2 Annotations/airplanes
+mv Annotations/Faces_2 Annotations/Faces
+mv Annotations/Faces_3 Annotations/Faces_easy
+mv Annotations/Motorbikes_16 Annotations/Motorbikes
+```
 
 ## Section 0.3a Import Necessary Libraries (For users using a local machine)
 Here, at the top of the code, we import all the libraries necessary for this tutorial.  We will introduce the functionality of any new libraries throughout the tutorial, but include all import statements here as standard coding practice.  We include a brief comment after each library here to indicate its main purpose within this tutorial.
@@ -296,72 +347,7 @@ for k, im_category in enumerate(im_categories):
     plt.title(os.path.basename(im_category)) # strip off basename for title
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    NotADirectoryError                        Traceback (most recent call last)
-
-    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in _open_file(file_like, appendmat, mode)
-         38     try:
-    ---> 39         return open(file_like, mode), True
-         40     except IOError:
-
-
-    NotADirectoryError: [Errno 20] Not a directory: 'Annotations/FeatureDetectionQuality.mat/annotation_0001.mat'
-
-
-    During handling of the above exception, another exception occurred:
-
-
-    NotADirectoryError                        Traceback (most recent call last)
-
-    <ipython-input-7-88e66b3f12e9> in <module>
-         11 for k, im_category in enumerate(im_categories):
-         12     an_category = an_categories[k] # category has full path
-    ---> 13     ann = spio.loadmat(an_category+'/annotation_0001.mat')
-         14     I = imageio.imread(im_category+'/image_0001.jpg')
-         15     r,c = skimage.draw.polygon(ann['obj_contour'][1,:]+\
-
-
-    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in loadmat(file_name, mdict, appendmat, **kwargs)
-        220     """
-        221     variable_names = kwargs.pop('variable_names', None)
-    --> 222     with _open_file_context(file_name, appendmat) as f:
-        223         MR, _ = mat_reader_factory(f, **kwargs)
-        224         matfile_dict = MR.get_variables(variable_names)
-
-
-    ~/miniconda/envs/geo_env/lib/python3.7/contextlib.py in __enter__(self)
-        110         del self.args, self.kwds, self.func
-        111         try:
-    --> 112             return next(self.gen)
-        113         except StopIteration:
-        114             raise RuntimeError("generator didn't yield") from None
-
-
-    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in _open_file_context(file_like, appendmat, mode)
-         15 @contextmanager
-         16 def _open_file_context(file_like, appendmat, mode='rb'):
-    ---> 17     f, opened = _open_file(file_like, appendmat, mode)
-         18     try:
-         19         yield f
-
-
-    ~/miniconda/envs/geo_env/lib/python3.7/site-packages/scipy/io/matlab/mio.py in _open_file(file_like, appendmat, mode)
-         43             if appendmat and not file_like.endswith('.mat'):
-         44                 file_like += '.mat'
-    ---> 45             return open(file_like, mode), True
-         46         else:
-         47             raise IOError('Reader needs file name or open file-like object')
-
-
-    NotADirectoryError: [Errno 20] Not a directory: 'Annotations/FeatureDetectionQuality.mat/annotation_0001.mat'
-
-
-
-
 ![png](images/Tutorial2_Classical_Machine_Learning_Boucheron_17_1.png)
-
 
 
 ## Section 2: Feature Extraction
