@@ -118,3 +118,7 @@ Since the home directory may have restricted space, see the SCINet documentation
 ## Using Rstudio Server on SCINet
 
 Recently, Ceres HPC was configured to run Rstudio Server. This allows you to run an RStudio like interface to the Ceres HPC. See full instructions on the SCINet website: [https://scinet.usda.gov/guide/rstudio/](https://scinet.usda.gov/guide/rstudio/)
+
+## Testing Equations
+
+\\[f(a) = \frac{1}{10 \times 11}\\]
