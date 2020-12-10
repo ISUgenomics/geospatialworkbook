@@ -17,6 +17,8 @@ header:
   * [Unix Basics 1](Unix/unix-basics-1.md)
     * [Setup R](../Workshops/R_Setup.md)
     * [Setup Python](../Workshops/Python_Setup.md)
+      * [Introduction to JupyterHub](../intro-to-jupyterhub.md)
+      * [Sharing Jupyter Notebooks on MyBinder](../Workshops/intro-to-binder.md)
   * [Introduction to HPC](Unix/unix-basics-6HPC.md)
   * [Unix Admin commands](Unix/unix-basics-2admin.md)
   * [Grep](Unix/unix-basics-3grep.md)
