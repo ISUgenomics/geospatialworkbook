@@ -72,7 +72,7 @@ Since there are often conflicts between different versions of python modules, we
 
 Creating and hosting a local Jupyter Notebook requires the `jupyter` package.
 
-1. Use your favorite Text Editor and copy the following file, saving it as a **environment.yml** file. Notice how we've named the environment `ntbk_env`.
+* Use your favorite Text Editor and copy the following file, saving it as a **environment.yml** file. Notice how we've named the environment `ntbk_env`.
 
   ```yml
   name: ntbk_env
@@ -85,15 +85,15 @@ Creating and hosting a local Jupyter Notebook requires the `jupyter` package.
     - jupyter           #<= list any python packages here
   ```
 
-2. Create the python environment. From terminal, we can use `conda env create` to create a python environment. The `-f` flag means we are reading in dependencies from a file `environment.yml`. Creating an environment may take several minutes.
+* Create the python environment. From terminal, we can use `conda env create` to create a python environment. The `-f` flag means we are reading in dependencies from a file `environment.yml`. Creating an environment may take several minutes.
 
-  ```{bash}
+  ```bash
   conda env create -f environment.yml
   ```
 
-3. Activate the environment.
+* Activate the environment.
 
-  ```{bash}
+  ```bash
   conda env list             # List all created environments
   #> conda environments:
   #> ntbk_env                 /Users/User_Name/miniconda/envs/ntbk_env
@@ -102,26 +102,26 @@ Creating and hosting a local Jupyter Notebook requires the `jupyter` package.
   conda deactivate           # Stop the ntbk_env
   ```
 
-4. Start the local Jupyter Notebook
+* Start the local Jupyter Notebook
 
-  ```{bash}
+  ```bash
   cd jupyter_binder/         # Navigate to git repo
   mkdir tutorials            # Create a folder
   conda activate ntbk_env    # Start ntbk_env
   jupyter notebook           # Starts notebook, should open a browser window
   ```
 
-5. Create a Jupyter Notebook via `New/Python 3`
+* Create a Jupyter Notebook via `New/Python 3`
 
   ![Jupyter Local](images/StartNotebook.png)
 
-6. We will try to recreate the Jupyter Notebook shown in the figure.
+* We will try to recreate the Jupyter Notebook shown in the figure.
 
   ![JupyterNotebook](images/JupyterNtbk.png)
 
   For the moment, create one Markdown section and paste the following. It doesn't matter what it says right now since we are testing the system out.
 
-  ```
+  ```Markdown
   ## Hello Jupyter Notebook
 
   This is a quick introduction to Jupyter Notebooks.
@@ -134,7 +134,7 @@ Creating and hosting a local Jupyter Notebook requires the `jupyter` package.
 
   Now let's create a Code section and paste the following.
 
-  ```
+  ```python
   print("Hello World")
   ```
 
@@ -142,7 +142,7 @@ Creating and hosting a local Jupyter Notebook requires the `jupyter` package.
 
   At this point, your `jupyter_binder` folder should look similar to:
 
-  ```
+  ```text
   jupyter_binder/
     |_ tutorials/
     |    |_ Intro_to_Jupyter_Notebooks.ipynb
@@ -150,7 +150,7 @@ Creating and hosting a local Jupyter Notebook requires the `jupyter` package.
     |_ README.md
   ```
 
-7. Save and commit to GitHub
+* Save and commit to GitHub
 
   ```bash
   git add tutorials/Intro_to_Jupyter_Notebooks.ipynb
@@ -174,7 +174,7 @@ Creating and hosting a local Jupyter Notebook requires the `jupyter` package.
 
   The last thing is to add a badge that launches the binder. Notice in the above image, before you hit launch, there's a "Copy the text, then paste into your README...", expand that section and copy the badge code...which will look similar to:
 
-  ```
+  ```Markdown
   [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/j23414/test_binder.git/HEAD?filepath=tutorials)
   ```
 
@@ -197,7 +197,7 @@ Remember that `environment.yml` file we used earlier? MyBinder will look for an 
 
 For example, if you want to use the Python package `numpy` then the `environment.yml` should look like:
 
-```{yml}
+```yml
   name: ntbk_env
   channels:
     - conda-forge
