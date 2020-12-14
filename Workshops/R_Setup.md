@@ -27,11 +27,11 @@ First you will need to install R or have access to an R environment. It is highl
 
 ![RStudio Quad Chart](images/RStudio_quad.png)
 
-When you first open RStudio, you'll notice several panes. Note: To see the Code Editor, you may need to go to Rstudio's  `File/New File/R Script`.
+When you first open RStudio, you'll notice several panes. Note: To see the Code Editor, you may need to create go to Rstudio's  `File/New File/R Script`.
 
-1. **Code Editor** - The top left pane is where you will be editing an R or R markdown script. You can run commands line by line by placing cursor on a line and hitting `Ctrl+Enter` or `Cmd+Return`. Usually scripts are designed (and debugged) in RStudio but then run form the command line when you are processing multiple files.
+1. **Code Editor** - The top left pane is where you will be editing an R or R markdown script. You can run commands line by line by placing the cursor on a line and hitting `Ctrl+Enter` or `Cmd+Return`. Usually scripts are designed (and debugged) in RStudio but then run from the command line when you are processing multiple files.
 2. **R Console** - R code is run in the bottom left pane. This will display any messages, warnings and error messages. This is useful for copying and pasting the error/warning into a search engine to debug a pipeline.
-3. **Data and Variables** - This top right pane lists any loaded datasets and functions. If you double-click on `data | 10 obs. of 2 variables`, an excel-like view of the data is shown. Check the this pane to make sure data is loaded and processed correctly. If items have 0 obs, then the dataset has been completely filtered out.
+3. **Data and Variables** - This top right pane lists any loaded datasets and functions. If you double-click on `data | 10 obs. of 2 variables`, an excel-like view of the data is shown. Check this pane to make sure data is loaded and processed correctly. If items have `0 obs` (0 observations or rows), then the dataset has been completely filtered out.
 4. **Graphics View** - Any plots will show up on the bottom right corner in the Plots pane.
 
 Together these panes allow you to interactively design an R pipeline.
@@ -95,10 +95,18 @@ Write an R script to install one package each from CRAN, bioconductor, and GitHu
 ```R
 install.packages()
 biocManager::install()
-devtools::install()
+devtools::install_github()
 
 remove.packages()      # <= uninstalls an R package, will need to provide package name
 ```
+
+### Updating R libraries in RStudio
+
+To get the latest version of R libraries, RStudio has a "Packages" pane in the bottom right. Some libraries depend on other libraries and will not install until you have the latest version.
+
+![RStudio Quad Chart](images/R_updatepkgs.png) 
+
+This may take several minutes since we are updating multiple packages. If the "Install Updates" hangs or errors out, install the packages one by one.
 
 ## Using R on SCINet
 
