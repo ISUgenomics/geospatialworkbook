@@ -8,6 +8,8 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
+
+
 # Introduction
 
 R is an interactive scripting language originally designed to teach statistics and released in 1993. It was inspired by the S language developed at Bell Labs and later became more widely used for data analysis.

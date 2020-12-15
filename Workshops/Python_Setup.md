@@ -8,20 +8,52 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
+**Last Update:** 15 Dec 2020
+
 # Introduction
 
-Python is a dynamically typed, object-oriented scripting language developed by Guido van Rossum and released in 1991.
+Python is a dynamically typed, object-oriented scripting language developed by Guido van Rossum and released in 1991. Many important machine learning packages are available in python.
 
+**More Information**
+
+* [https://www.python.org](https://www.python.org)
 * [Wikipedia - Python (programming language)](https://en.wikipedia.org/wiki/Python_(programming_language))
 * [List of Python projects on GitHub](https://github.com/topics/python)
+* Medium Article: [Best Python Libraries for Machine Learning and Deep Learning](https://medium.com/dataprophet/best-python-libraries-for-machine-learning-and-deep-learning-646936aa01af) - June 2, 2020
 
 # Getting Started in Python
 
-First you will need to install Python or have access to an Python environment. Due to incompatabilities between certain python libraries, it is highly recommended to manage python packages in virtual environments (`conda` , `venv`, or equivalent) , one environment per project.
+First you will need to install Python or have access to an Python environment. There are many ways to install Python. For most users, we highly recommend using the **Anaconda** install method.
+
+**Anaconda Python Install**
+
+* Install the free individual version - [https://anaconda.org/](https://anaconda.org/)
+
+![Anaconda Dashboard](images/Anaconda.png)
+
+**Local Python Install**
+
+If you prefer a local python install (only command line and without IDE), then install python from their main webste ([https://www.python.org/](https://www.python.org/)). 
+
+**Warning:** Either pick Anaconda or local install. Try not to mix install methods or you will have weird conflict errors and may need to uninstall and reinstall python entirely. Python is notorious for weird pathing problems in mixed environments (see [xkcd comic](https://xkcd.com/1987/)). If you keep to the Anaconda ecosystem, you shouldn't have any major issues.
+
+* 
+
+
+
+
+Due to incompatabilities between certain python libraries, it is highly recommended to manage python packages in virtual environments (`conda` , `venv`, or equivalent) , one environment per project.
 
 ## Setup Python Locally
 
-1. Install the latest version of Python from their website - [https://www.python.org/downloads/](https://www.python.org/downloads/)
+Python has a notoriously complicated environment system. Which is why it is highly recommended to manage python environments (yml files) to track any dependencies.
+
+
+## Pick either Anaconda Install or Local Install
+
+* (1) Anaconda comes with an IDE (easier entry point, recommended for Windows). Install Free Individual Version - [https://www.anaconda.com](https://www.anaconda.com) 
+* (2) Local Install (more consistent for intermediate programmers). Install the latest version of Python from their website - [https://www.python.org/downloads/](https://www.python.org/downloads/)
+
 2. Pick an IDE (integrated development Environment)
    1. [PyCharm](https://www.jetbrains.com/pycharm/)
    2. [Anaconda](https://www.anaconda.com/)

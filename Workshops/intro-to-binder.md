@@ -10,7 +10,7 @@ header:
 
 # Sharing Jupyter Notebooks via MyBinder
 
-**Last Update:** 2020/12/09
+**Last Update:** 9 Dec 2020
 
 Learn how to publish Jupyter Notebooks on MyBinder. Launch an example of a shared Jupyter Notebook in binder here:
 
