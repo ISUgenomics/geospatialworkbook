@@ -1,4 +1,3 @@
-
 ---
 title: Image Processing Fundamentals
 layout: single
