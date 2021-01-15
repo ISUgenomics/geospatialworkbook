@@ -38,7 +38,7 @@ def main():
     else:
         plt.imshow(I_input)                  # Color
 
-    #plt.axis('off')
+    # plt.axis('off')
     plt.xlabel('x label')
     plt.ylabel('y label')
     plt.title('Title')
