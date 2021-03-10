@@ -1,13 +1,19 @@
 # Geospatial workbook
 
-[Link to Live Site](https://geospatial.101workbook.org/)
+[Live Site](https://geospatial.101workbook.org/) | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ISUgenomics/geospatialworkbook/HEAD?filepath=tutorials)
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ISUgenomics/geospatialworkbook/HEAD?filepath=tutorials)
+This workbook was compiled to democratize geospatial analysis, aiming to teach the reader through worked out programming problems. The Geospatial Workbook provides the reader with an example geospatial problem (with input files) and corresponding solutions (and discussion). These tutorials assumes that the reader has some knowledge of GIS and basic understanding of the Unix command line. 
 
-## Preface
-The best way to learn how to analyze data is through examples of real world problems.  The Geospatial Workbook provides the reader with worked out example problems corresponding solutions.  This books assumes that the reader has some knowledge of GIS and basic understanding of the Unix command line.  
+## How to contribute
 
-## More Information:
+There are multiple ways to contribute to the workbook:
+
+1. Github pull requests (preferred)
+2. Edit online in GitHub
+3. Send a write up of the tutorial (word/markdown/script) to the Genome Informatics Facility (gifhelp at iastate.edu)
+ 
+## Links to other resources:
+
 * [USDA Map Gallary](https://usda-open-data-demo-site-1-lnr.hub.arcgis.com/)
 * Campbell, J.E. and Shin, M., 2011. [Essentials of geographic information systems.](https://open.umn.edu/opentextbooks/textbooks/67) https://www.saylor.org/books/.
 * Google Earth Engine
@@ -29,5 +35,3 @@ The best way to learn how to analyze data is through examples of real world prob
   * Sentinal
   * MODUS
   * Customized Sensor/video/device
-
-Temporary Note: This is a test of dependabot
