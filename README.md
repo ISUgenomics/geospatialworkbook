@@ -10,7 +10,10 @@ There are multiple ways to contribute to the workbook:
 
 1. Github pull requests (preferred)
 2. Edit online in GitHub
-3. Send a write up of the tutorial (word/markdown/script) to the Genome Informatics Facility (gifhelp at iastate.edu)
+3. Send a write up of the tutorial (word/markdown/script) to the Genome Informatics Facility (gifhelp at iastate.edu). 
+
+
+Feel free to use the following Jupyter Notebook Template -- [Template.ipynb](https://geospatial.101workbook.org/tutorials/Template.ipynb) 
  
 ## Links to other resources:
 
