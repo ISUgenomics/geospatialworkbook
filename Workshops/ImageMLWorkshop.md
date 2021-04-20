@@ -6,22 +6,20 @@ header:
   overlay_image: /assets/images/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
 ---
 
-Materials from the [USDA ARS AI Workshop 2020](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/).
+Materials modified from the [USDA ARS AI Workshop 2020](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/).
 
 ## Index
 
 | Tutorial | Python | R |
 |:--|:--|:--|
-| Image Processing Essentials | [Jupyter Notebook](Tutorial1_Image_Processing_Essentials_Boucheron.md) |[Rmarkdown](R_Image_Processing.md) |
-| Classical Machine Learning | [download](Tutorial2_Classical_Machine_Learning_Boucheron.md)| |
-| Deep Learning for Images | [download](Tutorial3_Deep_Learning_for_Images_Boucheron.md) | |
-| Visualizing and Modifying DL Networks | [download](Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.md) | |
-| Advanced DL Networks | [download](Tutorial5_Advanced_DL_Networks.md)| |
+| 01 - Image Processing Essentials | [view](Tutorial1_Image_Processing_Essentials_Boucheron.md) |[view](R_Image_Processing.md) |
+| 02 - Classical Machine Learning | [view](Tutorial2_Classical_Machine_Learning_Boucheron.md)| |
+| 03 - Deep Learning for Images | [view](Tutorial3_Deep_Learning_for_Images_Boucheron.md) | |
+| 04 - Visualizing and Modifying Deep Learning Networks | [view](Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.md) | |
+| 05 - Advanced Deep Learning Networks | [view](Tutorial5_Advanced_DL_Networks.md)| |
 
 
 <!--
-
-
 
 <hr />
 The original learn page is below:
