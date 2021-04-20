@@ -1,6 +1,5 @@
-<!--
 ---
-title: < Your Title >
+title: Your Title
 layout: single
 author: Name
 author_profile: true
@@ -8,7 +7,6 @@ header:
   overlay_color: "444444"
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
--->
 
 **Last Update:** 13 April 2021 <br />
 **Download Jupyter Notebook**: [< notebook_name >.ipynb](https://geospatial.101workbook.org/tutorials/<notebook_name>.ipynb)
