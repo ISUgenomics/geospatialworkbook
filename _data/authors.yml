@@ -40,11 +40,11 @@ Suzy Stillman:
 
 Rowan Gaffney:
   name        : "Rowan Gaffney"
-  bio         : "Rowan is the Remote Sensing Specialist in the Rangeland Resource & Systems Research Unit at Fort Collins, CO."
-  avatar      : "/assets/images/people/profile.jpg"
+  bio         : "Rowan is a physical scientist in the Rangeland Resource & Systems Research Unit in Fort Collins, CO. He specializes in analyzing large, multidimensional geospatial data using a variety of approaches from machine learning to numerical analysis."
+  avatar      : "/assets/images/people/RowanGaffney.jpg"
   twitter     : "someone"
-  email       : "mailto:someone@iastate.edu"
-  website     : "https://gif.biotech.iastate.edu"
+  email       : "mailto:rowan.gaffney@usda.gov"
+  github      : "https://github.com/rmg55"
 
 Amy Hudson:
   name        : "Amy Hudson"
