@@ -1,7 +1,7 @@
 ---
 title: Your Title
 layout: single
-author: Name
+author: Rowan Gaffney
 author_profile: true
 header:
   overlay_color: "444444"
@@ -21,7 +21,7 @@ Brief overview of the objective for this tutorial
 *Primary Libraries/Packages*:
 
 |Name|Description|Link|
-|-|-|-|
+|:--|:--|:--|
 | < name of library > |< brief desc. >|http://link.to.library|
 |-|-|-|
 |-|-|-|
