@@ -1,0 +1,102 @@
+---
+title: "Tutorial Title"
+author: "author name"
+date: "12/3/2020"
+output:
+  github_document
+editor_options:
+  chunck_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "assets/R_"
+)
+```
+
+<!--
+---
+title: Your Title
+layout: single
+author: Rowan Gaffney
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+--> 
+
+**Last Update:** 13 April 2021 <br />
+**Download RMarkdown**: [< notebook_name >.Rmd](https://geospatial.101workbook.org/tutorials/<notebook_name>.Rmd)
+
+<!-- ToDo: would be great to have an R binder badge here -->
+
+## Overview
+
+Brief overview of the objective for this tutorial
+
+*Language:* `<Python|R|Julia|etc ..>`
+
+*Primary Libraries/Packages:*
+
+| Name | Description | Link |
+|:--|:--|:--|
+| < name of library > | < brief desc. > | http://link.to.library |
+
+## Nomenclature
+
+* *Name:* < Description >
+* *Name:* < Description >
+* *Name:* < Description >
+* *Name:* < Description >
+
+## Data Details
+
+* Repository: < Link to Repository >
+* Data: < Name of Dataset >
+* Link: < Link to the dataset >
+* Other Details: < other >
+
+## Aanlysis Steps
+
+* Title… - desc….
+* Title… - desc….
+  * desc..
+  * desc..
+  * desc..
+* Title… - desc…. - desc….
+
+## Step 0: Import Libraries/Packages
+
+```{r libraries}
+# Import the libraries/packages used here
+```
+
+## Step 1: Title...
+
+```{r step1}
+# Put Your code below - be sure to include comments
+```
+
+## Step 2: Title...
+
+```{r step2}
+# Put Your code below - be sure to include comments
+```
+
+## Step 3: Title...
+
+```{r step3}
+# Put Your code below - be sure to include comments
+```
+
+## Step 4: Title...
+
+```{r step4}
+# Put Your code below - be sure to include comments
+```
+
+

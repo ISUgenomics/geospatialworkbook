@@ -18,4 +18,9 @@ There are multiple ways to contribute to the workbook:
 2. Edit online in [GitHub](https://github.com/ISUgenomics/geospatialworkbook)
 3. Send a write up of the tutorial (word/markdown/script) to the Genome Informatics Facility (gifhelp AT iastate DOT edu).
 
-Feel free to use the following Jupyter Notebook Template -- [Template.ipynb](https://geospatial.101workbook.org/tutorials/Template.ipynb)
+Feel free to use the following Templates:
+
+| Template | View | Download |
+|:--|:--|:--|
+| Jupyter Notebook |[Template.html](https://geospatial.101workbook.org/tutorials/Template.html) | [Template.ipynb](https://geospatial.101workbook.org/tutorials/Template.ipynb) | 
+| RMarkdown |[R_Template.html](https://geospatial.101workbook.org/tutorials/R_Template.html) | [R_Template.Rmd](https://geospatial.101workbook.org/tutorials/R_Template.Rmd) | 
