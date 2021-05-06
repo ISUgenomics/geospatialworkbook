@@ -25,11 +25,11 @@ feature_row:
     url: "Workshops/ImageMLWorkshop"
     btn_label: "Learn More"
 
-  - title: "Index of Jupyter/R Notebooks"
-    image_path: /assets/images/markus-spiske-qjnAnF0jIGk-unsplash.jpg
-    alt: "Programs3"
-    url: "Workshops/JupyterNtbk"
-    btn_label: "Learn More"
+    - title: "Introduction to importing data"
+      image_path: /assets/images/nasa.png
+      alt: "Programs"
+      url: "ImportingData/ImportingData-landingPage"
+      btn_label: "Learn More"
 
 ---
 

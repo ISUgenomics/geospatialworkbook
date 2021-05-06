@@ -10,13 +10,13 @@ Materials modified from the [USDA ARS AI Workshop 2020](https://kerriegeil.githu
 
 ## Index
 
-| Tutorial | Python | R |
-|:--|:--|:--|
-| 01 - Image Processing Essentials | [view](Tutorial1_Image_Processing_Essentials_Boucheron.md) |[view](R_Image_Processing.md) |
-| 02 - Classical Machine Learning | [view](Tutorial2_Classical_Machine_Learning_Boucheron.md)| |
-| 03 - Deep Learning for Images | [view](Tutorial3_Deep_Learning_for_Images_Boucheron.md) | |
-| 04 - Visualizing and Modifying Deep Learning Networks | [view](Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.md) | |
-| 05 - Advanced Deep Learning Networks | [view](Tutorial5_Advanced_DL_Networks.md)| |
+| Tutorial | Python | R | Jupyter Notebook|
+|:--|:--|:--|:--|
+| 01 - Image Processing Essentials | [view](Tutorial1_Image_Processing_Essentials_Boucheron.md) |[view](R_Image_Processing.md) |[download](../tutorials/Tutorial1_Image_Processing_Essentials.ipynb)
+| 02 - Classical Machine Learning | [view](Tutorial2_Classical_Machine_Learning_Boucheron.md)| |[download](../tutorials/Tutorial2_Classical_Machine_Learning_Boucheron.ipynb)|
+| 03 - Deep Learning for Images | [view](Tutorial3_Deep_Learning_for_Images_Boucheron.md) | |[download](../tutorials/Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb)|
+| 04 - Visualizing and Modifying Deep Learning Networks | [view](Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.md) | |[download](../tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb)|
+| 05 - Advanced Deep Learning Networks | [view](Tutorial5_Advanced_DL_Networks.md)| |[download](../tutorials/Tutorial5_Advanced_DL_Networks.ipynb)|
 
 
 <!--
@@ -59,7 +59,7 @@ navigate to your working directory, then:
 curl -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial1_Image_Processing_Essentials.ipynb -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/cameraman.png -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/peppers.png
 ```
 
-**To see a static notebook with all the outputs/answers:** 
+**To see a static notebook with all the outputs/answers:**
 
 [Tutorial1_Image_Processing_Essentials_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial1_Image_Processing_Essentials_complete.html)
 
@@ -78,7 +78,7 @@ to be posted
 
 Download the Jupyter Notebook and image data
 
-**If working on a laptop** 
+**If working on a laptop**
 
 [Tutorial2_Classical_Machine_Learning.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial2_Classical_Machine_Learning.ipynb) (right click the link to download)
 
@@ -104,11 +104,11 @@ Note: If you are following this tutorial after the workshop has ended and the NM
 - Login to Ceres with JupyterHub and upload the zip files (the larger zip will take a few minutes). The upload button is on the JupyterLab navigation pane between the New Folder icon and the Refresh File List icon
 - Move the files to your working directory on Ceres and ```unzip `*.zip'```
 
-**Presentation slides:** 
+**Presentation slides:**
 
 [Day2_Rules_ML_DL.pdf](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/slides/Day2_Rules_ML_DL.pdf)
 
-**To see a static notebook with all the outputs/answers:** 
+**To see a static notebook with all the outputs/answers:**
 
 [Tutorial2_Classical_Machine_Learning_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial2_Classical_Machine_Learning_complete.html)
 
@@ -128,9 +128,9 @@ Download the Jupyter Notebook.
 
 Also make sure you have built the workshop Conda environment and then activate it (use the kernel) inside your Jupyter Notebook ([use the instructions on the setup page](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/setup/)). You will not be able to run the Notebook for Day 3 if you haven't built and activated the workshop Conda environment successfully.
 
-**If working on a laptop** 
+**If working on a laptop**
 
-[Tutorial3_Deep_Learning_for_Images.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial3_Deep_Learning_for_Images.ipynb) 
+[Tutorial3_Deep_Learning_for_Images.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial3_Deep_Learning_for_Images.ipynb)
 
 save to your working directory
 
@@ -142,13 +142,13 @@ navigate to your working directory, then:
 curl -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial3_Deep_Learning_for_Images.ipynb
 ```
 
-**Presentation slides:** 
+**Presentation slides:**
 
 [Day3_CNNs.pdf](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/slides/Day3_CNNs.pdf)
 
 [Day3_CNN_Epic_Fails.pdf](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/slides/Day3_CNN_Epic_Fails.pdf)
 
-**To see a static notebook with all the outputs/answers:** 
+**To see a static notebook with all the outputs/answers:**
 
 [Tutorial3_Deep_Learning_for_Images_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial3_Deep_Learning_for_Images_complete.html)
 
@@ -185,7 +185,7 @@ navigate to your working directory, then:
 curl -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks.ipynb -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/my_digits1_compressed.jpg -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/data_images/latest_256_0193.jpg
 ```
 
-**To see a static notebook with all the outputs/answers:** 
+**To see a static notebook with all the outputs/answers:**
 
 [Tutorial4_Visualizing_and_Modifying_DL_Networks_complete.html](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_complete.html)
 
@@ -202,7 +202,7 @@ to be posted
 
 Download the Jupyter Notebook and model weights
 
-**If working on a laptop** 
+**If working on a laptop**
 
 [Tutorial5_Advanced_DL_Networks.ipynb](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial5_Advanced_DL_Networks.ipynb)
 
@@ -220,7 +220,7 @@ navigate to your working directory, then:
 curl -O https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/Tutorial5_Advanced_DL_Networks.ipynb -O https://pjreddie.com/media/files/yolov3.weights -O https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2019/03/zebra.jpg
 ```
 
-**To see a static notebook with all the outputs/answers:** 
+**To see a static notebook with all the outputs/answers:**
 
 to be posted
 
@@ -232,4 +232,3 @@ to be posted
 
 to be posted
 -->
-
