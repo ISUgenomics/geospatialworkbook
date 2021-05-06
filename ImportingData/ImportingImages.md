@@ -8,7 +8,10 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-# Importing Images from Sentinel 2 satellite  
+**Last Update:** 13 April 2021 <br />
+**Download Jupyter Notebook**: [Sentinel2_STAC.ipynb](https://geospatial.101workbook.org/tutorials/Sentinel2_STAC.ipynb)
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ISUgenomics/geospatialworkbook/master?urlpath=lab/tree/tutorials/Sentinel2_STAC.ipynb)
 
 ## Overview
 
