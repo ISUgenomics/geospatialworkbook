@@ -22,7 +22,7 @@ feature_row:
   - title: "Introduction to Image Analysis"
     image_path: /assets/images/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
     alt: "Programs2"
-    url: "Workshops/ImageMLWorkshop"
+    url: "IntroductionToImageAnalysis/ImageMLWorkshop"
     btn_label: "Learn More"
 
   - title: "Introduction to importing data"
