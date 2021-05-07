@@ -220,7 +220,7 @@ minx,miny,maxx,maxy = cper_bnds_32613
 da_cper = da.sel(x=slice(minx,maxx),y=slice(maxy,miny)).rename('CPER')
 da_cper
 ```
-![Mask](assets/masking.png)
+![Mask](assets/Masking.png)
 
 
 ```python
