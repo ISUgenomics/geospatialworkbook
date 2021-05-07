@@ -11,7 +11,15 @@ header:
 **Last Update:** 13 April 2021 <br />
 **Download Jupyter Notebook**: [Sentinel2_STAC.ipynb](https://geospatial.101workbook.org/tutorials/Sentinel2_STAC.ipynb)
 
+This tutorial will can be run with Binder, via [MyBinder](https://mybinder.readthedocs.io/en/latest/) (free service hosted on Google Cloud). <!-- , or it can be run on the [USDA ARS Ceres HPC](https://scinet.usda.gov/guide/jupyter/) using the JupyterHub service (SCINet credentials are required). -->
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ISUgenomics/geospatialworkbook/master?urlpath=lab/tree/tutorials/Sentinel2_STAC.ipynb)
+
+<!-- Make the JupyterHub button live later
+
+[![Ceres JupyterHub](https://img.shields.io/badge/launch-JupyterHub-579aca?logo=Jupyter)](https://jupyterhub.scinet.usda.gov/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Frmg55%2FCloudDAAC_Binders&urlpath=lab%2Ftree%2FCloudDAAC_Binders%2Fs3_v_http.ipynb&branch=main)
+
+-->
 
 ## Overview
 
@@ -290,12 +298,13 @@ da_cper_ndvi
 - Select a single pixel to get a time-series and plot the time series.
 - Calculate the average NDVI (across CPER) per time step and plot the time series.
 
-```Python
+```python
 # Bring data to memory (e.g. download from AWS)
 # Depending on your internet speed, this can take 10's of seconds - ~ 5 minutes
 da_cper_ndvi = da_cper_ndvi.compute()
 ```
-```Python
+
+```python
 # Query a single date / image
 t = '2019-06-28'
 da_cper_ndvi_plot = da_cper_ndvi.sel(time=t)
@@ -336,7 +345,7 @@ da_cper_ndvi_ts.groupby('time.weekofyear').max().hvplot(kind='scatter',
 
 ![plot](assets/NDVI-plot.png)
 
-```Python
+```python
 # Get the mean for the entire Domain at each time step
 da_cper_ndvi_tsall = da_cper_ndvi.where(da_cper_ndvi>.1).mean(dim=['x','y'])
 
@@ -347,6 +356,7 @@ da_cper_ndvi_tsall.hvplot(x='time',
                           grid=True,colorbar=True)
 
 ```
+
 ![average-plot](assets/average-NDVI-plot.png)
 
 ### Concluding Remarks:
