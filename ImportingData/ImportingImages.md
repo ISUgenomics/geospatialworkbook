@@ -11,7 +11,7 @@ header:
 **Last Update:** 13 April 2021 <br />
 **Download Jupyter Notebook**: [Sentinel2_STAC.ipynb](https://geospatial.101workbook.org/tutorials/Sentinel2_STAC.ipynb)
 
-This tutorial will can be run with Binder, via [MyBinder](https://mybinder.readthedocs.io/en/latest/) (free service hosted on Google Cloud). <!-- , or it can be run on the [USDA ARS Ceres HPC](https://scinet.usda.gov/guide/jupyter/) using the JupyterHub service (SCINet credentials are required). -->
+This tutorial can be run with Binder, via [MyBinder](https://mybinder.readthedocs.io/en/latest/) (free service hosted on Google Cloud). <!-- , or it can be run on the [USDA ARS Ceres HPC](https://scinet.usda.gov/guide/jupyter/) using the JupyterHub service (SCINet credentials are required). -->
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ISUgenomics/geospatialworkbook/mybinder?urlpath=lab/tree/tutorials/Sentinel2_STAC.ipynb)
 
