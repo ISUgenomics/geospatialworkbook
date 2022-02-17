@@ -1,2 +1,0 @@
-# MetaShape Tutorial
-
