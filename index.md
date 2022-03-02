@@ -18,11 +18,11 @@ feature_row:
     alt: "HPC workflows"
     url: "Workshops/Workshop"
     btn_label: "Learn More"
-    
+
   - title: "Agisoft Metashape"
     image_path: /assets/images/nasa-1lfI7wkGWZ4-unsplash.jpg
     alt: "Metashape"
-    url: "Metashape/IntroMetaShape"
+    url: "Metashape/IntroMetashape-landingPage"
     btn_label: "Learn More"
 
   - title: "Introduction to Image Analysis"
