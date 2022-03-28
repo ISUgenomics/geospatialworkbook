@@ -21,12 +21,13 @@ config_file = "config_file.csv"              # config file with variable-value p
 logfile = open("log.txt", "a")               # file to which verbose mode notes are saved [INFO, WARNING, ERROR]
 
 # AUTOMATIC GLOABL VARIABLES
-path = os.getcwd()                           # derive the path of the current directory
+path = os.path.dirname(os.path.realpath(__file__))            # derive the path of the directory, where the script and config are stored
 params = ["workdir", "doc_title", "data_dir", "coord_system", "spc_quality",
           "marker_coord_file", "marker_coord_system", "export_dir",
           "est_img_quality", "img_quality_cutoff", "reprojection_error",
           "rolling_shutter", "revise_altitude", "altitude_adjust", "depth_filter",
-          "marker_type", "marker_tolerance", "marker_min_size", "marker_max_res"]
+          "marker_type", "marker_tolerance", "marker_min_size", "marker_max_res",
+          "marker_min_projections", "marker_projection_error", "marker_gcp_distance"]
 
 
 # MAIN FUNCTION manages calls to subsequent subprocesses:
@@ -42,7 +43,6 @@ params = ["workdir", "doc_title", "data_dir", "coord_system", "spc_quality",
 def script_setup():
     startTime = datetime.now()              # calculation start time
     logfile.write("Script start time: " + str(startTime) + "\n")
-    is_license = True
 
 # - STEP 0: Loading config_file and preparing list of photo inputs
     print("\nSTEP 0: Loading config_file and preparing list of photo inputs...")
@@ -68,7 +68,7 @@ def script_setup():
         elif MS.app.gpu_mask > 1:                                   # (faster when multiple GPUs are present)
             MS.app.cpu_enable = False                               # disable CPU for GPU accelerated tasks
 # ----- WARNING: you need to delete the original automatically created chunk when Metashape opens if running the script from tools
-        chunk = MS.app.document.addChunk()                          # create Metashape (MS) chunk
+        chunk = doc.addChunk()                          # create Metashape (MS) chunk
     except:
         print("ERROR: STEP 1 HAS FAILED!\n-- Please check the " + logfile + " for the details of the error.")
         logfile.write("ERROR: Metashape could NOT create a doc or chunk.\nEXIT: STEP 1 HAS FAILED!\n")
@@ -85,21 +85,6 @@ def script_setup():
         logfile.write("EXIT: STEP 2 HAS FAILED!\n")
         sys.exit(1)
 
-    if is_license:
-        if os.path.isdir(config['workdir']):
-            doc.save(config['workdir'] + name)
-        else:
-            print("ERROR: The path to the working directory: " + config['workdir'] + " does NOT exist. " +
-                  "The doc can NOT be saved. Please provide the correct path.")
-            logfile.write("ERROR: STEP 2 HAS FAILED!\n--The doc could NOT be saved." +
-                  "-- Please check that the path you want to save the file to is correct: " + config['workdir'] + name + "\n")
-            sys.exit(1)
-    else:
-        is_license = False
-        print("WARNING: The Metashape license is NOT available. The script will continue the calculation, " +
-              "but the doc results will NOT be saved to file. If you want to STOP the calculation now, press CTRL + C on your keyboard.")
-        logfile.write("WARNING: The Metashape license is NOT available. Please check if there is a problem with the license server.\n" +
-              "The results of your Metashape analysis are NOT saved to a file: " + config['workdir'] + name + "\n")
 
 
 # - STEP 3: Preprocess images
@@ -111,8 +96,6 @@ def script_setup():
         print("ERROR: STEP 3 HAS FAILED!\n-- Please check the " + logfile + " for the details of the error.")
         logfile.write("EXIT: STEP 3 HAS FAILED!\n")
         sys.exit(1)
-    if is_license:
-        doc.save(config['workdir'] + name)
 
 
 # - STEP 4: Build Sparse Point Cloud (SPC)
@@ -124,8 +107,6 @@ def script_setup():
         print("ERROR: STEP 4 HAS FAILED!\n-- Please check the " + logfile + " for the details of the error.")
         logfile.write("EXIT: STEP 4 HAS FAILED!\n")
         sys.exit(1)
-    if is_license:
-        doc.save(config['workdir'] + name)
 
 
 # - STEP 5: Filter reprojection errors
@@ -137,8 +118,6 @@ def script_setup():
         print("ERROR: STEP 5 HAS FAILED!\n-- Please check the " + logfile + " for the details of the error.")
         logfile.write("EXIT: STEP 5 HAS FAILED!\n")
         sys.exit(1)
-    if is_license:
-        doc.save(config['workdir'] + name)
 
 
 # - STEP 6: Get number of NOT aligned cameras
@@ -150,8 +129,6 @@ def script_setup():
         print("ERROR: STEP 6 HAS FAILED!\n-- Please check the " + logfile + " for the details of the error.")
         logfile.write("EXIT: STEP 6 HAS FAILED!\n")
         sys.exit(1)
-    if is_license:
-        doc.save(config['workdir'] + name)
 
 
 # - STEP 7: Set up reference settings & Export settings
@@ -166,8 +143,6 @@ def script_setup():
         print("ERROR: STEP 7 HAS FAILED!\n-- Please check the " + logfile + " for the details of the error.")
         logfile.write("EXIT: STEP 7 HAS FAILED!\n")
         sys.exit(1)
-    if is_license:
-        doc.save(config['workdir'] + name)
 
 
 # - STEP 8: Detect Markers
@@ -179,16 +154,31 @@ def script_setup():
         print("ERROR: STEP 8 HAS FAILED!\n-- Please check the " + logfile + " for the details of the error.")
         logfile.write("ERROR: There was a problem with marker detection.\nEXIT: STEP 8 HAS FAILED!\n")
         sys.exit(1)
-    if is_license:
-        doc.save(config['workdir'] + name)
 
 
-# - Get Execution Time...
+# - STEP 9: Save Document
+    if os.path.isdir(config['workdir']):
+        try:
+            doc.save(config['workdir'] + name)
+        except:
+            print("WARNING: The Metashape license is NOT available. The script can NOT save the results.")
+            logfile.write("WARNING: The Metashape license is NOT available. Please check if there is a problem with the license server.\n" +
+                  "The results of your Metashape analysis are NOT saved to a file: " + config['workdir'] + name + "\n")
+            sys.exit(1)
+    else:
+        print("WARNING: The path to the working directory: " + config['workdir'] + " does NOT exist. " +
+              "The doc can NOT be saved. Please provide the correct path.")
+        logfile.write("ERROR: STEP 9 HAS FAILED!\n--The doc could NOT be saved." +
+              "-- Please check that the path you want to save the file to is correct: " + config['workdir'] + name + "\n")
+
+
+# - STEP 10: Get Execution Time
     logfile.write("\nTotal Execution Time: " + str(datetime.now() - startTime) + "\n")
     logfile.write("\nPART 1 of the PhotoScan workflow completed successfully!\n")
     logfile.close()
     print("\nPART 1 of the PhotoScan workflow completed successfully!")
     print("\nNow it's time to do some manual cleaning as per the protocol.")
+
 
 
 #----------------- Section of functions defining subprocesses -----------------#
@@ -223,6 +213,7 @@ def load_config_file(path, config_file):
     datadir = config['data_dir']
     if os.path.isdir(datadir) == False:
         datadir = str(config['workdir'] + "/" + datadir).replace('//', '/')
+        config['data_dir'] = datadir
     try:
         os.path.isdir(datadir)
         photos = os.listdir(datadir)                            # get the list of photos filenames
@@ -540,7 +531,9 @@ def detect_markers(chunk, config):
         except:
             print("ERROR in STEP 8, when reading the measured GCPs.\n")
             logfile.write("ERROR in STEP 8, when reading the measured GCPs.\n" + "      The provided file is: " + marker_coords +
-                          "\n      Please make sure you have entered the correct data file name and its content is not empty.")
+                          "\n      Please make sure you have entered the correct path & file name, and its content is not empty.")
+            sys.exit(1)
+
         gcplist = []
         with open(marker_coords, 'r') as f:
             for row in f:
@@ -553,25 +546,44 @@ def detect_markers(chunk, config):
         logfile.write(str(len(gcplist)) + " GCP entries were collected.\n")
 
         # See: https://github.com/campbell-ja/MetashapePythonScripts/blob/main/_Workflow-IntheRound/Metashape_PythonScripts_04-Part_02_DetectMarkers-OptimizeMarkerError.py
-        # Remove Markers with less than 9 number of projections
+        # Remove Markers with less than n number of projections
+        for marker in chunk.markers:
+            if len(marker.projections) < int(config['marker_min_projections']):
+                chunk.remove(marker)
+                logfile.write("Removed marker: " + marker.label + " for having only " + str(len(marker.projections)) + " projections.\n")
         if len(gcplist):
             for marker in chunk.markers:
-                if len(marker.projections) < 9:
+                if not marker.position:
+                    logfile.write("The marker: " + marker.label + " position is not defined, so skipping.\n")
+                    continue
+
+                position = marker.position
+                for camera in marker.projections.keys():
+                    if not camera.transform:
+                        continue
+                    proj = marker.projections[camera].coord
+                    reproj = camera.project(position)
+                    error = (proj - reproj).norm()
+                    # Set the projection to "None" if error greater than > x (default x = 0.5)
+                    if error > float(config['marker_projection_error']):
+                        marker.projections[camera] = None
+            # Get rid of cameras with too few projections again.
+            for marker in chunk.markers:
+                if len(marker.projections) < int(config['marker_min_projections']):
                     chunk.remove(marker)
                     logfile.write("Removed marker: " + marker.label + " for having only " + str(len(marker.projections)) + " projections.\n")
-                elif len(gcplist) > 0:
-                    # Now let's compare our detected markers to our measured points.
-                    # Need to convert from pixel coordinates to projection.
-                    T = chunk.transform.matrix
-                    pos = chunk.crs.project(T.mulp(marker.position))
-                    # Look through GCPs...
-                    for gcp in gcplist:
-                        dist = math.sqrt((gcp[0] - pos.x)**2 + (gcp[1] - pos.y)**2)
-                        # If our distance is within... three meters? ...assign this GCPs x/y/z values.
-                        if dist < 3.0:
-                            marker.reference.location = MS.Vector([gcp[0], gcp[1], gcp[2]])
-                            logfile.write("Changed reference location for marker: " + marker.label + ", " + str(marker.reference.location) + "\n")
-                            break
+                # Now let's compare our detected markers to our measured points.
+                # Need to convert from pixel coordinates to projection.
+                T = chunk.transform.matrix
+                pos = chunk.crs.project(T.mulp(marker.position))
+                # Look through GCPs...
+                for gcp in gcplist:
+                    dist = math.sqrt((gcp[0] - pos.x)**2 + (gcp[1] - pos.y)**2)
+                    # If our distance is within... three meters? ...assign this GCPs x/y/z values.
+                    if dist < float(config['marker_gcp_distance']):
+                        marker.reference.location = MS.Vector([gcp[0], gcp[1], gcp[2]])
+                        logfile.write("Changed reference location for marker: " + marker.label + ", " + str(marker.reference.location) + "\n")
+                        break
             logfile.write("After this step " + str(len(chunk.markers)) + " markers were kept.\n")
 
 

@@ -1,5 +1,5 @@
 variable,value,						# description
-workdir,/project/90daydata/isu_gif_vrsc/agisoft,	# [required#1] [string] full path to the project folder (make sure to use forward slash)
+workdir,/project/90daydata/isu_gif_vrsc/agisoft/develop,	# [required#1] [string] full path to the project folder (make sure to use forward slash)
 doc_title,cunliffe_mbs,					# [required#1] [string] name of the project (do not add extension)
 data_dir,input_data,					# [required#1] [string] name of the folder where all images are being stored; must be placed in the project folder (workdir variable) otherwise enter the full path
 coord_system,EPSG::32611,				# [required#1] [string] the coordinate system EPSG code (OSGB- EPSG:: 27700) EPSG:: 2027
@@ -11,12 +11,15 @@ img_quality_cutoff,0.5,					# [required#1]  [float] the PhotoScan image quality 
 reprojection_error,0.45,				# [required#1]  [float] tie point error reprojection limit used to filter out 'bad' tie points (this may need to be increased if too many points are removed); 0.45 by default
 rolling_shutter,FALSE,					# [required#1]   [bool] enables rolling shutter correction; either TRUE or FALSE for the following options (must be in caps)
 revise_altitude,TRUE,					# [optional#1]   [bool] enables altitude correction in DJI images; either TRUE or FALSE for the following options (must be in caps)
-altitude_adjust,2088,					# [optional#1]    [int] GNSS derived (if possible) absolute height of 'take off point' for DJI Drone only; used to correct DJI camera absolute altitude values
+altitude_adjust,2104,					# [optional#1]    [int] GNSS derived (if possible) absolute height of 'take off point' for DJI Drone only; used to correct DJI camera absolute altitude values
 spc_quality,HighestAccuracy,				# [required#1] [option] Sparse Point Cloud (SPC) accuracy; select option from: [HighestAccuracy - HighAccuracy - MediumAccuracy - LowAccuracy - LowestAccuracy]
 marker_type,CrossTarget,				# [required#1] [option] type of targets for detecting markers; select option from: [CircularTarget12bit - CircularTarget14bit - CircularTarget16bit - CircularTarget20bit - CircularTarget - CrossTarget]
 marker_tolerance,10,					# [required#1]    [int] detector tolerance in range 0-100
 marker_min_size,30,					# [required#1]    [int] minimum target radius in pixels to be detected (CrossTarget type only)
 marker_max_res,5,					# [required#1]  [float] maximum residual for non-coded targets in pixels; required for non-coded type of targets (e.g. CircularTarget or CrossTarget)
+marker_min_projections,6,				# [required#1]    [int] minimum number of projections for a marker; markers with fewer projections will be deleted
+marker_projection_error,0.5,				# [required#1]  [float] the difference between marker projection coordinates and camera position
+marker_gcp_distance,3.0,				# [required#1]  [float] distance in meters; the difference between measured gcp points and transformed marker positions
 depth_filter,MildFiltering,				# [optional#1] [option] filter mode for buildDepthMaps; select option from: [NoFiltering - MildFiltering - ModerateFiltering - AggressiveFiltering]
 dpc_quality,UltraQuality,				# [optional##] [option] Dense Point Cloud (DPC) quality; select option from: [UltraQuality - HighQuality - MediumQuality - LowQuality - LowestQuality]
 export_dpc,TRUE,					# [optional##]   [bool] export Dense Point Cloud; either TRUE or FALSE for the following options (must be in caps)
