@@ -19,12 +19,6 @@ feature_row:
     url: "Workshops/Workshop"
     btn_label: "Learn More"
 
-  - title: "Agisoft Metashape"
-    image_path: /assets/images/nasa-1lfI7wkGWZ4-unsplash.jpg
-    alt: "Metashape"
-    url: "Metashape/IntroMetashape-landingPage"
-    btn_label: "Learn More"
-
   - title: "Introduction to Image Analysis"
     image_path: /assets/images/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
     alt: "Programs2"
