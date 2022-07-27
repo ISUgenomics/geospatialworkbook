@@ -20,19 +20,19 @@ feature_row:
     btn_label: "Learn More"
 
   - title: "Introduction to Image Analysis"
-    image_path: /assets/images/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
+    image_path: /assets/images/geospatial_gallery_image_analysis.png
     alt: "Programs2"
     url: "IntroductionToImageAnalysis/ImageMLWorkshop"
     btn_label: "Learn More"
 
   - title: "Importing earth observations data"
-    image_path: /assets/images/nasa.png
+    image_path: /assets/images/geospatial_gallery_earth_observations.png
     alt: "Earth Observations"
     url: "ImportingData/ImportingData-landingPage"
     btn_label: "Learn More"
 
   - title: "Introduction to Photogrammetry"
-    image_path: /assets/images/nasa.png
+    image_path: /assets/images/geospatial_gallery_photogrammetry.png
     alt: "Photogrammetry"
     url: "IntroPhotogrammetry/00-IntroPhotogrammetry-LandingPage"
     btn_label: "Learn More"
