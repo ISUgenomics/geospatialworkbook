@@ -8,6 +8,8 @@ header:
 
 {% include toc %}
 
+## <span style="color: #ff3870;">WARNING! Agisoft Metashape was uninstalled from all SCINet computing resources in early 2022 for security reasons.</span>
+
 ## Metashape on Atlas cluster (SCINet HPC)
 The **Agisoft** is preinstalled on [Atlas](https://www.hpc.msstate.edu/computing/atlas/) SCINet HPC infrastructure as a *Metashape* distribution in version **1.7.3** and can be loaded into your computational environment with `module load` command.
 
@@ -313,4 +315,4 @@ less slurm-726219.out
 
 In the file view, check analysis for % of cameras aligned and not aligned. That the mean reprojections values are within the threshold. Use `q` letter on the keyboard to exit viewer.
 
-Once you have completed your activities on the Atlas cluster, you can disconnect your local computer from the HPC infrastructure using `exit` command followed by pressing `enter` on your keyboard. 
+Once you have completed your activities on the Atlas cluster, you can disconnect your local computer from the HPC infrastructure using `exit` command followed by pressing `enter` on your keyboard.
