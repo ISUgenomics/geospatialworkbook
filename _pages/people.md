@@ -47,6 +47,12 @@ Amy began her SCINet postdoc in May 2020 working with Dr. Debra Peters in Las Cr
 ![Yanghui](../assets/images/people/YanghuiKang.jpg){: .align-left-profile }
 Yanghui started her SCINet Postdoc position in May 2020 after receiving a Ph.D. degree in Geography from the University of Wisconsin-Madison. She works with Dr. Feng Gao and Dr. Martha Anderson at the Hydrology and Remote Sensing Laboratory in the Beltsville Agricultural Research Center, Beltsville, Maryland. Yanghui’s research projects have focused on the large-scale high-resolution monitoring of core agroecosystem variables (e.g., Leaf Area Index (LAI), crop yield), with the help of satellite remote sensing, machine learning, crop growth modeling, and data assimilation techniques. At ARS, Yanghui is currently developing a machine-learning-based approach to map LAI from Landsat and Sentinel-2 images over the entire globe. She is also interested in deriving crop phenological stages from satellite observations and monitoring agroecosystem dynamics through data assimilation.
 
+### Aleksandra Badaczewska
+
+![Alex](../assets/images/people/Alex.png){: .align-left}
+Alex is a Research Scientist IV at the Genome Informatics Facility at Iowa State University. Her academic background is in Chemistry and Biotechnology, with a Ph.D. in Computational Biology and broad experience in programming and designing web applications. She develops a comprehensive collection of highly customizable visualization solutions for Bioinformatics and supports software optimization for the USDA Geospatial analyses.
+<br><br>
+
 ### Jennifer Chang
 
 ![Jennifer](../assets/images/people/JenChang.png){: .align-left-profile }
