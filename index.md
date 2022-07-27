@@ -25,9 +25,9 @@ feature_row:
     url: "IntroductionToImageAnalysis/ImageMLWorkshop"
     btn_label: "Learn More"
 
-  - title: "Introduction to importing data"
+  - title: "Importing earth observations data"
     image_path: /assets/images/nasa.png
-    alt: "Programs"
+    alt: "Earth Observations"
     url: "ImportingData/ImportingData-landingPage"
     btn_label: "Learn More"
 
