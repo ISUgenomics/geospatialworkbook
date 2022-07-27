@@ -1,5 +1,5 @@
 ---
-title: "WebODM: web-based graphical interface"
+title: "Command-line ODM modules"
 layout: single
 author: Aleksandra Badaczewska
 author_profile: true
@@ -25,5 +25,5 @@ ___
 
 [Homepage](../index.md){: .btn  .btn--primary}
 [Section Index](../00-IntroPhotogrammetry-LandingPage){: .btn  .btn--primary}
-[Previous](00-IntroODM){: .btn  .btn--primary}
-[Next](02-ODM-modules){: .btn  .btn--primary}
+[Previous](01-WebODM){: .btn  .btn--primary}
+[Next](){: .btn  .btn--primary}
