@@ -13,6 +13,26 @@ header:
 
 
 
+# Run ODM in the command line
+
+* **ODM at GitHub:** [https://github.com/OpenDroneMap/OpenDroneMap/](https://github.com/OpenDroneMap/OpenDroneMap/)
+
+```
+git clone https://github.com/OpenDroneMap/ODM.git
+```
+
+* **Download zipped source code:** [https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip](https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip)
+
+```
+wget https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip
+```
+
+* **Download docker image using singularity**
+
+```
+singularity pull --disable-cache  docker://opendronemap/odm:latest
+```
+
 
 
 
