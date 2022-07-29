@@ -11,6 +11,12 @@ header:
 {% include toc %}
 
 
+# Getting started with ODM
+
+## Setup on local machine
+
+## Remote access on HPC
+
 
 
 # Run ODM in the command line
