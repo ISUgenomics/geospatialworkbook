@@ -119,7 +119,7 @@ sudo apt-get install parallel
 module load parallel
 ```
 
-### using **magic**
+### - using **magic**
 
 Learn more about the **ImageMagick** tool at <a href="https://imagemagick.org" target="_blank">https://imagemagick.org</a> <br>
 Follow **installation** instructions at <a href="https://imagemagick.org/script/download.php" target="_blank">https://imagemagick.org/script/download.php</a>
@@ -169,7 +169,7 @@ ls *.DNG | sed 's/DNG//g' | parallel magick -quality 100 -define dng:use-camera-
 *^ `-define dng:use-camera-wb=true` - the option adjust colors to match the original.*
 
 
-### using **ufraw**
+### - using **ufraw**
 
 Learn more about the **UFRaw** *(Unidentified Flying Raw)* tool at <a href="http://ufraw.sourceforge.net" target="_blank">http://ufraw.sourceforge.net</a> <br>
 Follow system-specific **installation** instructions at <a href="http://ufraw.sourceforge.net/Install.html" target="_blank">http://ufraw.sourceforge.net/Install.html</a>
@@ -191,7 +191,7 @@ done
 ls *.DNG | sed 's/DNG//g' | parallel ufraw-batch --wb=camera --exposure=auto --out-depth=8 --out-type=jpg --output {}jpg {}DNG
 ```
 
-### using **sips** (macOS)
+### - using **sips** (macOS)
 
 The `sips` command comes pre-installed on macOS. Simply open a terminal window and copy-paste one of the code snippet given below. The advantage of this solution is also that **sips automatically copies the EXIF metadata** to the file in the new format.
 
