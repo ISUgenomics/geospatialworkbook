@@ -20,7 +20,7 @@ header:
 
 The ODM module for the command-line usage requires the specific file structure to work without issues. Specifically, it requires that input imagery be in the `code/images` subdirectories structure of the working directory for a given project.
 
-To facilitate proper path management, I suggest creating the core of ordered file structure for all future projects. Let's say it will be the **ODM** directory, serving as a working directory for all future ODM analyses. It should contain two main subdirectories: IMAGES and RESULTS. In the **IMAGES** for each new project you will create a new folder with a unique name, where you will place photos in JPG format *(e.g., ~/ODM/IMAGES/PROJECT-1)*. In the **RESULTS** directory, when submitting an ODM task into the SLURM queue, a subdirectory with ODM outputs will be automatically created for each project. And there, also automatically, an `code/images` subdirectories will be created with soft links to photos from the corresponding project.
+To facilitate proper path management, I suggest creating the core of ordered file structure for all future projects. Let's say it will be the **ODM** directory, serving as a working directory for all future ODM analyses. It should contain two main subdirectories: IMAGES and RESULTS. In the **IMAGES** directory, you will create a new folder with a unique name for each new project, where you will place photos in JPG format *(e.g., ~/ODM/IMAGES/PROJECT-1)*. In the **RESULTS** directory, when submitting an ODM task into the SLURM queue, a subdirectory with ODM outputs will be automatically created for each project. And there, also automatically, an `code/images` subdirectories will be created with soft links to photos from the relative project.
 
 <div style="background: #cff4fc; padding: 15px;">
 <b>ODM/</b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<i>(storage directory for all future ODM projects)</i><br>
@@ -37,19 +37,19 @@ To facilitate proper path management, I suggest creating the core of ordered fil
 </span>
 </div><br>
 
-This way, if you want to perform several analyses with different parameters on the same set of images, you will not need to have a hard copy for each analysis, but will use soft links to the original photos stored in the IMAGES directory. **This will significantly save storage space and prevent you from accidentally deleting input imagery when resuming the analysis in the working directory.**
+This way, if you want to perform several analyses with different parameters on the same set of images, you will not need to have a hard copy for each repetition. Instead, you will use soft links to the original photos stored in the IMAGES directory. **That will significantly save storage space and prevent you from accidentally deleting input imagery when resuming the analysis in the working directory.**
 
 <br><span style="color: #ff3870;font-weight: 600;">
-To set up the file structure for ODM analysis follow the steps in the command-line:
+To set up the file structure for ODM analysis follow the steps in the command line:
 </span><br>
 
-**0.** Open terminal window on your local machine and login to SCINet Atlas cluster *(or any HPC infrastructure)* using `ssh` command and respective hostname:
+**0.** Open the terminal window on your local machine and login to the SCINet Atlas cluster *(or any HPC infrastructure)* using the `ssh` command and respective hostname:
 
 ```
 ssh <user.name>@atlas-login.hpc.msstate.edu
 ```
 
-Then, enter on keyboard your 1) [multi-factor authenticator](https://scinet.usda.gov/guide/multifactor/) number (6 digits), followed by 2) password in a separate prompt.
+Then, enter on the keyboard your 1) [multi-factor authenticator](https://scinet.usda.gov/guide/multifactor/) number (6 digits), followed by 2) password in a separate prompt.
 
 <!-- ![Atlas login with authenticator](img) -->
 
@@ -60,11 +60,11 @@ If you happen to forget the hostname for the Atlas cluster, you can save the log
 <span style="color: black;font-weight: 600;">
 $ echo "ssh user.name@atlas-login.hpc.msstate.edu" > login_atlas <br><br>
 </span>
-Then every time you want to log in, just call the name of this file with a period-and-space preceding it: <br><br>
+Then every time you want to log in, just call the name of this file with a period and space preceding it: <br><br>
 <span style="color: black;font-weight: 600;">
 $ . login_atlas <br><br>
 </span>
-You can also review the HPC clusters avaialble on SCINet at <a href="https://scinet.usda.gov/guide/quickstart#hpc-clusters-on-scinet" style="color: #3f5a8a;">https://scinet.usda.gov/guide/quickstart#hpc-clusters-on-scinet</a>.
+You can also review the HPC clusters available on SCINet at <a href="https://scinet.usda.gov/guide/quickstart#hpc-clusters-on-scinet" style="color: #3f5a8a;">https://scinet.usda.gov/guide/quickstart#hpc-clusters-on-scinet</a>.
 </span>
 </div><br>
 
@@ -79,11 +79,11 @@ cd /project/<your_account_folder>/
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span>
 <br><span style="font-style:italic;">
-If you do not remember or do not know the name of your group directory in <b>/project</b> location, try command: <br><br>
+If you do not remember or do not know the name of your group directory in <b>/project</b> location, try the command: <br><br>
 <span style="color: black;font-weight: 600;">
 $ ls /project
 </span><br><br>
-That will display all available group directories. You can search for suitable one by name or you can quickly filter out only the ones you have access to: <br><br>
+That will display all available group directories. You can search for suitable ones by name or you can quickly filter out only the ones you have access to: <br><br>
 <span style="color: black;font-weight: 600;">
 $ ls /project/* 2> /dev/null
 </span><br><br></span>
@@ -92,19 +92,19 @@ $ ls /project/* 2> /dev/null
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
-Note that you do NOT have access to all directories in the <b>/project</b> location. You also can NOT create the new directory there by your own. All users have access to <b>/project/90daydata</b>, but data is stored there only for 90 days and the folder is dedicated primarily to collaborative projects between groups. If you do NOT have access to your group's directory or need a directory for a new project <b><a href="https://scinet.usda.gov/support/request-storage#to-request-a-new-project-allocation" style="color: #3f5a8a;">request a new project allocation</a></b>.
+Note that you do NOT have access to all directories in the <b>/project</b> location. You also can NOT create the new directory there on your own. All users have access to <b>/project/90daydata</b>, but data is stored there only for 90 days and the folder is dedicated primarily to collaborative projects between groups. If you do NOT have access to your group's directory or need a directory for a new project <b><a href="https://scinet.usda.gov/support/request-storage#to-request-a-new-project-allocation" style="color: #3f5a8a;">request a new project allocation</a></b>.
 </span>
 </div><br>
 
 
-**2.** Create working directory (`mkdir`) for all future ODM projects and get into it (`cd`):
+**2.** Create a working directory (`mkdir`) for all future ODM projects and get into it (`cd`):
 
 ```
 mkdir ODM
 cd ODM
 ```
 
-**3.** Create directory for input images (IMAGES) and ODM analysis outputs (RESULTS):
+**3.** Create a directory for input images (IMAGES) and ODM analysis outputs (RESULTS):
 ```
 mkdir IMAGES RESULTS
 ```
@@ -117,10 +117,10 @@ Make sure you are in your ODM working directory at the **/project** path:
 pwd
 ```
 
-It should returns a string with your current location, something like **/project**/project_account/user/**ODM** . If the basename of your current directory is different from "ODM" use the `cd` command to get into it. When you get to the right location in the file system follow the next instructions.
+It should return a string with your current location, something like **/project**/project_account/user/**ODM**. If the basename of your current directory is different from "ODM" use the `cd` command to get into it. When you get to the right location in the file system follow the next instructions.
 
 
-**Download the ODM docker image using singularity module:**
+**Download the ODM docker image using the singularity module:**
 ```
 module load singularity
 singularity pull --disable-cache  docker://opendronemap/odm:latest
@@ -129,7 +129,7 @@ singularity pull --disable-cache  docker://opendronemap/odm:latest
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
-<b>Do it only once (!)</b> when you first time configure your work with command-line ODM module. Once created, the singularity image of an ODM tool can be used any number of times.
+<b>Do it only once (!)</b> when the first time you configure your work with the command-line ODM module. Once created, the singularity image of an ODM tool can be used any number of times.
 </span>
 </div><br>
 
@@ -138,7 +138,7 @@ Executing the code in the command line should create a new file named `odm_lates
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 You can display the contents of any directory while being in any other location in the file system. To do this, you need to know the relative or absolute path to the target location. <br><br>
-The <b>absolute path</b> requires defining all intermediate directories starting from root (shortcutted by a single <b>/</b>): <br>
+The <b>absolute path</b> requires defining all intermediate directories starting from the root (shortcutted by a single <b>/</b>): <br>
 $ <b>ls /project/90daydata</b> <br><br>
 The <b>relative path</b> requires defining all intermediate directories relative to the current location. To indicate the parent directories use the <b>../</b> syntax for each higher level. To point to child directories you must name them directly. Remember, however, that pressing the tab key expands the available options, so you don't have to remember entire paths. <br>
 $ <b>ls ../../inner_folder</b> <br><br>
@@ -153,29 +153,29 @@ The same principle applies to relocation in the file system using the <b>cd</b> 
 
 In case the input images are on your local machine, you can transfer them to HPC Atlas via the command line using the `scp` command with syntax: <br> `scp <location on local machine> <user.name>@atlas-dtn.hpc.msstate.edu:<project location on Atlas cluster>`.
 
-The complete command should looks like that:
+The complete command should look like that:
 ```
 scp /local/mashine/JPGs/* alex.badacz@atlas-dtn.hpc.msstate.edu:/project/isu_gif/Alex/ODM/IMAGES/project-X
 ```
 
-...and it have to be executed in the terminal window from the selected location in the file system on your local machine.
+...and it has to be executed in the terminal window from the selected location in the file system on your local machine.
 
 
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span><br>
-Note that you HAVE to use <b>transfer nodes</b> every time you want to move data to a cluster. Transfer nodes <u>differ</u> from login nodes <u>by the host name</u> while your user.name remains the same. <br>
-For data transfer purposes, always use transfer host name:
+Note that you HAVE to use <b>transfer nodes</b> every time you want to move data to a cluster. Transfer nodes <u>differ</u> from login nodes <u>by the hostname</u> while your user.name remains the same. <br>
+For data transfer purposes, always use the transfer hostname:
 user.name@<b>atlas-dtn.hpc.msstate.edu</b>
 </span>
 </div><br>
 
-You can also transfer data from your local machine to Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
+You can also transfer data from your local machine to the Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
 
 ### B. import from other HPC
 
 You can use the approach from section A to <b>export data from any computing machine</b> (including another HPC, e.g., Ceres) to an Atlas cluster. You need to be physically logged into that other machine and follow the procedure described in step A.
 
-If you want to make a transfer from another machine <u>while logged into Atlas</u> then you will <b>import the data</b>. You can also do this using the `scp` command, but you NEED to know the <u>hostname</u> for that other external machine. The idea of sytax is simple `scp source_location destination_location`.
+If you want to make a transfer from another machine <u>while logged into Atlas</u> then you will <b>import the data</b>. You can also do this using the `scp` command, but you NEED to know the <u>hostname</u> for that other external machine. The idea of syntax is simple: `scp source_location destination_location`.
 
 ```
 scp username@external-hostname:/path/JPGs/* /project/project_account/on/Atlas/ODM/IMAGES/project-X
@@ -183,18 +183,18 @@ scp username@external-hostname:/path/JPGs/* /project/project_account/on/Atlas/OD
 
 Sometimes an external machine may require access from a specific port, in which case you must use the `-P` option, i.e., `scp -P port_number source_host:location destination_location_on_atlas`.
 
-You can probably transfer data from other HPC infrastructure to Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
+You can probably transfer data from other HPC infrastructure to the Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
 
 ### C. move locally on Atlas
 
-To move data locally in the file system on a given machine (such as an Atlas cluster) use the `cp` command with syntax: <br> `cp source_location destination_location`.
+To move data locally in the file system on a given machine (such as an Atlas cluster) use the `cp` command with the syntax: <br> `cp source_location destination_location`.
 
-The complete command should looks like that:
+The complete command should look like that:
 ```
 cp /project/90daydata/shared/project-X/JPGs/* /project/project_account/user/ODM/IMAGES/project-X
 ```
 
-...and it have to be executed in the terminal window when logged into Atlas cluster.
+...and it has to be executed in the terminal window when logged into Atlas cluster.
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
@@ -209,7 +209,7 @@ Absolute paths work regardless of the current location in the file system. If yo
 
 ## Setup SLURM script
 
-**Create empty file for SLURM script and open it with favourite text editor:**
+**Create an empty file for the SLURM script and open it with your favorite text editor:**
 
 ```
 touch run_odm_latest.sh
@@ -238,7 +238,7 @@ module load python/3.9.2                       # load phython 3.9 (default)
 # DEFINE CODE VARIABLES
 workdir=/project/<project_account>/.../ODM     # EDIT PATH, path to your ODM directory
 project=PROJECT-1                              # EDIT PROJECT NAME, name of the directory with input JPG imagery
-tag=`date +%Y%b%d-%T`                          # EDIT CUSTOM TAG, by default it is a date in format 2022Aug16-16:57:59
+tag=`date +%Y%b%d-%T | tr ':' '.'`             # EDIT CUSTOM TAG, by default it is a date in format 2022Aug16-16.57.59
 images_dir=$workdir/IMAGES/$project            # automatically generated path to input images when stored in ~/ODM/IMAGES; otherwise provide absolute path
 output_dir=$workdir/RESULTS/$project-$tag      # automatically generated path to project outputs
 mkdir -p $output_dir/code/images               # automatically generated images directory
@@ -264,7 +264,7 @@ singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
-Follow the adjustment steps <u>each time</u> before sumbmitting the job into SLURM queue. Note that you SHOULD use the same script file every time you arrange an ODM analysis. For your convenience, when you submit a job to the queue, the script with all the settings is automatically copied to the corresponding folder of ODM analysis outputs (located directly in the RESULTS directory).
+Follow the adjustment steps <u>each time</u> before submitting the job into the SLURM queue. Note that you SHOULD use the same script file every time you arrange an ODM analysis. For your convenience, when you submit a job to the queue, the script with all the settings is automatically copied to the corresponding folder of ODM analysis outputs (located directly in the RESULTS directory).
 </span>
 </div><br>
 
@@ -277,7 +277,7 @@ Follow the adjustment steps <u>each time</u> before sumbmitting the job into SLU
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
-For most jobs, Atlas users should specify the <b>atlas</b> partition. The specification for all available Atlas partitions are provided in <b><a href="https://www.hpc.msstate.edu/computing/atlas/" style="color: #3f5a8a;">Atlas Documentation</a></b>, in section <i>Available Atlas Partitions</i>.
+For most jobs, Atlas users should specify the <b>atlas</b> partition. The specification for all available Atlas partitions is provided in <b><a href="https://www.hpc.msstate.edu/computing/atlas/" style="color: #3f5a8a;">Atlas Documentation</a></b>, in section <i>Available Atlas Partitions</i>.
 </span>
 </div><br>
 
@@ -290,7 +290,7 @@ For most jobs, Atlas users should specify the <b>atlas</b> partition. The specif
 
 For example, I use `isu_gif_vrsc` account: `#SBATCH --account=isu_gif_vrsc`
 
-**2.** Edit path to your ODM directory in section **# DEFINE CODE VARIABLES**
+**2.** Edit path to your ODM directory in section **# DEFINE CODE VARIABLES** (obligatory)
 
 <div style="background: #f0f0f0; padding: 15px;">
 workdir=
@@ -299,7 +299,7 @@ workdir=
 
 For example, I use the following path: `workdir=/project/isu_gif_vrsc/Alex/geospatial/ODM`
 
-**3.** Edit name of directory with input imagery in section **# DEFINE CODE VARIABLES** (obligatory)
+**3.** Edit name of the directory with input imagery in section **# DEFINE CODE VARIABLES** (obligatory)
 
 <span style="color: #ff3870;font-weight: 600;">IMPORTANT:</span>
 This step determines which set of images will be used in the ODM analysis!
@@ -312,11 +312,11 @@ project=
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
-CASE 1: Note that the eneterd name should match the subdirectory existing directly in your ~/ODM/IMAGES/ where you store imagery for particular analysis. Then you do NOT need to alter the <b>images_dir</b> variable (with full path to the input photos) because it will be created automatically. <br>
+CASE 1: Note that the entered name should match the subdirectory existing directly in your ~/ODM/IMAGES/ where you store imagery for a particular analysis. Then you do NOT need to alter the <b>images_dir</b> variable (with the full path to the input photos) because it will be created automatically. <br>
 <b>Keep images_dir default:</b> <br>
 images_dir=$workdir/IMAGES/$project <br><br>
 
-CASE 2: Otherwise, give customized (any) name for the project outputs but remember <u>to provide</u> the absolute path (of any location in the HPC file system) to the input photos in the <b>images_dir</b> variable. <br>
+CASE 2: Otherwise, give a customized (any) name for the project outputs but remember <u>to provide</u> the absolute path (of any location in the HPC file system) to the input photos in the <b>images_dir</b> variable. <br>
 <b>Provide the absolute path to imagery:</b> <br>
 images_dir=/aboslute/path/to/input/imagery/in/any/location
 
@@ -325,7 +325,7 @@ images_dir=/aboslute/path/to/input/imagery/in/any/location
 
 **4.** Edit tag variable to customize project outputs directory **# DEFINE CODE VARIABLES** (optional)
 
-By default, `tag` variable is tagging the name of the directory with the ODM analysis outputs by adding the date and time (in format: 2022Aug16-16:57:59) when the job is submitted. This prevents accidental overwriting of results for a project started from the same input images.
+By default, the `tag` variable is tagging the name of the directory with the ODM analysis outputs by adding the date and time (in the format: 2022Aug16-16:57:59) when the job is submitted. This prevents accidental overwriting of results for a project started from the same input images.
 
 <div style="background: #f0f0f0; padding: 15px;">
 tag=
@@ -342,23 +342,15 @@ Avoid overwriting the tag with manually typed words, and remember to always add 
 
 ## Access ODM analysis results
 
-|― **RESULTS/** *(parent directory for ODM analysis outputs)* <br>
- &emsp;&nbsp; |― **PROJECT-1/** *(automatically created directory with ODM analysis results)* <br>
- &emsp; &emsp; &ensp;|― **code/** <br>
- &emsp; &emsp; &emsp; &ensp; |― **images/** *(soft links to JPGs images)* <br>
- &emsp; &emsp; &emsp; &ensp; |― log.json <br>
- &emsp; &emsp; &emsp; &ensp; |― cameras.json <br>
- &emsp; &emsp; &emsp; &ensp; |― images.json <br>
- &emsp; &emsp; &emsp; &ensp; |― img_list.txt <br>
- &emsp; &emsp; &emsp; &ensp; |― benchmark.txt <br>
+The figure shows the file structure of all outputs generated by the ODM command-line module. The original screenshot comes from the official [OpenDroneMap (v2.8.7) Documentation](https://docs.opendronemap.org/outputs/#list-of-all-outputs).
 
 ![OpenDroneMap outputs](../assets/images/odm_outputs.png)
-Figure shows the files structure of all outputs generated by ODM command-line module. The original screen shot comes from the official [OpenDroneMap (v2.8.7) Documenation](https://docs.opendronemap.org/outputs/#list-of-all-outputs).
+
 
 # Get ODM on local machine
 
 **A. Download docker image using singularity** <br>
- *^ suggested for usage on computing machine where the singularity is available*
+ *^ suggested for usage on computing machines where the singularity is available*
 
  ```
  module load singularity
@@ -366,7 +358,7 @@ Figure shows the files structure of all outputs generated by ODM command-line mo
  ```
 
 **B. Download docker image using Docker** <br>
-*^ suggested for usage on computing machine where the Docker can be installed* <br>
+*^ suggested for usage on computing machines where the Docker can be installed* <br>
 *^ requires Docker installation*
 
  ```
