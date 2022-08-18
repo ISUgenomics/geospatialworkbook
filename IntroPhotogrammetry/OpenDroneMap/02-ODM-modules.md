@@ -149,7 +149,7 @@ The same principle applies to relocation in the file system using the <b>cd</b> 
 
 ## Copy input imagery on Atlas
 
-### A. export from local machine
+### *A. export from local machine*
 
 In case the input images are on your local machine, you can transfer them to HPC Atlas via the command line using the `scp` command with syntax: <br> `scp <location on local machine> <user.name>@atlas-dtn.hpc.msstate.edu:<project location on Atlas cluster>`.
 
@@ -171,7 +171,7 @@ user.name@<b>atlas-dtn.hpc.msstate.edu</b>
 
 You can also transfer data from your local machine to the Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
 
-### B. import from other HPC
+### *B. import from other HPC*
 
 You can use the approach from section A to <b>export data from any computing machine</b> (including another HPC, e.g., Ceres) to an Atlas cluster. You need to be physically logged into that other machine and follow the procedure described in step A.
 
@@ -185,7 +185,7 @@ Sometimes an external machine may require access from a specific port, in which 
 
 You can probably transfer data from other HPC infrastructure to the Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
 
-### C. move locally on Atlas
+### *C. move locally on Atlas*
 
 To move data locally in the file system on a given machine (such as an Atlas cluster) use the `cp` command with the syntax: <br> `cp source_location destination_location`.
 
@@ -329,7 +329,7 @@ By default, the `tag` variable is tagging the name of the directory with the ODM
 
 <div style="background: #f0f0f0; padding: 15px;">
 tag=
-<span style="font-weight:800;">`date +%Y%b%d-%T`</span>
+<span style="font-weight:800;">`date +%Y%b%d-%T | tr ':' '.'`</span>
 </div><br>
 
 <div style="background: #cff4fc; padding: 15px;">
@@ -338,6 +338,12 @@ You can overwrite the value of the <b>tag</b> variable in any way that will dist
 Avoid overwriting the tag with manually typed words, and remember to always add an automatically generated randomization part in the variable to prevent overwriting the results in a previous project (for example, when you forget to update the tag).
 </span>
 </div><br>
+
+## Submit ODM job into the SLURM queue
+
+```
+sbatch run_odm_latest.sh
+```
 
 
 ## Access ODM analysis results
