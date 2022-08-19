@@ -345,8 +345,6 @@ Avoid overwriting the tag with manually typed words, and remember to always add 
 
 ### *B. Choose ODM options for analysis*
 
-<span style="color: #ff3870;font-weight: 600;">section in development</span>
-
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
