@@ -13,6 +13,14 @@ header:
 
 # Getting started with ODM
 
+ODM stands for OpenDroneMap, an **open-source** photogrammetry software. OpenDroneMap project includes several modules which facilitate geospatial analysis in customized configurations of available computing power and for projects of different scales. The [OpenDroneMap/ODM](https://www.opendronemap.org/odm/) [[GitHub](https://github.com/OpenDroneMap/ODM)] module is the analytical core of the software. Typically it is employed by the higher-level layers of other OpenDroneMap products that provide a raphical user interface or manage analysis configuration and task scheduling *(learn more in the [Introduction to OpenDroneMap](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/00-IntroODM) section of the [Geospatial Workbook](https://geospatial.101workbook.org)*.
+
+The point is that you can **directly use the ODM module on the command line** in the terminal for drone imagery mapping. This tutorial will take you **step-by-step** through creating an efficient file structure and setting up a script to send the job to the SLURM queue on an HPC cluster, which will allow you **to collect all the results** of the photogrammetric analysis with OpenDroneMap.
+
+<span style="color: #ff3870;font-weight: 500;">
+The complete workflow includes photo alignment and generation of the dense point cloud (DPC), elevation models (DSMs & DTMs), textured 3D meshes, and orthomosaics (georeferenced & orthorectified).
+</span>
+<b>Note that in this approach there is NO support to create web tiles</b>. So, the results can not be directly opened in the complementary WebODM graphical interface. But, the files can be still visualized in external software that supports the given format.
 
 # Run ODM in the command line <br><i>using Atlas cluster of the SCINet HPC</i>
 
@@ -32,14 +40,14 @@ To facilitate proper path management, I suggest creating the core of ordered fil
 |― <b>RESULTS/</b> &emsp;&emsp;&emsp;&emsp;&emsp;<i>(parent directory for ODM analysis outputs)</i> <br>
 <span style="color: #8ca3a8;">
 &emsp;&nbsp; |― PROJECT-1-tag/ &ensp; <i>(automatically created directory with ODM analysis outputs)</i> <br>
-&emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp;&emsp; <i>(automatically created directory where the analysis outputs will be stored; <u>required!</u>)</i> <br>
-&emsp; &nbsp;&emsp;&emsp;&emsp; |― images/ &emsp;&nbsp; <i>(automatically created directory with soft links to JPG images; <u>required by the ODM!</u>)</i> <br>
+&emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp;&emsp; <i>(automatically created dir for analysis outputs; <u>required!</u>)</i> <br>
+&emsp; &nbsp;&emsp;&emsp;&emsp; |― images/ &emsp;&nbsp; <i>(automatically created dir with soft links to JPG images)</i> <br>
 </span>
 </div><br>
 
 This way, if you want to perform several analyses with different parameters on the same set of images, you will not need to have a hard copy for each repetition. Instead, you will use soft links to the original photos stored in the IMAGES directory. **That will significantly save storage space and prevent you from accidentally deleting input imagery when resuming the analysis in the working directory.**
 
-<br><span style="color: #ff3870;font-weight: 600;">
+<br><span style="color: #ff3870;font-weight: 600; font-size:24px;">
 To set up the file structure for ODM analysis follow the steps in the command line:
 </span><br>
 
@@ -254,12 +262,11 @@ singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm
 --project-path $output_dir
 ```
 
-<br>
+<br><span style="color: #ff3870; font-weight: 600; font-size:24px;">
+Each time before submitting the script to the queue...
+</span><br>
 
-**Each time before submitting the script to the queue...** <br>
-<span style="color: #ff3870;font-weight: 600;">
-<b><u>ADJUST VARIABLES</u></b> in the script lines marked with <b># EDIT</b> comment
-</span>
+### *A. Adjust script variables and paths*
 
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
@@ -267,6 +274,8 @@ singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm
 Follow the adjustment steps <u>each time</u> before submitting the job into the SLURM queue. Note that you SHOULD use the same script file every time you arrange an ODM analysis. For your convenience, when you submit a job to the queue, the script with all the settings is automatically copied to the corresponding folder of ODM analysis outputs (located directly in the RESULTS directory).
 </span>
 </div><br>
+
+<span style="font-weight: 500; font-size:22px;"><i>^ <b>Adjust</b> the script lines marked with <b># EDIT</b> comment</i></span><br>
 
 **0.** Select Atlas partition in section **# DEFINE SLURM VARIABLES** (optional)
 
@@ -319,7 +328,6 @@ images_dir=$workdir/IMAGES/$project <br><br>
 CASE 2: Otherwise, give a customized (any) name for the project outputs but remember <u>to provide</u> the absolute path (of any location in the HPC file system) to the input photos in the <b>images_dir</b> variable. <br>
 <b>Provide the absolute path to imagery:</b> <br>
 images_dir=/aboslute/path/to/input/imagery/in/any/location
-
 </span>
 </div><br>
 
@@ -339,12 +347,37 @@ Avoid overwriting the tag with manually typed words, and remember to always add 
 </span>
 </div><br>
 
+
+### *B. Choose ODM options for analysis*
+
+<span style="color: #ff3870;font-weight: 600;">section in development</span>
+
 ## Submit ODM job into the SLURM queue
+
+The SLURM is a workload manager available on the Atlas cluster. It is a simple Linux utility for resource management and computing task scheduling. In simple terms, you HAVE to use it every time you want to outsource some computation on HPC infrastructure. To learn more about SLURM take a look at the tutorial [SLURM: Basics of Workload Manager](https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/01-SLURM/01-slurm-basics) available in the [DataScience Workbook](https://datascience.101workbook.org).
+
+<div style="background: #cff4fc; padding: 15px;">
+<span style="font-weight:800;">PRO TIP:</span><br>
+If you are working on an HPC infrastructure that uses the PBS workload manager, take a look at the tutorial <b><a href="https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/02-PBS/01-pbs-basics" style="color: #3f5a8a;">PBS: Portable Batch System</a></b> to learn more about the command that sends a task to the queue and the script configuration. <br>
+[<i><a href="https://datascience.101workbook.org" style="color: #3f5a8a;">source: DataScience Workbook</a></i>]
+</span>
+</div><br>
+
+Use the `sbatch` SLURM command to submit the computing job into the queue:
 
 ```
 sbatch run_odm_latest.sh
 ```
 
+<div style="background: mistyrose; padding: 15px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+Tasks submitted into the queue are sent to <b>powerful compute nodes</b>, while all the commands you write in the terminal right after logging in are executed on the <b>capacity-limited login node</b>.<br><br>
+<b>Never perform an aggravating computation on a logging node.</b><br>
+A. If you want to optimize some computationally demanding procedure and need a live preview for debugging, start an <b><a href="https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/01-SLURM/01-slurm-introduction/interactive-session" style="color: #3f5a8a;">interactive session on the compute node</a></b>.<br>
+B. If you want to migrate a large amount of data use transfer node: <b>@atlas-dtn.hpc.msstate.edu</b>.
+</span>
+</div><br>
 
 ## Access ODM analysis results
 
