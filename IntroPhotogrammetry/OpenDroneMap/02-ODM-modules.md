@@ -41,7 +41,7 @@ To facilitate proper path management, I suggest creating the core of ordered fil
 <span style="color: #8ca3a8;">
 &emsp;&nbsp; |― PROJECT-1-tag/ &ensp; <i>(automatically created directory with ODM analysis outputs)</i> <br>
 &emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp;&emsp; <i>(automatically created dir for analysis outputs; <u>required!</u>)</i> <br>
-&emsp; &nbsp;&emsp;&emsp;&emsp; |― images/ &emsp;&nbsp; <i>(automatically created dir with soft links to JPG images)</i> <br>
+&emsp; &emsp;&emsp; &emsp; |― images/ &emsp;&nbsp; <i>(automatically created dir with soft links to JPG images)</i> <br>
 </span>
 </div><br>
 
@@ -151,7 +151,6 @@ $ <b>ls /project/90daydata</b> <br><br>
 The <b>relative path</b> requires defining all intermediate directories relative to the current location. To indicate the parent directories use the <b>../</b> syntax for each higher level. To point to child directories you must name them directly. Remember, however, that pressing the tab key expands the available options, so you don't have to remember entire paths. <br>
 $ <b>ls ../../inner_folder</b> <br><br>
 The same principle applies to relocation in the file system using the <b>cd</b> command.
-</span>
 </div><br>
 
 
@@ -287,7 +286,6 @@ Follow the adjustment steps <u>each time</u> before submitting the job into the 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 For most jobs, Atlas users should specify the <b>atlas</b> partition. The specification for all available Atlas partitions is provided in <b><a href="https://www.hpc.msstate.edu/computing/atlas/" style="color: #3f5a8a;">Atlas Documentation</a></b>, in section <i>Available Atlas Partitions</i>.
-</span>
 </div><br>
 
 **1.** Enter your SCINet project account in section **# DEFINE SLURM VARIABLES** (obligatory)
@@ -344,7 +342,6 @@ tag=
 <span style="font-weight:800;">PRO TIP:</span><br>
 You can overwrite the value of the <b>tag</b> variable in any way that will distinguish the analysis variant and make the name of the new folder unique. <br>
 Avoid overwriting the tag with manually typed words, and remember to always add an automatically generated randomization part in the variable to prevent overwriting the results in a previous project (for example, when you forget to update the tag).
-</span>
 </div><br>
 
 
@@ -360,7 +357,6 @@ The SLURM is a workload manager available on the Atlas cluster. It is a simple L
 <span style="font-weight:800;">PRO TIP:</span><br>
 If you are working on an HPC infrastructure that uses the PBS workload manager, take a look at the tutorial <b><a href="https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/02-PBS/01-pbs-basics" style="color: #3f5a8a;">PBS: Portable Batch System</a></b> to learn more about the command that sends a task to the queue and the script configuration. <br>
 [<i><a href="https://datascience.101workbook.org" style="color: #3f5a8a;">source: DataScience Workbook</a></i>]
-</span>
 </div><br>
 
 Use the `sbatch` SLURM command to submit the computing job into the queue:
