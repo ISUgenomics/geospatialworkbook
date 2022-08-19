@@ -24,7 +24,7 @@ The complete workflow includes photo alignment and generation of the dense point
 
 # Run ODM in the command line <br><i>using Atlas cluster of the SCINet HPC</i>
 
-## Create file structure
+## **Create file structure**
 
 The ODM module for the command-line usage requires the specific file structure to work without issues. Specifically, it requires that input imagery be in the `code/images` subdirectories structure of the working directory for a given project.
 
@@ -117,7 +117,7 @@ cd ODM
 mkdir IMAGES RESULTS
 ```
 
-## Download the ODM module
+## **Download the ODM module**
 
 Make sure you are in your ODM working directory at the **/project** path:
 
@@ -154,7 +154,7 @@ The same principle applies to relocation in the file system using the <b>cd</b> 
 </div><br>
 
 
-## Copy input imagery on Atlas
+## **Copy input imagery on Atlas**
 
 ### *A. export from local machine*
 
@@ -212,9 +212,7 @@ Absolute paths work regardless of the current location in the file system. If yo
 </div><br>
 
 
-
-
-## Setup SLURM script
+## **Setup SLURM script**
 
 **Create an empty file for the SLURM script and open it with your favorite text editor:**
 
@@ -256,9 +254,9 @@ cp $BASH_SOURCE $output_dir/submit_odm.sh      # automatically copied the SLURM 
 singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm_latest.sif  \
 --orthophoto-png --mesh-octree-depth 12 --ignore-gsd --dtm \
 --smrf-threshold 0.4 --smrf-window 24 --dsm --pc-csv --pc-las --orthophoto-kmz \
---ignore-gsd  --matcher-type flann --feature-quality ultra --max-concurrency 16 \
+--ignore-gsd --matcher-type flann --feature-quality ultra --max-concurrency 16 \
 --use-hybrid-bundle-adjustment --build-overviews --time --min-num-features 10000 \
---project-path $output_dir
+--project-path $output_dir #--geo $output_dir/code/images/geo.txt
 ```
 
 <br><span style="color: #ff3870; font-weight: 600; font-size:24px;">
@@ -349,7 +347,199 @@ Avoid overwriting the tag with manually typed words, and remember to always add 
 
 <span style="color: #ff3870;font-weight: 600;">section in development</span>
 
-## Submit ODM job into the SLURM queue
+<div style="background: mistyrose; padding: 15px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+The script template provided in this section has a <b>default configuration</b> of options available in the command-line ODM module. You may find that these settings are not optimal for your project. Follow the instructions in this section to learn more about the <b>available ODM options and their possible values</b>.
+</span>
+</div><br>
+
+
+<span style="font-weight: 500; font-size:22px;"><i>^ <b>Adjust</b> flags in the <b># DEFINE ODM COMMAND</b> section in the script file</i></span><br>
+
+```
+# DEFINE ODM COMMAND
+singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm_latest.sif  \
+--feature-quality ultra \                                           # feature
+--pc-csv --pc-las \                                                 # point cloud
+--mesh-octree-depth 12 \                                            # mesh
+--gcp $output_dir/code/images/geo.txt \                             # georeferencing
+--dsm --dtm --smrf-threshold 0.4 --smrf-window 24 \                 # 3D model
+--orthophoto-png --orthophoto-kmz --build-overviews \               # orthophoto
+--use-hybrid-bundle-adjustment --max-concurrency 16 --ignore-gsd \  # performance
+--project-path $output_dir \                                        # project path
+--time                                                              # runtime info
+```
+
+The syntax of the first line launches via the singularity container the odm image. All further --X flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash **\**. Thus, be careful when adding or removing options. <br>*The order of the options entered does not matter but they have been grouped by their impact on various outputs.*
+
+You can find a complete <b>list of all available options</b> with a description in the official OpenDroneMap documentation: [v2.8.8](https://docs.opendronemap.org/arguments/).
+
+**MANAGE WORKFLOW**
+
+**A.** To <b>end processing at selected stage</b> use `--end-with` option followed by the keyword for respective stage:
+* `dataset`
+* `split`
+* `merge`
+* `opensfm`
+* `openmvs`
+* `odm_filterpoints`
+* `odm_meshing`
+* `mvs_texturing`
+* `odm_georeferencing`
+* `odm_dem`
+* `odm_orthophoto`
+* `odm_report`
+* `odm_postprocess` [*default*]
+
+**B.** There are several options to restart workflow:
+
+* To <b>restart the selected stage</b> only and stop use `--rerun` option followed by the keyword for respective stage (see list in section A).
+* To resume processing <b>from selected stage to the end</b>, use `--rerun-from` option followed by the keyword for respective stage (see list in section A).
+* To permanently <b>delete all</b> previous results <b>and rerun</b> the processing pipeline use `--rerun-all` flag.
+
+**C.** For <b>fast generation of orthophoto</b> skip dense reconstruction and 3D model generation using `--fast-orthophoto` flag. It creates the orthophoto directly from the sparse reconstruction which saves the time needed to build a full 3D model.
+
+**D.** Skip individually other stages of the workflow:
+
+* Skip generation of a full 3D model with `--skip-3dmodel` flag in case you only need 2D results such as orthophotos and DEMs. *Saves time!*
+* Skip generation of the orthophoto with `--skip-orthophoto` flag n case you only need 3D results or DEMs. *Saves time!*
+* Skip generation of PDF report with `--skip-report` flag in case you do not need it. *Saves time!*
+
+
+**PHOTO ALIGNMENT options**
+
+|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|--feature-type|akaze / hahog / orb / sift|sift|algorithm for extracting keypoints and computing descriptors||
+|**--min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
+|**--feature-quality**|ultra / high / medium / low / lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
+|--resize-to|integer|2048|resizes images by the largest side for feature extraction purposes only|*Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.*|
+|--matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
+|--matcher-type|bow / bruteforce / flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
+
+
+**SfM & DPC options**
+
+Structure from Motion (SfM) algorithm estimates camera positions in time (motions) and generates a 3D Dense Point Cloud (DPC) of the object from multi-view stereo (MVS) photogrammetry on the set of images.
+
+|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|--sfm-algorithm|incremental / triangulation / planar |incremental|structure from motion algorithm (SFM)|*For aerial datasets, if camera GPS positions and angles are available, triangulation can generate better results. For planar scenes captured at fixed altitude with nadir-only images, planar can be much faster.*|
+|--depthmap-resolution|positive float|640|controls the density of the point cloud by setting the resolution of the depthmap images|*Higher values take longer to compute but produce denser point clouds.* <br>***Overrides --pc-quality***|
+|--pc-quality|ultra / high / medium / low / lowest|medium|the level of point cloud quality|*Higher quality generates better, denser point clouds, but requires more memory and takes longer (~4x/level).*|
+|--pc-geometric||off|improves the accuracy of the point cloud by computing geometrically consistent depthmaps|*Increases processing time, but can improve results in urban scenes.*|
+|--pc-rectify||off|performs ground rectification on the point cloud|*The wrongly classified ground points will be re-classified and gaps will be filled.* <br>***Useful for generating DTMs.***|
+|--pc-filter|positive float|2.5|filters the point cloud by removing points that deviate more than N standard deviations from the local mean|**0** *- disables filtering*|
+|--pc-sample|positive float|0.0|filters the point cloud by keeping only a single point around a radius N [meters]|*Useful to limit the output resolution of the point cloud and remove duplicate points.* <br>**0** *- disables sampling*|
+|--pc-copc||off|exports the georeferenced point cloud|Cloud Optimized Point Cloud (COPC) format|
+|--pc-csv||off|exports the georeferenced point cloud|CSV format|
+|--pc-ept||off|exports the georeferenced point cloud|Entwine Point Tile (EPT) format|
+|--pc-las||off|exports the georeferenced point cloud|LAS format|
+
+
+**MESHING & TEXTURING options**
+
+|flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|**--mesh-octree-depth**|integer: <br>1 <= x <= 14|11|octree depth used in the mesh reconstruction|
+|--mesh-size|positive integer|200000|the maximum vertex count of the output mesh|
+|--texturing-data-term|gmi / area|gmi|texturing feature|*When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area).*|
+|--texturing-keep-unseen-faces||off|keeps faces in the mesh that are not seen in any camera||
+|--texturing-outlier-removal-type|none / gauss_clamping / gauss_damping|gauss_clamping|type of photometric outlier removal method||
+|--texturing-skip-global-seam-leveling||off|skips normalization of colors across all images|*Useful when processing radiometric data.*|
+|--texturing-skip-local-seam-leveling||off|skips the blending of colors near seams||
+|--texturing-tone-mapping|none | gamma|none|turns on gamma tone mapping or none for no tone mapping||
+
+
+**GEOREFERENCING options**
+
+|flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|--force-gps|| off|uses images’ GPS exif data for reconstruction, even if there are GCPs present|*Useful if you have high precision GPS measurements.* <br>***If there are no GCPs, it does nothing.***|
+|--gcp|*PATH* string|none|path to the file containing the ground control points used for georeferencing||
+|--use-exif||off|EXIF-based georeferencing|*Use this tag if you have a GCP File but want to use the EXIF information for georeferencing instead.*|
+|--geo|*PATH* string|none|path to the image geolocation file containing the camera center coordinates used for georeferencing|*Note that omega/phi/kappa are currently not supported (you can set them to 0).*|
+|--gps-accuracy|positive float|10|value in meters for the GPS Dilution of Precision (DOP) information for all images|*If you use high precision GPS (RTK), this value will be set automatically. You can manually set it in case the reconstruction fails. Lowering the value can help control bowling-effects over large areas.*|
+
+
+**DSM - Digital Surface Model options**
+
+|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|**--dsm**||off|builds DSM (ground + objects) using a progressive morphological filter|*Use -–dem⁕ parameters for finer tuning.*|
+|--dem-resolution|float|5.0|DSM/DTM resolution in cm / pixel|*The value is capped to 2x the ground sampling distance (GSD) estimate.* <br> *^ use* ***–-ignore-gsd*** *to remove the cap*|
+|--dem-decimation|positive integer|1|decimates the points before generating the DEM <br>**1** is no decimation (full quality) <br>**100** decimates ~99% of the points|*Useful for speeding up generation of DEM results in very large datasets.*|
+|--dem-euclidean-map||RowanGaffney|computes an euclidean raster map for each DEM|*Useful to isolate the areas that have been filled.*|
+|--dem-gapfill-steps|positive integer|3|number of steps used to fill areas with gaps <br>**0** disables gap filling|*see details in the [docs](https://docs.opendronemap.org/arguments/dem-gapfill-steps/#dem-gapfill-steps)*|
+
+**DTM - Digital Terrain Model options**
+
+|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|**--dtm**||off|builds DTM (ground only) using a simple morphological filter|*Use -–dem⁕ and -–smrf⁕ parameters for finer tuning.*|
+|**--smrf-threshold**|positive float|0.5|Simple Morphological Filter elevation threshold parameter [meters]|
+|**--smrf-window**|positive float|18.0|Simple Morphological Filter window radius parameter [meters]|
+|--smrf-slope|positive float|0.15|Simple Morphological Filter slope parameter (rise over run)|
+|--smrf-scalar|positive float|1.25|Simple Morphological Filter elevation scalar parameter|
+
+
+**ORTHOPHOTO options**
+
+| flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|--orthophoto-resolution|float > 0.0|5.0|orthophoto resolution in cm / pixel|
+|--orthophoto-compression|JPEG, LZW, LZMA, DEFLATE, PACKBITS, NONE|DEFLATE|compression to use for orthophotos|
+|--orthophoto-cutline||off|generates a polygon around the cropping area that cuts the orthophoto around the edges of features|*The polygon can be useful for stitching seamless mosaics with multiple overlapping orthophotos.*|
+|**--orthophoto-png**||off|generates rendering of the orthophoto|*PNG format*|
+|**--orthophoto-kmz**||off|generates rendering of the orthophoto|*Google Earth (KMZ) format*|
+|--orthophoto-no-tiled||off|generates striped GeoTIFF|
+|**--build-overviews**||off|builds orthophoto overviews|*Useful for faster display in programs such as QGIS.*|
+|--use-3dmesh||off|uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh|*This option is a bit faster and provides similar results in planar areas.*|
+
+
+**GENERAL QUALITY OPTIMIZTION options**
+
+|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|--auto-boundary||off|automatically set a boundary using camera shot locations to limit the area of the reconstruction|*Useful to remove far away background artifacts (sky, background landscapes, etc.).*|
+|--boundary|JSON file|none|GeoJSON polygon limiting the area of the reconstruction|*Can be specified either as path to a GeoJSON file or as a JSON string representing the contents of a GeoJSON file.*|
+|--camera-lens| auto / perspective / brown / fisheye / spherical / dual / equirectangular|auto|camera projection type|*Manually setting a value can help improve geometric undistortion.*|
+|--cameras|JSON file|none|camera parameters computed from another dataset|*Use params from text file instead of calculating them.* <br>*Can be specified either as path to a cameras.json file or as a JSON string representing the contents of a cameras.json file.*|
+|--use-fixed-camera-params||off|turns off camera parameter optimization during bundle adjustment|*This can be sometimes useful for improving results that exhibit doming/bowling or when images are taken with a rolling shutter camera.*|
+|--cog||off|creates cloud-optimized GeoTIFFs instead of normal GeoTIFFs||
+
+
+**PERFORMANCE OPTIMIZATION options**
+
+|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|**--use-hybrid-bundle-adjustment**||off|runs local bundle adjustment for every image added to the reconstruction and a global adjustment every 100 images|*Speeds up reconstruction for very large datasets.*|
+|**--max-concurrency**|positive integer|4|maximum number of processes to use in various processes|*Peak memory requirement is ~1GB per thread and 2 megapixel image resolution.*|
+|--no-gpu||off|does not use GPU acceleration, even if it’s available||
+|--optimize-disk-space||off|deletes heavy intermediate files to optimize disk space usage|*This disables restarting the pipeline from an intermediate stage, but allows the analysis on machines that don’t have sufficient disk space available.*|
+
+
+**INPUT / OUTPUT MANAGEMENT options**
+
+|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
+|-----|--------|---------|-------------|-----|
+|--project-path|*PATH* string|none|path to the project folder|*Your project folder should contain subfolders for each dataset. Each dataset should have an “images” folder.*|
+|--name|*NAME* string|code|name of dataset|*That is the ODM-required subfolder within project folder.*|
+|--ignore-gsd||off|ignores Ground Sampling Distance (GSD)|*GSD caps the maximum resolution of image outputs and resizes images, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.*|
+|--crop|positive float|3|crop image outputs by creating a smooth buffer around the dataset boundaries, shrunk by N meters|*Use* ***0*** *to disable cropping.*|
+|--copy-to|*PATH*|none|copies output results to this folder after processing||
+
+<br>
+
+See description of other options directly in the OpenDroneMap documentation: <br>
+* general usage: [help](https://docs.opendronemap.org/arguments/help/#help), [debug](https://docs.opendronemap.org/arguments/debug/#debug), <br>
+* large datasets: [split](https://docs.opendronemap.org/arguments/split/#split), [split-image-groups](https://docs.opendronemap.org/arguments/split-image-groups/#split-image-groups), [split-overlap](https://docs.opendronemap.org/arguments/split-overlap/#split-overlap),
+* multispectral datasets: [primary-band](https://docs.opendronemap.org/arguments/primary-band/#primary-band), [radiometric-calibration](https://docs.opendronemap.org/arguments/radiometric-calibration/#radiometric-calibration), [skip-band-alignment](https://docs.opendronemap.org/arguments/skip-band-alignment/#skip-band-alignment), <br>
+* rolling-shutter camera: [rolling-shutter](https://docs.opendronemap.org/arguments/rolling-shutter/#rolling-shutter), [rolling-shutter-readout](https://docs.opendronemap.org/arguments/rolling-shutter-readout/#rolling-shutter-readout)
+
+
+## **Submit ODM job into the SLURM queue**
 
 The SLURM is a workload manager available on the Atlas cluster. It is a simple Linux utility for resource management and computing task scheduling. In simple terms, you HAVE to use it every time you want to outsource some computation on HPC infrastructure. To learn more about SLURM take a look at the tutorial [SLURM: Basics of Workload Manager](https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/01-SLURM/01-slurm-basics) available in the [DataScience Workbook](https://datascience.101workbook.org).
 
@@ -375,7 +565,7 @@ B. If you want to migrate a large amount of data use transfer node: <b>@atlas-dt
 </span>
 </div><br>
 
-## Access ODM analysis results
+## **Access ODM analysis results**
 
 The figure shows the file structure of all outputs generated by the ODM command-line module. The original screenshot comes from the official [OpenDroneMap (v2.8.7) Documentation](https://docs.opendronemap.org/outputs/#list-of-all-outputs).
 
