@@ -369,7 +369,7 @@ singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm
 --time                                                              # runtime info
 ```
 
-The syntax of the first line launches via the singularity container the odm image. All further --X flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash **\**. Thus, be careful when adding or removing options. <br>*The order of the options entered does not matter but they have been grouped by their impact on various outputs.*
+The syntax of the first line launches via the singularity container the odm image. All further --X flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash ` \ `. Thus, be careful when adding or removing options. <br>*The order of the options entered does not matter but they have been grouped by their impact on various outputs.*
 
 You can find a complete <b>list of all available options</b> with a description in the official OpenDroneMap documentation: [v2.8.8](https://docs.opendronemap.org/arguments/).
 
