@@ -59,7 +59,9 @@ ssh <user.name>@atlas-login.hpc.msstate.edu
 
 Then, enter on the keyboard your 1) [multi-factor authenticator](https://scinet.usda.gov/guide/multifactor/) number (6 digits), followed by 2) password in a separate prompt.
 
-<!-- ![Atlas login with authenticator](img) -->
+![Atlas login with authenticator](../assets/images/atlas_login.gif)
+
+*^ Note that when entering the identification code and password, the characters are not visible on the screen.*
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span>
@@ -142,7 +144,7 @@ In case the input images are on your local machine, you can transfer them to HPC
 
 The complete command should look like that:
 ```
-scp /local/mashine/JPGs/* alex.badacz@atlas-dtn.hpc.msstate.edu:/project/isu_gif/Alex/ODM/IMAGES/project-X
+scp /local/machine/JPGs/* alex.badacz@atlas-dtn.hpc.msstate.edu:/project/isu_gif/Alex/ODM/IMAGES/project-X
 ```
 
 ...and it has to be executed in the terminal window from the selected location in the file system on your local machine.
