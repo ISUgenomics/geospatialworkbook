@@ -372,8 +372,11 @@ singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm
 The syntax of the first line launches via the singularity container the odm image. All further --X flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash ` \ `. Thus, be careful when adding or removing options. <br>*The order of the options entered does not matter but they have been grouped by their impact on various outputs.*
 
 You can find a complete <b>list of all available options</b> with a description in the official OpenDroneMap documentation: [v2.8.8](https://docs.opendronemap.org/arguments/).
+<span style="color: #ff3870;font-weight: 600;">Click on the selected headline in the list below to expand the corresponding section with options.</span>
 
-**MANAGE WORKFLOW**
+
+<details>
+<summary><b>MANAGE WORKFLOW options</b></summary>
 
 **A.** To <b>end processing at selected stage</b> use `--end-with` option followed by the keyword for respective stage:
 * `dataset`
@@ -404,8 +407,11 @@ You can find a complete <b>list of all available options</b> with a description 
 * Skip generation of the orthophoto with `--skip-orthophoto` flag n case you only need 3D results or DEMs. *Saves time!*
 * Skip generation of PDF report with `--skip-report` flag in case you do not need it. *Saves time!*
 
+</details>
 
-**PHOTO ALIGNMENT options**
+
+<details>
+<summary><b>PHOTO ALIGNMENT options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -416,8 +422,11 @@ You can find a complete <b>list of all available options</b> with a description 
 |--matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
 |--matcher-type|bow / bruteforce / flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
 
+</details>
 
-**SfM & DPC options**
+
+<details>
+<summary><b>SfM & DPC options</b></summary>
 
 Structure from Motion (SfM) algorithm estimates camera positions in time (motions) and generates a 3D Dense Point Cloud (DPC) of the object from multi-view stereo (MVS) photogrammetry on the set of images.
 
@@ -435,8 +444,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--pc-ept||off|exports the georeferenced point cloud|Entwine Point Tile (EPT) format|
 |--pc-las||off|exports the georeferenced point cloud|LAS format|
 
+</details>
 
-**MESHING & TEXTURING options**
+
+<details>
+<summary><b>MESHING & TEXTURING options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -449,8 +461,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--texturing-skip-local-seam-leveling||off|skips the blending of colors near seams||
 |--texturing-tone-mapping|none | gamma|none|turns on gamma tone mapping or none for no tone mapping||
 
+</details>
 
-**GEOREFERENCING options**
+
+<details>
+<summary><b>GEOREFERENCING options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -460,8 +475,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--geo|*PATH* string|none|path to the image geolocation file containing the camera center coordinates used for georeferencing|*Note that omega/phi/kappa are currently not supported (you can set them to 0).*|
 |--gps-accuracy|positive float|10|value in meters for the GPS Dilution of Precision (DOP) information for all images|*If you use high precision GPS (RTK), this value will be set automatically. You can manually set it in case the reconstruction fails. Lowering the value can help control bowling-effects over large areas.*|
 
+</details>
 
-**DSM - Digital Surface Model options**
+
+<details>
+<summary><b>DSM - Digital Surface Model options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -471,7 +489,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--dem-euclidean-map||RowanGaffney|computes an euclidean raster map for each DEM|*Useful to isolate the areas that have been filled.*|
 |--dem-gapfill-steps|positive integer|3|number of steps used to fill areas with gaps <br>**0** disables gap filling|*see details in the [docs](https://docs.opendronemap.org/arguments/dem-gapfill-steps/#dem-gapfill-steps)*|
 
-**DTM - Digital Terrain Model options**
+</details>
+
+
+<details>
+<summary><b>DTM - Digital Terrain Model options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -481,8 +503,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--smrf-slope|positive float|0.15|Simple Morphological Filter slope parameter (rise over run)|
 |--smrf-scalar|positive float|1.25|Simple Morphological Filter elevation scalar parameter|
 
+</details>
 
-**ORTHOPHOTO options**
+
+<details>
+<summary><b>ORTHOPHOTO options</b></summary>
 
 | flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -495,8 +520,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |**--build-overviews**||off|builds orthophoto overviews|*Useful for faster display in programs such as QGIS.*|
 |--use-3dmesh||off|uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh|*This option is a bit faster and provides similar results in planar areas.*|
 
+</details>
 
-**GENERAL QUALITY OPTIMIZTION options**
+
+<details>
+<summary><b>GENERAL QUALITY OPTIMIZTION options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -507,8 +535,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--use-fixed-camera-params||off|turns off camera parameter optimization during bundle adjustment|*This can be sometimes useful for improving results that exhibit doming/bowling or when images are taken with a rolling shutter camera.*|
 |--cog||off|creates cloud-optimized GeoTIFFs instead of normal GeoTIFFs||
 
+</details>
 
-**PERFORMANCE OPTIMIZATION options**
+
+<details>
+<summary><b>PERFORMANCE OPTIMIZATION options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -517,8 +548,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--no-gpu||off|does not use GPU acceleration, even if it’s available||
 |--optimize-disk-space||off|deletes heavy intermediate files to optimize disk space usage|*This disables restarting the pipeline from an intermediate stage, but allows the analysis on machines that don’t have sufficient disk space available.*|
 
+</details>
 
-**INPUT / OUTPUT MANAGEMENT options**
+
+<details>
+<summary><b>INPUT / OUTPUT MANAGEMENT options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -527,6 +561,8 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--ignore-gsd||off|ignores Ground Sampling Distance (GSD)|*GSD caps the maximum resolution of image outputs and resizes images, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.*|
 |--crop|positive float|3|crop image outputs by creating a smooth buffer around the dataset boundaries, shrunk by N meters|*Use* ***0*** *to disable cropping.*|
 |--copy-to|*PATH*|none|copies output results to this folder after processing||
+
+</details>
 
 <br>
 
