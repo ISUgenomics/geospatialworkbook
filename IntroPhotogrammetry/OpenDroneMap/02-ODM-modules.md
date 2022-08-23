@@ -31,17 +31,17 @@ The ODM module for the command-line usage requires the specific file structure t
 To facilitate proper path management, I suggest creating the core of ordered file structure for all future projects. Let's say it will be the **ODM** directory, serving as a working directory for all future ODM analyses. It should contain two main subdirectories: IMAGES and RESULTS. In the **IMAGES** directory, you will create a new folder with a unique name for each new project, where you will place photos in JPG format *(e.g., ~/ODM/IMAGES/PROJECT-1)*. In the **RESULTS** directory, when submitting an ODM task into the SLURM queue, a subdirectory with ODM outputs will be automatically created for each project. And there, also automatically, an `code/images` subdirectories will be created with soft links to photos from the relative project.
 
 <div style="background: #cff4fc; padding: 15px;">
-<b>ODM/</b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<i>(storage directory for all future ODM projects)</i><br>
+<b>ODM/</b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<i>(storage directory for all future ODM projects)</i><br>
 |― odm_latest.sif &emsp;&emsp;&emsp;&ensp;<i>(singularity image of the ODM tool)</i> <br>
 |― run_odm_latest.sh &emsp;&ensp;<i>(SLURM job submission script)</i> <br>
 |― <b>IMAGES/</b> <br>
- &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format)</i> <br>
+ &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format and geo.txt file with GCPs)</i> <br>
  &emsp;&nbsp; |― <b>PROJECT-2/</b> <br>
 |― <b>RESULTS/</b> &emsp;&emsp;&emsp;&emsp;&emsp;<i>(parent directory for ODM analysis outputs)</i> <br>
 <span style="color: #8ca3a8;">
 &emsp;&nbsp; |― PROJECT-1-tag/ &ensp; <i>(automatically created directory with ODM analysis outputs)</i> <br>
-&emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp;&emsp; <i>(automatically created dir for analysis outputs; <u>required!</u>)</i> <br>
-&emsp; &emsp;&emsp; &emsp; |― images/ &emsp;&nbsp; <i>(automatically created dir with soft links to JPG images)</i> <br>
+&emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp;&ensp; <i>(automatically created dir for analysis outputs; <u>required!</u>)</i> <br>
+&emsp; &emsp;&emsp; &emsp; |― images/ &emsp; <i>(automatically created dir with soft links to JPG images)</i> <br>
 </span>
 </div><br>
 
@@ -104,6 +104,16 @@ Note that you do NOT have access to all directories in the <b>/project</b> locat
 </span>
 </div><br>
 
+<div style="background: #cff4fc; padding: 15px;">
+<span style="font-weight:800;">PRO TIP:</span><br>
+You can display the contents of any directory with access while being in any other location in the file system. To do this, you need to know the relative or absolute path to the target location. <br><br>
+The <b>absolute path</b> requires defining all intermediate directories starting from the root (shortcutted by a single <b>/</b>): <br>
+$ <b>ls /project/90daydata</b> <br><br>
+The <b>relative path</b> requires defining all intermediate directories relative to the current location. To indicate the parent directories use the <b>../</b> syntax for each higher level. To point to child directories you must name them directly. Remember, however, that pressing the tab key expands the available options, so you don't have to remember entire paths. <br>
+$ <b>ls ../../inner_folder</b> <br><br>
+The same principle applies to relocation in the file system using the <b>cd</b> command.
+</div><br>
+
 
 **2.** Create a working directory (`mkdir`) for all future ODM projects and get into it (`cd`):
 
@@ -117,41 +127,11 @@ cd ODM
 mkdir IMAGES RESULTS
 ```
 
-## **Download the ODM module**
+## **Detect GCPs on the photos**
 
-Make sure you are in your ODM working directory at the **/project** path:
-
-```
-pwd
-```
-
-It should return a string with your current location, something like **/project**/project_account/user/**ODM**. If the basename of your current directory is different from "ODM" use the `cd` command to get into it. When you get to the right location in the file system follow the next instructions.
-
-
-**Download the ODM docker image using the singularity module:**
-```
-module load singularity
-singularity pull --disable-cache  docker://opendronemap/odm:latest
-```
-
-<div style="background: mistyrose; padding: 15px;">
-<span style="font-weight:800;">WARNING:</span>
-<br><span style="font-style:italic;">
-<b>Do it only once (!)</b> when the first time you configure your work with the command-line ODM module. Once created, the singularity image of an ODM tool can be used any number of times.
-</span>
-</div><br>
-
-Executing the code in the command line should create a new file named `odm_latest.sif`. This is an image of an ODM tool whose configuration ensures that it can be used efficiently on an HPC cluster. You can check the presence of the created file using the `ls` command, which will display the contents of the current directory.
-
-<div style="background: #cff4fc; padding: 15px;">
-<span style="font-weight:800;">PRO TIP:</span><br>
-You can display the contents of any directory while being in any other location in the file system. To do this, you need to know the relative or absolute path to the target location. <br><br>
-The <b>absolute path</b> requires defining all intermediate directories starting from the root (shortcutted by a single <b>/</b>): <br>
-$ <b>ls /project/90daydata</b> <br><br>
-The <b>relative path</b> requires defining all intermediate directories relative to the current location. To indicate the parent directories use the <b>../</b> syntax for each higher level. To point to child directories you must name them directly. Remember, however, that pressing the tab key expands the available options, so you don't have to remember entire paths. <br>
-$ <b>ls ../../inner_folder</b> <br><br>
-The same principle applies to relocation in the file system using the <b>cd</b> command.
-</div><br>
+<br><span style="color: #ff3870; font-weight: 600;">
+Section in development...
+</span><br>
 
 
 ## **Copy input imagery on Atlas**
@@ -214,6 +194,14 @@ Absolute paths work regardless of the current location in the file system. If yo
 
 ## **Setup SLURM script**
 
+Make sure you are in your ODM working directory at the **/project** path:
+
+```
+pwd
+```
+
+It should return a string with your current location, something like **/project**/project_account/user/**ODM**. If the basename of your current directory is different from "ODM" use the `cd` command to get into it. When you get to the right location in the file system follow the next instructions.
+
 **Create an empty file for the SLURM script and open it with your favorite text editor:**
 
 ```
@@ -249,14 +237,19 @@ output_dir=$workdir/RESULTS/$project-$tag      # automatically generated path to
 mkdir -p $output_dir/code/images               # automatically generated images directory
 ln -s $images_dir/* $output_dir/code/images/   # automatically linked input imagery
 cp $BASH_SOURCE $output_dir/submit_odm.sh      # automatically copied the SLURM script into the outputs directory (e.g., for future reuse or reference of used options)
+odm=/reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif        # pre-configured odm image on Atlas
 
 # DEFINE ODM COMMAND
-singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm_latest.sif  \
---orthophoto-png --mesh-octree-depth 12 --ignore-gsd --dtm \
---smrf-threshold 0.4 --smrf-window 24 --dsm --pc-csv --pc-las --orthophoto-kmz \
---ignore-gsd --matcher-type flann --feature-quality ultra --max-concurrency 16 \
---use-hybrid-bundle-adjustment --build-overviews --time --min-num-features 10000 \
---project-path $output_dir #--geo $output_dir/code/images/geo.txt
+singularity run --writable-tmpfs $odm  \
+--feature-quality ultra \
+--pc-csv --pc-las \
+--mesh-octree-depth 12 \
+--gcp $output_dir/code/images/geo.txt \
+--dsm --dtm --smrf-threshold 0.4 --smrf-window 24 \
+--orthophoto-png --orthophoto-kmz --build-overviews \
+--use-hybrid-bundle-adjustment --max-concurrency 16 \
+--project-path $output_dir --ignore-gsd \
+--time
 ```
 
 <br><span style="color: #ff3870; font-weight: 600; font-size:24px;">
@@ -357,19 +350,19 @@ The script template provided in this section has a <b>default configuration</b> 
 
 ```
 # DEFINE ODM COMMAND
-singularity run --bind $images_dir:$output_dir/code/images, --writable-tmpfs odm_latest.sif  \
---feature-quality ultra \                                           # feature
---pc-csv --pc-las \                                                 # point cloud
---mesh-octree-depth 12 \                                            # mesh
---gcp $output_dir/code/images/geo.txt \                             # georeferencing
---dsm --dtm --smrf-threshold 0.4 --smrf-window 24 \                 # 3D model
---orthophoto-png --orthophoto-kmz --build-overviews \               # orthophoto
---use-hybrid-bundle-adjustment --max-concurrency 16 --ignore-gsd \  # performance
---project-path $output_dir \                                        # project path
---time                                                              # runtime info
+singularity run --writable-tmpfs $odm \
+--feature-quality ultra \                                              # feature
+--pc-csv --pc-las \                                                    # point cloud
+--mesh-octree-depth 12 \                                               # meshing
+--gcp $output_dir/code/images/geo.txt \                                # georeferencing
+--dsm --dtm --smrf-threshold 0.4 --smrf-window 24 \                    # 3D model
+--orthophoto-png --orthophoto-kmz --build-overviews \                  # orthophoto
+--use-hybrid-bundle-adjustment --max-concurrency 16 \                  # performance
+--project-path $output_dir --ignore-gsd \                              # inputs / outputs
+--time                                                                 # runtime info
 ```
 
-The syntax of the first line launches via the singularity container the odm image. All further --X flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash ` \ `. Thus, be careful when adding or removing options. <br>*The order of the options entered does not matter but they have been grouped by their impact on various outputs.*
+The syntax of the first line launches via the singularity container the odm image, `$odm`. All further `--X` flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash <b><code> \ </code></b>. Thus, be careful when adding or removing options. Also, <b>do NOT write any characters</b> after backslash character *(# comments are placed in this code block only for educational purposes)*. The order of the options entered does not matter but they have been grouped by their impact on various outputs.
 
 You can find a complete <b>list of all available options</b> with a description in the official OpenDroneMap documentation: [v2.8.8](https://docs.opendronemap.org/arguments/).
 <span style="color: #ff3870;font-weight: 600;">Click on the selected headline in the list below to expand the corresponding section with options.</span>
@@ -423,7 +416,7 @@ You can find a complete <b>list of all available options</b> with a description 
   <tr>
     <td>--min-num-features</td><td>integer</td><td>10000</td><td>minimum number of features to extract per image</td><td><i>More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features. <br><b>More features slow down processing.</b></i></td></tr>
   <tr>
-    <td>--feature-quality</td><td>ultra, high, medium, low, lowest</td><td>high</td><td>levels of feature extraction quality</td><td><i>Higher quality generates better features, but requires more memory and takes longer.</i></td></tr>
+    <td><b>--feature-quality</b></td><td>ultra, high, medium, low, lowest</td><td>high</td><td>levels of feature extraction quality</td><td><i>Higher quality generates better features, but requires more memory and takes longer.</i></td></tr>
   <tr>
     <td>--resize-to</td><td>integer</td><td>2048</td><td>resizes images by the largest side for feature extraction purposes only</td><td><i>Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.</i></td></tr>
   <tr>
@@ -459,11 +452,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--pc-copc</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Cloud Optimized Point Cloud (COPC) format</i></td></tr>
 <tr>
-  <td>--pc-csv</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Entwine Point Tile (EPT) format</i></td></tr>
+  <td><b>--pc-csv</b></td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Entwine Point Tile (EPT) format</i></td></tr>
 <tr>
   <td>--pc-ept</td><td> </td><td>off</td><td>CSV format</td><td><i>exports the georeferenced point cloud</i></td></tr>
 <tr>
-  <td>--pc-las</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>LAS format</i></td></tr>
+  <td>-<b>-pc-las</b></td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>LAS format</i></td></tr>
 </table>
 </details>
 
@@ -474,7 +467,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
   <th width="175">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
 <tr>
-  <td>--mesh-octree-depth</td><td>integer: <br>1 <= x <= 14</td><td>11</td><td>octree depth used in the mesh reconstruction</td><td><i> </i></td></tr>
+  <td><b>--mesh-octree-depth</b></td><td>integer: <br>1 <= x <= 14</td><td>11</td><td>octree depth used in the mesh reconstruction</td><td><i> </i></td></tr>
 <tr>
   <td>--mesh-size</td><td>positive integer</td><td>200000</td><td>the maximum vertex count of the output mesh</td><td><i> </i></td></tr>
 <tr>
@@ -501,7 +494,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--force-gps</td><td> </td><td>off</td><td>uses images’ GPS exif data for reconstruction, even if there are GCPs present</td><td><i>Useful if you have high precision GPS measurements.* <br><b>If there are no GCPs, it does nothing.</b></i></td></tr>
 <tr>
-  <td>--gcp</td><td><i>PATH</i> string</td><td>none</td><td>path to the file containing the ground control points used for georeferencing</td><td><i> </i></td></tr>
+  <td><b>--gcp</b></td><td><i>PATH</i> string</td><td>none</td><td>path to the file containing the ground control points used for georeferencing</td><td><i> </i></td></tr>
 <tr>
   <td>--use-exif</td><td> </td><td>off</td><td>EXIF-based georeferencing</td><td><i>Use this tag if you have a GCP File but want to use the EXIF information for georeferencing instead.</i></td></tr>
 <tr>
@@ -518,7 +511,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
   <th width="180">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
 <tr>
-  <td>--dsm</td><td> </td><td>off</td><td>builds DSM (ground + objects) using a progressive morphological filter</td><td><i>Use -<b>--dem*</b> parameters for finer tuning.</i></td></tr>
+  <td><b>--dsm</b></td><td> </td><td>off</td><td>builds DSM (ground + objects) using a progressive morphological filter</td><td><i>Use -<b>--dem*</b> parameters for finer tuning.</i></td></tr>
 <tr>
   <td>--dem-resolution</td><td>float</td><td>5.0</td><td>DSM/DTM resolution in cm / pixel</td><td><i>The value is capped to 2x the ground sampling distance (GSD) estimate. <br> ^ use <b>–-ignore-gsd</b> to remove the cap</i></td></tr>
 <tr>
@@ -537,11 +530,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
   <th width="150">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
 <tr>
-  <td>--dtm</td><td> </td><td>off</td><td>builds DTM (ground only) using a simple morphological filter</td><td><i>Use <b>--dem* </b> and <b>--smrf* </b> parameters for finer tuning.</i></td></tr>
+  <td><b>--dtm</b></td><td> </td><td>off</td><td>builds DTM (ground only) using a simple morphological filter</td><td><i>Use <b>--dem* </b> and <b>--smrf* </b> parameters for finer tuning.</i></td></tr>
 <tr>
-  <td>--smrf-threshold</td><td>positive float</td><td>0.5</td><td>Simple Morphological Filter elevation threshold parameter [meters]</td><td><i> </i></td></tr>
+  <td><b>--smrf-threshold</b></td><td>positive float</td><td>0.5</td><td>Simple Morphological Filter elevation threshold parameter [meters]</td><td><i> </i></td></tr>
 <tr>
-  <td>--smrf-window</td><td>positive float</td><td>18.0</td><td>Simple Morphological Filter window radius parameter [meters]</td><td><i> </i></td></tr>
+  <td><b>--smrf-window</b></td><td>positive float</td><td>18.0</td><td>Simple Morphological Filter window radius parameter [meters]</td><td><i> </i></td></tr>
 <tr>
   <td>--smrf-slope</td><td>positive float</td><td>0.15</td><td>Simple Morphological Filter slope parameter (rise over run)</td><td><i> </i></td></tr>
 <tr>
@@ -562,13 +555,13 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--orthophoto-cutline</td><td> </td><td>off</td><td>generates a polygon around the cropping area that cuts the orthophoto around the edges of features</td><td><i>The polygon can be useful for stitching seamless mosaics with multiple overlapping orthophotos.</i></td></tr>
 <tr>
-  <td>--orthophoto-png</td><td> </td><td>off</td><td>generates rendering of the orthophoto</td><td><i>PNG format</i></td></tr>
+  <td><b>--orthophoto-png</b></td><td> </td><td>off</td><td>generates rendering of the orthophoto</td><td><i>PNG format</i></td></tr>
 <tr>
-  <td>--orthophoto-kmz</td><td> </td><td>off</td><td>generates rendering of the orthophoto</td><td><i>Google Earth (KMZ) format</i></td></tr>
+  <td><b>--orthophoto-kmz</b></td><td> </td><td>off</td><td>generates rendering of the orthophoto</td><td><i>Google Earth (KMZ) format</i></td></tr>
 <tr>
   <td>--orthophoto-no-tiled</td><td> </td><td>off</td><td>generates striped GeoTIFF</td><td><i> </i></td></tr>
 <tr>
-  <td>--build-overviews</td><td> </td><td>off</td><td>builds orthophoto overviews</td><td><i>Useful for faster display in programs such as QGIS.</i></td></tr>
+  <td><b>--build-overviews</b></td><td> </td><td>off</td><td>builds orthophoto overviews</td><td><i>Useful for faster display in programs such as QGIS.</i></td></tr>
 <tr>
   <td>--use-3dmesh</td><td> </td><td>off</td><td>uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh</td><td><i>This option is a bit faster and provides similar results in planar areas.</i></td></tr>
 </table>
@@ -602,24 +595,15 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
   <th width="180">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
 <tr>
-  <td>--use-hybrid-bundle-adjustment</td><td> </td><td>off</td><td>runs local bundle adjustment for every image added to the reconstruction and a global adjustment every 100 images</td><td><i>Speeds up reconstruction for very large datasets.</i></td></tr>
+  <td><b>--use-hybrid-bundle-adjustment</b></td><td> </td><td>off</td><td>runs local bundle adjustment for every image added to the reconstruction and a global adjustment every 100 images</td><td><i>Speeds up reconstruction for very large datasets.</i></td></tr>
 <tr>
-  <td>--max-concurrency</td><td>positive integer</td><td>4</td><td>maximum number of processes to use in various processes</td><td><i>Peak memory requirement is ~1GB per thread and 2 megapixel image resolution.</i></td></tr>
+  <td><b>--max-concurrency</b></td><td>positive integer</td><td>4</td><td>maximum number of processes to use in various processes</td><td><i>Peak memory requirement is ~1GB per thread and 2 megapixel image resolution.</i></td></tr>
 <tr>
   <td>--no-gpu</td><td> </td><td>off</td><td>does not use GPU acceleration, even if it’s available</td><td><i> </i></td></tr>
 <tr>
   <td>--optimize-disk-space</td><td> </td><td>off</td><td>deletes heavy intermediate files to optimize disk space usage</td><td><i>This disables restarting the pipeline from an intermediate stage, but allows the analysis on machines that don’t have sufficient disk space available.</i></td></tr>
 </table>
 </details>
-
-<!--
-<br><table>
-<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
-  <th width="170">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
-<tr>
-  <td> </td><td> </td><td> </td><td> </td><td><i> </i></td></tr>
-</table>
--->
 
 
 <details><summary><b>INPUT / OUTPUT MANAGEMENT options</b></summary>
@@ -628,11 +612,11 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
   <th width="140">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
 <tr>
-  <td>--project-path</td><td><i>PATH</i> string</td><td>none</td><td>path to the project folder</td><td><i>Your project folder should contain subfolders for each dataset. Each dataset should have an <code>images</code> folder.</i></td></tr>
+  <td><b>--project-path</b></td><td><i>PATH</i> string</td><td>none</td><td>path to the project folder</td><td><i>Your project folder should contain subfolders for each dataset. Each dataset should have an <code>images</code> folder.</i></td></tr>
 <tr>
   <td>--name</td><td><i>NAME</i> string</td><td>code</td><td>name of dataset</td><td><i>That is the ODM-required subfolder within project folder.</i></td></tr>
 <tr>
-  <td>--ignore-gsd</td><td> </td><td>off</td><td>ignores Ground Sampling Distance (GSD)</td><td><i>GSD caps the maximum resolution of image outputs and resizes images, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.</i></td></tr>
+  <td><b>--ignore-gsd</b></td><td> </td><td>off</td><td>ignores Ground Sampling Distance (GSD)</td><td><i>GSD caps the maximum resolution of image outputs and resizes images, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.</i></td></tr>
 <tr>
   <td>--crop</td><td>positive float</td><td>3</td><td>crop image outputs by creating a smooth buffer around the dataset boundaries, shrunk by N meters</td><td><i>Use <b>0</b> to disable cropping.</i></td></tr>
 <tr>
@@ -684,6 +668,8 @@ The figure shows the file structure of all outputs generated by the ODM command-
 
 # Get ODM on local machine
 
+## **Download the ODM module**
+
 **A. Download docker image using singularity** <br>
  *^ suggested for usage on computing machines where the singularity is available*
 
@@ -692,9 +678,19 @@ The figure shows the file structure of all outputs generated by the ODM command-
  singularity pull --disable-cache  docker://opendronemap/odm:latest
  ```
 
+ <div style="background: mistyrose; padding: 15px;">
+ <span style="font-weight:800;">WARNING:</span>
+ <br><span style="font-style:italic;">
+ <b>Do it only once (!)</b> when the first time you configure your work with the command-line ODM module. Once created, the singularity image of an ODM tool can be used any number of times.
+ </span>
+ </div><br>
+
+ Executing the code in the command line should create a new file named `odm_latest.sif`. This is an image of an ODM tool whose configuration ensures that it can be used efficiently on an HPC cluster. You can check the presence of the created file using the `ls` command, which will display the contents of the current directory.
+
+
 **B. Download docker image using Docker** <br>
 *^ suggested for usage on computing machines where the Docker can be installed* <br>
-*^ requires Docker installation*
+*^ requires prior Docker installation, follow instructions for your OS at* [docs.docker.com](https://docs.docker.com/engine/install/#desktop)
 
  ```
  # Windows
@@ -720,7 +716,7 @@ The figure shows the file structure of all outputs generated by the ODM command-
 
 ___
 # Further Reading
-* []()
+<!-- * []() -->
 
 
 ___
