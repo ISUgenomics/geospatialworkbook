@@ -415,7 +415,7 @@ You can find a complete <b>list of all available options</b> with a description 
 
 <details><summary><b>PHOTO ALIGNMENT options</b></summary>
 
-<table>
+<br><table>
   <tr style="background-color:#f0f0f0; border-bottom: 1px solid black;">
     <th width="170">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
   <tr>
@@ -433,131 +433,211 @@ You can find a complete <b>list of all available options</b> with a description 
 </table>
 </details>
 
-<!--
-<tr>
-  <td> </td><td> </td><td> </td><td> </td><td><i> </i></td></tr>
--->
-
 
 <details><summary><b>SfM & DPC options</b></summary>
 
+<br>
 Structure from Motion (SfM) algorithm estimates camera positions in time (motions) and generates a 3D Dense Point Cloud (DPC) of the object from multi-view stereo (MVS) photogrammetry on the set of images.
 
-|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|--sfm-algorithm|incremental, triangulation, planar |incremental|structure from motion algorithm (SFM)|*For aerial datasets, if camera GPS positions and angles are available, triangulation can generate better results. For planar scenes captured at fixed altitude with nadir-only images, planar can be much faster.*|
-|--depthmap-resolution|positive float|640|controls the density of the point cloud by setting the resolution of the depthmap images|*Higher values take longer to compute but produce denser point clouds.* <br>***Overrides --pc-quality***|
-|--pc-quality|ultra, high, medium, low, lowest|medium|the level of point cloud quality|*Higher quality generates better, denser point clouds, but requires more memory and takes longer (~4x/level).*|
-|--pc-geometric||off|improves the accuracy of the point cloud by computing geometrically consistent depthmaps|*Increases processing time, but can improve results in urban scenes.*|
-|--pc-rectify||off|performs ground rectification on the point cloud|*The wrongly classified ground points will be re-classified and gaps will be filled.* <br>***Useful for generating DTMs.***|
-|--pc-filter|positive float|2.5|filters the point cloud by removing points that deviate more than N standard deviations from the local mean|**0** *- disables filtering*|
-|--pc-sample|positive float|0.0|filters the point cloud by keeping only a single point around a radius N [meters]|*Useful to limit the output resolution of the point cloud and remove duplicate points.* <br>**0** *- disables sampling*|
-|--pc-copc||off|exports the georeferenced point cloud|Cloud Optimized Point Cloud (COPC) format|
-|--pc-csv||off|exports the georeferenced point cloud|CSV format|
-|--pc-ept||off|exports the georeferenced point cloud|Entwine Point Tile (EPT) format|
-|--pc-las||off|exports the georeferenced point cloud|LAS format|
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="140">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--sfm-algorithm</td><td>incremental, triangulation, planar</td><td>incremental</td><td>structure from motion algorithm (SFM)</td><td><i>For aerial datasets, if camera GPS positions and angles are available, triangulation can generate better results. For planar scenes captured at fixed altitude with nadir-only images, planar can be much faster.</i></td></tr>
+<tr>
+  <td>--depthmap-resolution</td><td>positive float</td><td>640</td><td>controls the density of the point cloud by setting the resolution of the depthmap images</td><td><i>Higher values take longer to compute but produce denser point clouds. <br><b>Overrides --pc-quality</b></i></td></tr>
+<tr>
+  <td>--pc-quality</td><td>ultra, high, medium, low, lowest</td><td>medium</td><td>the level of point cloud quality</td><td><i>Higher quality generates better, denser point clouds, but requires more memory and takes longer (~4x/level).</i></td></tr>
+<tr>
+  <td>--pc-geometric</td><td> </td><td>off</td><td>improves the accuracy of the point cloud by computing geometrically consistent depthmaps</td><td><i>Increases processing time, but can improve results in urban scenes.</i></td></tr>
+<tr>
+  <td>--pc-rectify</td><td> </td><td>off</td><td>performs ground rectification on the point cloud</td><td><i>The wrongly classified ground points will be re-classified and gaps will be filled. <br><b>Useful for generating DTMs.</b></i></td></tr>
+<tr>
+  <td>--pc-filter</td><td>positive float</td><td>2.5</td><td>filters the point cloud by removing points that deviate more than N standard deviations from the local mean</td><td><i><b>0</b> - disables filtering</i></td></tr>
+<tr>
+  <td>--pc-sample</td><td>positive float</td><td>0.0</td><td>filters the point cloud by keeping only a single point around a radius N [meters]</td><td><i>Useful to limit the output resolution of the point cloud and remove duplicate points. <br>b>0</b> - disables sampling</i></td></tr>
+<tr>
+  <td>--pc-copc</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Cloud Optimized Point Cloud (COPC) format</i></td></tr>
+<tr>
+  <td>--pc-csv</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Entwine Point Tile (EPT) format</i></td></tr>
+<tr>
+  <td>--pc-ept</td><td> </td><td>off</td><td>CSV format</td><td><i>exports the georeferenced point cloud</i></td></tr>
+<tr>
+  <td>--pc-las</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>LAS format</i></td></tr>
+</table>
 </details>
 
 
 <details><summary><b>MESHING & TEXTURING options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|**--mesh-octree-depth**|integer: <br>1 <= x <= 14|11|octree depth used in the mesh reconstruction|
-|--mesh-size|positive integer|200000|the maximum vertex count of the output mesh|
-|--texturing-data-term|gmi, area|gmi|texturing feature|*When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area).*|
-|--texturing-keep-unseen-faces||off|keeps faces in the mesh that are not seen in any camera||
-|--texturing-outlier-removal-type|none, gauss_clamping, gauss_damping|gauss_clamping|type of photometric outlier removal method||
-|--texturing-skip-global-seam-leveling||off|skips normalization of colors across all images|*Useful when processing radiometric data.*|
-|--texturing-skip-local-seam-leveling||off|skips the blending of colors near seams||
-|--texturing-tone-mapping|none | gamma|none|turns on gamma tone mapping or none for no tone mapping||
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="175">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--mesh-octree-depth</td><td>integer: <br>1 <= x <= 14</td><td>11</td><td>octree depth used in the mesh reconstruction</td><td><i> </i></td></tr>
+<tr>
+  <td>--mesh-size</td><td>positive integer</td><td>200000</td><td>the maximum vertex count of the output mesh</td><td><i> </i></td></tr>
+<tr>
+  <td>--texturing-data-term</td><td>gmi, area</td><td>gmi</td><td>texturing feature</td><td><i>When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area).</i></td></tr>
+<tr>
+  <td>--texturing-keep-unseen-faces</td><td> </td><td>off</td><td> </td><td><i>keeps faces in the mesh that are not seen in any camera</i></td></tr>
+<tr>
+  <td>--texturing-outlier-removal-type</td><td>none, gauss_clamping, gauss_damping</td><td>gauss_clamping</td><td>type of photometric outlier removal method</td><td><i> </i></td></tr>
+<tr>
+  <td>--texturing-skip-global-seam-leveling</td><td> </td><td>off</td><td>skips normalization of colors across all images</td><td><i>Useful when processing radiometric data.</i></td></tr>
+<tr>
+  <td>--texturing-skip-local-seam-leveling</td><td> </td><td>off</td><td>skips the blending of colors near seams</td><td><i> </i></td></tr>
+<tr>
+  <td>--texturing-tone-mapping</td><td>none, gamma </td><td>none</td><td>turns on gamma tone mapping or none for no tone mapping</td><td><i> </i></td></tr>
+</table>
 </details>
 
 
 <details><summary><b>GEOREFERENCING options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|--force-gps|| off|uses images’ GPS exif data for reconstruction, even if there are GCPs present|*Useful if you have high precision GPS measurements.* <br>***If there are no GCPs, it does nothing.***|
-|--gcp|*PATH* string|none|path to the file containing the ground control points used for georeferencing||
-|--use-exif||off|EXIF-based georeferencing|*Use this tag if you have a GCP File but want to use the EXIF information for georeferencing instead.*|
-|--geo|*PATH* string|none|path to the image geolocation file containing the camera center coordinates used for georeferencing|*Note that omega/phi/kappa are currently not supported (you can set them to 0).*|
-|--gps-accuracy|positive float|10|value in meters for the GPS Dilution of Precision (DOP) information for all images|*If you use high precision GPS (RTK), this value will be set automatically. You can manually set it in case the reconstruction fails. Lowering the value can help control bowling-effects over large areas.*|
+<br><table>
+<tr style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="140">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--force-gps</td><td> </td><td>off</td><td>uses images’ GPS exif data for reconstruction, even if there are GCPs present</td><td><i>Useful if you have high precision GPS measurements.* <br><b>If there are no GCPs, it does nothing.</b></i></td></tr>
+<tr>
+  <td>--gcp</td><td><i>PATH</i> string</td><td>none</td><td>path to the file containing the ground control points used for georeferencing</td><td><i> </i></td></tr>
+<tr>
+  <td>--use-exif</td><td> </td><td>off</td><td>EXIF-based georeferencing</td><td><i>Use this tag if you have a GCP File but want to use the EXIF information for georeferencing instead.</i></td></tr>
+<tr>
+  <td>--geo</td><td><i>PATH</i> string</td><td>none</td><td>path to the image geolocation file containing the camera center coordinates used for georeferencing</td><td><i>Note that omega/phi/kappa are currently not supported (you can set them to 0).</i></td></tr>
+<tr>
+  <td>--gps-accuracy</td><td>positive float</td><td>10</td><td>value in meters for the GPS Dilution of Precision (DOP) information for all images</td><td><i>If you use high precision GPS (RTK), this value will be set automatically. You can manually set it in case the reconstruction fails. Lowering the value can help control bowling-effects over large areas.</i></td></tr>
+</table>
 </details>
 
 
 <details><summary><b>DSM - Digital Surface Model options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|**--dsm**||off|builds DSM (ground + objects) using a progressive morphological filter|*Use -–dem⁕ parameters for finer tuning.*|
-|--dem-resolution|float|5.0|DSM/DTM resolution in cm / pixel|*The value is capped to 2x the ground sampling distance (GSD) estimate.* <br> *^ use* ***–-ignore-gsd*** *to remove the cap*|
-|--dem-decimation|positive integer|1|decimates the points before generating the DEM <br>**1** is no decimation (full quality) <br>**100** decimates ~99% of the points|*Useful for speeding up generation of DEM results in very large datasets.*|
-|--dem-euclidean-map||RowanGaffney|computes an euclidean raster map for each DEM|*Useful to isolate the areas that have been filled.*|
-|--dem-gapfill-steps|positive integer|3|number of steps used to fill areas with gaps <br>**0** disables gap filling|*see details in the [docs](https://docs.opendronemap.org/arguments/dem-gapfill-steps/#dem-gapfill-steps)*|
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="180">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--dsm</td><td> </td><td>off</td><td>builds DSM (ground + objects) using a progressive morphological filter</td><td><i>Use -<b>--dem*</b> parameters for finer tuning.</i></td></tr>
+<tr>
+  <td>--dem-resolution</td><td>float</td><td>5.0</td><td>DSM/DTM resolution in cm / pixel</td><td><i>The value is capped to 2x the ground sampling distance (GSD) estimate. <br> ^ use <b>–-ignore-gsd</b> to remove the cap</i></td></tr>
+<tr>
+  <td>--dem-decimation</td><td>positive integer</td><td>1</td><td>decimates the points before generating the DEM <br><b>1</b> is no decimation (full quality) <br><b>100</b> decimates ~99% of the points</td><td><i>Useful for speeding up generation of DEM results in very large datasets.</i></td></tr>
+<tr>
+  <td>--dem-euclidean-map</td><td></td><td>off</td><td>computes an euclidean raster map for each DEM</td><td><i>Useful to isolate the areas that have been filled.</i></td></tr>
+<tr>
+  <td>--dem-gapfill-steps</td><td>positive integer</td><td>3</td><td>number of steps used to fill areas with gaps <br><b>0</b> disables gap filling</td><td><i>see details in the <a href="https://docs.opendronemap.org/arguments/dem-gapfill-steps/#dem-gapfill-steps" style="color: #3f5a8a;">docs</a></i></td></tr>
+</table>
 </details>
 
 
 <details><summary><b>DTM - Digital Terrain Model options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|**--dtm**||off|builds DTM (ground only) using a simple morphological filter|*Use -–dem⁕ and -–smrf⁕ parameters for finer tuning.*|
-|**--smrf-threshold**|positive float|0.5|Simple Morphological Filter elevation threshold parameter [meters]|
-|**--smrf-window**|positive float|18.0|Simple Morphological Filter window radius parameter [meters]|
-|--smrf-slope|positive float|0.15|Simple Morphological Filter slope parameter (rise over run)|
-|--smrf-scalar|positive float|1.25|Simple Morphological Filter elevation scalar parameter|
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="150">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--dtm</td><td> </td><td>off</td><td>builds DTM (ground only) using a simple morphological filter</td><td><i>Use <b>--dem* </b> and <b>--smrf* </b> parameters for finer tuning.</i></td></tr>
+<tr>
+  <td>--smrf-threshold</td><td>positive float</td><td>0.5</td><td>Simple Morphological Filter elevation threshold parameter [meters]</td><td><i> </i></td></tr>
+<tr>
+  <td>--smrf-window</td><td>positive float</td><td>18.0</td><td>Simple Morphological Filter window radius parameter [meters]</td><td><i> </i></td></tr>
+<tr>
+  <td>--smrf-slope</td><td>positive float</td><td>0.15</td><td>Simple Morphological Filter slope parameter (rise over run)</td><td><i> </i></td></tr>
+<tr>
+  <td>--smrf-scalar</td><td>positive float</td><td>1.25</td><td>Simple Morphological Filter elevation scalar parameter</td><td><i> </i></td></tr>
+</table>
 </details>
 
 
 <details><summary><b>ORTHOPHOTO options</b></summary>
 
-| flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|--orthophoto-resolution|float > 0.0|5.0|orthophoto resolution in cm / pixel|
-|--orthophoto-compression|JPEG, LZW, LZMA, DEFLATE, PACKBITS, NONE|DEFLATE|compression to use for orthophotos|
-|--orthophoto-cutline||off|generates a polygon around the cropping area that cuts the orthophoto around the edges of features|*The polygon can be useful for stitching seamless mosaics with multiple overlapping orthophotos.*|
-|**--orthophoto-png**||off|generates rendering of the orthophoto|*PNG format*|
-|**--orthophoto-kmz**||off|generates rendering of the orthophoto|*Google Earth (KMZ) format*|
-|--orthophoto-no-tiled||off|generates striped GeoTIFF|
-|**--build-overviews**||off|builds orthophoto overviews|*Useful for faster display in programs such as QGIS.*|
-|--use-3dmesh||off|uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh|*This option is a bit faster and provides similar results in planar areas.*|
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="175">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--orthophoto-resolution</td><td>float > 0.0</td><td>5.0</td><td>orthophoto resolution in cm / pixel</td><td><i> </i></td></tr>
+<tr>
+  <td>--orthophoto-compression</td><td>JPEG, LZW, LZMA, DEFLATE, PACKBITS, NONE</td><td>DEFLATE</td><td>compression to use for orthophotos</td><td><i> </i></td></tr>
+<tr>
+  <td>--orthophoto-cutline</td><td> </td><td>off</td><td>generates a polygon around the cropping area that cuts the orthophoto around the edges of features</td><td><i>The polygon can be useful for stitching seamless mosaics with multiple overlapping orthophotos.</i></td></tr>
+<tr>
+  <td>--orthophoto-png</td><td> </td><td>off</td><td>generates rendering of the orthophoto</td><td><i>PNG format</i></td></tr>
+<tr>
+  <td>--orthophoto-kmz</td><td> </td><td>off</td><td>generates rendering of the orthophoto</td><td><i>Google Earth (KMZ) format</i></td></tr>
+<tr>
+  <td>--orthophoto-no-tiled</td><td> </td><td>off</td><td>generates striped GeoTIFF</td><td><i> </i></td></tr>
+<tr>
+  <td>--build-overviews</td><td> </td><td>off</td><td>builds orthophoto overviews</td><td><i>Useful for faster display in programs such as QGIS.</i></td></tr>
+<tr>
+  <td>--use-3dmesh</td><td> </td><td>off</td><td>uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh</td><td><i>This option is a bit faster and provides similar results in planar areas.</i></td></tr>
+</table>
 </details>
 
 
 <details><summary><b>GENERAL QUALITY OPTIMIZTION options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|--auto-boundary||off|automatically set a boundary using camera shot locations to limit the area of the reconstruction|*Useful to remove far away background artifacts (sky, background landscapes, etc.).*|
-|--boundary|JSON file|none|GeoJSON polygon limiting the area of the reconstruction|*Can be specified either as path to a GeoJSON file or as a JSON string representing the contents of a GeoJSON file.*|
-|--camera-lens| auto, perspective, brown, fisheye, spherical, dual, equirectangular|auto|camera projection type|*Manually setting a value can help improve geometric undistortion.*|
-|--cameras|JSON file|none|camera parameters computed from another dataset|*Use params from text file instead of calculating them.* <br>*Can be specified either as path to a cameras.json file or as a JSON string representing the contents of a cameras.json file.*|
-|--use-fixed-camera-params||off|turns off camera parameter optimization during bundle adjustment|*This can be sometimes useful for improving results that exhibit doming/bowling or when images are taken with a rolling shutter camera.*|
-|--cog||off|creates cloud-optimized GeoTIFFs instead of normal GeoTIFFs||
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="150">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--auto-boundary</td><td> </td><td>off</td><td>automatically set a boundary using camera shot locations to limit the area of the reconstruction</td><td><i>Useful to remove far away background artifacts (sky, background landscapes, etc.).</i></td></tr>
+<tr>
+  <td>--boundary</td><td>JSON file</td><td>none</td><td>GeoJSON polygon limiting the area of the reconstruction</td><td><i>Can be specified either as path to a GeoJSON file or as a JSON string representing the contents of a GeoJSON file.</i></td></tr>
+<tr>
+  <td>--camera-lens</td><td>auto, perspective, brown, fisheye, spherical, dual, equirectangular</td><td>auto</td><td>camera projection type</td><td><i>Manually setting a value can help improve geometric undistortion.</i></td></tr>
+<tr>
+  <td>--cameras</td><td>JSON file</td><td>none</td><td>camera parameters computed from another dataset</td><td><i>Use params from text file instead of calculating them. <br>Can be specified either as path to a cameras.json file or as a JSON string representing the contents of a <code>cameras.json</code> file.</i></td></tr>
+<tr>
+  <td>--use-fixed-camera-params</td><td> </td><td>off</td><td>turns off camera parameter optimization during bundle adjustment</td><td><i>This can be sometimes useful for improving results that exhibit doming/bowling or when images are taken with a rolling shutter camera.</i></td></tr>
+<tr>
+  <td>--cog</td><td> </td><td>off</td><td>creates cloud-optimized GeoTIFFs instead of normal GeoTIFFs</td><td><i> </i></td></tr>
+</table>
 </details>
 
 
 <details><summary><b>PERFORMANCE OPTIMIZATION options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|**--use-hybrid-bundle-adjustment**||off|runs local bundle adjustment for every image added to the reconstruction and a global adjustment every 100 images|*Speeds up reconstruction for very large datasets.*|
-|**--max-concurrency**|positive integer|4|maximum number of processes to use in various processes|*Peak memory requirement is ~1GB per thread and 2 megapixel image resolution.*|
-|--no-gpu||off|does not use GPU acceleration, even if it’s available||
-|--optimize-disk-space||off|deletes heavy intermediate files to optimize disk space usage|*This disables restarting the pipeline from an intermediate stage, but allows the analysis on machines that don’t have sufficient disk space available.*|
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="180">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--use-hybrid-bundle-adjustment</td><td> </td><td>off</td><td>runs local bundle adjustment for every image added to the reconstruction and a global adjustment every 100 images</td><td><i>Speeds up reconstruction for very large datasets.</i></td></tr>
+<tr>
+  <td>--max-concurrency</td><td>positive integer</td><td>4</td><td>maximum number of processes to use in various processes</td><td><i>Peak memory requirement is ~1GB per thread and 2 megapixel image resolution.</i></td></tr>
+<tr>
+  <td>--no-gpu</td><td> </td><td>off</td><td>does not use GPU acceleration, even if it’s available</td><td><i> </i></td></tr>
+<tr>
+  <td>--optimize-disk-space</td><td> </td><td>off</td><td>deletes heavy intermediate files to optimize disk space usage</td><td><i>This disables restarting the pipeline from an intermediate stage, but allows the analysis on machines that don’t have sufficient disk space available.</i></td></tr>
+</table>
 </details>
+
+<!--
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="170">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td> </td><td> </td><td> </td><td> </td><td><i> </i></td></tr>
+</table>
+-->
 
 
 <details><summary><b>INPUT / OUTPUT MANAGEMENT options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|--project-path|*PATH* string|none|path to the project folder|*Your project folder should contain subfolders for each dataset. Each dataset should have an “images” folder.*|
-|--name|*NAME* string|code|name of dataset|*That is the ODM-required subfolder within project folder.*|
-|--ignore-gsd||off|ignores Ground Sampling Distance (GSD)|*GSD caps the maximum resolution of image outputs and resizes images, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.*|
-|--crop|positive float|3|crop image outputs by creating a smooth buffer around the dataset boundaries, shrunk by N meters|*Use* ***0*** *to disable cropping.*|
-|--copy-to|*PATH*|none|copies output results to this folder after processing||
+<br><table>
+<tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+  <th width="140">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+<tr>
+  <td>--project-path</td><td><i>PATH</i> string</td><td>none</td><td>path to the project folder</td><td><i>Your project folder should contain subfolders for each dataset. Each dataset should have an <code>images</code> folder.</i></td></tr>
+<tr>
+  <td>--name</td><td><i>NAME</i> string</td><td>code</td><td>name of dataset</td><td><i>That is the ODM-required subfolder within project folder.</i></td></tr>
+<tr>
+  <td>--ignore-gsd</td><td> </td><td>off</td><td>ignores Ground Sampling Distance (GSD)</td><td><i>GSD caps the maximum resolution of image outputs and resizes images, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.</i></td></tr>
+<tr>
+  <td>--crop</td><td>positive float</td><td>3</td><td>crop image outputs by creating a smooth buffer around the dataset boundaries, shrunk by N meters</td><td><i>Use <b>0</b> to disable cropping.</i></td></tr>
+<tr>
+  <td>-copy-to</td><td><i>PATH</i> string</td><td>none</td><td>copies output results to this folder after processing</td><td><i> </i></td></tr>
+</table>
 </details>
 
 <br>
