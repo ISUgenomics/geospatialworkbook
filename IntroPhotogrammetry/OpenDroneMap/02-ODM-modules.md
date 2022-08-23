@@ -375,8 +375,7 @@ You can find a complete <b>list of all available options</b> with a description 
 <span style="color: #ff3870;font-weight: 600;">Click on the selected headline in the list below to expand the corresponding section with options.</span>
 
 
-<details>
-<summary><b>MANAGE WORKFLOW options</b></summary>
+<details><summary><b>MANAGE WORKFLOW options</b></summary>
 
 **A.** To <b>end processing at selected stage</b> use `--end-with` option followed by the keyword for respective stage:
 * `dataset`
@@ -406,20 +405,19 @@ You can find a complete <b>list of all available options</b> with a description 
 * Skip generation of a full 3D model with `--skip-3dmodel` flag in case you only need 2D results such as orthophotos and DEMs. *Saves time!*
 * Skip generation of the orthophoto with `--skip-orthophoto` flag n case you only need 3D results or DEMs. *Saves time!*
 * Skip generation of PDF report with `--skip-report` flag in case you do not need it. *Saves time!*
-
 </details>
 
 
 <details><summary><b>PHOTO ALIGNMENT options</b></summary>
 
-|flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;| values | default | description |notes|
-|-----|--------|---------|-------------|-----|
-|--feature-type|akaze, hahog, orb, sift|sift|algorithm for extracting keypoints and computing descriptors||
-|**--min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
-|**--feature-quality**|ultra, high, medium, low, lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
-|--resize-to|integer|2048|resizes images by the largest side for feature extraction purposes only|*Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.*|
-|--matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
-|--matcher-type|bow, bruteforce, flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
+|flag|values|default|description|notes|
+|----|------|-------|-----------|-----|
+|-\-feature-type|akaze, hahog, orb, sift|sift|algorithm for extracting keypoints and computing descriptors||
+|**-\-min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
+|**-\-feature-quality**|ultra, high, medium, low, lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
+|-\-resize-to|integer|2048|resizes images by the largest side for feature extraction purposes only|*Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.*|
+|-\-matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
+|-\-matcher-type|bow, bruteforce, flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
 </details>
 
 
