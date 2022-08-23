@@ -410,31 +410,28 @@ You can find a complete <b>list of all available options</b> with a description 
 </details>
 
 
-<details>
-<summary><b>PHOTO ALIGNMENT options</b></summary>
+<details><summary><b>PHOTO ALIGNMENT options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
-|--feature-type|akaze / hahog / orb / sift|sift|algorithm for extracting keypoints and computing descriptors||
+|--feature-type|akaze, hahog, orb, sift|sift|algorithm for extracting keypoints and computing descriptors||
 |**--min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
-|**--feature-quality**|ultra / high / medium / low / lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
+|**--feature-quality**|ultra, high, medium, low, lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
 |--resize-to|integer|2048|resizes images by the largest side for feature extraction purposes only|*Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.*|
 |--matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
-|--matcher-type|bow / bruteforce / flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
-
+|--matcher-type|bow, bruteforce, flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
 </details>
 
 
-<details>
-<summary><b>SfM & DPC options</b></summary>
+<details><summary><b>SfM & DPC options</b></summary>
 
 Structure from Motion (SfM) algorithm estimates camera positions in time (motions) and generates a 3D Dense Point Cloud (DPC) of the object from multi-view stereo (MVS) photogrammetry on the set of images.
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
-|--sfm-algorithm|incremental / triangulation / planar |incremental|structure from motion algorithm (SFM)|*For aerial datasets, if camera GPS positions and angles are available, triangulation can generate better results. For planar scenes captured at fixed altitude with nadir-only images, planar can be much faster.*|
+|--sfm-algorithm|incremental, triangulation, planar |incremental|structure from motion algorithm (SFM)|*For aerial datasets, if camera GPS positions and angles are available, triangulation can generate better results. For planar scenes captured at fixed altitude with nadir-only images, planar can be much faster.*|
 |--depthmap-resolution|positive float|640|controls the density of the point cloud by setting the resolution of the depthmap images|*Higher values take longer to compute but produce denser point clouds.* <br>***Overrides --pc-quality***|
-|--pc-quality|ultra / high / medium / low / lowest|medium|the level of point cloud quality|*Higher quality generates better, denser point clouds, but requires more memory and takes longer (~4x/level).*|
+|--pc-quality|ultra, high, medium, low, lowest|medium|the level of point cloud quality|*Higher quality generates better, denser point clouds, but requires more memory and takes longer (~4x/level).*|
 |--pc-geometric||off|improves the accuracy of the point cloud by computing geometrically consistent depthmaps|*Increases processing time, but can improve results in urban scenes.*|
 |--pc-rectify||off|performs ground rectification on the point cloud|*The wrongly classified ground points will be re-classified and gaps will be filled.* <br>***Useful for generating DTMs.***|
 |--pc-filter|positive float|2.5|filters the point cloud by removing points that deviate more than N standard deviations from the local mean|**0** *- disables filtering*|
@@ -443,29 +440,25 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--pc-csv||off|exports the georeferenced point cloud|CSV format|
 |--pc-ept||off|exports the georeferenced point cloud|Entwine Point Tile (EPT) format|
 |--pc-las||off|exports the georeferenced point cloud|LAS format|
-
 </details>
 
 
-<details>
-<summary><b>MESHING & TEXTURING options</b></summary>
+<details><summary><b>MESHING & TEXTURING options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
 |**--mesh-octree-depth**|integer: <br>1 <= x <= 14|11|octree depth used in the mesh reconstruction|
 |--mesh-size|positive integer|200000|the maximum vertex count of the output mesh|
-|--texturing-data-term|gmi / area|gmi|texturing feature|*When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area).*|
+|--texturing-data-term|gmi, area|gmi|texturing feature|*When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area).*|
 |--texturing-keep-unseen-faces||off|keeps faces in the mesh that are not seen in any camera||
-|--texturing-outlier-removal-type|none / gauss_clamping / gauss_damping|gauss_clamping|type of photometric outlier removal method||
+|--texturing-outlier-removal-type|none, gauss_clamping, gauss_damping|gauss_clamping|type of photometric outlier removal method||
 |--texturing-skip-global-seam-leveling||off|skips normalization of colors across all images|*Useful when processing radiometric data.*|
 |--texturing-skip-local-seam-leveling||off|skips the blending of colors near seams||
 |--texturing-tone-mapping|none | gamma|none|turns on gamma tone mapping or none for no tone mapping||
-
 </details>
 
 
-<details>
-<summary><b>GEOREFERENCING options</b></summary>
+<details><summary><b>GEOREFERENCING options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -474,12 +467,10 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--use-exif||off|EXIF-based georeferencing|*Use this tag if you have a GCP File but want to use the EXIF information for georeferencing instead.*|
 |--geo|*PATH* string|none|path to the image geolocation file containing the camera center coordinates used for georeferencing|*Note that omega/phi/kappa are currently not supported (you can set them to 0).*|
 |--gps-accuracy|positive float|10|value in meters for the GPS Dilution of Precision (DOP) information for all images|*If you use high precision GPS (RTK), this value will be set automatically. You can manually set it in case the reconstruction fails. Lowering the value can help control bowling-effects over large areas.*|
-
 </details>
 
 
-<details>
-<summary><b>DSM - Digital Surface Model options</b></summary>
+<details><summary><b>DSM - Digital Surface Model options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -488,12 +479,10 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--dem-decimation|positive integer|1|decimates the points before generating the DEM <br>**1** is no decimation (full quality) <br>**100** decimates ~99% of the points|*Useful for speeding up generation of DEM results in very large datasets.*|
 |--dem-euclidean-map||RowanGaffney|computes an euclidean raster map for each DEM|*Useful to isolate the areas that have been filled.*|
 |--dem-gapfill-steps|positive integer|3|number of steps used to fill areas with gaps <br>**0** disables gap filling|*see details in the [docs](https://docs.opendronemap.org/arguments/dem-gapfill-steps/#dem-gapfill-steps)*|
-
 </details>
 
 
-<details>
-<summary><b>DTM - Digital Terrain Model options</b></summary>
+<details><summary><b>DTM - Digital Terrain Model options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -502,12 +491,10 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |**--smrf-window**|positive float|18.0|Simple Morphological Filter window radius parameter [meters]|
 |--smrf-slope|positive float|0.15|Simple Morphological Filter slope parameter (rise over run)|
 |--smrf-scalar|positive float|1.25|Simple Morphological Filter elevation scalar parameter|
-
 </details>
 
 
-<details>
-<summary><b>ORTHOPHOTO options</b></summary>
+<details><summary><b>ORTHOPHOTO options</b></summary>
 
 | flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -519,27 +506,23 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--orthophoto-no-tiled||off|generates striped GeoTIFF|
 |**--build-overviews**||off|builds orthophoto overviews|*Useful for faster display in programs such as QGIS.*|
 |--use-3dmesh||off|uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh|*This option is a bit faster and provides similar results in planar areas.*|
-
 </details>
 
 
-<details>
-<summary><b>GENERAL QUALITY OPTIMIZTION options</b></summary>
+<details><summary><b>GENERAL QUALITY OPTIMIZTION options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
 |--auto-boundary||off|automatically set a boundary using camera shot locations to limit the area of the reconstruction|*Useful to remove far away background artifacts (sky, background landscapes, etc.).*|
 |--boundary|JSON file|none|GeoJSON polygon limiting the area of the reconstruction|*Can be specified either as path to a GeoJSON file or as a JSON string representing the contents of a GeoJSON file.*|
-|--camera-lens| auto / perspective / brown / fisheye / spherical / dual / equirectangular|auto|camera projection type|*Manually setting a value can help improve geometric undistortion.*|
+|--camera-lens| auto, perspective, brown, fisheye, spherical, dual, equirectangular|auto|camera projection type|*Manually setting a value can help improve geometric undistortion.*|
 |--cameras|JSON file|none|camera parameters computed from another dataset|*Use params from text file instead of calculating them.* <br>*Can be specified either as path to a cameras.json file or as a JSON string representing the contents of a cameras.json file.*|
 |--use-fixed-camera-params||off|turns off camera parameter optimization during bundle adjustment|*This can be sometimes useful for improving results that exhibit doming/bowling or when images are taken with a rolling shutter camera.*|
 |--cog||off|creates cloud-optimized GeoTIFFs instead of normal GeoTIFFs||
-
 </details>
 
 
-<details>
-<summary><b>PERFORMANCE OPTIMIZATION options</b></summary>
+<details><summary><b>PERFORMANCE OPTIMIZATION options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -547,12 +530,10 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |**--max-concurrency**|positive integer|4|maximum number of processes to use in various processes|*Peak memory requirement is ~1GB per thread and 2 megapixel image resolution.*|
 |--no-gpu||off|does not use GPU acceleration, even if it’s available||
 |--optimize-disk-space||off|deletes heavy intermediate files to optimize disk space usage|*This disables restarting the pipeline from an intermediate stage, but allows the analysis on machines that don’t have sufficient disk space available.*|
-
 </details>
 
 
-<details>
-<summary><b>INPUT / OUTPUT MANAGEMENT options</b></summary>
+<details><summary><b>INPUT / OUTPUT MANAGEMENT options</b></summary>
 
 |flag&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| values | default | description |notes|
 |-----|--------|---------|-------------|-----|
@@ -561,7 +542,6 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 |--ignore-gsd||off|ignores Ground Sampling Distance (GSD)|*GSD caps the maximum resolution of image outputs and resizes images, resulting in faster processing and lower memory usage. Since GSD is an estimate, sometimes ignoring it can result in slightly better image output quality.*|
 |--crop|positive float|3|crop image outputs by creating a smooth buffer around the dataset boundaries, shrunk by N meters|*Use* ***0*** *to disable cropping.*|
 |--copy-to|*PATH*|none|copies output results to this folder after processing||
-
 </details>
 
 <br>
