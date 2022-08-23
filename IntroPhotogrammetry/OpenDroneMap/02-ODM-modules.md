@@ -376,8 +376,8 @@ You can find a complete <b>list of all available options</b> with a description 
 
 
 <details><summary><b>MANAGE WORKFLOW options</b></summary>
-<div>
-<b>A.</b> To <b>end processing at selected stage</b> use <code>--end-with</code> option followed by the keyword for respective stage: <br>
+<div><br>
+<b>A.</b> To <b>end processing at selected stage</b> use <code style="background-color:#fafafa;">--end-with</code> option followed by the keyword for respective stage: <br>
 <ul>
 <li><code>dataset</code></li>
 <li><code>split</code></li>
@@ -401,7 +401,7 @@ You can find a complete <b>list of all available options</b> with a description 
 <li> To permanently <b>delete all</b> previous results <b>and rerun</b> the processing pipeline use <code>--rerun-all</code> flag.</li>
 </ul>
 
-<b>C.</b> For <b>fast generation of orthophoto</b> skip dense reconstruction and 3D model generation using <code>--fast-orthophoto</code> flag. It creates the orthophoto directly from the sparse reconstruction which saves the time needed to build a full 3D model. <br>
+<b>C.</b> For <b>fast generation of orthophoto</b> skip dense reconstruction and 3D model generation using <code style="background-color:#fafafa;">--fast-orthophoto</code> flag. It creates the orthophoto directly from the sparse reconstruction which saves the time needed to build a full 3D model. <br><br>
 
 <b>D.</b> Skip individually other stages of the workflow: <br>
 <ul>
@@ -416,18 +416,26 @@ You can find a complete <b>list of all available options</b> with a description 
 <details><summary><b>PHOTO ALIGNMENT options</b></summary>
 
 <table>
-  <tr style="background-color:lightgray; border-bottom: 1px solid black;"><th>flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
-  <tr><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td></tr>
+  <tr style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+    <th width="170">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+  <tr>
+    <td>--feature-type</td><td>akaze, hahog, orb, sift</td><td>sift</td><td>algorithm for extracting keypoints and computing descriptors</td><td> </td></tr>
+  <tr>
+    <td>--min-num-features</td><td>integer</td><td>10000</td><td>minimum number of features to extract per image</td><td><i>More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features. <br><b>More features slow down processing.</b></i></td></tr>
+  <tr>
+    <td>--feature-quality</td><td>ultra, high, medium, low, lowest</td><td>high</td><td>levels of feature extraction quality</td><td><i>Higher quality generates better features, but requires more memory and takes longer.</i></td></tr>
+  <tr>
+    <td>--resize-to</td><td>integer</td><td>2048</td><td>resizes images by the largest side for feature extraction purposes only</td><td><i>Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.</i></td></tr>
+  <tr>
+    <td>--matcher-neighbors</td><td>positive integer</td><td>0</td><td>performs image matching with the nearest N images based on GPS exif data</td><td><i>Set to <b>0</b> to match by triangulation.</i></td></tr>
+  <tr>
+    <td>--matcher-type</td><td>bow, bruteforce, flann</td><td>flann</td><td>image matcher algorithm</td><td><i>FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.</i></td></tr>
 </table>
 </details>
 
 <!--
-|--feature-type|akaze, hahog, orb, sift|sift|algorithm for extracting keypoints and computing descriptors||
-|**--min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
-|**--feature-quality**|ultra, high, medium, low, lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
-|--resize-to|integer|2048|resizes images by the largest side for feature extraction purposes only|*Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.*|
-|--matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
-|--matcher-type|bow, bruteforce, flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
+<tr>
+  <td> </td><td> </td><td> </td><td> </td><td><i> </i></td></tr>
 -->
 
 
