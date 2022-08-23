@@ -376,61 +376,58 @@ You can find a complete <b>list of all available options</b> with a description 
 
 
 <details><summary><b>MANAGE WORKFLOW options</b></summary>
+<div>
+<b>A.</b> To <b>end processing at selected stage</b> use <code>--end-with</code> option followed by the keyword for respective stage: <br>
+<ul>
+<li><code>dataset</code></li>
+<li><code>split</code></li>
+<li><code>merge</code></li>
+<li><code>opensfm</code></li>
+<li><code>openmvs</code></li>
+<li><code>odm_filterpoints</code></li>
+<li><code>odm_meshing</code></li>
+<li><code>mvs_texturing</code></li>
+<li><code>odm_georeferencing</code></li>
+<li><code>odm_dem</code></li>
+<li><code>odm_orthophoto</code></li>
+<li><code>odm_report</code></li>
+<li><code>odm_postprocess</code>[<i>default</i>]</li>
+</ul>
 
-**A.** To <b>end processing at selected stage</b> use `--end-with` option followed by the keyword for respective stage:
-* `dataset`
-* `split`
-* `merge`
-* `opensfm`
-* `openmvs`
-* `odm_filterpoints`
-* `odm_meshing`
-* `mvs_texturing`
-* `odm_georeferencing`
-* `odm_dem`
-* `odm_orthophoto`
-* `odm_report`
-* `odm_postprocess` [*default*]
+<b>B.</b> There are several options to restart workflow: <br>
+<ul>
+<li> To <b>restart the selected stage</b> only and stop use <code>--rerun</code> option followed by the keyword for respective stage (see list in section A).</li>
+<li> To resume processing <b>from selected stage to the end</b>, use <code>--rerun-from</code> option followed by the keyword for respective stage (see list in section A).</li>
+<li> To permanently <b>delete all</b> previous results <b>and rerun</b> the processing pipeline use <code>--rerun-all</code> flag.</li>
+</ul>
 
-**B.** There are several options to restart workflow:
+<b>C.</b> For <b>fast generation of orthophoto</b> skip dense reconstruction and 3D model generation using <code>--fast-orthophoto</code> flag. It creates the orthophoto directly from the sparse reconstruction which saves the time needed to build a full 3D model. <br>
 
-* To <b>restart the selected stage</b> only and stop use `--rerun` option followed by the keyword for respective stage (see list in section A).
-* To resume processing <b>from selected stage to the end</b>, use `--rerun-from` option followed by the keyword for respective stage (see list in section A).
-* To permanently <b>delete all</b> previous results <b>and rerun</b> the processing pipeline use `--rerun-all` flag.
-
-**C.** For <b>fast generation of orthophoto</b> skip dense reconstruction and 3D model generation using `--fast-orthophoto` flag. It creates the orthophoto directly from the sparse reconstruction which saves the time needed to build a full 3D model.
-
-**D.** Skip individually other stages of the workflow:
-
-* Skip generation of a full 3D model with `--skip-3dmodel` flag in case you only need 2D results such as orthophotos and DEMs. *Saves time!*
-* Skip generation of the orthophoto with `--skip-orthophoto` flag n case you only need 3D results or DEMs. *Saves time!*
-* Skip generation of PDF report with `--skip-report` flag in case you do not need it. *Saves time!*
+<b>D.</b> Skip individually other stages of the workflow: <br>
+<ul>
+<li> Skip generation of a full 3D model with <code>--skip-3dmodel</code> flag in case you only need 2D results such as orthophotos and DEMs. <i>Saves time!</i></li>
+<li> Skip generation of the orthophoto with <code>--skip-orthophoto</code> flag n case you only need 3D results or DEMs. <i>Saves time!</i></li>
+<li> Skip generation of PDF report with <code>--skip-report</code> flag in case you do not need it. <i>Saves time!</i></li>
+</ul>
+</div>
 </details>
 
-
-<details><summary><b>PHOTO ALIGNMENT options</b></summary>
-
-
-|flag|values|default|description|notes|
-|----|------|-------|-----------|-----|
-|a|b|c|d|e|
-</details>
 
 <details><summary><b>PHOTO ALIGNMENT options</b></summary>
 
 <table>
-  <tr><th>a</th><th>b</th><th>c</th><th>d</th></tr>
-  <tr><td>a</td><td>b</td><td>c</td><td>d</td></tr>
+  <tr style="background-color:lightgray; border-bottom: 1px solid black;"><th>flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+  <tr><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td></tr>
 </table>
 </details>
 
 <!--
-|-\-feature-type|akaze, hahog, orb, sift|sift|algorithm for extracting keypoints and computing descriptors||
-|**-\-min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
-|**-\-feature-quality**|ultra, high, medium, low, lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
-|-\-resize-to|integer|2048|resizes images by the largest side for feature extraction purposes only|*Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.*|
-|-\-matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
-|-\-matcher-type|bow, bruteforce, flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
+|--feature-type|akaze, hahog, orb, sift|sift|algorithm for extracting keypoints and computing descriptors||
+|**--min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
+|**--feature-quality**|ultra, high, medium, low, lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
+|--resize-to|integer|2048|resizes images by the largest side for feature extraction purposes only|*Set to <b>-1</b> to disable or use <b>--feature-quality</b> instead. This does not affect the final orthophoto resolution quality and will not resize the original images.*|
+|--matcher-neighbors|positive integer|0|performs image matching with the nearest N images based on GPS exif data|*Set to **0** to match by triangulation.*|
+|--matcher-type|bow, bruteforce, flann|flann|image matcher algorithm|*FLANN is slower, but more stable. <br>BOW is faster, but can sometimes miss valid matches. <br>BRUTEFORCE is very slow but robust.*|
 -->
 
 
