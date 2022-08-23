@@ -412,6 +412,8 @@ You can find a complete <b>list of all available options</b> with a description 
 
 |flag|values|default|description|notes|
 |----|------|-------|-----------|-----|
+|a   |b     |c      |d          |e    |
+
 |-\-feature-type|akaze, hahog, orb, sift|sift|algorithm for extracting keypoints and computing descriptors||
 |**-\-min-num-features**|integer|10000|minimum number of features to extract per image|*More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features.* <br>***More features slow down processing.***|
 |**-\-feature-quality**|ultra, high, medium, low, lowest|high|levels of feature extraction quality|*Higher quality generates better features, but requires more memory and takes longer.*|
