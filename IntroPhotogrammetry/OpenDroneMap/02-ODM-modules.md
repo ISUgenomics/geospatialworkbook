@@ -270,15 +270,14 @@ Follow the adjustment steps <u>each time</u> before submitting the job into the 
 </div>
 
 
-<span style="font-weight: 500; font-size:22px;"><i>^ <b>Adjust</b> the script lines marked with <b># EDIT</b> comment</i></span><br>
+<br><span style="font-weight: 500; font-size:22px;"><i>^ <b>Adjust</b> the script lines marked with <b># EDIT</b> comment</i></span><br>
 
 **0.** Select Atlas partition in section **# DEFINE SLURM VARIABLES** (optional)
 
-<div style="background: #f0f0f0; padding: 15px;">
+<div style="background: #f0f0f0; padding: 15px; margin-bottom: 20px;">
 #SBATCH --partition=
 <span style="font-weight:800;">atlas</span>
 </div>
-
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
@@ -287,20 +286,19 @@ For most jobs, Atlas users should specify the <b>atlas</b> partition. The specif
 
 **1.** Enter your SCINet project account in section **# DEFINE SLURM VARIABLES** (obligatory)
 
-<div style="background: #f0f0f0; padding: 15px;">
+<div style="background: #f0f0f0; padding: 15px; margin-bottom: 20px;">
 #SBATCH --account=
 <span style="font-weight:800;">project_account</span>
-</div><br>
+</div>
 
 For example, I use `isu_gif_vrsc` account: `#SBATCH --account=isu_gif_vrsc`
 
 **2.** Edit path to your ODM directory in section **# DEFINE CODE VARIABLES** (obligatory)
 
-<div style="background: #f0f0f0; padding: 15px;">
+<div style="background: #f0f0f0; padding: 15px; margin-bottom: 20px;">
 workdir=
 <span style="font-weight:800;">/project/project_account/.../ODM</span>
 </div>
-
 
 For example, I use the following path: `workdir=/project/isu_gif_vrsc/Alex/geospatial/ODM`
 
@@ -309,11 +307,10 @@ For example, I use the following path: `workdir=/project/isu_gif_vrsc/Alex/geosp
 <span style="color: #ff3870;font-weight: 600;">IMPORTANT:</span>
 This step determines which set of images will be used in the ODM analysis!
 
-<div style="background: #f0f0f0; padding: 15px;">
+<div style="background: #f0f0f0; padding: 15px; margin-bottom: 20px;">
 project=
 <span style="font-weight:800;">PROJECT-1</span>
 </div>
-
 
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
@@ -332,11 +329,10 @@ images_dir=/aboslute/path/to/input/imagery/in/any/location
 
 By default, the `tag` variable is tagging the name of the directory with the ODM analysis outputs by adding the date and time (in the format: 2022Aug16-16:57:59) when the job is submitted. This prevents accidental overwriting of results for a project started from the same input images.
 
-<div style="background: #f0f0f0; padding: 15px;">
+<div style="background: #f0f0f0; padding: 15px; margin-bottom: 20px;">
 tag=
 <span style="font-weight:800;">`date +%Y%b%d-%T | tr ':' '.'`</span>
 </div>
-
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
@@ -347,13 +343,12 @@ Avoid overwriting the tag with manually typed words, and remember to always add 
 
 ### *B. Choose ODM options for analysis*
 
-<div style="background: mistyrose; padding: 15px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 The script template provided in this section has a <b>default configuration</b> of options available in the command-line ODM module. You may find that these settings are not optimal for your project. Follow the instructions in this section to learn more about the <b>available ODM options and their possible values</b>.
 </span>
 </div>
-
 
 <span style="font-weight: 500; font-size:22px;"><i>^ <b>Adjust</b> flags in the <b># DEFINE ODM COMMAND</b> section in the script file</i></span><br>
 
@@ -633,8 +628,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 </table>
 </details>
 
-
-See description of other options directly in the OpenDroneMap documentation: <br>
+<span style="margin-top: 20px;">See description of other options directly in the OpenDroneMap documentation: </span><br>
 * general usage: [help](https://docs.opendronemap.org/arguments/help/#help), [debug](https://docs.opendronemap.org/arguments/debug/#debug), <br>
 * large datasets: [split](https://docs.opendronemap.org/arguments/split/#split), [split-image-groups](https://docs.opendronemap.org/arguments/split-image-groups/#split-image-groups), [split-overlap](https://docs.opendronemap.org/arguments/split-overlap/#split-overlap),
 * multispectral datasets: [primary-band](https://docs.opendronemap.org/arguments/primary-band/#primary-band), [radiometric-calibration](https://docs.opendronemap.org/arguments/radiometric-calibration/#radiometric-calibration), [skip-band-alignment](https://docs.opendronemap.org/arguments/skip-band-alignment/#skip-band-alignment), <br>
@@ -645,7 +639,7 @@ See description of other options directly in the OpenDroneMap documentation: <br
 
 The SLURM is a workload manager available on the Atlas cluster. It is a simple Linux utility for resource management and computing task scheduling. In simple terms, you HAVE to use it every time you want to outsource some computation on HPC infrastructure. To learn more about SLURM take a look at the tutorial [SLURM: Basics of Workload Manager](https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/01-SLURM/01-slurm-basics) available in the [DataScience Workbook](https://datascience.101workbook.org).
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 If you are working on an HPC infrastructure that uses the PBS workload manager, take a look at the tutorial <b><a href="https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/02-PBS/01-pbs-basics" style="color: #3f5a8a;">PBS: Portable Batch System</a></b> to learn more about the command that sends a task to the queue and the script configuration. <br>
 [<i><a href="https://datascience.101workbook.org" style="color: #3f5a8a;">source: DataScience Workbook</a></i>]
@@ -680,20 +674,19 @@ The figure shows the file structure of all outputs generated by the ODM command-
 ## **Download the ODM module**
 
 **A. Download docker image using singularity** <br>
- *^ suggested for usage on computing machines where the singularity is available*
+*^ suggested for usage on computing machines where the singularity is available*
 
  ```
  module load singularity
  singularity pull --disable-cache  docker://opendronemap/odm:latest
  ```
 
-<div style="background: mistyrose; padding: 15px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 <b>Do it only once (!)</b> when the first time you configure your work with the command-line ODM module. Once created, the singularity image of an ODM tool can be used any number of times.
 </span>
 </div>
-
 
 Executing the code in the command line should create a new file named `odm_latest.sif`. This is an image of an ODM tool whose configuration ensures that it can be used efficiently on an HPC cluster. You can check the presence of the created file using the `ls` command, which will display the contents of the current directory.
 
@@ -702,27 +695,29 @@ Executing the code in the command line should create a new file named `odm_lates
 *^ suggested for usage on computing machines where the Docker can be installed* <br>
 *^ requires prior Docker installation, follow instructions for your OS at* [docs.docker.com](https://docs.docker.com/engine/install/#desktop)
 
- ```
- # Windows
- docker run -ti --rm -v c:/Users/youruser/datasets:/datasets opendronemap/odm --project-path /datasets project
+```
+# Windows
+docker run -ti --rm -v c:/Users/youruser/datasets:/datasets opendronemap/odm --project-path /datasets project
 
- # Mac or Linux
- docker run -ti --rm -v /home/youruser/datasets:/datasets opendronemap/odm --project-path /datasets project
- ```
+# Mac or Linux
+docker run -ti --rm -v /home/youruser/datasets:/datasets opendronemap/odm --project-path /datasets project
+```
 
+<span style="margin-bottom: 20px;"> </span>
 
- **C. ODM at GitHub:** [https://github.com/OpenDroneMap/OpenDroneMap/](https://github.com/OpenDroneMap/OpenDroneMap/)
+**C. ODM at GitHub:** [https://github.com/OpenDroneMap/OpenDroneMap/](https://github.com/OpenDroneMap/OpenDroneMap/)
 
- ```
- git clone https://github.com/OpenDroneMap/ODM.git
- ```
+```
+git clone https://github.com/OpenDroneMap/ODM.git
+```
 
+<span style="margin-bottom: 20px;"> </span>
 
 **D. Download zipped source code:** [https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip](https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip)
 
- ```
- wget https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip
- ```
+```
+ get https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip
+```
 
 
 
