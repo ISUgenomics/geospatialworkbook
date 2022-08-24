@@ -40,7 +40,7 @@ To facilitate proper path management, I suggest creating the core of ordered fil
 |― <b>RESULTS/</b> &emsp;&emsp;&emsp;&emsp;&emsp;<i>(parent directory for ODM analysis outputs)</i> <br>
 <span style="color: #8ca3a8;">
 &emsp;&nbsp; |― PROJECT-1-tag/ &ensp; <i>(automatically created directory with ODM analysis outputs)</i> <br>
-&emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp;&ensp; <i>(automatically created dir for analysis outputs; <u>required!</u>)</i> <br>
+&emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp; &ensp; <i>(automatically created dir for analysis outputs; <u>required!</u>)</i> <br>
 &emsp; &emsp;&emsp; &emsp; |― images/ &emsp; <i>(automatically created dir with soft links to JPG images)</i> <br>
 </span>
 </div><br>
@@ -59,7 +59,7 @@ ssh <user.name>@atlas-login.hpc.msstate.edu
 
 Then, enter on the keyboard your 1) [multi-factor authenticator](https://scinet.usda.gov/guide/multifactor/) number (6 digits), followed by 2) password in a separate prompt.
 
-![Atlas login with authenticator](../assets/images/atlas_login.gif)
+<p align="center"><img width="800" src="../assets/images/atlas_login.gif"></p>
 
 *^ Note that when entering the identification code and password, the characters are not visible on the screen.*
 
@@ -68,11 +68,11 @@ Then, enter on the keyboard your 1) [multi-factor authenticator](https://scinet.
 <br><span style="font-style:italic;">
 If you happen to forget the hostname for the Atlas cluster, you can save the login command to a text file in your home directory on your local machine: <br><br>
 <span style="color: black;font-weight: 600;">
-$ echo "ssh user.name@atlas-login.hpc.msstate.edu" > login_atlas <br><br>
+$ echo "ssh user.name@atlas-login.hpc.msstate.edu" > ~/login_atlas <br><br>
 </span>
-Then every time you want to log in, just call the name of this file with a period and space preceding it: <br><br>
+Then every time you want to log in, just call the name of this file with a dot and space preceding it: <br><br>
 <span style="color: black;font-weight: 600;">
-$ . login_atlas <br><br>
+$ . ~/login_atlas <br><br>
 </span>
 You can also review the HPC clusters available on SCINet at <a href="https://scinet.usda.gov/guide/quickstart#hpc-clusters-on-scinet" style="color: #3f5a8a;">https://scinet.usda.gov/guide/quickstart#hpc-clusters-on-scinet</a>.
 </span>
@@ -123,6 +123,7 @@ The same principle applies to relocation in the file system using the <b>cd</b> 
 mkdir ODM
 cd ODM
 ```
+<br>
 
 **3.** Create a directory for input images (IMAGES) and ODM analysis outputs (RESULTS):
 ```
@@ -156,7 +157,8 @@ Note that you HAVE to use <b>transfer nodes</b> every time you want to move data
 For data transfer purposes, always use the transfer hostname:
 user.name@<b>atlas-dtn.hpc.msstate.edu</b>
 </span>
-</div><br>
+</div>
+
 
 You can also transfer data from your local machine to the Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
 
@@ -265,7 +267,8 @@ Each time before submitting the script to the queue...
 <br><span style="font-style:italic;">
 Follow the adjustment steps <u>each time</u> before submitting the job into the SLURM queue. Note that you SHOULD use the same script file every time you arrange an ODM analysis. For your convenience, when you submit a job to the queue, the script with all the settings is automatically copied to the corresponding folder of ODM analysis outputs (located directly in the RESULTS directory).
 </span>
-</div><br>
+</div>
+
 
 <span style="font-weight: 500; font-size:22px;"><i>^ <b>Adjust</b> the script lines marked with <b># EDIT</b> comment</i></span><br>
 
@@ -274,7 +277,8 @@ Follow the adjustment steps <u>each time</u> before submitting the job into the 
 <div style="background: #f0f0f0; padding: 15px;">
 #SBATCH --partition=
 <span style="font-weight:800;">atlas</span>
-</div><br>
+</div>
+
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
@@ -295,7 +299,8 @@ For example, I use `isu_gif_vrsc` account: `#SBATCH --account=isu_gif_vrsc`
 <div style="background: #f0f0f0; padding: 15px;">
 workdir=
 <span style="font-weight:800;">/project/project_account/.../ODM</span>
-</div><br>
+</div>
+
 
 For example, I use the following path: `workdir=/project/isu_gif_vrsc/Alex/geospatial/ODM`
 
@@ -307,7 +312,8 @@ This step determines which set of images will be used in the ODM analysis!
 <div style="background: #f0f0f0; padding: 15px;">
 project=
 <span style="font-weight:800;">PROJECT-1</span>
-</div><br>
+</div>
+
 
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span>
@@ -329,7 +335,8 @@ By default, the `tag` variable is tagging the name of the directory with the ODM
 <div style="background: #f0f0f0; padding: 15px;">
 tag=
 <span style="font-weight:800;">`date +%Y%b%d-%T | tr ':' '.'`</span>
-</div><br>
+</div>
+
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
@@ -345,7 +352,7 @@ Avoid overwriting the tag with manually typed words, and remember to always add 
 <br><span style="font-style:italic;">
 The script template provided in this section has a <b>default configuration</b> of options available in the command-line ODM module. You may find that these settings are not optimal for your project. Follow the instructions in this section to learn more about the <b>available ODM options and their possible values</b>.
 </span>
-</div><br>
+</div>
 
 
 <span style="font-weight: 500; font-size:22px;"><i>^ <b>Adjust</b> flags in the <b># DEFINE ODM COMMAND</b> section in the script file</i></span><br>
@@ -626,7 +633,6 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 </table>
 </details>
 
-<br>
 
 See description of other options directly in the OpenDroneMap documentation: <br>
 * general usage: [help](https://docs.opendronemap.org/arguments/help/#help), [debug](https://docs.opendronemap.org/arguments/debug/#debug), <br>
@@ -643,7 +649,8 @@ The SLURM is a workload manager available on the Atlas cluster. It is a simple L
 <span style="font-weight:800;">PRO TIP:</span><br>
 If you are working on an HPC infrastructure that uses the PBS workload manager, take a look at the tutorial <b><a href="https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/02-PBS/01-pbs-basics" style="color: #3f5a8a;">PBS: Portable Batch System</a></b> to learn more about the command that sends a task to the queue and the script configuration. <br>
 [<i><a href="https://datascience.101workbook.org" style="color: #3f5a8a;">source: DataScience Workbook</a></i>]
-</div><br>
+</div>
+
 
 Use the `sbatch` SLURM command to submit the computing job into the queue:
 
@@ -680,14 +687,15 @@ The figure shows the file structure of all outputs generated by the ODM command-
  singularity pull --disable-cache  docker://opendronemap/odm:latest
  ```
 
- <div style="background: mistyrose; padding: 15px;">
- <span style="font-weight:800;">WARNING:</span>
- <br><span style="font-style:italic;">
- <b>Do it only once (!)</b> when the first time you configure your work with the command-line ODM module. Once created, the singularity image of an ODM tool can be used any number of times.
- </span>
- </div><br>
+<div style="background: mistyrose; padding: 15px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+<b>Do it only once (!)</b> when the first time you configure your work with the command-line ODM module. Once created, the singularity image of an ODM tool can be used any number of times.
+</span>
+</div>
 
- Executing the code in the command line should create a new file named `odm_latest.sif`. This is an image of an ODM tool whose configuration ensures that it can be used efficiently on an HPC cluster. You can check the presence of the created file using the `ls` command, which will display the contents of the current directory.
+
+Executing the code in the command line should create a new file named `odm_latest.sif`. This is an image of an ODM tool whose configuration ensures that it can be used efficiently on an HPC cluster. You can check the presence of the created file using the `ls` command, which will display the contents of the current directory.
 
 
 **B. Download docker image using Docker** <br>
@@ -702,11 +710,13 @@ The figure shows the file structure of all outputs generated by the ODM command-
  docker run -ti --rm -v /home/youruser/datasets:/datasets opendronemap/odm --project-path /datasets project
  ```
 
+
  **C. ODM at GitHub:** [https://github.com/OpenDroneMap/OpenDroneMap/](https://github.com/OpenDroneMap/OpenDroneMap/)
 
  ```
  git clone https://github.com/OpenDroneMap/ODM.git
  ```
+
 
 **D. Download zipped source code:** [https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip](https://github.com/OpenDroneMap/OpenDroneMap/archive/master.zip)
 
