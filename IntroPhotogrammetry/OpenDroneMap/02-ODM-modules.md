@@ -32,8 +32,7 @@ To facilitate proper path management, I suggest creating the core of ordered fil
 
 <div style="background: #cff4fc; padding: 15px;">
 <b>ODM/</b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<i>(storage directory for all future ODM projects)</i><br>
-|― odm_latest.sif &emsp;&emsp;&emsp;&ensp;<i>(singularity image of the ODM tool)</i> <br>
-|― run_odm_latest.sh &emsp;&ensp;<i>(SLURM job submission script)</i> <br>
+|― run_odm.sh &emsp;&emsp;&emsp;&emsp; <i>(SLURM job submission script)</i> <br>
 |― <b>IMAGES/</b> <br>
  &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format and geo.txt file with GCPs)</i> <br>
  &emsp;&nbsp; |― <b>PROJECT-2/</b> <br>
@@ -155,12 +154,11 @@ scp /local/machine/JPGs/* alex.badacz@atlas-dtn.hpc.msstate.edu:/project/isu_gif
 
 <p align="center"><img width="800" src="../assets/images/transfer_photos.gif"></p>
 
-<div style="background: mistyrose; padding: 15px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span><br>
 Note that you HAVE to use <b>transfer nodes</b> every time you want to move data to a cluster. Transfer nodes <u>differ</u> from login nodes <u>by the hostname</u> while your user.name remains the same. <br>
 For data transfer purposes, always use the transfer hostname:
 user.name@<b>atlas-dtn.hpc.msstate.edu</b>
-</span>
 </div>
 
 
@@ -196,7 +194,6 @@ cp /project/90daydata/shared/project-X/JPGs/* /project/project_account/user/ODM/
 Absolute paths work regardless of the current location in the file system. If you want to simplify the path syntax, first go to the <u>source</u> or <u>destination</u> location and replace them with <b>./*</b> or <b>./</b> respectively. An asterisk (*) means that all files from the source location will be transferred. <br><br>
 <b>transfer while in the source location: </b> cp ./* /project/.../ODM/IMAGES/project-X <br><br>
 <b>transfer while in the destination location: </b> cp /project/90daydata/project-X/JPGs/* ./
-</span><br>
 </div><br>
 
 
