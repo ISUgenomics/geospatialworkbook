@@ -130,6 +130,9 @@ cd ODM
 mkdir IMAGES RESULTS
 ```
 
+<p align="center"><img width="800" src="../assets/images/geo_project_structure.gif"></p>
+
+
 ## **Detect GCPs on the photos**
 
 <br><span style="color: #ff3870; font-weight: 600;">
@@ -150,6 +153,7 @@ scp /local/machine/JPGs/* alex.badacz@atlas-dtn.hpc.msstate.edu:/project/isu_gif
 
 ...and it has to be executed in the terminal window from the selected location in the file system on your local machine.
 
+<p align="center"><img width="800" src="../assets/images/transfer_photos.gif"></p>
 
 <div style="background: mistyrose; padding: 15px;">
 <span style="font-weight:800;">WARNING:</span><br>
@@ -235,7 +239,8 @@ module load python/3.9.2                       # load phython 3.9 (default)
 # DEFINE CODE VARIABLES
 workdir=/project/<project_account>/.../ODM     # EDIT PATH, path to your ODM directory
 project=PROJECT-1                              # EDIT PROJECT NAME, name of the directory with input JPG imagery
-tag=`date +%Y%b%d-%T | tr ':' '.'`             # EDIT CUSTOM TAG, by default it is a date in format 2022Aug16-16.57.59
+tag=$SLURM_JOB_ID                              # EDIT CUSTOM TAG, by default it is a SLURM job ID
+#tag=`date +%Y%b%d-%T | tr ':' '.'`            # alternative TAG, use date in format 2022Aug16-16.57.59 to make the name unique
 images_dir=$workdir/IMAGES/$project            # automatically generated path to input images when stored in ~/ODM/IMAGES; otherwise provide absolute path
 output_dir=$workdir/RESULTS/$project-$tag      # automatically generated path to project outputs
 mkdir -p $output_dir/code/images               # automatically generated images directory
