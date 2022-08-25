@@ -228,6 +228,11 @@ nano run_odm_latest.sh           # nano, vim, mcedit are good text file editors
 #SBATCH --ntasks=48                            # 24 processor core(s) per node X 2 threads per core
 #SBATCH --time=04:00:00                        # walltime limit (HH:MM:SS)
 #SBATCH --account=<project_account>            # EDIT ACCOUNT, provide your SCINet project account
+#SBATCH --mail-user=user.name@usda.gov         # EDIT email address
+#SBATCH --mail-type=BEGIN                      # email notice of job started
+#SBATCH --mail-type=END                        # email notice of job finished
+#SBATCH --mail-type=FAIL                       # email notice of job failure
+
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 module load singularity                        # load container dependency
@@ -450,7 +455,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--pc-geometric</td><td> </td><td>off</td><td>improves the accuracy of the point cloud by computing geometrically consistent depthmaps</td><td><i>Increases processing time, but can improve results in urban scenes.</i></td></tr>
 <tr>
-  <td><b>pc-classify</b></td><td> </td><td>off</td><td>classify the point cloud outputs using a Simple Morphological Filter</td><td><i>You can control the behavior of this option by tweaking the <b>--dem-*</b> parameters.</i></td></tr>
+  <td><b>--pc-classify</b></td><td> </td><td>off</td><td>classify the point cloud outputs using a Simple Morphological Filter</td><td><i>You can control the behavior of this option by tweaking the <b>--dem-*</b> parameters.</i></td></tr>
 <tr>
   <td><b>--pc-rectify</b></td><td> </td><td>off</td><td>performs ground rectification on the point cloud</td><td><i>The wrongly classified ground points will be re-classified and gaps will be filled. <br><b>Useful for generating DTMs.</b></i></td></tr>
 <tr>
