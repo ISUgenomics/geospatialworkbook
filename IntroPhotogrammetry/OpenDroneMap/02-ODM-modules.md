@@ -24,6 +24,25 @@ The complete workflow includes photo alignment and generation of the dense point
 
 # Run ODM in the command line <br><i>using Atlas cluster of the SCINet HPC</i>
 
+The OpenDroneMap/**ODM** module is available on the **Atlas** (and Ceres) clusters as a <u>singularity container</u>. The image of the software can be accessed on the path: <br>
+```
+/reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif
+```
+
+In your scripts, you can either set a variable to this path:
+
+```
+odm_exe=/reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif
+```
+
+or you can create a softlink in your file structure and further use it:
+
+```
+ln -s /reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif /<path-to-your-project-on-Atlas/odm.sif
+```
+
+In this tutorial, we will create a sample script that uses <u>a variable</u> to store the path to the original ODM image.
+
 ## **Create file structure**
 
 The ODM module for the command-line usage requires the specific file structure to work without issues. Specifically, it requires that input imagery be in the `code/images` subdirectories structure of the working directory for a given project.
