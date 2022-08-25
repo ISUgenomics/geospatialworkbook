@@ -551,7 +551,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--smrf-slope</td><td>positive float</td><td>0.15</td><td>Simple Morphological Filter slope parameter (rise over run)</td><td><i> </i></td></tr>
 <tr>
-  <td>--smrf-scalar</td><td>positive float</td><td>1.25</td><td>Simple Morphological Filter elevation scalar parameter</td><td><i> </i></td></tr>
+  <td><b>--smrf-scalar</b></td><td>positive float</td><td>1.25</td><td>Simple Morphological Filter elevation scalar parameter</td><td><i> </i></td></tr>
 </table>
 </details>
 
