@@ -629,7 +629,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 </details>
 
 
-<details><summary><b>INPUT / OUTPUT MANAGEMENT options</b></summary>
+<details style="margin-bottom: 30px;"><summary><b>INPUT / OUTPUT MANAGEMENT options</b></summary>
 
 <br><table>
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
@@ -647,7 +647,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 </table>
 </details>
 
-<span style="margin-top: 20px;">See description of other options directly in the OpenDroneMap documentation: </span><br>
+See description of other options directly in the OpenDroneMap documentation: <br>
 * general usage: [help](https://docs.opendronemap.org/arguments/help/#help), [debug](https://docs.opendronemap.org/arguments/debug/#debug), <br>
 * large datasets: [split](https://docs.opendronemap.org/arguments/split/#split), [split-image-groups](https://docs.opendronemap.org/arguments/split-image-groups/#split-image-groups), [split-overlap](https://docs.opendronemap.org/arguments/split-overlap/#split-overlap),
 * multispectral datasets: [primary-band](https://docs.opendronemap.org/arguments/primary-band/#primary-band), [radiometric-calibration](https://docs.opendronemap.org/arguments/radiometric-calibration/#radiometric-calibration), [skip-band-alignment](https://docs.opendronemap.org/arguments/skip-band-alignment/#skip-band-alignment), <br>
