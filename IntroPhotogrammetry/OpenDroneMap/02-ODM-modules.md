@@ -345,6 +345,7 @@ Avoid overwriting the tag with manually typed words, and remember to always add 
 If you want to assign a value to the tag variable as the result of a command, use <b>backtick</b> bash expansion around it, <code>tag=`command`</code>.
 </div><br>
 
+<p align="center"><img width="800" src="../assets/images/adjust_options.gif"></p>
 
 ### *B. Choose ODM options for analysis*
 
