@@ -247,11 +247,12 @@ odm=/reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif        # pre
 
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm  \
---feature-quality ultra \
---pc-csv --pc-las \
---mesh-octree-depth 12 \
+--feature-quality ultra --min-num-features 20000 \
+--sfm-algorithm triangulation \
+--pc-classify --pc-rectify --pc-quality ultra --pc-las \
+--mesh-size 300000 --mesh-octree-depth 12 \
 --gcp $output_dir/code/images/geo.txt \
---dsm --dtm --smrf-threshold 0.4 --smrf-window 24 \
+--dsm --dem-resolution 5.0 --dtm --smrf-threshold 0.2 --smrf-window 24 --smrf-scalar 1.27 \
 --orthophoto-png --orthophoto-kmz --build-overviews \
 --use-hybrid-bundle-adjustment --max-concurrency 16 \
 --project-path $output_dir --ignore-gsd \
@@ -361,18 +362,19 @@ The script template provided in this section has a <b>default configuration</b> 
 ```
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm \
---feature-quality ultra \                                              # feature
---pc-csv --pc-las \                                                    # point cloud
---mesh-octree-depth 12 \                                               # meshing
---gcp $output_dir/code/images/geo.txt \                                # georeferencing
---dsm --dtm --smrf-threshold 0.4 --smrf-window 24 \                    # 3D model
---orthophoto-png --orthophoto-kmz --build-overviews \                  # orthophoto
---use-hybrid-bundle-adjustment --max-concurrency 16 \                  # performance
---project-path $output_dir --ignore-gsd \                              # inputs / outputs
---time                                                                 # runtime info
+--feature-quality ultra --min-num-features 20000 \                                            # photo alignment
+--sfm-algorithm triangulation --pc-classify --pc-rectify --pc-quality ultra --pc-las \        # point cloud
+--mesh-size 300000 --mesh-octree-depth 12 \                                                   # meshing
+--gcp $output_dir/code/images/geo.txt \                                                       # georeferencing
+--dsm --dem-resolution 5.0 --dtm --smrf-threshold 0.2 --smrf-window 24 --smrf-scalar 1.27 \   # 3D model
+--orthophoto-png --orthophoto-kmz --build-overviews \                                         # orthophoto
+--use-hybrid-bundle-adjustment --max-concurrency 16 \                                         # performance
+--project-path $output_dir --ignore-gsd \                                                     # inputs / outputs
+--time                                                                                        # runtime info
 ```
 
 The syntax of the first line launches via the singularity container the odm image, `$odm`. All further `--X` flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash <b><code> \ </code></b>. Thus, be careful when adding or removing options. Also, <b>do NOT write any characters</b> after backslash character *(# comments are placed in this code block only for educational purposes)*. The order of the options entered does not matter but they have been grouped by their impact on various outputs.
+
 
 You can find a complete <b>list of all available options</b> with a description in the official OpenDroneMap documentation: [v2.8.8](https://docs.opendronemap.org/arguments/).
 <span style="color: #ff3870;font-weight: 600;">Click on the selected headline in the list below to expand the corresponding section with options.</span>
@@ -381,21 +383,15 @@ You can find a complete <b>list of all available options</b> with a description 
 <details><summary><b>MANAGE WORKFLOW options</b></summary>
 <div><br>
 <b>A.</b> To <b>end processing at selected stage</b> use <code style="background-color:#fafafa;">--end-with</code> option followed by the keyword for respective stage: <br>
-<ul>
-<li><code>dataset</code></li>
-<li><code>split</code></li>
-<li><code>merge</code></li>
-<li><code>opensfm</code></li>
-<li><code>openmvs</code></li>
-<li><code>odm_filterpoints</code></li>
-<li><code>odm_meshing</code></li>
-<li><code>mvs_texturing</code></li>
-<li><code>odm_georeferencing</code></li>
-<li><code>odm_dem</code></li>
-<li><code>odm_orthophoto</code></li>
-<li><code>odm_report</code></li>
-<li><code>odm_postprocess</code>[<i>default</i>]</li>
-</ul>
+
+<table>
+<tr><td>1. <code>dataset</code></td><td>6. <code>odm_filterpoints</code></td><td>10. <code>odm_dem</code></td></tr>
+<tr><td>2. <code>split</code></td><td>7. <code>odm_meshing</code></td><td>11. <code>odm_orthophoto</code></td></tr>
+<tr><td>3. <code>merge</code></td><td>8. <code>mvs_texturing</code></td><td>12. <code>odm_report</code></td></tr>
+<tr><td>4. <code>opensfm</code></td><td>9. <code>odm_georeferencing</code></td><td>13. <code>odm_postprocess</code> [<i>default</i>]</td></tr>
+<tr><td>5. <code>openmvs</code></td><td> </td><td> </td></tr>
+</table>
+
 
 <b>B.</b> There are several options to restart workflow: <br>
 <ul>
@@ -424,7 +420,7 @@ You can find a complete <b>list of all available options</b> with a description 
   <tr>
     <td>--feature-type</td><td>akaze, hahog, orb, sift</td><td>sift</td><td>algorithm for extracting keypoints and computing descriptors</td><td> </td></tr>
   <tr>
-    <td>--min-num-features</td><td>integer</td><td>10000</td><td>minimum number of features to extract per image</td><td><i>More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features. <br><b>More features slow down processing.</b></i></td></tr>
+    <td><b>--min-num-features</b></td><td>integer</td><td>10000</td><td>minimum number of features to extract per image</td><td><i>More features ~ more matches between images. Improves reconstruction of areas with little overlap or insufficient features. <br><b>More features slow down processing.</b></i></td></tr>
   <tr>
     <td><b>--feature-quality</b></td><td>ultra, high, medium, low, lowest</td><td>high</td><td>levels of feature extraction quality</td><td><i>Higher quality generates better features, but requires more memory and takes longer.</i></td></tr>
   <tr>
@@ -446,15 +442,17 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
   <th width="140">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
 <tr>
-  <td>--sfm-algorithm</td><td>incremental, triangulation, planar</td><td>incremental</td><td>structure from motion algorithm (SFM)</td><td><i>For aerial datasets, if camera GPS positions and angles are available, triangulation can generate better results. For planar scenes captured at fixed altitude with nadir-only images, planar can be much faster.</i></td></tr>
+  <td><b>--sfm-algorithm</b></td><td>incremental, triangulation, planar</td><td>incremental</td><td>structure from motion algorithm (SFM)</td><td><i>For aerial datasets, if camera GPS positions and angles are available, triangulation can generate better results. For planar scenes captured at fixed altitude with nadir-only images, planar can be much faster.</i></td></tr>
 <tr>
   <td>--depthmap-resolution</td><td>positive float</td><td>640</td><td>controls the density of the point cloud by setting the resolution of the depthmap images</td><td><i>Higher values take longer to compute but produce denser point clouds. <br><b>Overrides --pc-quality</b></i></td></tr>
 <tr>
-  <td>--pc-quality</td><td>ultra, high, medium, low, lowest</td><td>medium</td><td>the level of point cloud quality</td><td><i>Higher quality generates better, denser point clouds, but requires more memory and takes longer (~4x/level).</i></td></tr>
+  <td><b>--pc-quality</b></td><td>ultra, high, medium, low, lowest</td><td>medium</td><td>the level of point cloud quality</td><td><i>Higher quality generates better, denser point clouds, but requires more memory and takes longer (~4x/level).</i></td></tr>
 <tr>
   <td>--pc-geometric</td><td> </td><td>off</td><td>improves the accuracy of the point cloud by computing geometrically consistent depthmaps</td><td><i>Increases processing time, but can improve results in urban scenes.</i></td></tr>
 <tr>
-  <td>--pc-rectify</td><td> </td><td>off</td><td>performs ground rectification on the point cloud</td><td><i>The wrongly classified ground points will be re-classified and gaps will be filled. <br><b>Useful for generating DTMs.</b></i></td></tr>
+  <td><b>pc-classify</b></td><td> </td><td>off</td><td>classify the point cloud outputs using a Simple Morphological Filter</td><td><i>You can control the behavior of this option by tweaking the <b>--dem-*</b> parameters.</i></td></tr>
+<tr>
+  <td><b>--pc-rectify</b></td><td> </td><td>off</td><td>performs ground rectification on the point cloud</td><td><i>The wrongly classified ground points will be re-classified and gaps will be filled. <br><b>Useful for generating DTMs.</b></i></td></tr>
 <tr>
   <td>--pc-filter</td><td>positive float</td><td>2.5</td><td>filters the point cloud by removing points that deviate more than N standard deviations from the local mean</td><td><i><b>0</b> - disables filtering</i></td></tr>
 <tr>
@@ -462,7 +460,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--pc-copc</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Cloud Optimized Point Cloud (COPC) format</i></td></tr>
 <tr>
-  <td><b>--pc-csv</b></td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Entwine Point Tile (EPT) format</i></td></tr>
+  <td>--pc-csv</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Entwine Point Tile (EPT) format</i></td></tr>
 <tr>
   <td>--pc-ept</td><td> </td><td>off</td><td>CSV format</td><td><i>exports the georeferenced point cloud</i></td></tr>
 <tr>
@@ -479,7 +477,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td><b>--mesh-octree-depth</b></td><td>integer: <br>1 <= x <= 14</td><td>11</td><td>octree depth used in the mesh reconstruction</td><td><i> </i></td></tr>
 <tr>
-  <td>--mesh-size</td><td>positive integer</td><td>200000</td><td>the maximum vertex count of the output mesh</td><td><i> </i></td></tr>
+  <td><b>--mesh-size</b></td><td>positive integer</td><td>200000</td><td>the maximum vertex count of the output mesh</td><td><i> </i></td></tr>
 <tr>
   <td>--texturing-data-term</td><td>gmi, area</td><td>gmi</td><td>texturing feature</td><td><i>When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area).</i></td></tr>
 <tr>
@@ -523,7 +521,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td><b>--dsm</b></td><td> </td><td>off</td><td>builds DSM (ground + objects) using a progressive morphological filter</td><td><i>Use -<b>--dem*</b> parameters for finer tuning.</i></td></tr>
 <tr>
-  <td>--dem-resolution</td><td>float</td><td>5.0</td><td>DSM/DTM resolution in cm / pixel</td><td><i>The value is capped to 2x the ground sampling distance (GSD) estimate. <br> ^ use <b>–-ignore-gsd</b> to remove the cap</i></td></tr>
+  <td><b>--dem-resolution</b></td><td>float</td><td>5.0</td><td>DSM/DTM resolution in cm / pixel</td><td><i>The value is capped to 2x the ground sampling distance (GSD) estimate. <br> ^ use <b>–-ignore-gsd</b> to remove the cap</i></td></tr>
 <tr>
   <td>--dem-decimation</td><td>positive integer</td><td>1</td><td>decimates the points before generating the DEM <br><b>1</b> is no decimation (full quality) <br><b>100</b> decimates ~99% of the points</td><td><i>Useful for speeding up generation of DEM results in very large datasets.</i></td></tr>
 <tr>
@@ -668,11 +666,31 @@ B. If you want to migrate a large amount of data use transfer node: <b>@atlas-dt
 </span>
 </div><br>
 
+Use the `squeue` SLURM command to check the status of the job in the queue:
+
+```
+squeue -u user.name                             # e.g., squeue -u alex.badacz
+```
+
+![job status](../assets/images/odm_job_status.png)
+
+
+
 <p align="center"><img width="800" src="../assets/images/odm_submit_job.gif"></p>
 
 ## **Access ODM analysis results**
 
-The figure shows the file structure of all outputs generated by the ODM command-line module. The original screenshot comes from the official [OpenDroneMap (v2.8.7) Documentation](https://docs.opendronemap.org/outputs/#list-of-all-outputs).
+Use the `ls` command to display contents of the directory with outputs:
+
+```
+ls /project/<scinet_account>/<user-specific-path>/ODM/RESULTS/<project-name>/code
+```
+
+e.g., <code>ls <b>/project/</b>isu_gif_vrsc/Alex/geospatial<b>/ODM/RESULTS/</b>project-1-2022Aug24-11.58.25/<b>code/</b></code>
+
+![job status](../assets/images/odm_job_outputs.png)
+
+The figure below shows the file structure of all outputs generated by the ODM command-line module. The original screenshot comes from the official [OpenDroneMap (v2.8.7) Documentation](https://docs.opendronemap.org/outputs/#list-of-all-outputs).
 
 ![OpenDroneMap outputs](../assets/images/odm_outputs.png)
 
