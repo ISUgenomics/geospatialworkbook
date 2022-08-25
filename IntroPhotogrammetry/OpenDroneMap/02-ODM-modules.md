@@ -239,7 +239,7 @@ module load singularity                        # load container dependency
 module load python/3.9.2                       # load phython 3.9 (default)
 
 # DEFINE CODE VARIABLES
-workdir=/project/<project_account>/.../ODM     # EDIT PATH, path to your ODM directory
+workdir=/project/<project_account>/.../ODM     # EDIT PATH, path to your ODM directory; use `pwd` if the script is in ODM workdir
 project=PROJECT-1                              # EDIT PROJECT NAME, name of the directory with input JPG imagery
 tag=$SLURM_JOB_ID                              # EDIT CUSTOM TAG, by default it is a SLURM job ID
 #tag=`date +%Y%b%d-%T | tr ':' '.'`            # alternative TAG, use date in format 2022Aug16-16.57.59 to make the name unique
@@ -380,6 +380,14 @@ singularity run --writable-tmpfs $odm \
 
 The syntax of the first line launches via the singularity container the odm image, `$odm`. All further `--X` flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash <b><code> \ </code></b>. Thus, be careful when adding or removing options. Also, <b>do NOT write any characters</b> after backslash character *(# comments are placed in this code block only for educational purposes)*. The order of the options entered does not matter but they have been grouped by their impact on various outputs.
 
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+Note especially to update the path to the GCP file <code>geo.txt</code> (with the assignment of GCPs to images): <br>
+<b>--gcp $output_dir/code/images/geo.txt</b> <br><br>
+If you do not have this file, completely remove this line from the script (instead of commenting #). In this case, the EXIF metadata will be used.
+</span>
+</div>
 
 You can find a complete <b>list of all available options</b> with a description in the official OpenDroneMap documentation: [v2.8.8](https://docs.opendronemap.org/arguments/).
 <span style="color: #ff3870;font-weight: 600;">Click on the selected headline in the list below to expand the corresponding section with options.</span>
