@@ -301,7 +301,7 @@ For most jobs, Atlas users should specify the <b>atlas</b> partition. The specif
 <span style="font-weight:800;">project_account</span>
 </div>
 
-For example, I use `isu_gif_vrsc` account: `#SBATCH --account=isu_gif_vrsc`
+*For example, I use `isu_gif_vrsc` account: `#SBATCH --account=isu_gif_vrsc`*
 
 **2.** Edit path to your ODM directory in section **# DEFINE CODE VARIABLES** (obligatory)
 
@@ -310,7 +310,7 @@ workdir=
 <span style="font-weight:800;">/project/project_account/.../ODM</span>
 </div>
 
-For example, I use the following path: `workdir=/project/isu_gif_vrsc/Alex/geospatial/ODM`
+*For example, I use the following path: `workdir=/project/isu_gif_vrsc/Alex/geospatial/ODM`*
 
 **3.** Edit name of the directory with input imagery in section **# DEFINE CODE VARIABLES** (obligatory)
 
@@ -385,9 +385,9 @@ The syntax of the first line launches via the singularity container the odm imag
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
-Note especially to update the path to the GCP file <code>geo.txt</code> (with the assignment of GCPs to images): <br>
+Note especially to update the path to the GCP file, <code>geo.txt</code> (with the assignment of GCPs to images): <br>
 <b>--gcp $output_dir/code/images/geo.txt</b> <br><br>
-If you do not have this file, completely remove this line from the script (instead of commenting #). In this case, the EXIF metadata will be used.
+If you do not have this file, completely <u>remove this line</u> from the script (instead of commenting with #). In that case, the EXIF metadata will be used.
 </span>
 </div>
 
