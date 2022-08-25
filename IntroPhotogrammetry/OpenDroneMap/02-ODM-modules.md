@@ -30,7 +30,7 @@ The ODM module for the command-line usage requires the specific file structure t
 
 To facilitate proper path management, I suggest creating the core of ordered file structure for all future projects. Let's say it will be the **ODM** directory, serving as a working directory for all future ODM analyses. It should contain two main subdirectories: IMAGES and RESULTS. In the **IMAGES** directory, you will create a new folder with a unique name for each new project, where you will place photos in JPG format *(e.g., ~/ODM/IMAGES/PROJECT-1)*. In the **RESULTS** directory, when submitting an ODM task into the SLURM queue, a subdirectory with ODM outputs will be automatically created for each project. And there, also automatically, an `code/images` subdirectories will be created with soft links to photos from the relative project.
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 <b>ODM/</b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<i>(storage directory for all future ODM projects)</i><br>
 |― run_odm.sh &emsp;&emsp;&emsp;&emsp; <i>(SLURM job submission script)</i> <br>
 |― <b>IMAGES/</b> <br>
@@ -42,7 +42,7 @@ To facilitate proper path management, I suggest creating the core of ordered fil
 &emsp; &nbsp;&emsp;&nbsp; |― code/ &emsp;&emsp;&emsp; &ensp; <i>(automatically created dir for analysis outputs; <u>required!</u>)</i> <br>
 &emsp; &emsp;&emsp; &emsp; |― images/ &emsp; <i>(automatically created dir with soft links to JPG images)</i> <br>
 </span>
-</div><br>
+</div>
 
 This way, if you want to perform several analyses with different parameters on the same set of images, you will not need to have a hard copy for each repetition. Instead, you will use soft links to the original photos stored in the IMAGES directory. **That will significantly save storage space and prevent you from accidentally deleting input imagery when resuming the analysis in the working directory.**
 
@@ -85,7 +85,7 @@ cd /project/<your_account_folder>/
 # e.g., cd /project/90daydata
 ```
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">PRO TIP:</span>
 <br><span style="font-style:italic;">
 If you do not remember or do not know the name of your group directory in <b>/project</b> location, try the command: <br><br>
@@ -96,16 +96,16 @@ That will display all available group directories. You can search for suitable o
 <span style="color: black;font-weight: 600;">
 $ ls /project/* 2> /dev/null
 </span><br><br></span>
-</div><br>
+</div>
 
-<div style="background: mistyrose; padding: 15px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 Note that you do NOT have access to all directories in the <b>/project</b> location. You also can NOT create the new directory there on your own. All users have access to <b>/project/90daydata</b>, but data is stored there only for 90 days and the folder is dedicated primarily to collaborative projects between groups. If you do NOT have access to your group's directory or need a directory for a new project <b><a href="https://scinet.usda.gov/support/request-storage#to-request-a-new-project-allocation" style="color: #3f5a8a;">request a new project allocation</a></b>.
 </span>
-</div><br>
+</div>
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 30px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 You can display the contents of any directory with access while being in any other location in the file system. To do this, you need to know the relative or absolute path to the target location. <br><br>
 The <b>absolute path</b> requires defining all intermediate directories starting from the root (shortcutted by a single <b>/</b>): <br>
@@ -113,7 +113,7 @@ $ <b>ls /project/90daydata</b> <br><br>
 The <b>relative path</b> requires defining all intermediate directories relative to the current location. To indicate the parent directories use the <b>../</b> syntax for each higher level. To point to child directories you must name them directly. Remember, however, that pressing the tab key expands the available options, so you don't have to remember entire paths. <br>
 $ <b>ls ../../inner_folder</b> <br><br>
 The same principle applies to relocation in the file system using the <b>cd</b> command.
-</div><br>
+</div>
 
 
 **2.** Create a working directory (`mkdir`) for all future ODM projects and get into it (`cd`):
@@ -122,7 +122,7 @@ The same principle applies to relocation in the file system using the <b>cd</b> 
 mkdir ODM
 cd ODM
 ```
-<br>
+<span style="margin-bottom: 30px;"> </span>
 
 **3.** Create a directory for input images (IMAGES) and ODM analysis outputs (RESULTS):
 ```
@@ -161,8 +161,8 @@ For data transfer purposes, always use the transfer hostname:
 user.name@<b>atlas-dtn.hpc.msstate.edu</b>
 </div>
 
-
 You can also transfer data from your local machine to the Atlas cluster using the web-based Globus approach. Learn more by following the tutorial in the DataScience workbook: [Copying Data using Globus](https://datascience.101workbook.org/07-DataParsing/01-FILE-ACCESS/02-2-tutorial-copy-globus).
+
 
 ### *B. import from other HPC*
 
@@ -228,7 +228,7 @@ nano run_odm_latest.sh           # nano, vim, mcedit are good text file editors
 #SBATCH --ntasks=48                            # 24 processor core(s) per node X 2 threads per core
 #SBATCH --time=04:00:00                        # walltime limit (HH:MM:SS)
 #SBATCH --account=<project_account>            # EDIT ACCOUNT, provide your SCINet project account
-#SBATCH --mail-user=user.name@usda.gov         # EDIT email address
+#SBATCH --mail-user=user.name@usda.gov         # EDIT EMAIL, provide your email address
 #SBATCH --mail-type=BEGIN                      # email notice of job started
 #SBATCH --mail-type=END                        # email notice of job finished
 #SBATCH --mail-type=FAIL                       # email notice of job failure
@@ -289,10 +289,10 @@ Follow the adjustment steps <u>each time</u> before submitting the job into the 
 <span style="font-weight:800;">atlas</span>
 </div>
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 30px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 For most jobs, Atlas users should specify the <b>atlas</b> partition. The specification for all available Atlas partitions is provided in <b><a href="https://www.hpc.msstate.edu/computing/atlas/" style="color: #3f5a8a;">Atlas Documentation</a></b>, in section <i>Available Atlas Partitions</i>.
-</div><br>
+</div>
 
 **1.** Enter your SCINet project account in section **# DEFINE SLURM VARIABLES** (obligatory)
 
@@ -322,7 +322,7 @@ project=
 <span style="font-weight:800;">PROJECT-1</span>
 </div>
 
-<div style="background: mistyrose; padding: 15px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 30px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 CASE 1: Note that the entered name should match the subdirectory existing directly in your ~/ODM/IMAGES/ where you store imagery for a particular analysis. Then you do NOT need to alter the <b>images_dir</b> variable (with the full path to the input photos) because it will be created automatically. <br>
@@ -333,7 +333,7 @@ CASE 2: Otherwise, give a customized (any) name for the project outputs but reme
 <b>Provide the absolute path to imagery:</b> <br>
 images_dir=/aboslute/path/to/input/imagery/in/any/location
 </span>
-</div><br>
+</div>
 
 **4.** Edit tag variable to customize project outputs directory **# DEFINE CODE VARIABLES** (optional)
 
@@ -344,12 +344,12 @@ tag=<span style="font-weight:800;">$SLURM_JOB_ID</span><br>
 # tag=<span style="font-weight:800;">`date +%Y%b%d-%T | tr ':' '.'`</span>
 </div>
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 You can overwrite the value of the <b>tag</b> variable in any way that will distinguish the analysis variant and make the name of the new folder unique. <br>
 Avoid overwriting the tag with manually typed words, and remember to always add an automatically generated randomization part in the variable to prevent overwriting the results in a previous project (for example, when you forget to update the tag). <br><br>
 If you want to assign a value to the tag variable as the result of a command, use <b>backtick</b> bash expansion around it, <code>tag=`command`</code>.
-</div><br>
+</div>
 
 <p align="center"><img width="800" src="../assets/images/adjust_options.gif"></p>
 
@@ -669,7 +669,7 @@ Use the `sbatch` SLURM command to submit the computing job into the queue:
 sbatch run_odm_latest.sh
 ```
 
-<div style="background: mistyrose; padding: 15px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 30px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 Tasks submitted into the queue are sent to <b>powerful compute nodes</b>, while all the commands you write in the terminal right after logging in are executed on the <b>capacity-limited login node</b>.<br><br>
@@ -677,7 +677,7 @@ Tasks submitted into the queue are sent to <b>powerful compute nodes</b>, while 
 A. If you want to optimize some computationally demanding procedure and need a live preview for debugging, start an <b><a href="https://datascience.101workbook.org/06-IntroToHPC/05-JOB-QUEUE/01-SLURM/01-slurm-introduction/interactive-session" style="color: #3f5a8a;">interactive session on the compute node</a></b>.<br>
 B. If you want to migrate a large amount of data use transfer node: <b>@atlas-dtn.hpc.msstate.edu</b>.
 </span>
-</div><br>
+</div>
 
 Use the `squeue` SLURM command to check the status of the job in the queue:
 
@@ -699,7 +699,7 @@ Use the `ls` command to display contents of the directory with outputs:
 ls /project/<scinet_account>/<user-specific-path>/ODM/RESULTS/<project-name>/code
 ```
 
-e.g., <code>ls <b>/project/</b>isu_gif_vrsc/Alex/geospatial<b>/ODM/RESULTS/</b>project-1-2022Aug24-11.58.25/<b>code/</b></code>
+e.g., <code>ls <b>/project/</b>isu_gif_vrsc/Alex/geospatial<b>/ODM/RESULTS/</b>project-1-2022Aug24/<b>code/</b></code>
 
 ![job status](../assets/images/odm_job_outputs.png)
 
