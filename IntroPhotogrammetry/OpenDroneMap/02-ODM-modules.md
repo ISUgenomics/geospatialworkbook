@@ -258,6 +258,8 @@ singularity run --writable-tmpfs $odm  \
 --time
 ```
 
+<p align="center"><img width="800" src="../assets/images/create_script.gif"></p>
+
 <br><span style="color: #ff3870; font-weight: 600; font-size:24px;">
 Each time before submitting the script to the queue...
 </span><br>
@@ -329,17 +331,18 @@ images_dir=/aboslute/path/to/input/imagery/in/any/location
 
 **4.** Edit tag variable to customize project outputs directory **# DEFINE CODE VARIABLES** (optional)
 
-By default, the `tag` variable is tagging the name of the directory with the ODM analysis outputs by adding the date and time (in the format: 2022Aug16-16:57:59) when the job is submitted. This prevents accidental overwriting of results for a project started from the same input images.
+By default, the `tag` variable is tagging the name of the directory with the ODM analysis outputs by adding the `$SLURM_JOB_ID` when the job is submitted. Alternatively, it could be date and time (in the format: 2022Aug16-16:57:59). This prevents accidental overwriting of results for a project started from the same input images and makes the project name of each analysis unique.
 
 <div style="background: #f0f0f0; padding: 15px; margin-bottom: 20px;">
-tag=
-<span style="font-weight:800;">`date +%Y%b%d-%T | tr ':' '.'`</span>
+tag=<span style="font-weight:800;">$SLURM_JOB_ID</span><br>
+# tag=<span style="font-weight:800;">`date +%Y%b%d-%T | tr ':' '.'`</span>
 </div>
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 You can overwrite the value of the <b>tag</b> variable in any way that will distinguish the analysis variant and make the name of the new folder unique. <br>
-Avoid overwriting the tag with manually typed words, and remember to always add an automatically generated randomization part in the variable to prevent overwriting the results in a previous project (for example, when you forget to update the tag).
+Avoid overwriting the tag with manually typed words, and remember to always add an automatically generated randomization part in the variable to prevent overwriting the results in a previous project (for example, when you forget to update the tag). <br><br>
+If you want to assign a value to the tag variable as the result of a command, use <b>backtick</b> bash expansion around it, <code>tag=`command`</code>.
 </div><br>
 
 
