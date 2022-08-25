@@ -367,15 +367,17 @@ The script template provided in this section has a <b>default configuration</b> 
 ```
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm \
---feature-quality ultra --min-num-features 20000 \                                            # photo alignment
---sfm-algorithm triangulation --pc-classify --pc-rectify --pc-quality ultra --pc-las \        # point cloud
---mesh-size 300000 --mesh-octree-depth 12 \                                                   # meshing
---gcp $output_dir/code/images/geo.txt \                                                       # georeferencing
---dsm --dem-resolution 5.0 --dtm --smrf-threshold 0.2 --smrf-window 24 --smrf-scalar 1.27 \   # 3D model
---orthophoto-png --orthophoto-kmz --build-overviews \                                         # orthophoto
---use-hybrid-bundle-adjustment --max-concurrency 16 \                                         # performance
---project-path $output_dir --ignore-gsd \                                                     # inputs / outputs
---time                                                                                        # runtime info
+--feature-quality ultra --min-num-features 20000 \                  # photo alignment
+--sfm-algorithm triangulation \                                     # SfM algorithm
+--pc-classify --pc-rectify --pc-quality ultra --pc-las \            # point cloud
+--mesh-size 300000 --mesh-octree-depth 12 \                         # meshing
+--gcp $output_dir/code/images/geo.txt \                             # georeferencing
+--dsm --dem-resolution 5.0 \                                        # 3D model: DSM
+--dtm --smrf-threshold 0.2 --smrf-window 24 --smrf-scalar 1.27 \    # 3D model: DTM
+--build-overviews --orthophoto-png --orthophoto-kmz \               # orthophoto
+--use-hybrid-bundle-adjustment --max-concurrency 16 \               # performance
+--project-path $output_dir --ignore-gsd \                           # inputs / outputs
+--time                                                              # runtime info
 ```
 
 The syntax of the first line launches via the singularity container the odm image, `$odm`. All further `--X` flags/arguments define the set of options used in photogrammetry analysis. For clarity and readability, a long command line has been broken into multiple lines using the special character, backslash <b><code> \ </code></b>. Thus, be careful when adding or removing options. Also, <b>do NOT write any characters</b> after backslash character *(# comments are placed in this code block only for educational purposes)*. The order of the options entered does not matter but they have been grouped by their impact on various outputs.
