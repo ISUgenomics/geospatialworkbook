@@ -157,12 +157,12 @@ geo_x geo_y geo_z im_x im_y image_name [gcp_name] [extra1] [extra2]
 
 ___
 # Further Reading
-* [Command-line ODM modules](02-ODM-modules)
+<!-- * [Command-line ODM modules](02-ODM-modules) -->
 
 
 ___
 
 [Homepage](../index.md){: .btn  .btn--primary}
 [Section Index](../00-IntroPhotogrammetry-LandingPage){: .btn  .btn--primary}
-[Previous](00-IntroODM){: .btn  .btn--primary}
-[Next](02-ODM-modules){: .btn  .btn--primary}
+[Previous](02-ODM-modules){: .btn  .btn--primary}
+<!-- [Next](){: .btn  .btn--primary} -->

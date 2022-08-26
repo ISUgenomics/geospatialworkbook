@@ -19,6 +19,7 @@ header:
 ___
 # Further Reading
 * [Command-line ODM modules](02-ODM-modules)
+* [Geolocation data for the ODM workflow](03-ODM-georeferencing)
 
 
 ___

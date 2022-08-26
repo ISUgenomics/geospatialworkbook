@@ -16,6 +16,7 @@ header:
 ### **<a href="OpenDroneMap/00-IntroODM" style="color: #24376b;">1. Open Drone Map Overview</a>**
 * <a href="OpenDroneMap/01-WebODM" style="color: #3f5a8a;">1.1 WebODM: web-based graphical user interface</a>
 * <a href="OpenDroneMap/02-ODM-modules" style="color: #3f5a8a;">1.2 Command-line ODM modules</a>
+* <a href="OpenDroneMap/03-ODM-georeferencing" style="color: #3f5a8a;">1.3 Geolocation data for the ODM workflow</a>
 
 ### **<a href="Metashape/01-AgisoftMetashapeOverview" style="color: #24376b;">2. Agisoft Metashape Overview</a>**
 

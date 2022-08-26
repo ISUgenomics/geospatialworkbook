@@ -278,6 +278,7 @@ ___
 # Further Reading
 * [WebODM: web-based graphical user interface](01-WebODM)
 * [Command-line ODM modules](02-ODM-modules)
+* [Geolocation data for the ODM workflow](03-ODM-georeferencing)
 
 
 ___
