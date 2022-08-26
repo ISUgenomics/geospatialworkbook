@@ -121,16 +121,16 @@ Detect each ground control point in at least 5-10 photos!
 <span style="color:navy;"><i>[see details in the <a href="https://docs.opendronemap.org/gcp/#ground-control-points" style="color: blue;">ODM Documentation: GCPs</a>]</i></span>
 <br><br>
 EPSG:4326 <br>
--116.7499838 &emsp; 43.06477015 &emsp; 2090.149 &emsp; 1559.4164501833 &emsp; 1372.84669162591 &emsp; DJI_0177.JPG &emsp; 100 <br>
--116.7499838 &emsp; 43.06477015 &emsp; 2090.149 &emsp; 1491.0163890586 &emsp; 2471.85207823960 &emsp; DJI_0355.JPG &emsp; 100 <br>
--116.7499838 &emsp; 43.06477015 &emsp; 2090.149 &emsp; 1524.1419621026 &emsp; 2214.43593367970 &emsp; DJI_0178.JPG &emsp; 100 <br>
--116.7499838 &emsp; 43.06477015 &emsp; 2090.149 &emsp; 1142.5991517178 &emsp; 1739.80028544801 &emsp; DJI_0152.JPG &emsp; 100 <br>
--116.7499838 &emsp; 43.06477015 &emsp; 2090.149 &emsp; 1207.8811697738 &emsp; 1863.28946363080 &emsp; DJI_0329.JPG &emsp; 100 <br>
--116.7504805 &emsp; 43.06475631 &emsp; 2088.227 &emsp; 1737.2264669926 &emsp; 1763.28507029339 &emsp; DJI_0172.JPG &emsp; 101 <br>
--116.7504805 &emsp; 43.06475631 &emsp; 2088.227 &emsp; 1660.2427796454 &emsp; 2912.50267420537 &emsp; DJI_0350.JPG &emsp; 101 <br>
--116.7504805 &emsp; 43.06475631 &emsp; 2088.227 &emsp; 1736.7057610024 &emsp; 1411.55810666259 &emsp; DJI_0171.JPG &emsp; 101 <br>
--116.7504805 &emsp; 43.06475631 &emsp; 2088.227 &emsp; 989.57852613080 &emsp; 1391.94185513447 &emsp; DJI_0157.JPG &emsp; 101 <br>
--116.7504805 &emsp; 43.06475631 &emsp; 2088.227 &emsp; 877.82625305623 &emsp; 2459.65369040342 &emsp; DJI_0335.JPG &emsp; 101 <br>
+-116.74998 &emsp; 43.06477 &emsp; 2090.149 &emsp; 1559.416450 &emsp; 1372.846691 &emsp; DJI_0177.JPG &emsp; 100 <br>
+-116.74998 &emsp; 43.06477 &emsp; 2090.149 &emsp; 1491.016389 &emsp; 2471.852078 &emsp; DJI_0355.JPG &emsp; 100 <br>
+-116.74998 &emsp; 43.06477 &emsp; 2090.149 &emsp; 1524.141962 &emsp; 2214.435933 &emsp; DJI_0178.JPG &emsp; 100 <br>
+-116.74998 &emsp; 43.06477 &emsp; 2090.149 &emsp; 1142.599151 &emsp; 1739.800285 &emsp; DJI_0152.JPG &emsp; 100 <br>
+-116.74998 &emsp; 43.06477 &emsp; 2090.149 &emsp; 1207.881169 &emsp; 1863.289463 &emsp; DJI_0329.JPG &emsp; 100 <br>
+-116.75048 &emsp; 43.06475 &emsp; 2088.227 &emsp; 1737.226466 &emsp; 1763.285070 &emsp; DJI_0172.JPG &emsp; 101 <br>
+-116.75048 &emsp; 43.06475 &emsp; 2088.227 &emsp; 1660.242779 &emsp; 2912.502674 &emsp; DJI_0350.JPG &emsp; 101 <br>
+-116.75048 &emsp; 43.06475 &emsp; 2088.227 &emsp; 1736.705761 &emsp; 1411.558106 &emsp; DJI_0171.JPG &emsp; 101 <br>
+-116.75048 &emsp; 43.06475 &emsp; 2088.227 &emsp; 989.5785261 &emsp; 1391.941855 &emsp; DJI_0157.JPG &emsp; 101 <br>
+-116.75048 &emsp; 43.06475 &emsp; 2088.227 &emsp; 877.8262530 &emsp; 2459.653690 &emsp; DJI_0335.JPG &emsp; 101 <br>
 </div>
 
 * The first line should contain the name of the projection used for the geo coordinates, in one of the following formats:
