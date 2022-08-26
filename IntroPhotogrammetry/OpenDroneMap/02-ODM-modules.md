@@ -174,7 +174,6 @@ When the file is ready, place it in the project directory (within IMAGES dir) al
  &emsp;&nbsp;&emsp;&ensp; |― IMG_0001.jpg &emsp;<i>(photo 1)</i> <br>
  &emsp;&nbsp;&emsp;&ensp; |― IMG_0002.jpg &emsp;<i>(photo 2)</i> <br>
   &emsp;&nbsp;&emsp;&ensp; |― ... <br>
-</span>
 </div>
 
 
