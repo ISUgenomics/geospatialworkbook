@@ -141,7 +141,7 @@ EPSG:4326 <br>
 *   WGS84 UTM:   WGS84 UTM 16N
 ```
 
-* Subsequent lines are the GPS information for a given image (first 3 columns are obligatory):
+* Subsequent lines are the GPS information for a given image <u><i>(first 6 columns are obligatory)</i></u>:
 
 ```
 col-1 col-2 col-3 col4 col5    col-6     col-7     col-8    col-9
