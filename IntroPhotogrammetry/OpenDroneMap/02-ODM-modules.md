@@ -153,9 +153,29 @@ mkdir IMAGES RESULTS
 
 ## **Detect GCPs on the photos**
 
-<br><span style="color: #ff3870; font-weight: 600;">
-Section in development...
+**Ground Control Points** (GCPs) are clearly visible objects which can be easily identified in several images. Using the precise GPS position of these ground points is a good reference that improves significantly the accuracy of the project's geolocation. Ground control points can be any **steady structure** existing in the mission area, otherwise can be set using **targets placed on the ground**.
+
+**ODM** enables using the GCP data from a `gcp_list.txt` text file with the `--gcp` option.
+
+```
+--gcp gcp_list.txt
+```
+
+To create the `gcp_list.txt` file properly follow the instructions in the "*Software for manual detection of GCPs*" or "*Automatic detection of ARUco targets*" sections of the [Geolocation data for the ODM workflow](03-ODM-georeferencing.md) tutorial.
+
+<br><span style="color: #ff3870;font-weight: 600; font-size:20px;">
+When the file is ready, place it in the project directory (within IMAGES dir) along with photos.
 </span><br>
+
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
+|― <b>IMAGES/</b> <br>
+ &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format and geo.txt file with GCPs)</i> <br>
+ &emsp;&nbsp;&emsp;&ensp; |― <b>gcp_list.txt</b> &emsp;&ensp;<i>(GCPs file)</i> <br>
+ &emsp;&nbsp;&emsp;&ensp; |― IMG_0001.jpg &emsp;<i>(photo 1)</i> <br>
+ &emsp;&nbsp;&emsp;&ensp; |― IMG_0002.jpg &emsp;<i>(photo 2)</i> <br>
+  &emsp;&nbsp;&emsp;&ensp; |― ... <br>
+</span>
+</div>
 
 
 ## **Copy input imagery on Atlas**
@@ -783,7 +803,7 @@ git clone https://github.com/OpenDroneMap/ODM.git
 
 ___
 # Further Reading
-<!-- * []() -->
+ * [Geolocation data for the ODM workflow](03-ODM-georeferencing)
 
 
 ___

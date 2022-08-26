@@ -152,7 +152,7 @@ geo_x geo_y geo_z im_x im_y image_name [gcp_name] [extra1] [extra2]
 
 # Software for manual detection of GCPs
 
-# Software for automatic detection of GCPs
+# Automatic detection of ARUco targets
 
 
 ___
