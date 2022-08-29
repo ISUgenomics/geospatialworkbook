@@ -163,13 +163,13 @@ mkdir IMAGES RESULTS
 
 To create the `gcp_list.txt` file properly follow the instructions in the "*Software for manual detection of GCPs*" or "*Automatic detection of ARUco targets*" sections of the [Geolocation data for the ODM workflow](03-ODM-georeferencing.md) tutorial.
 
-<br><span style="color: #ff3870;font-weight: 600; font-size:20px;">
+<span style="color: #ff3870;font-weight: 600; font-size:20px;">
 When the file is ready, place it in the project directory (within IMAGES dir) along with photos.
 </span><br>
 
 <div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 |― <b>IMAGES/</b> <br>
- &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format and geo.txt file with GCPs)</i> <br>
+ &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format and gcp_list.txt file with GCPs)</i> <br>
  &emsp;&nbsp;&emsp;&ensp; |― <b>gcp_list.txt</b> &emsp;&ensp;<i>(GCPs file)</i> <br>
  &emsp;&nbsp;&emsp;&ensp; |― IMG_0001.jpg &emsp;<i>(photo 1)</i> <br>
  &emsp;&nbsp;&emsp;&ensp; |― IMG_0002.jpg &emsp;<i>(photo 2)</i> <br>
@@ -323,8 +323,7 @@ Follow the adjustment steps <u>each time</u> before submitting the job into the 
 **0.** Select Atlas partition in section **# DEFINE SLURM VARIABLES** (optional)
 
 <div style="background: #f0f0f0; padding: 15px; margin-bottom: 20px;">
-#SBATCH --partition=
-<span style="font-weight:800;">atlas</span>
+#SBATCH --partition=<span style="font-weight:800;">atlas</span>
 </div>
 
 <div style="background: #cff4fc; padding: 15px; margin-bottom: 30px;">

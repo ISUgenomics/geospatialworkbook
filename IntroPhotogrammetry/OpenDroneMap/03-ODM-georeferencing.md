@@ -117,7 +117,7 @@ Detect each ground control point in at least 5-10 photos!
 
 
 <div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
-<span style="font-weight:800;">geo.txt</span> <i>(file content below)</i>
+<span style="font-weight:800;">gcp_list.txt</span> <i>(file content below)</i>
 <span style="color:navy;"><i>[see details in the <a href="https://docs.opendronemap.org/gcp/#ground-control-points" style="color: blue;">ODM Documentation: GCPs</a>]</i></span>
 <br><br>
 EPSG:4326 <br>
