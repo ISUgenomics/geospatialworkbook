@@ -17,12 +17,12 @@ Georeferencing process results in locating a piece of the landscape visible in t
 ![Georeferencing](../assets/images/georeferencing.png)
 
 Most software designed for photogrammetric workflows has a built-in geolocation step. The same is true for <b>OpenDroneMap</b>.
-In any case, to make geospatial localization of [aerial] photos, **GPS data** *(Global Positioning System)* is required. Most modern professional cameras record GPS coordinates automatically in the images, usually with an accuracy of 10-30 feet (3-9 meters) *[[source](https://www.blog.jimdoty.com/?p=14661)]*. While such a result is sufficient for most ordinary purposes, your research may be more precision demanding. For example, consider the case where the target area is even smaller than the geolocation threshold. The novel more accurate geolocation systems, such as VPS *(Visual Positioning System)* or CPS *(Camera Positioning Standard)*, are now being developed *[[learn more](https://www.mosaic51.com/community/alternative-to-gps-how-to-get-better-accuracy/)]* and will probably supplant GPS technology in the future. By this time though, the best patch for improving georeferencing process is still to use a **high-accuracy GPS point reference**, which will minimize the error.
+In any case, to make geospatial localization of [aerial] photos, **GPS data** *(Global Positioning System)* is required. Most modern professional cameras record GPS coordinates automatically in the images, usually with an accuracy of 10-30 feet (3-9 meters) *[[source](https://www.blog.jimdoty.com/?p=14661)]*. While such a result is sufficient for most ordinary purposes, your research may be more precision demanding. For example, consider the case where the target area is even smaller than the geolocation threshold. The novel, more accurate geolocation systems, such as VPS *(Visual Positioning System)* or CPS *(Camera Positioning Standard)*, are now being developed *[[learn more](https://www.mosaic51.com/community/alternative-to-gps-how-to-get-better-accuracy/)]* and will probably supplant GPS technology in the future. By this time, though, the best patch for improving georeferencing process is still to use a **high-accuracy GPS point reference**, which will minimize the error.
 
 
 ## Georeferencing options in OpenDroneMap
 
-The user has some level of control over the ODM settings for the photo georeferencing stage. By default ODM tries to use the GPS information embedded in the images automatically while recording the mission. If this is the case, you don't need to add any additional option for geolocation to be performed.
+The user has some level of control over the ODM settings for the photo georeferencing stage. By default, ODM tries to use the GPS information embedded in the images automatically while recording the mission. If this is the case, you don't need to add any additional option for geolocation to be performed.
 
 **1. Force the use of geolocation from images' EXIF metadata**
 
@@ -32,7 +32,7 @@ The user has some level of control over the ODM settings for the photo georefere
 
 Use `--force-gps` and `--use-exif` flags when you have a GCP data file in the project file structure but <u>want to force</u> the use of the GPS data stored in the image metadata.
 
-This is especially useful when the original imagery is not geotagged but you have GPS data in separate text files. In such a case you can add this information to the image EXIF metadata using [ExifTool](https://exiftool.org) software. Follow the instructions in the tutorial [Keep EXIF GEO metadata](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/00-IntroODM#keep-exif-geo-metadata) *(section: add EXIF tags from a text file using exiftool)* to accomplish this step.
+That is especially useful when the original imagery is not geotagged, but you have GPS data in separate text files. In such a case, you can add this information to the image EXIF metadata using [ExifTool](https://exiftool.org) software. Follow the instructions in the tutorial ["Keep EXIF GEO metadata"](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/00-IntroODM#keep-exif-geo-metadata) *(section: add EXIF tags from a text file using exiftool)* to accomplish this step.
 
 **2. Force the use of GPS data (e.g., RTK) from a text file**
 
@@ -40,7 +40,7 @@ This is especially useful when the original imagery is not geotagged but you hav
 --geo geo.txt \
 ```
 
-Regardless of whether your imagery is geotagged, once you have alternative GPS information <u>stored in a text file</u>, you can force direct use of it with optin `--geo geo.txt`. This is especially useful when you have more **accurate geolocation data such as RTK** *(Real-Time Kinematic positioning)* that corrects some of common errors in current satellite navigation (GNSS) systems.
+Regardless of whether your imagery is geotagged, once you have alternative GPS information <u>stored in a text file</u>, you can force direct use of it with the option `--geo geo.txt`. This is especially useful when you have more **accurate geolocation data such as RTK** *(Real-Time Kinematic positioning)* that corrects some of the common errors in current satellite navigation (GNSS) systems.
 
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
@@ -51,15 +51,15 @@ If the <b>geo.txt</b> file is somewhere outside of your project's workdir or you
 </div>
 
 <div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
-<span style="font-weight:800;">geo.txt</span> <i>(file content below)</i></span>
+<span style="font-weight:800;">geo.txt</span> <i>(file content below)</i>
 <span style="color:navy;"><i>[see details in the <a href="https://docs.opendronemap.org/geo/#image-geolocation-files" style="color: blue;">ODM Documentation: GPS data</a>]</i></span>
 <br><br>
-+proj=utm +zone=11 +ellps=WGS84 +datum=WGS84 +units=m +no_defs<br>
++proj=utm +zone=11 +ellps=WGS84 +datum=WGS84 +units=m +no_defs &emsp; # header <br>
 DJI_0028.JPG &emsp; -91.9942096 &emsp; 46.8425252 &emsp; 198.609 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; # GPS data <br>
 DJI_0032.JPG &emsp; -91.9938293 &emsp; 46.8424584 &emsp; 198.609 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; # GPS data <br>
 </div>
 
-* The first line should contain the name of the projection used for the geo coordinates, in one of the following formats:
+* The first line should contain the name of the projection used for the geo-coordinates, in one of the following formats:
 
 ```
 * PROJ string:   +proj=utm +zone=11 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -67,11 +67,11 @@ DJI_0032.JPG &emsp; -91.9938293 &emsp; 46.8424584 &emsp; 198.609 &emsp;&emsp;&em
 *   WGS84 UTM:   WGS84 UTM 16N
 ```
 
-* Subsequent lines are the GPS information for a given image <u><i>(first 3 columns are obligatory)</i></u>:
+* Subsequent lines are the GPS information for a given image <u><i>(the first 3 columns are obligatory)</i></u>:
 
 ```
      col-1 col-2 col-3  col-4              col-5          col-6             col-7                    col-8                    col-9      col-10
-     _____ _____ _____  _____              _____          _____             _____                    _____                    _____      ______
+     _____ _____ _____ ______ _________________  ______________  ________________  _______________________  _______________________  ___________
 image_name geo_x geo_y [geo_z] [omega (degrees)] [phi (degrees)] [kappa (degrees)] [horz accuracy (meters)] [vert accuracy (meters)] [extras...]
 ```
 
@@ -79,15 +79,15 @@ image_name geo_x geo_y [geo_z] [omega (degrees)] [phi (degrees)] [kappa (degrees
 **3. Force fixed value of GPS Dilution of Precision** *(use along with variant 1 or 2)*
 
 ```
---gps-accuracy 10 .0
+--gps-accuracy 10.0 \
 ```
 
-If you know the **estimated error of GPS** location determined by the camera in use, consider setting it as a value of the `--gps-accuracy value` option. The value is a positive float in metres and will be used as a GPS Dilution of Precision for all images. *The default is 10 meters.*
+If you know the **estimated error of GPS** location determined by the camera in use, consider setting it as a value of the `--gps-accuracy value` option. The value is a positive float in meters and will be used as a GPS Dilution of Precision for all images. *The default is 10 meters.*
 
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
-If you use high precision GPS (RTK), this value will be set automatically. You can manually set it in case the reconstruction fails. Lowering the value can help control bowling-effects over large areas.
+If you use high-precision GPS (RTK), this value will be set automatically. You can manually set it in case the reconstruction fails. Lowering the value can help control bowling effects over large areas.
 </span>
 </div>
 
@@ -98,7 +98,7 @@ If you use high precision GPS (RTK), this value will be set automatically. You c
 If you have a file with GCPs detected on the image collection, force georeferencing using it by option `--gcp gcp_list.txt`.
 
 ```
---gcp gcp_list.txt
+--gcp gcp_list.txt \
 ```
 
 
@@ -117,7 +117,7 @@ Detect each ground control point in at least 5-10 photos!
 
 
 <div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
-<span style="font-weight:800;">geo.txt</span> <i>(file content below)</i></span>
+<span style="font-weight:800;">geo.txt</span> <i>(file content below)</i>
 <span style="color:navy;"><i>[see details in the <a href="https://docs.opendronemap.org/gcp/#ground-control-points" style="color: blue;">ODM Documentation: GCPs</a>]</i></span>
 <br><br>
 EPSG:4326 <br>
@@ -133,7 +133,7 @@ EPSG:4326 <br>
 -116.75048 &emsp; 43.06475 &emsp; 2088.22 &emsp; 877.826253 &emsp; 2459.65369 &emsp; DJI_0335.JPG &emsp; 101 <br>
 </div>
 
-* The first line should contain the name of the projection used for the geo coordinates, in one of the following formats:
+* The first line should contain the name of the projection used for the geo-coordinates, in one of the following formats:
 
 ```
 * PROJ string:   +proj=utm +zone=11 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -141,7 +141,7 @@ EPSG:4326 <br>
 *   WGS84 UTM:   WGS84 UTM 16N
 ```
 
-* Subsequent lines are the GPS information for a given image <u><i>(first 6 columns are obligatory)</i></u>:
+* Subsequent lines are the GPS information for a given image <u><i>(the first 6 columns are obligatory)</i></u>:
 
 ```
 col-1 col-2 col-3 col4 col5    col-6     col-7     col-8    col-9
