@@ -53,7 +53,7 @@ To facilitate proper path management, I suggest creating the core of ordered fil
 <b>ODM/</b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<i>(storage directory for all future ODM projects)</i><br>
 |― run_odm.sh &emsp;&emsp;&emsp;&emsp; <i>(SLURM job submission script)</i> <br>
 |― <b>IMAGES/</b> <br>
- &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format and geo.txt file with GCPs)</i> <br>
+ &emsp;&nbsp; |― <b>PROJECT-1/</b> &emsp;&emsp;&ensp;<i>(directory with images in JPG format and gcp_list.txt file with GCPs)</i> <br>
  &emsp;&nbsp; |― <b>PROJECT-2/</b> <br>
 |― <b>RESULTS/</b> &emsp;&emsp;&emsp;&emsp;&emsp;<i>(parent directory for ODM analysis outputs)</i> <br>
 <span style="color: #8ca3a8;">
@@ -293,11 +293,11 @@ singularity run --writable-tmpfs $odm  \
 --feature-quality ultra --min-num-features 20000 \
 --sfm-algorithm triangulation \
 --pc-classify --pc-rectify --pc-quality ultra --pc-las \
---mesh-size 300000 --mesh-octree-depth 12 \
---gcp $output_dir/code/images/geo.txt \
---dsm --dem-resolution 5.0 --dtm --smrf-threshold 0.2 --smrf-window 24 --smrf-scalar 1.27 \
+--mesh-size 200000 --mesh-octree-depth 12 \
+--gcp $output_dir/code/images/gcp_list.txt \
+--dsm --dem-resolution 1.0 --dtm --smrf-threshold 0.4 --smrf-window 24 \
 --orthophoto-png --orthophoto-kmz --build-overviews \
---use-hybrid-bundle-adjustment --max-concurrency 16 \
+--use-hybrid-bundle-adjustment --max-concurrency 48 \
 --project-path $output_dir --ignore-gsd \
 --time
 ```
@@ -407,12 +407,12 @@ singularity run --writable-tmpfs $odm \
 --feature-quality ultra --min-num-features 20000 \                  # photo alignment
 --sfm-algorithm triangulation \                                     # SfM algorithm
 --pc-classify --pc-rectify --pc-quality ultra --pc-las \            # point cloud
---mesh-size 300000 --mesh-octree-depth 12 \                         # meshing
---gcp $output_dir/code/images/geo.txt \                             # georeferencing
---dsm --dem-resolution 5.0 \                                        # 3D model: DSM
---dtm --smrf-threshold 0.2 --smrf-window 24 --smrf-scalar 1.27 \    # 3D model: DTM
+--mesh-size 200000 --mesh-octree-depth 12 \                         # meshing
+--gcp $output_dir/code/images/gcp_list.txt \                        # georeferencing
+--dsm --dem-resolution 1.0 \                                        # 3D model: DSM
+--dtm --smrf-threshold 0.4 --smrf-window 24 \                       # 3D model: DTM
 --build-overviews --orthophoto-png --orthophoto-kmz \               # orthophoto
---use-hybrid-bundle-adjustment --max-concurrency 16 \               # performance
+--use-hybrid-bundle-adjustment --max-concurrency 48 \               # performance
 --project-path $output_dir --ignore-gsd \                           # inputs / outputs
 --time                                                              # runtime info
 ```
