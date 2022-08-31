@@ -290,9 +290,9 @@ odm=/reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif        # pre
 
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm  \
---feature-quality ultra --min-num-features 20000 \
+--feature-quality high --min-num-features 10000 \
 --sfm-algorithm triangulation \
---pc-classify --pc-rectify --pc-quality ultra --pc-las \
+--pc-quality ultra --pc-csv --pc-las \
 --mesh-size 200000 --mesh-octree-depth 12 \
 --gcp $output_dir/code/images/gcp_list.txt \
 --dsm --dem-resolution 1.0 --dtm --smrf-threshold 0.4 --smrf-window 24 \
@@ -404,9 +404,9 @@ The script template provided in this section has a <b>default configuration</b> 
 ```
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm \
---feature-quality ultra --min-num-features 20000 \                  # photo alignment
+--feature-quality high --min-num-features 20000 \                   # photo alignment
 --sfm-algorithm triangulation \                                     # SfM algorithm
---pc-classify --pc-rectify --pc-quality ultra --pc-las \            # point cloud
+--pc-quality ultra --pc-csv --pc-las \                              # point cloud
 --mesh-size 200000 --mesh-octree-depth 12 \                         # meshing
 --gcp $output_dir/code/images/gcp_list.txt \                        # georeferencing
 --dsm --dem-resolution 1.0 \                                        # 3D model: DSM
@@ -705,7 +705,7 @@ If you are working on an HPC infrastructure that uses the PBS workload manager, 
 Use the `sbatch` SLURM command to submit the computing job into the queue:
 
 ```
-sbatch run_odm_latest.sh
+sbatch run_odm.sh
 ```
 
 <div style="background: mistyrose; padding: 15px; margin-bottom: 30px;">
