@@ -152,8 +152,14 @@ geo_x geo_y geo_z im_x im_y image_name [gcp_name] [extra1] [extra2]
 
 # Software for manual detection of GCPs
 
+<span style="color: #ff3870;font-weight: 600;">Section in development...</span>
+
+Use any software for tagging GCPs, e.g., the [GCP Editor Pro](https://uav4geo.com/software/gcpeditorpro) is a good match for the ODM. Download source code from the [GitHub](https://github.com/uav4geo/GCPEditorPro).
+
+
 # Automatic detection of ARUco targets
 
+<span style="color: #ff3870;font-weight: 600;">Section in development...</span>
 
 ___
 # Further Reading
