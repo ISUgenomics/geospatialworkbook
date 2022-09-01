@@ -525,13 +525,15 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr  style="background-color:#f0f0f0; border-bottom: 1px solid black;">
   <th width="175">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
 <tr>
-  <td><b>--mesh-octree-depth</b></td><td>integer: <br>1 <= x <= 14</td><td>11</td><td>octree depth used in the mesh reconstruction</td><td><i> </i></td></tr>
+  <td><b>--mesh-octree-depth</b></td><td>integer: <br>1 <= x <= 14</td><td>11</td><td>octree depth used in the mesh reconstruction</td><td><i>It should be increased to 10-11 in urban areas to recreate better buildings / roofs.</i></td></tr>
 <tr>
-  <td><b>--mesh-size</b></td><td>positive integer</td><td>200000</td><td>the maximum vertex count of the output mesh</td><td><i> </i></td></tr>
+  <td><b>--mesh-size</b></td><td>positive integer</td><td>200000</td><td>the maximum vertex count of the output mesh</td><td><i>It should be increased to 300000-600000 in urban areas to recreate better buildings / roofs.</i></td></tr>
 <tr>
-  <td>--texturing-data-term</td><td>gmi, area</td><td>gmi</td><td>texturing feature</td><td><i>When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area).</i></td></tr>
+  <td>--texturing-data-term</td><td>gmi, area</td><td>gmi</td><td>texturing feature</td><td><i>When texturing the 3D mesh, for each triangle, choose to prioritize images with sharp features (gmi) or those that cover the largest area (area). <br>It should be set to <b>area</b> in forest landscape.</i></td></tr>
 <tr>
   <td>--texturing-keep-unseen-faces</td><td> </td><td>off</td><td> </td><td><i>keeps faces in the mesh that are not seen in any camera</i></td></tr>
+<tr>
+  <td>--texturing-nadir-weight</td><td><i>positive integer</i></td><td></td><td> </td><td><i>It should be increased to 29-32 in urban areas to reconstruct better edges of roofs. <br>It should be decreased to 0-6 in grassy / flat areas.</i></td></tr>
 <tr>
   <td>--texturing-outlier-removal-type</td><td>none, gauss_clamping, gauss_damping</td><td>gauss_clamping</td><td>type of photometric outlier removal method</td><td><i> </i></td></tr>
 <tr>
@@ -577,7 +579,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--dem-euclidean-map</td><td></td><td>off</td><td>computes an euclidean raster map for each DEM</td><td><i>Useful to isolate the areas that have been filled.</i></td></tr>
 <tr>
-  <td>--dem-gapfill-steps</td><td>positive integer</td><td>3</td><td>number of steps used to fill areas with gaps <br><b>0</b> disables gap filling</td><td><i>see details in the <a href="https://docs.opendronemap.org/arguments/dem-gapfill-steps/#dem-gapfill-steps" style="color: #3f5a8a;">docs</a></i></td></tr>
+  <td>--dem-gapfill-steps</td><td>positive integer</td><td>3</td><td>number of steps used to fill areas with gaps <br><b>0</b> disables gap filling</td><td><i>see details in the <a href="https://docs.opendronemap.org/arguments/dem-gapfill-steps/#dem-gapfill-steps" style="color: #3f5a8a;">docs</a> <br>For urban scenes increasing this value to 4-5 can help produce better interpolation results in the areas that are left empty by the SMRF filter.</i></td></tr>
 </table>
 </details>
 
@@ -590,13 +592,13 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td><b>--dtm</b></td><td> </td><td>off</td><td>builds DTM (ground only) using a simple morphological filter</td><td><i>Use <b>--dem* </b> and <b>--smrf* </b> parameters for finer tuning.</i></td></tr>
 <tr>
-  <td><b>--smrf-threshold</b></td><td>positive float</td><td>0.5</td><td>Simple Morphological Filter elevation threshold parameter [meters]</td><td><i> </i></td></tr>
+  <td><b>--smrf-threshold</b></td><td>positive float</td><td>0.5</td><td>Simple Morphological Filter elevation threshold parameter [meters]; elevation threshold</td><td><i>Set this parameter to the minimum height (in meters) that you expect non-ground objects to be. <br>This option has the biggest impact on results!</i></td></tr>
 <tr>
-  <td><b>--smrf-window</b></td><td>positive float</td><td>18.0</td><td>Simple Morphological Filter window radius parameter [meters]</td><td><i> </i></td></tr>
+  <td><b>--smrf-window</b></td><td>positive float > 10</td><td>18.0</td><td>Simple Morphological Filter window radius parameter [meters]</td><td><i>It corresponds to the size of the largest feature (building, trees, etc.) to be removed. Should be set to a value <b>higher than 10</b>.</i></td></tr>
 <tr>
-  <td>--smrf-slope</td><td>positive float</td><td>0.15</td><td>Simple Morphological Filter slope parameter (rise over run)</td><td><i> </i></td></tr>
+  <td>--smrf-slope</td><td>positive float in range 0.1 - 1.2</td><td>0.15</td><td>Simple Morphological Filter slope parameter; a measure of “slope tolerance”</td><td><i>Increase this parameter for terrains with lots of height variation.</i></td></tr>
 <tr>
-  <td><b>--smrf-scalar</b></td><td>positive float</td><td>1.25</td><td>Simple Morphological Filter elevation scalar parameter</td><td><i> </i></td></tr>
+  <td><b>--smrf-scalar</b></td><td>positive float</td><td>1.25</td><td>Simple Morphological Filter elevation scalar parameter</td><td><i>Increase this parameter for terrains with lots of height variation.</i></td></tr>
 </table>
 </details>
 
@@ -621,7 +623,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td><b>--build-overviews</b></td><td> </td><td>off</td><td>builds orthophoto overviews</td><td><i>Useful for faster display in programs such as QGIS.</i></td></tr>
 <tr>
-  <td>--use-3dmesh</td><td> </td><td>off</td><td>uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh</td><td><i>This option is a bit faster and provides similar results in planar areas.</i></td></tr>
+  <td>--use-3dmesh</td><td> </td><td>off</td><td>uses a full 3D mesh to compute the orthophoto instead of a 2.5D mesh</td><td><i>This option is a bit faster and provides similar results in planar areas. <br>By default, the 2.5D mesh is used to generate the orthophoto (which tends to work better than the full 3D mesh).</i></td></tr>
 </table>
 </details>
 
@@ -684,8 +686,8 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 
 See description of other options directly in the OpenDroneMap documentation: <br>
 * general usage: [help](https://docs.opendronemap.org/arguments/help/#help), [debug](https://docs.opendronemap.org/arguments/debug/#debug), <br>
-* large datasets: [split](https://docs.opendronemap.org/arguments/split/#split), [split-image-groups](https://docs.opendronemap.org/arguments/split-image-groups/#split-image-groups), [split-overlap](https://docs.opendronemap.org/arguments/split-overlap/#split-overlap),
-* multispectral datasets: [primary-band](https://docs.opendronemap.org/arguments/primary-band/#primary-band), [radiometric-calibration](https://docs.opendronemap.org/arguments/radiometric-calibration/#radiometric-calibration), [skip-band-alignment](https://docs.opendronemap.org/arguments/skip-band-alignment/#skip-band-alignment), <br>
+* large datasets **[[ODM docs](https://docs.opendronemap.org/large/#splitting-large-datasets)]**: [split](https://docs.opendronemap.org/arguments/split/#split), [split-image-groups](https://docs.opendronemap.org/arguments/split-image-groups/#split-image-groups), [split-overlap](https://docs.opendronemap.org/arguments/split-overlap/#split-overlap),
+* multispectral datasets **[[ODM docs](https://docs.opendronemap.org/multispectral/#multispectral-support)]**: [primary-band](https://docs.opendronemap.org/arguments/primary-band/#primary-band), [radiometric-calibration](https://docs.opendronemap.org/arguments/radiometric-calibration/#radiometric-calibration), [skip-band-alignment](https://docs.opendronemap.org/arguments/skip-band-alignment/#skip-band-alignment), <br>
 * rolling-shutter camera: [rolling-shutter](https://docs.opendronemap.org/arguments/rolling-shutter/#rolling-shutter), [rolling-shutter-readout](https://docs.opendronemap.org/arguments/rolling-shutter-readout/#rolling-shutter-readout)
 
 
