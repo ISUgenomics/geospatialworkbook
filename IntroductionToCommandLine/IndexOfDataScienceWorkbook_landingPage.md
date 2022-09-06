@@ -12,14 +12,18 @@ header:
 
 ## [01. Introduction to Data Science](https://datascience.101workbook.org/01-IntroToDataScience/00-IntroToDataScience-LandingPage)
 
-<div>
-<table>
+
+|<img width="100%" src="assets/data_science_section_gallery.png" alt="DataScience">|Data Science is an approach shaped in response to digital information whose size and unstructured nature are far beyond the capabilities of conventional tools. It is not just about <b>how to process or store Big Data</b> but also how to <b>improve knowledge retention</b>. Data Science emerges as the fourth paradigm besides empirical, theoretical, and computational, where modern computing techniques (e.g., machine learning) lead to <b>discovering the insights from data-driven analyses<b>.|
+|----|----|
+
+
+<!-- <table>
 <tr>
   <td width="40%"><img width="100%" src="assets/data_science_section_gallery.png" alt="Italian Trulli"></td>
   <td>Data Science is an approach shaped in response to digital information whose size and unstructured nature are far beyond the capabilities of conventional tools. It is not just about <b>how to process or store Big Data</b> but also how to <b>improve knowledge retention</b>. Data Science emerges as the fourth paradigm besides empirical, theoretical, and computational, where modern computing techniques (e.g., machine learning) lead to <b>discovering the insights from data-driven analyses<b>.</td>
 </tr>
 </table>
-
+-->
 
 <details><summary><b>See the detailed section index</b></summary>
 
@@ -27,7 +31,7 @@ header:
 
 <br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/02-computational-science-applications" style="color: #3f5a8a;"><b>2. Applications of Computational Science</b></a>
 </details>
-</div>
+
 
 
 ## [02. Introduction to the Command Line](https://datascience.101workbook.org/02-IntroToCommandLine/00-IntroToCommandLine-LandingPage)
