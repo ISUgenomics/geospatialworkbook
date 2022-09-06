@@ -3,7 +3,7 @@ title: "Useful Programs and Unix Basics"
 layout: single
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+  overlay_image: /assets/images/data_science_about_banner.png
 ---
 
 {% include toc %}
@@ -12,7 +12,7 @@ header:
 
 ## [01. Introduction to Data Science](https://datascience.101workbook.org/01-IntroToDataScience/00-IntroToDataScience-LandingPage)
 
-
+<!--
 <div>
 <table>
 <tr>
@@ -29,7 +29,7 @@ header:
 <br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/02-computational-science-applications" style="color: #3f5a8a;"><b>2. Applications of Computational Science</b></a><br>
 </details>
 </div>
-
+-->
 
 ## [02. Introduction to the Command Line](https://datascience.101workbook.org/02-IntroToCommandLine/00-IntroToCommandLine-LandingPage)
 
