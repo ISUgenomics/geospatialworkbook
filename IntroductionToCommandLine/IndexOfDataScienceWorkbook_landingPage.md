@@ -13,25 +13,22 @@ header:
 ## [01. Introduction to Data Science](https://datascience.101workbook.org/01-IntroToDataScience/00-IntroToDataScience-LandingPage)
 
 
-|<img width="100%" src="assets/data_science_section_gallery.png" alt="DataScience">|Data Science is an approach shaped in response to digital information whose size and unstructured nature are far beyond the capabilities of conventional tools. It is not just about <b>how to process or store Big Data</b> but also how to <b>improve knowledge retention</b>. Data Science emerges as the fourth paradigm besides empirical, theoretical, and computational, where modern computing techniques (e.g., machine learning) lead to <b>discovering the insights from data-driven analyses<b>.|
-|----|----|
-
-
-<!-- <table>
+<div>
+<table>
 <tr>
-  <td width="40%"><img width="100%" src="assets/data_science_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/data_science_section_gallery.png" alt="Data Science"></td>
   <td>Data Science is an approach shaped in response to digital information whose size and unstructured nature are far beyond the capabilities of conventional tools. It is not just about <b>how to process or store Big Data</b> but also how to <b>improve knowledge retention</b>. Data Science emerges as the fourth paradigm besides empirical, theoretical, and computational, where modern computing techniques (e.g., machine learning) lead to <b>discovering the insights from data-driven analyses<b>.</td>
 </tr>
 </table>
--->
+
 
 <details><summary><b>See the detailed section index</b></summary>
 
 <br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/01-data-science-principles" style="color: #3f5a8a;"><b>1. Data Science Principles</b></a><br>
 
-<br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/02-computational-science-applications" style="color: #3f5a8a;"><b>2. Applications of Computational Science</b></a>
+<br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/02-computational-science-applications" style="color: #3f5a8a;"><b>2. Applications of Computational Science</b></a><br>
 </details>
-
+</div>
 
 
 ## [02. Introduction to the Command Line](https://datascience.101workbook.org/02-IntroToCommandLine/00-IntroToCommandLine-LandingPage)
@@ -39,7 +36,7 @@ header:
 <div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/command_line_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/command_line_section_gallery.png" alt="Command Line"></td>
   <td>Command Line is a text interface for the computer’s operating system that passes on-demand the predefined commands and triggers the execution of various processes. That gives the user <b>powerful computing capabilities</b>, great analytical flexibility, and significant <b>time savings from automating tasks</b>. In this section, you become familiar with a <b>terminal</b>, including command-line navigation in the file system, and learn vitally important <b>commands for parsing text files</b>.</td>
 </tr>
 </table>
@@ -68,7 +65,7 @@ header:
 <div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/computer_setup_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/computer_setup_section_gallery.png" alt="Computing Machine"></td>
   <td>A <b>computer</b> is an essential tool in modern digital reality. Using it, you can acquire, process, store, and visualize various types of information. It is worth knowing <b>how to adapt its configuration to your research work</b>. There is treasured software facilitating <b>team communication</b>, <b>project management</b>, presentation of results, and improving the developer experience. You won’t be disappointed to learn about it!</td>
 </tr>
 </table>
@@ -95,7 +92,7 @@ header:
 <div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/developer_software_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/developer_software_section_gallery.png" alt="Development Environment"></td>
   <td>In Data Science, everyone more-or-less is a <b>developer</b>. Whether you write simple scripts in Bash, submit jobs to a queuing system on an HPC infrastructure, or develop advanced software and web applications in any programming language, an <b>integrated development environment (IDE)</b> makes your daily work easier. Among useful features, there are built-in browsing of the file system, <b>autocomplete of syntax</b>, a preview of available attributes, <b>error detection</b>, customized formatting, and even <b>source code rendering</b> (e.g., markdown or HTML). Even if you’re only using open-source pipelines, it’s worth familiarizing yourself with <b>common editors such as Atom or Jupyter</b> to get the most out of them.</td>
 </tr>
 </table>
@@ -122,7 +119,7 @@ header:
 <div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/programming_intro_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/programming_intro_section_gallery.png" alt="Programming"></td>
   <td>With some knowledge of <b>scripting and algorithm design</b>, you can easily encapsulate a repetitive task in a loop that starts with a single command and runs in the background of your schedule. It makes a huge difference compared to manually renumbering 1000 files. The larger the data set, the greater the savings in researcher time, reduced human error and <b>increased reproducibility and standardization</b>. Here you’ll learn <b>Bash scripting</b> basics and be introduced to two of the most widely used programming languages, <b>R and Python</b>.</td>
 </tr>
 </table>
@@ -135,13 +132,15 @@ header:
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/05-IntroToProgramming/03-PYTHON/02-Python-setup" style="color: #3f5a8a;"><i>3.1 Tutorial: Python Setup</i></a><br>
 <br>&emsp; <a href="https://datascience.101workbook.org/05-IntroToProgramming/04-R/01-introduction-to-R" style="color: #3f5a8a;"><b>4. Introduction to R programming</b></a><br>
 </details>
+</div>
 
 
 ## [06. High-Performance Computing (HPC)](https://datascience.101workbook.org/06-IntroToHPC/00-IntroToHPC-LandingPage)
 
+<div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/intro_to_hpc_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/intro_to_hpc_section_gallery.png" alt="HPC"></td>
   <td>Although today’s handy laptops perform many advanced and computationally intensive tasks, projects involving Big Data require <b>significantly more resources</b>. That need is satisfied by the <b>HPC infrastructure</b>, built from a network of <b>computing clusters combined with immense memory</b>. Access to these resources is <b>remote</b>, so job submission and data preview occurs through an interface on any local computing machine from any (allowed) geolocation. The HPC infrastructure is a <b>shared community space</b>, so you might want to familiarize yourself with the usage policy to <b>avoid disrupting peer work</b>.</td>
 </tr>
 </table>
@@ -193,7 +192,7 @@ header:
 <div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/data_wrangling_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/data_wrangling_section_gallery.png" alt="Data Wrangling"></td>
   <td>Information is the foundation of the learning process. Data acquisition and wrangling are crucial parts of Data Science that lead to <b>extracting knowledge from the information</b>. With large, difficult to transfer data, remote access is the rule, almost exclusively via a command-line interface. Luckily for you, knowing a few tricks make it easy to <b>access and visualize data</b> in a friendly way on a remote machine. As you explore this section, you will also learn how to <b>manage Excel spreadsheets</b> and efficiently <b>manipulate massive data with Python</b>.</td>
 </tr>
 </table>
@@ -237,7 +236,7 @@ header:
 <div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/data_vizualization_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/data_vizualization_section_gallery.png" alt="Data Visualization"></td>
   <td>Nowadays, data visualization is much more than just listing numbers in a table. <b>Infographics and interactive charts</b> perhaps best describe the need for the <b>modern presentation of results</b>. Such visualization is meant <b>to make findings intuitively intelligible and easily understandable</b> at a glance, even to the non-expert. At the same time, it should give the resources to interactively dig deeper into the details for those interested or those evaluating the merits. Let the <b>science-based graphic design</b> kick in the artist in you!</td>
 </tr>
 </table>
@@ -274,7 +273,7 @@ header:
 <div>
 <table>
 <tr>
-  <td width="40%"><img width="400" src="assets/project_menagement_section_gallery.png" alt="Italian Trulli"></td>
+  <td width="40%"><img width="400" src="assets/project_menagement_section_gallery.png" alt="Project Management"></td>
   <td>It is undeniable that good project <b>management leads to improved reproducibility</b> and research productivity. Project management becomes significantly <b>more important as the size of the project</b> and the amount of data increases. Project management is not just about how you organize your data, files and folders but also <b>how you record the steps in data analysis</b> that leads to the publication of your research.</td>
 </tr>
 </table>
