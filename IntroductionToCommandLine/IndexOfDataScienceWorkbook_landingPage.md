@@ -19,12 +19,12 @@ header:
 </tr>
 </table>
 
+
 <details><summary><b>See the detailed section index</b></summary>
 
-<br>
-&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/01-data-science-principles" style="color: #3f5a8a;"><b>1. Data Science Principles</b></a><br>
+<br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/01-data-science-principles" style="color: #3f5a8a;"><b>1. Data Science Principles</b></a><br>
 
-&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/02-computational-science-applications" style="color: #3f5a8a;"><b>2. Applications of Computational Science</b></a>
+<br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/02-computational-science-applications" style="color: #3f5a8a;"><b>2. Applications of Computational Science</b></a>
 </details>
 
 
@@ -36,6 +36,7 @@ header:
   <td>Command Line is a text interface for the computer’s operating system that passes on-demand the predefined commands and triggers the execution of various processes. That gives the user <b>powerful computing capabilities</b>, great analytical flexibility, and significant <b>time savings from automating tasks</b>. In this section, you become familiar with a <b>terminal</b>, including command-line navigation in the file system, and learn vitally important <b>commands for parsing text files</b>.</td>
 </tr>
 </table>
+
 
 <details><summary><b>See the detailed section index</b></summary>
 
