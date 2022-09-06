@@ -12,6 +12,7 @@ header:
 
 ## [01. Introduction to Data Science](https://datascience.101workbook.org/01-IntroToDataScience/00-IntroToDataScience-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="100%" src="assets/data_science_section_gallery.png" alt="Italian Trulli"></td>
@@ -26,10 +27,12 @@ header:
 
 <br>&emsp; <a href="https://datascience.101workbook.org/01-IntroToDataScience/02-computational-science-applications" style="color: #3f5a8a;"><b>2. Applications of Computational Science</b></a>
 </details>
+</div>
 
 
 ## [02. Introduction to the Command Line](https://datascience.101workbook.org/02-IntroToCommandLine/00-IntroToCommandLine-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/command_line_section_gallery.png" alt="Italian Trulli"></td>
@@ -53,10 +56,12 @@ header:
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/02-IntroToCommandLine/3C-tutorial-unix-awk" style="color: #3f5a8a;"><i>3.3 Tutorial: AWK – advanced text processing</i></a><br>
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/02-IntroToCommandLine/03D-tutorial-unix-bioawk" style="color: #3f5a8a;"><i>3.4 Tutorial: BIOAWK – biological data manipulation</i></a><br>
 </details>
+</div>
 
 
 ## [03. Setting Up Computing Machine](https://datascience.101workbook.org/03-SetUpComputingMachine/00-SetUpComputingMachine-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/computer_setup_section_gallery.png" alt="Italian Trulli"></td>
@@ -78,10 +83,12 @@ header:
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/03-SetUpComputingMachine/03B-tutorial-installations-on-windows" style="color: #3f5a8a;"><i>3.2 Tutorial: Installations on Windows</i></a><br>
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/03-SetUpComputingMachine/03C-tutorial-installations-on-linux" style="color: #3f5a8a;"><i>3.3 Tutorial: Installations on Linux</i></a><br>
 </details>
+</div>
 
 
 ## [04. Development Environment](https://datascience.101workbook.org/04-DevelopmentEnvironment/00-DevelopmentEnvironment-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/developer_software_section_gallery.png" alt="Italian Trulli"></td>
@@ -103,10 +110,12 @@ header:
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/04-DevelopmentEnvironment/03A-rstudio-basics" style="color: #3f5a8a;"><i>3.1 RStudio: Integrated Environment for R Programming</i></a><br>
 &emsp; &emsp;&ensp; ⦾ &ensp;  <a href="https://datascience.101workbook.org/04-DevelopmentEnvironment/03B-tutorial-setting-up-rstudio" style="color: #3f5a8a;"><i>Tutorial: Setting Up RStudio</i></a><br>
 </details>
+</div>
 
 
 ## [05. Introduction to Programming](https://datascience.101workbook.org/05-IntroToProgramming/00-IntroToProgramming-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/programming_intro_section_gallery.png" alt="Italian Trulli"></td>
@@ -172,10 +181,12 @@ header:
 &emsp; &emsp;&ensp; ⦾ &ensp;  <a href="https://datascience.101workbook.org/06-IntroToHPC/07-CONTAINERS/01-SINGULARITY/04-singularity-3-tutorial-vagrant" style="color: #3f5a8a;"><i>Tutorial: Singularity on your Mac via Vagrant</i></a><br>
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/06-IntroToHPC/07-CONTAINERS/02-DOCKER/01-docker-basics" style="color: #3f5a8a;"><i>8.2 Docker</i></a><br>
 </details>
+</div>
 
 
 ## [07. Data Acquisition and Wrangling](https://datascience.101workbook.org/07-DataParsing/00-DataParsing-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/data_wrangling_section_gallery.png" alt="Italian Trulli"></td>
@@ -214,10 +225,12 @@ header:
 &emsp; &emsp;&ensp; ⦾ &ensp;  <a href="https://datascience.101workbook.org/07-DataParsing/02-DATA-MANIPULATION/02-PYTHON/06-tutorial-python-array-manipulation-numpy" style="color: #3f5a8a;"><i>Tutorial: Math Module - Numpy Library - Multi-Dimensional Arrays Parser</i></a><br>
 &emsp; &emsp;&ensp; ⦾ &ensp;  <a href="https://datascience.101workbook.org/07-DataParsing/02-DATA-MANIPULATION/02-PYTHON/07-tutorial-python-apply-statistics-scipy" style="color: #3f5a8a;"><i>Tutorial: SciPy Library - Algorithms for Scientific Computing</i></a><br>
 </details>
+</div>
 
 
 ## [08. Data Visualization](https://datascience.101workbook.org/08-DataVisualization/00-DataVisualization-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/data_vizualization_section_gallery.png" alt="Italian Trulli"></td>
@@ -249,10 +262,12 @@ header:
 &emsp; &emsp;&ensp; ⦾ &ensp;  <a href="https://datascience.101workbook.org/08-DataVisualization/02-GRAPHS/03-R/03-rstudio-tutorial-box-plot" style="color: #3f5a8a;"><i>Tutorial: Creating Boxplots in R</i></a><br>
 &emsp; &emsp;&ensp; ⦾ &ensp;  <a href="https://datascience.101workbook.org/08-DataVisualization/02-GRAPHS/03-R/04-rstudio-tutorial-heatmap-plot" style="color: #3f5a8a;"><i>Tutorial: Creating Heatmaps in R</i></a><br>
 </details>
+</div>
 
 
 ## [09. Project Management](https://datascience.101workbook.org/09-ProjectManagement/00-ProjectManagement-LandingPage)
 
+<div>
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/project_menagement_section_gallery.png" alt="Italian Trulli"></td>
@@ -275,6 +290,7 @@ header:
 <br>&emsp; <a href="https://datascience.101workbook.org/09-ProjectManagement/03-COMMUNICATION/01-team-communication-tools" style="color: #3f5a8a;"><b>4. Team Communication Tools</b></a><br>
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/09-ProjectManagement/02-intro-to-slack" style="color: #3f5a8a;"><i>4.1 Introduction to Slack</i></a><br>
 </details>
+</div>
 
 
 <!--
