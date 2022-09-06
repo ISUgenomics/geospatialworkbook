@@ -290,12 +290,12 @@ odm=/reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif        # pre
 
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm  \
---feature-quality ultra --min-num-features 10000 \
---pc-csv --pc-las \
+--feature-quality ultra --min-num-features 10000 --matcher-type flann \
+--pc-quality ultra --pc-classify --pc-rectify --pc-las \
 --mesh-octree-depth 12 \
 --gcp $output_dir/code/images/gcp_list.txt \
---dsm --dtm --smrf-threshold 0.4 --smrf-window 24 \
---orthophoto-png --orthophoto-kmz --build-overviews \
+--dsm --dtm --dem-resolution 1 --smrf-threshold 0.4 --smrf-window 24 \
+--build-overviews \
 --use-hybrid-bundle-adjustment --max-concurrency 16 \
 --project-path $output_dir --ignore-gsd \
 --time
@@ -404,12 +404,13 @@ The script template provided in this section has a <b>default configuration</b> 
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm \
 --feature-quality ultra --min-num-features 10000 \                  # photo alignment
---pc-csv --pc-las \                                                 # point cloud
+--matcher-type flann
+--pc-quality ultra --pc-classify --pc-rectify --pc-las \            # point cloud
 --mesh-octree-depth 12 \                                            # meshing
 --gcp $output_dir/code/images/gcp_list.txt \                        # georeferencing
---dsm \                                                             # 3D model: DSM
+--dsm --dem-resolution 1 \                                          # 3D model: DSM
 --dtm --smrf-threshold 0.4 --smrf-window 24 \                       # 3D model: DTM
---build-overviews --orthophoto-png --orthophoto-kmz \               # orthophoto
+--build-overviews \                                                 # orthophoto
 --use-hybrid-bundle-adjustment --max-concurrency 16 \               # performance
 --project-path $output_dir --ignore-gsd \                           # inputs / outputs
 --time                                                              # runtime info
@@ -506,7 +507,7 @@ Structure from Motion (SfM) algorithm estimates camera positions in time (motion
 <tr>
   <td>--pc-filter</td><td>positive float</td><td>2.5</td><td>filters the point cloud by removing points that deviate more than N standard deviations from the local mean</td><td><i><b>0</b> - disables filtering</i></td></tr>
 <tr>
-  <td>--pc-sample</td><td>positive float</td><td>0.0</td><td>filters the point cloud by keeping only a single point around a radius N [meters]</td><td><i>Useful to limit the output resolution of the point cloud and remove duplicate points. <br>b>0</b> - disables sampling</i></td></tr>
+  <td>--pc-sample</td><td>positive float</td><td>0.0</td><td>filters the point cloud by keeping only a single point around a radius N [meters]</td><td><i>Useful to limit the output resolution of the point cloud and remove duplicate points. <br><b>0</b> - disables sampling</i></td></tr>
 <tr>
   <td>--pc-copc</td><td> </td><td>off</td><td>exports the georeferenced point cloud</td><td><i>Cloud Optimized Point Cloud (COPC) format</i></td></tr>
 <tr>
