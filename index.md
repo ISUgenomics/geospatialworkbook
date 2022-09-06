@@ -7,10 +7,10 @@ header:
 excerpt: 'Democratizing geospatial analysis through practical tutorials'
 feature_row:
 
-  - title: "Introduction to Unix"
-    image_path: /assets/images/alexander-sinn-KgLtFCgfC28-unsplash.jpg
-    alt: "Programs"
-    url: "IntroductionToCommandLine/IntroToCommandLine_landingPage"
+  - title: "DataScience Workbook Intro to Unix & HPC"
+    image_path: /assets/images/geospatial_gallery_datascience.png
+    alt: "DataScience Workbook"
+    url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
     btn_label: "Learn More"
 
   - title: "Introduction to Ceres HPC workflows"
