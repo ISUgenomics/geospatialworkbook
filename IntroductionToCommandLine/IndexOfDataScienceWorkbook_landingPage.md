@@ -12,15 +12,14 @@ header:
 
 ## [01. Introduction to Data Science](https://datascience.101workbook.org/01-IntroToDataScience/00-IntroToDataScience-LandingPage)
 
-<!--
-<div>
+
 <table>
 <tr>
   <td width="40%"><img width="400" src="assets/data_science_section_gallery.png" alt="Data Science"></td>
-  <td>Data Science is an approach shaped in response to digital information whose size and unstructured nature are far beyond the capabilities of conventional tools. It is not just about <b>how to process or store Big Data</b> but also how to <b>improve knowledge retention</b>. Data Science emerges as the fourth paradigm besides empirical, theoretical, and computational, where modern computing techniques (e.g., machine learning) lead to <b>discovering the insights from data-driven analyses<b>.</td>
+  <td>Data Science is an approach shaped in response to digital information whose size and unstructured nature are far beyond the capabilities of conventional tools. It is not just about <b>how to process or store Big Data</b> but also how to <b>improve knowledge retention</b>. Data Science emerges as the fourth paradigm besides empirical, theoretical, and computational, where modern computing techniques (e.g., machine learning) lead to <b>discovering the insights from data-driven analyses</b>.</td>
 </tr>
 </table>
--->
+
 
 <details><summary><b>See the detailed section index</b></summary>
 
@@ -44,7 +43,7 @@ header:
 <details><summary><b>See the detailed section index</b></summary>
 
 <br>&emsp; <a href="https://datascience.101workbook.org/02-IntroToCommandLine/01-terminal-basics" style="color: #3f5a8a;"><b>1. Terminal: a text-based interface for command-line operations</b></a><br>
-<br>&emsp; <a href="https://datascience.101workbook.org/02-IntroToCommandLine/02-intro-to-unix-shell" style="color: #3f5a8a;"><b>2. Introduction to UNIX Shell</b></a></br>
+<br>&emsp; <a href="https://datascience.101workbook.org/02-IntroToCommandLine/02-intro-to-unix-shell" style="color: #3f5a8a;"><b>2. Introduction to UNIX Shell</b></a><br>
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/02-IntroToCommandLine/02A-basic-commands" style="color: #3f5a8a;"><i>2.1 Basic Commands: Navigation, File Creation & Preview</i></a><br>
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/02-IntroToCommandLine/02B-text-files-editors" style="color: #3f5a8a;"><i>2.2 Text Files Editors</i></a><br>
 &emsp; ⦿ &ensp;  <a href="https://datascience.101workbook.org/02-IntroToCommandLine/02C-unix-system-info-permissions" style="color: #3f5a8a;"><i>2.3 System Info and Access Permissions</i></a><br>
