@@ -1,4 +1,5 @@
 ---
+title: "Data Science Workbook"
 excerpt: "Introduction to large scale computing and data wrangling"
 layout: single
 header:
