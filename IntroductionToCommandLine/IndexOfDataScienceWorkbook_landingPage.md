@@ -336,5 +336,6 @@ header:
 
 ---
 
-[Next](Unix/unix-basics-1.md){: .btn  .btn--primary}
-[Table of contents](../index.md){: .btn  .btn--primary}
+
+[Homepage](../index.md){: .btn  .btn--primary}
+[Next](IntroductionToImageAnalysis/ImageMLWorkshop.md){: .btn  .btn--primary}
