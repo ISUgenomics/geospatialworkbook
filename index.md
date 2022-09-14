@@ -11,7 +11,6 @@ feature_row:
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
-    excerpt: <details><summary>Click to expand</summary>Content</details>
     btn_label: "Learn More"
 
   - title: "Introduction to Ceres HPC workflows"
