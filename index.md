@@ -51,7 +51,7 @@ feature_row2:
 
 {% include feature_row id="intro" type="center" %}
 
-## <span style="color: #798288"><i>Explore general Data Science tutorials</i></span>
+## <span style="color: #798288"><i>Explore Data Science tutorials with broad applicability</i></span>
 
 {% include feature_row %}
 
