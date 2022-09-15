@@ -17,13 +17,13 @@ feature_row:
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
     btn_label: "Learn More"
 
-  - title: "Intro to SCINet HPC <br><i>Ceres HPC workflows</i>"
+  - title: "Ceres HPC workflows"
     image_path: /assets/images/nasa-1lfI7wkGWZ4-unsplash.jpg
     alt: "HPC workflows"
     url: "Workshops/Workshop"
     btn_label: "Learn More"
 
-  - title: "101workbook.org <br><i>Index of All Workbooks</i>"
+  - title: "Index of All Workbooks"
     image_path: /assets/images/geospatial_gallery_101workbook.png
     alt: "101workbook"
     url: "https://101workbook.org"
