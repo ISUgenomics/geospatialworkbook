@@ -6,7 +6,7 @@ header:
   overlay_image: /assets/images/geospatial_workbook_banner.png
 excerpt: 'Democratizing geospatial analysis through practical tutorials'
 intro:
-  - excerpt: "test"
+  - excerpt: "Explore general Data Science tutorials"
 feature_row:
 
   - title: "DataScience Workbook Intro to Unix & HPC"
@@ -20,6 +20,10 @@ feature_row:
     alt: "HPC workflows"
     url: "Workshops/Workshop"
     btn_label: "Learn More"
+
+intro:
+  - excerpt: "Explore hands-on geospatial tutorials"
+feature_row:
 
   - title: "Introduction to Image Analysis"
     image_path: /assets/images/geospatial_gallery_image_analysis.png
