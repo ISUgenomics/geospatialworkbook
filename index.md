@@ -10,6 +10,7 @@ feature_row:
 
   - title: "DataScience Workbook <i>Intro to Unix & HPC</i>"
     image_path: /assets/images/geospatial_gallery_datascience.png
+    excerpt: <a href="#" data-toggle="tooltip" data-original-title="@computer-setup @programming">section tags</a>
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
     btn_label: "Learn More"
@@ -55,6 +56,6 @@ feature_row2:
 
 {% include feature_row %}
 
-## <span style="color: #798288"><i>Explore hands-on Geospatial tutorials</i></span>
+## <span style="color: #798288"><i>Explore  hands-on tutorials for highly-specialized Geospatial analysis</i></span>
 
 {% include feature_row id="feature_row2" %}
