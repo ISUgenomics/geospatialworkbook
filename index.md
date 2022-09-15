@@ -20,6 +20,12 @@ feature_row:
     url: "Workshops/Workshop"
     btn_label: "Learn More"
 
+  - title: "101workbook.org Index of All Workbooks"
+    image_path: /assets/images/geospatial_gallery_101workbook.png
+    alt: "101workbook"
+    url: "https://101workbook.org"
+    btn_label: "Learn More"
+
 feature_row2:
 
   - title: "Introduction to Image Analysis"
