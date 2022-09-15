@@ -5,8 +5,7 @@ header:
   overlay_color: "444444"
   overlay_image: /assets/images/geospatial_workbook_banner.png
 excerpt: 'Democratizing geospatial analysis through practical tutorials'
-intro:
-  - excerpt: "Explore general Data Science tutorials"
+
 feature_row:
 
   - title: "DataScience Workbook Intro to Unix & HPC"
@@ -46,5 +45,10 @@ feature_row2:
 
 {% include feature_row id="intro" type="center" %}
 
+# Explore general Data Science tutorials
+
 {% include feature_row %}
+
+# Explore hands-on geospatial tutorials
+
 {% include feature_row id="feature_row2" %}
