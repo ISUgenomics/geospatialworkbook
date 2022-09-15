@@ -7,6 +7,9 @@ header:
 excerpt: 'Democratizing geospatial analysis through practical tutorials'
 feature_row:
 
+intro:
+  - excerpt: "test"
+
   - title: "DataScience Workbook Intro to Unix & HPC"
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
