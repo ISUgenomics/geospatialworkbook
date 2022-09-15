@@ -8,19 +8,19 @@ excerpt: 'Democratizing geospatial analysis through practical tutorials'
 
 feature_row:
 
-  - title: "DataScience Workbook *Intro to Unix & HPC*"
+  - title: "DataScience Workbook <i>Intro to Unix & HPC</i>"
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
     btn_label: "Learn More"
 
-  - title: "Introduction to Ceres HPC workflows"
+  - title: "Intro to SCINet HPC <br><i>Ceres HPC workflows</i>"
     image_path: /assets/images/nasa-1lfI7wkGWZ4-unsplash.jpg
     alt: "HPC workflows"
     url: "Workshops/Workshop"
     btn_label: "Learn More"
 
-  - title: "101workbook.org <br>Index of All Workbooks"
+  - title: "101workbook.org <br><i>Index of All Workbooks</i>"
     image_path: /assets/images/geospatial_gallery_101workbook.png
     alt: "101workbook"
     url: "https://101workbook.org"
@@ -51,7 +51,7 @@ feature_row2:
 
 {% include feature_row id="intro" type="center" %}
 
-## <span style="color: #798288"><i>Explore Data Science tutorials with broad applicability</i></span>
+## <span style="color: #798288"><i>Get practical experience with hands-on tutorials of Data Science basics</i></span>
 
 {% include feature_row %}
 
