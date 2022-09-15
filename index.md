@@ -12,7 +12,7 @@ feature_row:
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
-    btn_label: "Learn More"
+    btn_label: [Learn More](a "test")
 
   - title: "Introduction to Ceres HPC workflows"
     image_path: /assets/images/nasa-1lfI7wkGWZ4-unsplash.jpg
