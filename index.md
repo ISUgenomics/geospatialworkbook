@@ -10,7 +10,7 @@ feature_row:
 
   - title: "<details>
   <summary><i>DataScience Workbook</i></summary>
-  <H8>#command-line #terminal #unix #bash #bashrc #HOME-dir #computer-setup #installation #text-editors #programming #python #R #scripting #remote-access #HPC #Atlas-Ceres-clusters #job-scheduling #SLURM #containers-singularity #data-transfer #data-manipulation #data-visualization #project-management</H8>
+  <H5>#command-line #terminal #unix #bash #bashrc #HOME-dir #computer-setup #installation #text-editors #programming #python #R #scripting #remote-access #HPC #Atlas-Ceres-clusters #job-scheduling #SLURM #containers-singularity #data-transfer #data-manipulation #data-visualization #project-management</H5>
   </details>"
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
