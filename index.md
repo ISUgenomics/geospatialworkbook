@@ -45,8 +45,6 @@ feature_row2:
 
 {% include feature_row id="intro" type="center" %}
 
-<span style="color:#798288; font-size: 24px">To learn about all the workbooks we develop, visit the central resource at </span><span style="color:#ff3970"><a href="https://101workbook.org" target="_blank" style="color: #3f5a8a;"><i>101workbook.org</i></a></span>
-
 ## <span style="color: #798288"><i>Explore general Data Science tutorials</i></span>
 
 {% include feature_row %}
