@@ -8,7 +8,8 @@ excerpt: 'Democratizing geospatial analysis through practical tutorials'
 
 feature_row:
 
-  - title: "DataScience Workbook <br><details><summary style="font-size: 20px;"><i>Intro to Unix & HPC</i></summary>#programming #computer-setup</details>"
+  - title: "DataScience Workbook"
+    excerpt: "<details><summary><i>Intro to Unix & HPC</i></summary>#programming #computer-setup</details>"
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
