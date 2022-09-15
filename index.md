@@ -8,11 +8,11 @@ excerpt: 'Democratizing geospatial analysis through practical tutorials'
 
 feature_row:
 
-  - title: "DataScience Workbook Intro to Unix & HPC"
+  - title: "DataScience Workbook Intro to Unix & HPC" [?](a "test")
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
-    btn_label: [Learn More](a "test")
+    btn_label: "Learn More"
 
   - title: "Introduction to Ceres HPC workflows"
     image_path: /assets/images/nasa-1lfI7wkGWZ4-unsplash.jpg
