@@ -8,7 +8,7 @@ excerpt: 'Democratizing geospatial analysis through practical tutorials'
 
 feature_row:
 
-  - title: "DataScience Workbook Intro to Unix & HPC"
+  - title: "DataScience Workbook *Intro to Unix & HPC*"
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
@@ -20,7 +20,7 @@ feature_row:
     url: "Workshops/Workshop"
     btn_label: "Learn More"
 
-  - title: "101workbook.org    Index of All Workbooks"
+  - title: "101workbook.org <br>Index of All Workbooks"
     image_path: /assets/images/geospatial_gallery_101workbook.png
     alt: "101workbook"
     url: "https://101workbook.org"
