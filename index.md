@@ -21,9 +21,9 @@ feature_row:
     url: "Workshops/Workshop"
     btn_label: "Learn More"
 
-intro:
+intro2:
   - excerpt: "Explore hands-on geospatial tutorials"
-feature_row:
+feature_row2:
 
   - title: "Introduction to Image Analysis"
     image_path: /assets/images/geospatial_gallery_image_analysis.png
