@@ -8,12 +8,10 @@ excerpt: 'Democratizing geospatial analysis through practical tutorials'
 
 feature_row:
 
-  - title: "
-  <details><summary>
-    <i>DataScience Workbook</i>
-  </summary>
-  <H6>#command-line #terminal #unix #bash #bashrc #HOME dir #computer-setup #installation #text-editors #programming #python #R #scripting #remote-access #HPC #Atlas-Ceres-clusters #job-scheduling #SLURM #containers-singularity #data-transfer #data-manipulation #data-visualization #project-management</H6>
-  </details>"
+  - title: "<H3><details>
+  <summary><i>DataScience Workbook</i></summary>
+  <H6>#command-line #terminal #unix #bash #bashrc #HOME-dir #computer-setup #installation #text-editors #programming #python #R #scripting #remote-access #HPC #Atlas-Ceres-clusters #job-scheduling #SLURM #containers-singularity #data-transfer #data-manipulation #data-visualization #project-management</H6>
+  </details></H3>"
     image_path: /assets/images/geospatial_gallery_datascience.png
     alt: "DataScience Workbook"
     url: "IntroductionToCommandLine/IndexOfDataScienceWorkbook_landingPage"
