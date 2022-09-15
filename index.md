@@ -5,10 +5,9 @@ header:
   overlay_color: "444444"
   overlay_image: /assets/images/geospatial_workbook_banner.png
 excerpt: 'Democratizing geospatial analysis through practical tutorials'
-feature_row:
-
 intro:
   - excerpt: "test"
+feature_row:
 
   - title: "DataScience Workbook Intro to Unix & HPC"
     image_path: /assets/images/geospatial_gallery_datascience.png
