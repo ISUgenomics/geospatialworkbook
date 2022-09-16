@@ -2,8 +2,14 @@
 main:
   - title: "About"
     url: /about.html
+  - title: "Index"
+    url: /list.html
+  - title: "Glossary"
+    url: /glossary.html
   - title: "People"
     url: /people.html
+  - title: "Contribute"
+    url: /contributing.html
 
 
 
