@@ -51,7 +51,7 @@ feature_row2:
     
   - title: "Example geospatial workflows on HPC"
     image_path: /assets/images/geospatial_gallery_earth_observations.png
-    alt: "Geospatial Data"
+    alt: "Geospatial Workflows"
     url: "ExampleGeoWorkflows/GRWGWorkshop"
     btn_label: "Learn More"
 
