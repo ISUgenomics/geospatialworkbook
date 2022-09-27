@@ -69,3 +69,11 @@ Yanghui Kang:
   twitter     : "someone"
   email       : "mailto:someone@iastate.edu"
   website     : "https://gif.biotech.iastate.edu"
+
+Heather Savoy:
+  name        : "Heather Savoy"
+  bio         : "Heather is a Computational Biologist (Data Scientist) in the USDA-ARS SCINet Office. Her research interests include applying informatics methods to multidisciplinary agro-ecosystem problems and building data science software tools for geospatial research. She received her Ph.D. in Civil and Environmental Engineering with an emphasis in Computational Data Science and Engineering from the University of California Berkeley. She also holds a B.S. in Environmental Science with a minor in Computational Mathematics from the Florida Institute of Technology."
+  avatar      : "/assets/images/people/HeatherSavoy.png"
+  twitter     : "someone"
+  email       : "mailto:heather.savoy@usda.gov"
+  website     : "https://scinet.usda.gov" 
