@@ -1,5 +1,5 @@
 ---
-title: "Geospatial Research Working Group Workshop"
+title: "Example geospatial workflows on HPC"
 layout: single
 header:
   overlay_color: "444444"

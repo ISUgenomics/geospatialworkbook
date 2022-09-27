@@ -49,10 +49,10 @@ feature_row2:
     url: "IntroPhotogrammetry/00-IntroPhotogrammetry-LandingPage"
     btn_label: "Learn More"
     
-  - title: "Introduction to Geospatial Data"
+  - title: "Example geospatial workflows on HPC"
     image_path: /assets/images/geospatial_gallery_earth_observations.png
     alt: "Geospatial Data"
-    url: "IntroductionToGeospatial/GRWGWorkshop"
+    url: "ExampleGeoWorkflows/GRWGWorkshop"
     btn_label: "Learn More"
 
 ---
