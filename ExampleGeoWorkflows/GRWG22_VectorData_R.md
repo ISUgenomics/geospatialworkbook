@@ -28,9 +28,9 @@ of the Camp Fire in northern CA in 2018.
 
 | Name | Description | Link |
 |:--|:--|:--|
-| sf | Simple features for R | https://cran.r-project.org/web/packages/sf/index.html |
-| USAboundaries | Historical and Contemporary Boundaries of the United States of America | https://cran.r-project.org/web/packages/USAboundaries/index.html |
-| ggplot2 | Create Elegant Data Visualisations Using the Grammar of Graphics | https://cran.r-project.org/web/packages/ggplot2/index.html |
+| `sf` | Simple features for R | https://cran.r-project.org/web/packages/sf/index.html |
+| `USAboundaries` | Historical and Contemporary Boundaries of the United States of America | https://cran.r-project.org/web/packages/USAboundaries/index.html |
+| `ggplot2` | Create Elegant Data Visualisations Using the Grammar of Graphics | https://cran.r-project.org/web/packages/ggplot2/index.html |
 
 ## Nomenclature
 
@@ -44,13 +44,13 @@ of the Camp Fire in northern CA in 2018.
 ## Data Details
 
 * Data: National Interagency Fire Center's Historic Perimeters dataset
-* Link: https://data-nifc.opendata.arcgis.com/datasets/nifc::historic-perimeters-combined-2000-2018-geomac/explore
+* Link: [https://data-nifc.opendata.arcgis.com/datasets/nifc::historic-perimeters-combined-2000-2018-geomac/explore](https://data-nifc.opendata.arcgis.com/datasets/nifc::historic-perimeters-combined-2000-2018-geomac/explore)
 * Other Details: The original dataset contains perimeters of wildfires in the US 
   from 2000-2018 as a polygon feature collection. For this tutorial, the wildfire
   perimeters in CA during 2018 were extracted.
 
 * Data: US EPA's Air Quality System (AQS) database
-* Link: https://aqs.epa.gov/aqsweb/documents/data_api.html
+* Link: [https://aqs.epa.gov/aqsweb/documents/data_api.html](https://aqs.epa.gov/aqsweb/documents/data_api.html)
 * Other Details: PM2.5 concentration data from this database covering CA in 2018 
   were retrieved and pre-processed for this tutorial.
 
@@ -89,7 +89,12 @@ original CRS, WGS 84, `sf` would warn you about distance calculations not being
 accurate. 
 
 ```r
-fire_f <- 'data/Historic_Perimeters_Combined_2000-2018_GeoMAC.geojson'
+fire_f <- 'Historic_Perimeters_Combined_2000-2018_GeoMAC_CA2018.geojson'
+dnld_url <- 'https://raw.githubusercontent.com/HeatherSavoy-USDA/geospatialworkbook/master/ExampleGeoWorkflows/assets/'
+httr::GET(paste0(dnld_url,fire_f),
+          httr::write_disk(fire_f,
+                           overwrite=TRUE))
+
 fire_CA2018 <- st_read(fire_f) %>%
   st_transform(5070)
 ```
@@ -146,7 +151,15 @@ the download process has been done already and the data are available in our
 a feature collection.
 
 ```r
-ca_PM25 <- st_read('assets/air_quality_CA2018.shp')
+aq_base <- 'air_quality_CA2018'
+aq_zip <- paste0(aq_base,'.zip')
+#dnld_url <- 'https://github.com/HeatherSavoy-USDA/geospatialworkbook/raw/master/ExampleGeoWorkflows/assets/'
+httr::GET(paste0(dnld_url,aq_zip),
+          httr::write_disk(aq_zip,
+                           overwrite=TRUE))
+unzip(aq_zip)
+
+ca_PM25 <- st_read(paste0(aq_base,'.shp'))
 ```
 
 ## Step 3: Find the air quality stations within 200km of the fire perimeter
