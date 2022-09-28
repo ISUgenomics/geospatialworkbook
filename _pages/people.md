@@ -13,7 +13,7 @@ header:
 ### Andrew Severin
 
 ![Andrew](../assets/images/people/Andrew.png){: .align-left}
-His PhD was in Biophysics/NMR spectroscopy. He did a Bioinformatics Postdoc in Soybean genetics and now runs the Genome Informatics Facility at Iowa State University.
+Andrew manages the Genome Informatics Facility at Iowa State University. His academic background is in biochemistry with a Ph.D. in Biophysics/NMR Spectroscopy. He is an interdisciplinary scientist working at the interface of Genetics and Bioinformatics, translating Big Data into informative data for interesting biological questions. He is passionate about evolution and the science behind the genome.
 
 ### Kerrie Geil
 
@@ -49,7 +49,7 @@ Yanghui started her SCINet Postdoc position in May 2020 after receiving a Ph.D. 
 
 ### Aleksandra Badaczewska
 
-![Alex](../assets/images/people/Alex.png){: .align-left}
+![Alex](../assets/images/people/Alex.png){: .align-left-profile }
 Alex is a Research Scientist IV at the Genome Informatics Facility at Iowa State University. Her academic background is in Chemistry and Biotechnology, with a Ph.D. in Computational Biology and broad experience in programming and designing web applications. She develops a comprehensive collection of highly customizable visualization solutions for Bioinformatics and supports software optimization for the USDA Geospatial analyses.
 <br><br>
 
@@ -57,3 +57,8 @@ Alex is a Research Scientist IV at the Genome Informatics Facility at Iowa State
 
 ![Jennifer](../assets/images/people/JenChang.png){: .align-left-profile }
 Her PhD was in Bioinformatics and Computational Biology with a minor in Statistics. During her PhD, she developed the C++ software Mango Graph Studio which has been licensed to a startup. Since then, she has worked on automating the Influenza A Virus in Swine reports and recently has been designing Nextflow pipelines for highly scalable and reproducible pipelines. She enjoys designing workflows to reduce tedium and increase joy of discovery.
+
+### Heather Savoy
+
+![Heather](../assets/images/people/HeatherSavoy.png){: .align-left-profile }
+Heather is a Computational Biologist (Data Scientist) in the USDA-ARS SCINet Office. Her research interests include applying informatics methods to multidisciplinary agro-ecosystem problems and building data science software tools for geospatial research. She received her Ph.D. in Civil and Environmental Engineering with an emphasis in Computational Data Science and Engineering from the University of California Berkeley. She also holds a B.S. in Environmental Science with a minor in Computational Mathematics from the Florida Institute of Technology.
