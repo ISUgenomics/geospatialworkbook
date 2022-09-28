@@ -3,7 +3,7 @@ title: "Example geospatial workflows on HPC"
 layout: single
 header:
   overlay_color: "444444"
-  overlay_image: /assets/images/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
+  overlay_image: assets/images/usgs-Fm95IBf5buw-unsplash.jpg
 ---
 
 Materials modified from the [USDA-ARS SCINet Geospatial Research Working Group Workshop 2022](https://usda-scinet.github.io/scinet-geospatial-site/). Coming soon: more 
