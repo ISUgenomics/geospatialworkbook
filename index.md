@@ -48,6 +48,12 @@ feature_row2:
     alt: "Photogrammetry"
     url: "IntroPhotogrammetry/00-IntroPhotogrammetry-LandingPage"
     btn_label: "Learn More"
+    
+  - title: "Example geospatial workflows on HPC"
+    image_path: /assets/images/usgs-Fm95IBf5buw-unsplash.jpg
+    alt: "Geospatial Workflows"
+    url: "ExampleGeoWorkflows/GRWGWorkshop"
+    btn_label: "Learn More"
 
 ---
 
