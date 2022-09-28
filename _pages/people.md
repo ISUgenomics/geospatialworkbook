@@ -49,7 +49,7 @@ Yanghui started her SCINet Postdoc position in May 2020 after receiving a Ph.D. 
 
 ### Aleksandra Badaczewska
 
-![Alex](../assets/images/people/Alex.png){: .align-left-profile}
+![Alex](../assets/images/people/Alex.png){: .align-left-profile }
 Alex is a Research Scientist IV at the Genome Informatics Facility at Iowa State University. Her academic background is in Chemistry and Biotechnology, with a Ph.D. in Computational Biology and broad experience in programming and designing web applications. She develops a comprehensive collection of highly customizable visualization solutions for Bioinformatics and supports software optimization for the USDA Geospatial analyses.
 <br><br>
 
@@ -61,5 +61,4 @@ Her PhD was in Bioinformatics and Computational Biology with a minor in Statisti
 ### Heather Savoy
 
 ![Heather](../assets/images/people/HeatherSavoy.png){: .align-left-profile }
-
 Heather is a Computational Biologist (Data Scientist) in the USDA-ARS SCINet Office. Her research interests include applying informatics methods to multidisciplinary agro-ecosystem problems and building data science software tools for geospatial research. She received her Ph.D. in Civil and Environmental Engineering with an emphasis in Computational Data Science and Engineering from the University of California Berkeley. She also holds a B.S. in Environmental Science with a minor in Computational Mathematics from the Florida Institute of Technology.
