@@ -32,9 +32,9 @@ intersecting polygons) in R, and
 2. use SLURM job arrays to execute an R script with different inputs across 
 multiple cores.
 
-We will use X years of the PRISM gridded dataset's annual precipitation variable 
+We will use 21 years of the PRISM gridded dataset's annual precipitation variable 
 and the US Census counties polygon dataset to calculate the mean annual precipitation 
-in each county per year. We will request SLURM to distribute the XX years of input data 
+in each county per year. We will request SLURM to distribute the 21 years of input data 
 across as many cores and run our zonal statistics R script on each one.
 
 If you prefer to have an R script handle looping over your data inputs and 

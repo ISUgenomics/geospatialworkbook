@@ -8,46 +8,46 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 28 September 2022 <br />
-**Download RMarkdown**: [GRWG22_ZonalStats_wSLURM.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_ZonalStats_wSLURM.Rmd)
+**Last Update:** 29 September 2022 <br />
+**Download Jupyter Notebook**: [GRWG22_ZonalStats_wSLURM.ipynb](https://geospatial.101workbook.org/tutorials/GRWG22_ZonalStats_wSLURM.ipynb)
 
 ## Overview
-
 This tutorial covers how to:
 
 1. calculate zonal statistics (i.e., extract summaries of raster values 
-intersecting polygons) in R, and 
-2. use SLURM job arrays to execute an R script with different inputs across 
+intersecting polygons) in python, and 
+2. use SLURM job arrays to execute an Python script with different inputs across 
 multiple cores.
 
 We will use 21 years of the PRISM gridded dataset's annual precipitation variable 
 and the US Census counties polygon dataset to calculate the mean annual precipitation 
 in each county per year. We will request SLURM to distribute the 21 years of input data 
-across as many cores and run our zonal statistics R script on each one.
+across as many cores and run our zonal statistics Python script on each one.
 
-If you prefer to have an R script handle looping over your data inputs and 
-submitting many job submission scripts, see [this tutorial](https://geospatial.101workbook.org/ExampleGeoWorkflows/GRWG22_JobPerDataFile_R).
+If you prefer to have a python script handle looping over your data inputs and 
+submitting many job submission scripts, see [this tutorial](https://geospatial.101workbook.org/ExampleGeoWorkflows/GRWG22_JobPerDataFile_python).
 
-*Language:* `R`
+*Language*: `Python`
 
-*Primary Libraries/Packages:*
+*Primary Libraries/Packages*:
 
-| Name | Description | Link |
-|:--|:--|:--|
-| `rgeocdl` | R interface for SCINet GeoCDL API | https://github.com/USDA-SCINet/rgeocdl |
-| `terra` | Methods for spatial data analysis with raster and vector data | https://rspatial.org/terra/pkg/index.html |
+|Name|Description|Link|
+|-|-|-|
+| `geopandas` | Extends datatypes used by pandas to allow spatial operations on geometric types | https://geopandas.org/en/stable/ |
+| `rasterstats` | Summarizes geospatial raster datasets based on vector geometries | https://pythonhosted.org/rasterstats/ |
+
 
 ## Nomenclature
 
-* *GeoCDL:* [Geospatial Common Data Library](https://geospatial.101workbook.org/ExampleGeoWorkflows/GRWG22_GeoCDL_R), 
-  a collection of commonly used raster datasets accessible from an API running 
-  on SCINet's Ceres cluster
+* *GeoCDL:* Geospatial Common Data Library, 
+a collection of commonly used raster datasets accessible from an API running 
+on SCINet's Ceres cluster
 * *SLURM Workload Manager:* The software on Ceres and Atlas that allocates 
-  compute cores to users for their submitted jobs. 
+compute cores to users for their submitted jobs. 
 * *Zonal statistics:* Calculating summary statistics, e.g. mean, of cell values
-  from a raster in each region, where regions can be defined by an overlapping 
-  polygon feature collection.
-  
+from a raster in each region, where regions can be defined by an overlapping 
+polygon feature collection.
+
 ## Data Details
 
 * Data: US Census Cartographic Boundary Files
@@ -68,7 +68,7 @@ submitting many job submission scripts, see [this tutorial](https://geospatial.1
 
 ## Analysis Steps
 
-* Write serial R script - this script will accept a year argument, open the 
+* Write serial python script - this script will accept a year argument, open the 
   raster file associated with that year, open the polygon dataset, calculate 
   the mean value per polygon, and write a new shapefile with the mean values.
 * Write and save a SLURM job submission script - Create a batch script with
@@ -78,119 +78,107 @@ submitting many job submission scripts, see [this tutorial](https://geospatial.1
 * Check results - Monitor the SLURM queue until your job is complete and then 
   ensure your job executed successfully.
 
-## Step 0: Install packages and download data
+### Step 0: Install packages and download data
 
-For this tutorial, we are not running our spatial analyses via Open OnDemand,
-so we do not have access to the same breadth of geospatial R packages in the
-site library. If you have not used `terra` or `rgeocdl` outside of Open 
-OnDemand on Ceres before, you can install it in a shell with the code chunks 
-below. The first three `module load` commands load versions of non-R  
-libraries on which `terra` or `rgeocdl` depends. Then we load the 3.6 
-version of R, which is a version recent enough for `terra` to install that also
-has some `rgeocdl` install dependencies also available in the site library on 
-Ceres. You may use a newer version of R, but may need to do some additional package
-installations yourself.
+Below are commands to run to create a new Conda environment named 'geoenv' that contains the packages used in this tutorial series. To learn more about using Conda environments on Ceres, see [this guide](https://scinet.usda.gov/guide/conda/). NOTE: If you have used other Geospatial Workbook tutorials from the SCINet Geospatial Research Working Group Workshop 2022, you may have aleady created this environment and may skip to activating the environment, opening python, and downloading data.
+
+First, we call `salloc` to be allocated resources on a compute node so we do not burden the login node with the conda installations. Then we load the `miniconda` conda module available on Ceres to access the `Conda` commands to create environments, activate them, and install Python and packages. Last, we open the version of python in the environment for the next step.
+
 
 ```bash
-module load gdal
-module load geos
-module load udunits
-module load r/3.6
-R
-```
-
-Which will open R and you can run the following lines to install `terra`. The 
-second line installs the SCINet `rgeocdl` package used for downloading the 
-example data for this tutorial.
-
-```r
-# Install packages
-install.packages('terra') # if needed
-devtools::install_github('USDA-SCINet/rgeocdl') # if needed
-
+salloc
+module load miniconda
+conda create --name geoenv
+source activate geoenv
+conda install geopandas rioxarray rasterstats plotnine ipython dask dask-jobqueue -c conda-forge
+python
 ```
 
 The code chunk below will download the example data. For our US county polygons, 
-we are downloading a zipped folder containing a shapefile. The folder is then 
-unzipped. For our precipitation data, we are using the SCINet GeoCDL's R package
-`rgeocdl` to download annual precipitation for 2000-2020 in a bounding box 
+we are downloading a zipped folder containing a shapefile. For our precipitation data, we are using the SCINet GeoCDL
+to download annual precipitation for 2000-2020 in a bounding box 
 approximately covering the state of Florida. Feel free to change the latitude
 and longitude to your preferred area, but any mentions of processing times below 
-will reflect the bounds provided. 
-
-```r
-# Load packages for downloading data
-library(rgeocdl)
-
-# Download vector data - US Counties shapefile from US Census 
-vector_f <- 'us_counties2021'
-vector_zip <- paste0(vector_f,'.zip')
-httr::GET('https://www2.census.gov/geo/tiger/GENZ2021/shp/cb_2021_us_county_20m.zip',
-          httr::write_disk(vector_zip,
-                           overwrite=TRUE))
-unzip(vector_zip,
-      exdir = vector_f)
+will reflect the bounds provided.
 
 
-# Download raster data - PRISM's annual precipitation in box around Florida
-download_polygon_subset(dsvars = data.frame(ds = 'PRISM',var = 'ppt'),
-                        years = '2000:2020',
-                        t_geom = data.frame(x = c(-87.5,-79), y = c(31,24.5)),
-                        req_name = 'ppt_for_zonal_stats')
+```python
+import urllib.request
+import zipfile
+
+# Vector data
+vector_base = 'us_counties2021'
+vector_zip = vector_base + '.zip'
+urllib.request.urlretrieve('https://www2.census.gov/geo/tiger/GENZ2021/shp/cb_2021_us_county_20m.zip', vector_zip)
+with zipfile.ZipFile(vector_zip,"r") as zip_ref:
+    zip_ref.extractall(vector_base)
+
+# Raster data
+geocdl_url = 'http://10.1.1.80:8000/subset_polygon?datasets=PRISM%3Appt&years=2000:2020&clip=(-87.5,31),(-79,24.5)'
+raster_base = 'ppt_for_zonal_stats'
+raster_zip = raster_base + '.zip'
+urllib.request.urlretrieve(geocdl_url, raster_zip)
+with zipfile.ZipFile(raster_zip,"r") as zip_ref:
+    zip_ref.extractall(raster_base)
+
 ```
 
-You may now exit R by typing:
+You may now exit python by typing:
 
-```r
-q()
+
+```python
+quit()
 ```
 
+### Step 1: Write and save a serial python script that accepts command line arguments
 
-## Step 1: Write and save a serial R script that accepts command line arguments
-
-Save these lines below as `zonal_stats.R` on Ceres. It is an R script that:
+Save these lines below as `zonal_stats.py` on Ceres. It is a python script that:
 
 1. Takes one argument from the command line to specify the data input year
-2. Uses the `terra` package to open the data file associated with that year
+2. Points to the raster data file associated with that year
 3. Opens the vector data
 4. Extracts the mean values per polygon
 
-```r
+
+```python
+import argparse
+import geopandas as gpd
+import rioxarray
+from shapely.geometry import box
+from rasterstats import zonal_stats
+
 # Read in command line arguments. Expecting a year value.
-args = commandArgs(trailingOnly=TRUE)
-
-if (length(args)==0) {
-  stop("Enter the year of data you want extracted", 
-       call.=FALSE)
-} 
-
-# Load terra library for spatial analyses
-library(terra)
+parser = argparse.ArgumentParser()
+parser.add_argument("year",type=int)
+args = parser.parse_args()
 
 # Read in the raster corresponding to the year argument
-my_raster <- rast(paste0('ppt_for_zonal_stats-1/PRISM_ppt_', 
-                         args[1], 
-                         '.tif'))
+r_fname = 'ppt_for_zonal_stats/PRISM_ppt_' + str(args.year) + '.tif'
+my_raster = rioxarray.open_rasterio(r_fname)
+raster_bounds = my_raster.rio.bounds()
 
 # Read in the polygon shapefile and transform it to match raster
-my_polygons <- crop(project(vect('us_counties2021/cb_2021_us_county_20m.shp'),
-                            my_raster),
-                    my_raster)
+my_polygons = gpd.read_file('us_counties2021/cb_2021_us_county_20m.shp')
+rbounds_df = gpd.GeoDataFrame({"id":1,"geometry":[box(*raster_bounds)]},
+                              crs = my_raster.rio.crs)
+my_polygons = my_polygons.to_crs(my_raster.rio.crs).clip(rbounds_df)
 
 # Extract mean raster value per polygon
-my_polygons$mean <- extract(my_raster,
-                            my_polygons,
-                            na.rm = TRUE,
-                            fun = mean)$ppt
+zs_gj = zonal_stats(
+    my_polygons, 
+    r_fname, 
+    stats = "mean",
+    geojson_out = True)
+zs_gpd = gpd.GeoDataFrame.from_features(zs_gj)
 
 # Save extracted mean values in a shapefile
-writeVector(my_polygons, filename = paste0('stats_', args[1], '.shp'))
+zs_gpd.to_file('stats_' + str(args.year) + '.shp')
 ```
 
-## Step 2: Write and save a SLURM job submission script
+### Step 2: Write and save a SLURM job submission script
 
-Now that we have our R script that accepts a year as input, we will write a 
-SLURM job batch script to request that R script be called over an array of years. 
+Now that we have our python script that accepts a year as input, we will write a 
+SLURM job batch script to request that python script be called over an array of years. 
 This kind of job submission is known as a 'job array'. Each 'task' in the job 
 array, each year in our case, will be treated like its own job in the SLURM queue,
 but with the benefit of only having to submit one submission batch script. 
@@ -198,7 +186,7 @@ but with the benefit of only having to submit one submission batch script.
 Save the lines below as `zonal_stats.sh`. The lines starting with `#SBATCH` are
 instructions for SLURM about how long your job will take to run, how many cores
 you need, etc. The lines that follow afterwards are like any other batch script.
-Here, we are loading required modules and then executing our R script. 
+Here, we are loading required modules and then executing our python script. 
 
 ```bash
 #!/bin/bash
@@ -211,10 +199,10 @@ Here, we are loading required modules and then executing our R script.
 #SBATCH --output=slurm_%A_%a.out  # format of output filename
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
-module load r/3.6
+module load miniconda
+source activate geoenv
 
-# Execute the R script and pass the year (task ID) as argument
-Rscript --vanilla zonal_stats.R ${SLURM_ARRAY_TASK_ID}
+python zonal_stats.py ${SLURM_ARRAY_TASK_ID}
 ```
 
 The meaning of our parameter choices:
@@ -232,7 +220,7 @@ information about the available partitions on Ceres.
 although we are submitting one job script, treat it as an array of many tasks. 
 Those tasks should have IDs in the range of 2000-2020 to represent the years of
 data we want analyzed.
-* `--output=slurm_%A_%a.out`: Save any output from R (e.g. printed messages,
+* `--output=slurm_%A_%a.out`: Save any output from python (e.g. printed messages,
 warnings, and errors) to a file with a filename in the format of 
 *output_JOBID_TASKID.out*. The *JOBID* is assigned when the job is submitted (see
 the next step) and the *TASKID* will be in the range of our tasks in the array, 
@@ -245,20 +233,20 @@ your own job ID or setting memory requirements. Check out the
 to see more examples on how to populate job submission scripts on Ceres.
 
 
-## Step 3: Submit your job
+### Step 3: Submit your job
 
-Now that we have our packages, data, R script, and job submission script prepared,
+Now that we have our packages, data, python script, and job submission script prepared,
 we can finally submit the job. To submit a batch job to SLURM, we use the command 
 `sbatch` followed by the job submission script filename via our shell. After you 
 run this line, you will see a message with your job ID. You can use this to 
 identify this job in the queue.
 
+
 ```bash
 sbatch zonal_stats.sh
 ```
 
-
-## Step 4: Check results
+### Step 4: Watch the queue
 
 To see the status of your job, you can view the SLURM queue. The queue lists all
 of the jobs currently submitted, who submitted them, the job status, and what
@@ -267,15 +255,19 @@ to find your jobs if you filter the queue to only the jobs you submitted. The
 command to view the queue is `squeue` and you can filter it to a specific user
 with the `-u` parameter followed by their SCINet account name.
 
+
 ```bash
 squeue -u firstname.lastname
 ```
 
 If you see jobs listed in the queue: you have jobs currently in the queue and the status 
-column will indicate if that job is pending, running, or completing. If you do NOT 
-see jobs listed in the queue: you do not have jobs currently in the
+column will indicate if that job is pending, running, or completing. 
+
+If you do NOT see jobs listed in the queue: you do not have jobs currently in the
 queue. If you submitted jobs but they are not listed, then they completed - either
 successfully or unsuccessfully. 
+
+### Step 5: Check results
 
 To determine if the job executed successfully, 
 you may check if your anticipated output was created. In our case, we would expect
@@ -284,16 +276,16 @@ anticipated results, you can read the contents of the *output_JOBID_TASKID.out*
 files to check for error messages. 
 
 Here is a visual of our 2020 result in *stats_2020.shp* showing the mean 2020 
-total precipitation per county in Florida. Note: if you want to run these lines
-and create the plot, it is easiest to do so in RStudio Server via Open OnDemand.
+total precipitation per county in Florida. 
 
-```r
-library(terra)
-result <- vect('stats_2020.shp')
-plot(result, 'mean')
+
+```python
+import geopandas as gpd
+result = gpd.read_file('stats_2020.shp')
+result.plot('mean')
 ```
 
-
-![county_ppt](assets/R_county_ppt-1.png)
-
+    
+![png](assets/Session8_Tutorial3_21_1.png)
+    
 
