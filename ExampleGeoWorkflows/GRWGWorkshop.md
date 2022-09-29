@@ -6,18 +6,18 @@ header:
   overlay_image: assets/images/usgs-Fm95IBf5buw-unsplash.jpg
 ---
 
-Materials modified from the [USDA-ARS SCINet Geospatial Research Working Group Workshop 2022](https://usda-scinet.github.io/scinet-geospatial-site/). Coming soon: more 
-tutorials plus Python versions for current tutorials.
+Materials modified from the [USDA-ARS SCINet Geospatial Research Working Group Workshop 2022](https://usda-scinet.github.io/scinet-geospatial-site/). Coming soon:  
+more Python versions for current tutorials.
 
 ## Index
 
-| Tutorial  | R | 
+| Tutorial | Python | R | 
 |:--|:--|
-| SCINet Geospatial Common Data Library (GeoCDL) | [view](GRWG22_GeoCDL_R) [download](../tutorials/GRWG22_GeoCDL.Rmd) | 
-| Handling Vector Data | [view](GRWG22_VectorData_R) [download](../tutorials/GRWG22_VectorData.Rmd) |
-| Raster Calculations with Tiles | [view](GRWG22_RasterTiles_R) [download](../tutorials/GRWG22_RasterTiles.Rmd) |
-| SLURM Job Arrays for Many Data Input Files | [view](GRWG22_ZonalStats_wSLURM_R) [download](../tutorials/GRWG22_ZonalStats_wSLURM.Rmd) | 
-| Submitting SLURM jobs from R/python | [view](GRWG22_JobPerDataFile_R) [download](../tutorials/GRWG22_JobPerDataFile.Rmd) |
+| SCINet Geospatial Common Data Library (GeoCDL) | | [view](GRWG22_GeoCDL_R) [download](../tutorials/GRWG22_GeoCDL.Rmd) | 
+| Handling Vector Data | [view](GRWG22_VectorData_python) [download](../tutorials/GRWG22_VectorData.ipynb) | [view](GRWG22_VectorData_R) [download](../tutorials/GRWG22_VectorData.Rmd) |
+| Raster Calculations with Tiles | | [view](GRWG22_RasterTiles_R) [download](../tutorials/GRWG22_RasterTiles.Rmd) |
+| SLURM Job Arrays for Many Data Input Files | | [view](GRWG22_ZonalStats_wSLURM_R) [download](../tutorials/GRWG22_ZonalStats_wSLURM.Rmd) | 
+| Submitting SLURM jobs from R/python | | [view](GRWG22_JobPerDataFile_R) [download](../tutorials/GRWG22_JobPerDataFile.Rmd) |
 
 
 <!--
