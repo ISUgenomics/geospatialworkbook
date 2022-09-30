@@ -27,7 +27,7 @@ header:
 This tutorial covers how to use an R script to list many input files and submit
 a SLURM job script to apply another R script to the input files. No actual 
 geospatial analyses are applied in this example as it was a generic request
-during the 10th session of the Geospatial Research Working Group Workshop. 
+during the 10th session of the Geospatial Research Working Group Workshop 2022. 
 
 If you prefer to have a single SLURM submission script iterate over your data 
 inputs, see [this tutorial](https://geospatial.101workbook.org/ExampleGeoWorkflows/GRWG22_ZonalStats_wSLURM_R).

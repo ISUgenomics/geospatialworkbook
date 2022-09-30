@@ -67,14 +67,16 @@ in 2018.
 
 ### Step 0: Import Libraries / Packages
 
-Below are commands to run to create a new Conda environment named 'geoenv' that contains the packages used in this tutorial. To learn more about using Conda environments on Ceres, see [this guide](https://scinet.usda.gov/guide/conda/).
+Below are commands to run to create a new Conda environment named 'geoenv' that contains the packages used in this tutorial series. To learn more about using Conda environments on Ceres, see [this guide](https://scinet.usda.gov/guide/conda/). NOTE: If you have used other Geospatial Workbook tutorials from the SCINet Geospatial Research Working Group Workshop 2022, you may have aleady created this environment and may skip to launching JupyterHub.
+
+First, we call `salloc` to be allocated resources on a compute node so we do not burden the login node with the conda installations. Then we load the `miniconda` conda module available on Ceres to access the `Conda` commands to create environments, activate them, and install Python and packages. 
 
 
 ```bash
 module load miniconda
 conda create --name geoenv
 source activate geoenv
-conda install geopandas plotnine ipython
+conda install geopandas rioxarray rasterstats plotnine ipython dask dask-jobqueue -c conda-forge
 ```
 
 To have JupyterLab use this conda environment, we will make a kernel.
