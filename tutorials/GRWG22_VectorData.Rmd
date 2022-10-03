@@ -31,6 +31,17 @@ determine which stations observed unhealthy concentrations of small particulate
 matter (PM2.5) in the atmosphere around the time of the Camp Fire in northern CA 
 in 2018. 
 
+This tutorial assumes you are running this Rmarkdown file in RStudio Server on 
+Ceres. The easiest way to do that is with 
+[Open OnDemand](http://ceres-ood.scinet.usda.gov/).  Select the following parameter 
+values when requesting a RStudio Server: Ceres app to be launched (all other 
+values can be left to their defaults):
+
+* `Slurm Partition`: short
+* `R Version`: 4.2.0
+* `Number of hours`: 1
+* `Number of cores`: 2
+
 *Language:* `R`
 
 *Primary Libraries/Packages:*
@@ -99,7 +110,7 @@ accurate.
 
 ```{r fire}
 fire_f <- 'Historic_Perimeters_Combined_2000-2018_GeoMAC_CA2018.geojson'
-dnld_url <- 'https://raw.githubusercontent.com/HeatherSavoy-USDA/geospatialworkbook/master/ExampleGeoWorkflows/assets/'
+dnld_url <- 'https://raw.githubusercontent.com/ISUgenomics/geospatialworkbook/master/ExampleGeoWorkflows/assets/'
 httr::GET(paste0(dnld_url,fire_f),
           httr::write_disk(fire_f,
                            overwrite=TRUE))
@@ -139,7 +150,6 @@ for example, when the fires occurred during the year.
 ```{r fire_time}
 # Plotting when wildfires occurred throughout 2018
 fire_CA2018 %>%
-  select(perimeterdatetime) %>%
   ggplot(aes(perimeterdatetime)) +
   geom_histogram() +
   scale_x_datetime(breaks = '1 month',
@@ -152,13 +162,12 @@ We will read in an air quality dataset to showcase combining multiple vector
 datasets. The geometry type is point, representing sampling stations. This 
 dataset can be downloaded with an API, but you need to register an account, so 
 the download process has been done already and the data are available in our 
-'session6' folder. Some pre-processing for this dataset was done to make it into 
+GitHub repository. Some pre-processing for this dataset was done to make it into 
 a feature collection.
 
 ```{r air}
 aq_base <- 'air_quality_CA2018'
 aq_zip <- paste0(aq_base,'.zip')
-#dnld_url <- 'https://github.com/HeatherSavoy-USDA/geospatialworkbook/raw/master/ExampleGeoWorkflows/assets/'
 httr::GET(paste0(dnld_url,aq_zip),
           httr::write_disk(aq_zip,
                            overwrite=TRUE))
