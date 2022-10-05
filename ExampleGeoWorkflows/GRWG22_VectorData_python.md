@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 28 September 2022 <br />
+**Last Update:** 5 October 2022 <br />
 **Download Jupyter Notebook**: [GRWG22_VectorData.ipynb](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.ipynb)
 
 ## Overview
@@ -69,10 +69,11 @@ in 2018.
 
 Below are commands to run to create a new Conda environment named 'geoenv' that contains the packages used in this tutorial series. To learn more about using Conda environments on Ceres, see [this guide](https://scinet.usda.gov/guide/conda/). NOTE: If you have used other Geospatial Workbook tutorials from the SCINet Geospatial Research Working Group Workshop 2022, you may have aleady created this environment and may skip to launching JupyterHub.
 
-First, we call `salloc` to be allocated resources on a compute node so we do not burden the login node with the conda installations. Then we load the `miniconda` conda module available on Ceres to access the `Conda` commands to create environments, activate them, and install Python and packages. 
+First, we call `salloc` to be allocated resources on a compute node so we do not burden the login node with the conda installations. Then we load the `miniconda` conda module available on Ceres to access the `Conda` commands to create environments, activate them, and install Python and packages.
 
 
 ```bash
+salloc
 module load miniconda
 conda create --name geoenv
 source activate geoenv
@@ -102,7 +103,8 @@ Once you are in JupyterLab with this notebook open, select your kernel by clicki
 
 ```python
 import geopandas as gpd
-from plotnine import ggplot, geom_map, aes, theme, geom_histogram, scale_x_datetime, geom_line, ylab, xlab
+import numpy as np
+from plotnine import ggplot, geom_map, aes, theme, geom_histogram, scale_x_datetime, geom_line, ylab, xlab, annotate
 from datetime import datetime, date
 ```
 
@@ -119,7 +121,7 @@ code is for the Equal Area CONUS Albers.
 
 ```python
 fire_f = 'Historic_Perimeters_Combined_2000-2018_GeoMAC_CA2018.geojson'
-dnld_url = 'https://raw.githubusercontent.com/ISUgenomics/geospatialworkbook/master/ExampleGeoWorkflows/assets/'
+dnld_url = 'https://geospatial.101workbook.org/ExampleGeoWorkflows/assets/'
 all_fires = gpd.read_file(dnld_url + fire_f)
 fire_CA2018 = all_fires.to_crs(5070)
 ```
@@ -132,7 +134,7 @@ when the fires occurred during the year.
 ```python
 # CA boundary
 census_states = gpd.read_file('https://www2.census.gov/geo/tiger/GENZ2021/shp/cb_2021_us_state_20m.zip')
-CA = census_states.loc[census_states['NAME'] == 'California'].to_crs(5070)
+CA = census_states.loc[census_states['NAME'] == 'California'].to_crs(fire_CA2018.crs)
 
 # The Camp Fire feature
 camp_fire = fire_CA2018.loc[fire_CA2018['incidentname'] == 'CAMP']
@@ -175,7 +177,7 @@ a feature collection.
 
 
 ```python
-CA_PM25 = gpd.read_file(dnld_url + 'air_quality_CA2018.zip')
+CA_PM25 = gpd.read_file(dnld_url + 'air_quality_CA2018.zip').to_crs(fire_CA2018.crs)
 ```
 
 ### Step 3: Find the air quality stations within 200km of the fire perimeter
@@ -213,19 +215,30 @@ time of this wildfire.
 
 ```python
 # Filter to 30 days from fire perimeter date
-air_fire['dat_local'] = [datetime.strptime(dt, '%Y-%m-%d').date() for dt in list(air_fire['dat_lcl'])]
-air_fire['perimeterdate'] = [dt.date() for dt in air_fire['perimeterdatetime']]
+# local date for air quality measurement
+air_fire['dat_local'] = [datetime.strptime(dt, '%Y-%m-%d').date() for dt in list(air_fire['dat_lcl'])] 
+# fire perimeter date
+air_fire['perimeterdate'] = [dt.date() for dt in air_fire['perimeterdatetime']] 
 air_fire['date_shift'] = air_fire['dat_local'] - air_fire['perimeterdate']
+# Arithmetic mean of PM2.5 concentration
 air_fire['arthmt_'] = air_fire['arthmt_'].astype('float64')
 air_fire['station_id'] = air_fire['stat_cd'] + air_fire['cnty_cd'] + air_fire['st_nmbr']
 air_near_fire = air_fire.loc[abs(air_fire['date_shift']).astype('timedelta64[D]') < 30]
 
+# Define bounds of Camp Fire dates for illustrative purposes
+camp_dates = ['2018-11-08','2018-11-25']
+camp_dates = [datetime.strptime(cd, '%Y-%m-%d').date() for cd in camp_dates] 
+camp_dates = [cd - air_fire['perimeterdate'][0] for cd in camp_dates]
+
 ggplot(air_near_fire, aes('date_shift','arthmt_')) + \
+  annotate('rect', xmin = camp_dates[0], xmax = camp_dates[1],
+           ymin = -np.inf, ymax = np.inf,
+           fill = 'firebrick', alpha = 0.5) + \
   geom_line(aes(group='station_id')) + \
   xlab('Days before/after fire perimeter') + \
   ylab('PM2.5 [micrograms/cubic meter]')
 ```
-
+ 
 ![png](assets/Session8_Tutorial1_19_0.png)
     
 
@@ -246,6 +259,6 @@ ggplot() + \
    theme(figure_size = (6,8))
 
 ```
-
+    
 ![png](assets/Session8_Tutorial1_21_0.png)
     

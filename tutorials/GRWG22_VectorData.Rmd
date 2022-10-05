@@ -19,7 +19,7 @@ header:
 ---
 --> 
 
-**Last Update:** 27 September 2022 <br />
+**Last Update:** 5 October 2022 <br />
 **Download RMarkdown**: [GRWG22_VectorData.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.Rmd)
 
 ## Overview
@@ -110,7 +110,7 @@ accurate.
 
 ```{r fire}
 fire_f <- 'Historic_Perimeters_Combined_2000-2018_GeoMAC_CA2018.geojson'
-dnld_url <- 'https://raw.githubusercontent.com/ISUgenomics/geospatialworkbook/master/ExampleGeoWorkflows/assets/'
+dnld_url <- 'https://geospatial.101workbook.org/ExampleGeoWorkflows/assets/'
 httr::GET(paste0(dnld_url,fire_f),
           httr::write_disk(fire_f,
                            overwrite=TRUE))
@@ -173,7 +173,8 @@ httr::GET(paste0(dnld_url,aq_zip),
                            overwrite=TRUE))
 unzip(aq_zip)
 
-ca_PM25 <- st_read(paste0(aq_base,'.shp'))
+ca_PM25 <- st_read(paste0(aq_base,'.shp')) %>%
+  st_transform(st_crs(fire_CA2018))
 ```
 
 ## Step 3: Find the air quality stations within 200km of the fire perimeter
@@ -197,7 +198,7 @@ air quality stations within 200 km from the fire perimeter. To make sure we are
 looking at the right time of year, we will relate the non-spatial attributes of
 the two feature collections. Both datasets come with date columns: when the air
 quality was recorded and when the perimeter was determined (so the latter is 
-an approximate time near the end of the fire). We will filter our spatially-
+an approximate time after the end of the fire). We will filter our spatially-
 joined dataset to within 30 days of the fire perimeter date so we only consider
 air quality within a 2-month window around the time of the fire. 
 
@@ -210,13 +211,22 @@ time of this wildfire.
 ```{r join_plot}
 # Filter to 30 days from fire perimeter date
 air_near_fire <- air_fire %>%
-  mutate(date_shift = ymd(dat_lcl) - as.Date(perimeterdatetime),
+  mutate(dat_lcl = ymd(dat_lcl), # local date for air quality measurement
+         perimeterdatetime = as.Date(perimeterdatetime), # fire perimeter date
+         date_shift = dat_lcl - perimeterdatetime,
          PM25 = as.numeric(arthmt_),
          station_id = paste(stat_cd, cnty_cd, st_nmbr)) %>% 
   filter(abs(date_shift) <= 30)
 
+# Define bounds of Camp Fire dates for illustrative purposes
+camp_dates <- ymd(c('2018-11-08','2018-11-25')) - unique(air_near_fire$perimeterdatetime)
+
 air_near_fire %>%
+  tidyr::complete(station_id, date_shift) %>%
   ggplot(aes(date_shift,PM25)) +
+  annotate('rect', xmin = camp_dates[1], xmax = camp_dates[2],
+            ymin = -Inf, ymax = Inf,
+            fill = 'firebrick', alpha = 0.5) +
   geom_line(aes(group = station_id)) +
   scale_x_continuous(name = 'Days before/after fire perimeter') +
   scale_y_continuous(name = 'PM2.5 [micrograms/cubic meter]')

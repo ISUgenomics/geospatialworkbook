@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 8 September 2022 <br />
+**Last Update:** 5 October 2022 <br />
 **Download RMarkdown**: [GRWG22_VectorData.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.Rmd)
 
 <!-- ToDo: would be great to have an R binder badge here -->
@@ -90,7 +90,7 @@ accurate.
 
 ```r
 fire_f <- 'Historic_Perimeters_Combined_2000-2018_GeoMAC_CA2018.geojson'
-dnld_url <- 'https://raw.githubusercontent.com/HeatherSavoy-USDA/geospatialworkbook/master/ExampleGeoWorkflows/assets/'
+dnld_url <- 'https://geospatial.101workbook.org/ExampleGeoWorkflows/assets/'
 httr::GET(paste0(dnld_url,fire_f),
           httr::write_disk(fire_f,
                            overwrite=TRUE))
@@ -159,7 +159,8 @@ httr::GET(paste0(dnld_url,aq_zip),
                            overwrite=TRUE))
 unzip(aq_zip)
 
-ca_PM25 <- st_read(paste0(aq_base,'.shp'))
+ca_PM25 <- st_read(paste0(aq_base,'.shp')) %>%
+  st_transform(st_crs(fire_CA2018))
 ```
 
 ## Step 3: Find the air quality stations within 200km of the fire perimeter
@@ -196,13 +197,23 @@ time of this wildfire.
 ```r
 # Filter to 30 days from fire perimeter date
 air_near_fire <- air_fire %>%
-  mutate(date_shift = ymd(dat_lcl) - as.Date(perimeterdatetime),
+  mutate(dat_lcl = ymd(dat_lcl), # local date for air quality measurement
+         perimeterdatetime = as.Date(perimeterdatetime), # fire perimeter date
+         date_shift = dat_lcl - perimeterdatetime,
          PM25 = as.numeric(arthmt_),
          station_id = paste(stat_cd, cnty_cd, st_nmbr)) %>% 
   filter(abs(date_shift) <= 30)
+  
+# Define bounds of Camp Fire dates for illustrative purposes
+camp_dates <- ymd(c('2018-11-08','2018-11-25')) - unique(air_near_fire$perimeterdatetime)
+
 
 air_near_fire %>%
+  tidyr::complete(station_id, date_shift) %>%
   ggplot(aes(date_shift,PM25)) +
+  annotate('rect', xmin = camp_dates[1], xmax = camp_dates[2],
+            ymin = -Inf, ymax = Inf,
+            fill = 'firebrick', alpha = 0.5) +
   geom_line(aes(group = station_id)) +
   scale_x_continuous(name = 'Days before/after fire perimeter') +
   scale_y_continuous(name = 'PM2.5 [micrograms/cubic meter]')
