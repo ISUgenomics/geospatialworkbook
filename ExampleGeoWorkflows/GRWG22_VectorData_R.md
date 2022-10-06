@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 5 October 2022 <br />
+**Last Update:** 6 October 2022 <br />
 **Download RMarkdown**: [GRWG22_VectorData.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.Rmd)
 
 <!-- ToDo: would be great to have an R binder badge here -->
@@ -127,7 +127,11 @@ fire_CA2018 %>%
 ![fire_map](assets/R_fire_map-1.png)
 
 Since this feature collection has several attributes, we can also visualize, 
-for example, when the fires occurred during the year.
+for example, when the fires occurred during the year. Note that the dates are
+when the fires' perimeters are established, not when the fires start. Since fires 
+can endure for many days and change their spatial extent over that time, this
+date is when the maximum extent of the fire was determined, which needs to be 
+at the end of the fire.
 
 ```r
 # Plotting when wildfires occurred throughout 2018
@@ -198,24 +202,32 @@ time of this wildfire.
 # Filter to 30 days from fire perimeter date
 air_near_fire <- air_fire %>%
   mutate(dat_lcl = ymd(dat_lcl), # local date for air quality measurement
-         perimeterdatetime = as.Date(perimeterdatetime), # fire perimeter date
-         date_shift = dat_lcl - perimeterdatetime,
+         perimeterdate = as.Date(perimeterdatetime), # fire perimeter date
+         date_shift = dat_lcl - perimeterdate,
          PM25 = as.numeric(arthmt_),
          station_id = paste(stat_cd, cnty_cd, st_nmbr)) %>% 
   filter(abs(date_shift) <= 30)
   
 # Define bounds of Camp Fire dates for illustrative purposes
-camp_dates <- ymd(c('2018-11-08','2018-11-25')) - unique(air_near_fire$perimeterdatetime)
+# Camp Fire burned for 17 days- add a polygon to graph to visualize temporal overlap with low air quality
+camp_dates <- ymd(c('2018-11-08','2018-11-25'))
+
+# Camp Fire's maximum perimeter established at end of fire
+fp_date <- unique(air_near_fire$perimeterdate)
 
 
 air_near_fire %>%
-  tidyr::complete(station_id, date_shift) %>%
-  ggplot(aes(date_shift,PM25)) +
+  tidyr::complete(station_id, dat_lcl) %>%
+  ggplot(aes(dat_lcl,PM25)) +
   annotate('rect', xmin = camp_dates[1], xmax = camp_dates[2],
             ymin = -Inf, ymax = Inf,
             fill = 'firebrick', alpha = 0.5) +
   geom_line(aes(group = station_id)) +
-  scale_x_continuous(name = 'Days before/after fire perimeter') +
+  geom_vline(xintercept = fp_date, 
+             color = 'red',
+             lwd = 1,
+             linetype = 'dashed') +
+  scale_x_date(name = '',date_breaks = "1 week",date_labels = "%m-%d-%y") +
   scale_y_continuous(name = 'PM2.5 [micrograms/cubic meter]')
 
 ```

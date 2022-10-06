@@ -8,11 +8,11 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 5 October 2022 <br />
+**Last Update:** 6 October 2022 <br />
 **Download Jupyter Notebook**: [GRWG22_VectorData.ipynb](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.ipynb)
 
 ## Overview
-This tutorial covers how to manipulate geospatial vector datasets in R. A 
+This tutorial covers how to manipulate geospatial vector datasets in python. A 
 dataset with polygon geometries representing wildfire perimeters is joined with 
 a dataset with point geometries representing air quality monitoring stations to
 determine which stations observed unhealthy concentrations of small particulate 
@@ -104,7 +104,7 @@ Once you are in JupyterLab with this notebook open, select your kernel by clicki
 ```python
 import geopandas as gpd
 import numpy as np
-from plotnine import ggplot, geom_map, aes, theme, geom_histogram, scale_x_datetime, geom_line, ylab, xlab, annotate
+from plotnine import ggplot, geom_map, aes, theme, geom_histogram, scale_x_datetime, geom_line, ylab, xlab, annotate, geom_vline
 from datetime import datetime, date
 ```
 
@@ -152,7 +152,11 @@ ggplot() + \
     
 
 Since this feature collection has several attributes, we can also visualize, 
-for example, when the fires occurred during the year.
+for example, when the fires occurred during the year. Note that the dates are
+when the fires' perimeters are established, not when the fires start. Since fires 
+can endure for many days and change their spatial extent over that time, this
+date is when the maximum extent of the fire was determined, which needs to be 
+at the end of the fire.
 
 
 ```python
@@ -214,7 +218,7 @@ time of this wildfire.
 
 
 ```python
-# Filter to 30 days from fire perimeter date
+# Filter to 30 days from fire perimeter date -
 # local date for air quality measurement
 air_fire['dat_local'] = [datetime.strptime(dt, '%Y-%m-%d').date() for dt in list(air_fire['dat_lcl'])] 
 # fire perimeter date
@@ -226,16 +230,22 @@ air_fire['station_id'] = air_fire['stat_cd'] + air_fire['cnty_cd'] + air_fire['s
 air_near_fire = air_fire.loc[abs(air_fire['date_shift']).astype('timedelta64[D]') < 30]
 
 # Define bounds of Camp Fire dates for illustrative purposes
-camp_dates = ['2018-11-08','2018-11-25']
-camp_dates = [datetime.strptime(cd, '%Y-%m-%d').date() for cd in camp_dates] 
-camp_dates = [cd - air_fire['perimeterdate'][0] for cd in camp_dates]
+# Camp Fire burned for 17 days- add a polygon to graph to visualize temporal overlap with low air quality
+camp_dates = [datetime.strptime(dt, '%Y-%m-%d').date() for dt in ['2018-11-08','2018-11-25']]
+
+# Camp Fire's maximum perimeter established at end of fire
+fp_date = air_fire['perimeterdate'][0]
 
 ggplot(air_near_fire, aes('date_shift','arthmt_')) + \
   annotate('rect', xmin = camp_dates[0], xmax = camp_dates[1],
            ymin = -np.inf, ymax = np.inf,
            fill = 'firebrick', alpha = 0.5) + \
   geom_line(aes(group='station_id')) + \
-  xlab('Days before/after fire perimeter') + \
+  geom_vline(xintercept = fp_date, 
+             color = 'red',
+             size = 1,
+             linetype = 'dashed') + \
+  scale_x_datetime(name = 'Date', date_breaks = "10 days", date_labels = "%m-%d-%y") + \
   ylab('PM2.5 [micrograms/cubic meter]')
 ```
  
