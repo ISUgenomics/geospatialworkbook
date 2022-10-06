@@ -175,6 +175,14 @@ module load r
 Rscript --vanilla JobPerDataFile_submit.R
 ```
 
+You will see a message from SLURM about a submitted job for each input file your 
+R script found:
+```
+Submitted batch job 8145023
+Submitted batch job 8145024
+Submitted batch job 8145025
+```
+
 ## Step 4: Check results
 
 To see the status of your job, you can view the SLURM queue. The queue lists all
@@ -186,6 +194,13 @@ with the `-u` parameter followed by their SCINet account name.
 
 ```bash
 squeue -u firstname.lastname
+```
+
+```
+       JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+     8145023     short JobPerDa heather.  R       0:04      1 ceres20-compute-3
+     8145024     short JobPerDa heather.  R       0:04      1 ceres20-compute-3
+     8145025     short JobPerDa heather.  R       0:04      1 ceres20-compute-3
 ```
 
 If you see jobs listed in the queue: you have jobs currently in the queue and the 
