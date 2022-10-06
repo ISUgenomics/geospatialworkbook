@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 30 September 2022 <br />
+**Last Update:** October 6 2022 <br />
 **Download Jupyter Notebook**: [GRWG22_RasterTiles.ipynb](https://geospatial.101workbook.org/tutorials/GRWG22_RasterTiles.ipynb)
 
 
@@ -89,7 +89,7 @@ values can be left to their defaults):
 * `Slurm Partition`: short
 * `Number of hours`: 1
 * `Number of cores`: 16
-* `Memory required`: 6G
+* `Memory required`: 24G
 * `Jupyer Notebook vs Lab`: Lab
 
 Once you are in JupyterLab with this notebook open, select your kernel by clicking on the *Switch kernel* button in the top right corner of the editor. A pop-up will appear with a dropdown menu containing the *geo_kernel* kernel we made above. Click on the *geo_kernel* kernel and click the *Select* button. 
@@ -218,8 +218,8 @@ et = time.time()
 print('Processing time: {:.2f} seconds'.format(et - st))
 ```
 
-```python
-Processing time: 4.11 seconds
+```
+Processing time: 7.97 seconds
 ```
 
 #### Parallel
@@ -241,8 +241,8 @@ et = time.time()
 print('Processing time: {:.2f} seconds'.format(et - st))
 ```
 
-```python
-Processing time: 1.90 seconds
+```
+Processing time: 3.23 seconds
 ```
 
 ### Step 4: Visualize results
@@ -329,8 +329,9 @@ et = time.time()
 print('Processing time: {:.2f} seconds'.format(et - st))
 ```
 
-    Processing time: 0.80 seconds
-
+```
+Processing time: 13.72 seconds
+```
 
 During the computation, you can check the SLURM queue by running the `squeue -u firstname.lastname` in a shell with your SCINet username and see the jobs Dask submits to perform the calculation. 
 

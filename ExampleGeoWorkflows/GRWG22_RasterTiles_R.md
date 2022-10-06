@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 27 September 2022 <br />
+**Last Update:** 6 October 2022 <br />
 **Download RMarkdown**: [GRWG22_RasterTiles.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_RasterTiles.Rmd)
 
 ## Overview
@@ -30,7 +30,7 @@ values can be left to their defaults):
 * `Slurm Partition`: short
 * `R Version`: 4.2.0
 * `Number of cores`: 16
-* `Memory required`: 6G
+* `Memory required`: 24G
 
 In this tutorial, parallelization is performed within R using the resources 
 allocated to the launched RStudio Server session. If you are interested in seeing
@@ -217,6 +217,11 @@ system.time({
 })
 ```
 
+```
+   user  system elapsed 
+ 10.277   0.296  12.665 
+```
+
 
 #### Parallel
 
@@ -239,6 +244,11 @@ system.time({
 })
 ```
 
+```
+   user  system elapsed 
+  9.144   1.426   8.189  
+```
+
 ### Step 3b: `parallel` 
 
 There is another similar approach using the `parallel` package, which comes with
@@ -258,6 +268,11 @@ system.time({
 
 ```
 
+```
+   user  system elapsed 
+ 10.302   0.260  12.746  
+```
+
 #### Parallel
 
 To use the parallel version of `lapply`, two changes are made to our
@@ -273,6 +288,11 @@ system.time({
   mclapply(nr_tiles, normalized_diff_r, mc.cores = prod(num_tiles))
 })
 
+```
+
+```
+   user  system elapsed 
+  6.226   1.213   7.670 
 ```
 
 
