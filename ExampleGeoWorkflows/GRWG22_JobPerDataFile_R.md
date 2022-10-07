@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 23 September 2022 <br />
+**Last Update:** 7 October 2022 <br />
 **Download RMarkdown**: [GRWG22_JobPerDataFile.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_JobPerDataFile.Rmd)
 
 ## Overview
@@ -21,6 +21,10 @@ during the 10th session of the Geospatial Research Working Group Workshop 2022.
 If you prefer to have a single SLURM submission script iterate over your data 
 inputs, see [this tutorial](https://geospatial.101workbook.org/ExampleGeoWorkflows/GRWG22_ZonalStats_wSLURM_R).
 
+The instructions below will be mostly the same for both Ceres and Atlas. Choose
+either cluster to work on for the tutorial. There is one line you will need to
+modify in this tutorial and your options depend on which cluster you are currently
+using.
 
 *Language:* `R`
 
@@ -38,7 +42,7 @@ inputs, see [this tutorial](https://geospatial.101workbook.org/ExampleGeoWorkflo
 
 ## Step 1: Write and save a serial R script that accepts command line arguments
 
-Save the code chunk below as `JobPerDataFile_calculate.R` on Ceres. This is a fake 
+Save the code chunk below as `JobPerDataFile_calculate.R`. This is a fake 
 'calculation'. The script will print the filename it was passed and wait for two 
 minutes just so we can see the job associated with it in the queue. The intent
 of this example R script is to represent a generic R script that accepts one
@@ -63,10 +67,11 @@ Sys.sleep(120)
 
 ## Step 2: Write and save a SLURM job submission script template
 
-Save the code chunk below as `JobPerDataFile_template.sh` on Ceres. We will use these 
+Save the code chunk below as `JobPerDataFile_template.sh`. We will use these 
 lines as a job submission script template and replace the `<THE_DATA_FILE_TRIM>` 
 and `<THE_DATA_FILE>` strings with each of our filenames we want to pass to 
-*JobPerDataFile_calculate.R*.
+*JobPerDataFile_calculate.R*. Note that the one thing you will need to change in
+this tutorial is the account name in this script template.
 
 ```bash
 #!/bin/bash
@@ -74,9 +79,9 @@ and `<THE_DATA_FILE>` strings with each of our filenames we want to pass to
 #SBATCH --time=00:05:00       # walltime limit (HH:MM:SS)
 #SBATCH --nodes=1             # number of nodes
 #SBATCH --ntasks-per-node=2   # 1 processor core(s) per node X 2 threads per core
-#SBATCH --partition=short     # standard node(s)
 #SBATCH --job-name=<THE_DATA_FILE_TRIM>
 #SBATCH --output=slurm_%x.out
+#SBATCH --account=yourProjectName  # REPLACE
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 module load r
@@ -92,25 +97,32 @@ The meaning of our parameter choices:
 processing, you will likely only need one node. 
 * `ntasks-per-node=2`: We want two logical cores on our one node, i.e. each task
 will use one physical core. Our individual tasks are serial and only need one core. 
-* `partition=short`: We will use the 'short' partition on Ceres, the collection 
-of nodes dedicated to shorter walltime jobs not requiring extensive memory. See
-[this guide](https://scinet.usda.gov/guide/ceres/#partitions-or-queues) for more 
-information about the available partitions on Ceres. 
 * `job-name=<THE_DATA_FILE_TRIM>`: We want to assign a job name ourselves instead
 of relying on a JOBID assigned by SLURM for identifying our job on the queue. We will
 be overwriting `<THE_DATA_FILE_TRIM>` with trimmed filenames in the next step.
 * `--output=slurm_%x.out`: Save any output from R (e.g. printed messages,
 warnings, and errors) to a file with a filename in the format of 
 *output_JOBNAME.out*.
+* `--account=yourProjectName`: Atlas requires an account name but Ceres does not. 
+If you are on Atlas, you will need to replace `yourProjectName` with the name of
+one of your projects. If you do not know your available projects, you can
+run
+```
+   sacctmgr show associations where user=$USER format=account%20
+```
+on either cluster to list the names. On Ceres, you have option to replace 
+`yourProjectName` with the name of one of your projects, or delete the whole 
+line from the script.
 
 Note: there are additional SLURM parameters you may use, including how to specify
 your own job ID or setting memory requirements. Check out the 
-[Ceres job script generator](https://scinet.usda.gov/support/ceres-job-script) 
-to see more examples on how to populate job submission scripts on Ceres.
+[Ceres](https://scinet.usda.gov/support/ceres-job-script) or 
+[Atlas (scroll down to 'Atlas Job Script Generator' section)](https://www.hpc.msstate.edu/computing/atlas/)
+job script generator to see more examples on how to populate job submission scripts on Ceres.
 
 ## Step 3: List files and submit jobs
 
-Save the code chunk below as `JobPerDataFile_submit.R` on Ceres. It will: 
+Save the code chunk below as `JobPerDataFile_submit.R`. It will: 
 
 1. Read in the job template we defined above
 2. List data files with a certain pattern in a chosen directory (in this example,
