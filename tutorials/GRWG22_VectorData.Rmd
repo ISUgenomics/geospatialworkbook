@@ -49,6 +49,7 @@ Ceres:
 Atlas:
 * `R Version`: 4.1.0
 * `Partition Name`: development 
+* `QOS`: normal
 * `Number of hours`: 1
 * `Number of tasks`: 2
 
