@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 6 October 2022 <br />
+**Last Update:** 7 October 2022 <br />
 **Download RMarkdown**: [GRWG22_VectorData.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.Rmd)
 
 <!-- ToDo: would be great to have an R binder badge here -->
@@ -21,6 +21,37 @@ a dataset with point geometries representing air quality monitoring stations to
 determine which stations observed unhealthy concentrations of small particulate 
 matter (PM2.5) in the atmosphere around the time
 of the Camp Fire in northern CA in 2018. 
+
+This tutorial assumes you are running this Rmarkdown file in RStudio Server. The 
+easiest way to do that is with Open OnDemand (OoD) on [Ceres](http://ceres-ood.scinet.usda.gov/)
+or [Atlas](https://atlas-ood.hpc.msstate.edu/). 
+Select the following parameter values when requesting a RStudio Server
+app to be launched depending on which cluster you choose. All other values can 
+be left to their defaults. Note: on Atlas, we are using the development partition
+so that we have internet access to download files since the regular compute nodes
+on the `atlas` partition do not have internet access.
+
+Ceres:
+* `Slurm Partition`: short
+* `R Version`: 4.2.0
+* `Number of hours`: 1
+* `Number of cores`: 2
+
+Atlas:
+* `R Version`: 4.1.0
+* `Partition Name`: development 
+* `Number of hours`: 1
+* `Number of tasks`: 2
+
+To download the Rmarkdown file for this tutorial to either cluster within OoD, 
+you can use the following lines:
+
+```r
+library(httr)
+tutorial_name <- 'GRWG22_VectorData.Rmd'
+GET(paste0('https://geospatial.101workbook.org/tutorials/',tutorial_name), 
+    write_disk(tutorial_name))
+```
 
 *Language:* `R`
 
@@ -67,13 +98,23 @@ of the Camp Fire in northern CA in 2018.
 
 
 ## Step 0: Import Libraries/Packages
+For this tutorial, we will use the `sf` package for handling vector data,
+the `USAboundaries` for including state boundaries in our maps, 
+`dplyr` for general tabular data manipulations, `ggplot2` for creating
+visuals, and `lubridate` for handling dates. Each package except `USAboundaries`
+is available from the site libraries accessible to RStudio Server on OoD for 
+both clusters. If you have not used `USAboundaries` before, you may install it 
+from CRAN with `install.packages(USAboundaries)` from within RStudio Server on OoD.
+To learn more about installing packages on Ceres, see 
+[this guide](https://scinet.usda.gov/guide/packageinstall/#installing-r-packages). 
+
 
 ```r
 library(sf)               # Handling vector data
 library(USAboundaries)    # Mapping administrative boundaries
 library(dplyr)            # General data manipulation
 library(ggplot2)          # Visualizations
-library(lubridate)        # Data manipulation
+library(lubridate)        # Date manipulation
 ```
 
 ## Step 1: Read in fire perimeter data and visualize

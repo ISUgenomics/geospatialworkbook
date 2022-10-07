@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 6 October 2022 <br />
+**Last Update:** 7 October 2022 <br />
 **Download Jupyter Notebook**: [GRWG22_VectorData.ipynb](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.ipynb)
 
 ## Overview
@@ -69,15 +69,26 @@ in 2018.
 
 Below are commands to run to create a new Conda environment named 'geoenv' that contains the packages used in this tutorial series. To learn more about using Conda environments on Ceres, see [this guide](https://scinet.usda.gov/guide/conda/). NOTE: If you have used other Geospatial Workbook tutorials from the SCINet Geospatial Research Working Group Workshop 2022, you may have aleady created this environment and may skip to launching JupyterHub.
 
-First, we call `salloc` to be allocated resources on a compute node so we do not burden the login node with the conda installations. Then we load the `miniconda` conda module available on Ceres to access the `Conda` commands to create environments, activate them, and install Python and packages.
+First, we allocate resources on a compute (Ceres) or development (Atlas) node so we do not burden the login node with the conda installations. 
 
+On Ceres:
+```bash
+salloc
+```
+
+On Atlas (you will need to replace `yourProjectName` with one of your project's name):
+```bash
+srun -A yourProjectName -p development --pty --preserve-env bash
+```
+
+Then we load the `miniconda` conda module available on Ceres and Atlas to access the `Conda` commands to create environments, activate them, and install Python and packages.
 
 ```bash
 salloc
 module load miniconda
 conda create --name geoenv
 source activate geoenv
-conda install geopandas rioxarray rasterstats plotnine ipython dask dask-jobqueue -c conda-forge
+conda install geopandas rioxarray rasterstats plotnine ipython ipykernel dask dask-jobqueue -c conda-forge
 ```
 
 To have JupyterLab use this conda environment, we will make a kernel.
@@ -87,16 +98,36 @@ To have JupyterLab use this conda environment, we will make a kernel.
 ipython kernel install --user --name=geo_kernel
 ```
 
-This tutorial assumes you are running this python notebook file in JupyterLab on 
-Ceres. The easiest way to do that is with 
-[Open OnDemand](http://ceres-ood.scinet.usda.gov/).  Select the following parameter 
-values when requesting a Jupyter: Ceres app to be launched (all other 
-values can be left to their defaults):
+This tutorial assumes you are running this python notebook in JupyterLab. The 
+easiest way to do that is with Open OnDemand (OoD) on [Ceres](http://ceres-ood.scinet.usda.gov/)
+or [Atlas](https://atlas-ood.hpc.msstate.edu/). 
+Select the following parameter values when requesting a JupyterLab
+app to be launched depending on which cluster you choose. All other values can 
+be left to their defaults. Note: on Atlas, we are using the development partition
+so that we have internet access to download files since the regular compute nodes
+on the `atlas` partition do not have internet access.
 
+Ceres:
 * `Slurm Partition`: short
 * `Number of hours`: 1
 * `Number of cores`: 2
 * `Jupyer Notebook vs Lab`: Lab
+
+Atlas:
+* `Partition Name`: development 
+* `QOS`: normal
+* `Number of hours`: 1
+* `Number of tasks`: 2
+
+To download the python notebook file for this tutorial to either cluster within OoD, 
+you can use the following lines in the python console:
+
+```python
+import urllib.request
+tutorial_name = 'GRWG22_VectorData.ipynb'
+urllib.request.urlretrieve('https://geospatial.101workbook.org/tutorials/' + tutorial_name, 
+                           tutorial_name)
+```
 
 Once you are in JupyterLab with this notebook open, select your kernel by clicking on the *Switch kernel* button in the top right corner of the editor. A pop-up will appear with a dropdown menu containing the *geo_kernel* kernel we made above. Click on the *geo_kernel* kernel and click the *Select* button. 
 
