@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 26 September 2022 <br />
+**Last Update:** 5 October 2022 <br />
 **Download RMarkdown**: [GRWG22_GeoCDL.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_GeoCDL.Rmd)
 
 ## Overview
@@ -232,25 +232,69 @@ Conterminous US: 2000-2015 data product.
 We will request monthly PRISM precipitation as well. 
 
 The `list_datasets` function will return a dataframe listing the currently
-available datasets from GeoCDL. To learn more about a particular dataset, use its
+available datasets from GeoCDL. 
+
+```r
+# Query the GeoCDL to list all datasets
+list_datasets()
+```
+
+```
+          id                                                                                  name
+1   DaymetV4                                                                      Daymet Version 4
+2    GTOPO30                                                        Global 30 Arc-Second Elevation
+3 MODIS_NDVI          MODIS NDVI Data, Smoothed and Gap-filled, for the Conterminous US: 2000-2015
+4   NASS_CDL                                                              NASS Cropland Data Layer
+5      PRISM                                                                                 PRISM
+6        VIP Vegetation Index and Phenology (VIP) Vegetation Indices Daily Global 0.05Deg CMG V004
+```
+
+To learn more about a particular dataset, use its
 dataset ID with the `view_metadata` function to learn more about the dataset. 
 For example, *MODIS_NDVI* has one variable, *NDVI*, and has data 
 available from 2000-01-01 to 2012-12-31. This *MODIS_NDVI* product has layers 
 for every 8 days over this time period, and so we designate this product as a 
 daily product. 
 
+```r
+# View a dataset's metadata
+view_metadata("MODIS_NDVI")
+```
+
+```
+Name: MODIS NDVI Data, Smoothed and Gap-filled, for the Conterminous US: 2000-2015
+ID: MODIS_NDVI
+URL: https://doi.org/10.3334/ORNLDAAC/1299
+Description: This data set provides Moderate Resolution Imaging Spectroradiometer (MODIS) normalized difference vegetation > index (NDVI) data, smoothed and gap-filled, for the conterminous US for the period 2000-01-01 through 2015-12-31. The data were generated using the NASA Stennis Time Series Product Tool (TSPT) to generate NDVI data streams from the Terra satellite (MODIS MOD13Q1 product) and Aqua satellite (MODIS MYD13Q1 product) instruments. TSPT produces NDVI data that are less affected by clouds and bad pixels.
+Provider name: ORNL DAAC
+Provider URL: https://daac.ornl.gov
+Grid size: 250
+Grid unit: meters
+Variable ID (description): 
+	NDVI (Normalized Difference Vegetation Index)
+Date ranges: 
+	Annual: (no data for this temporal grain)
+	Monthly: (no data for this temporal grain)
+	Daily: 2000-01-01:2015-12-31
+Temporal resolutions: 
+	Annual: (no data for this temporal grain)
+	Monthly: (no data for this temporal grain)
+	Daily: 8 days
+CRS: 
+	Name: unknown
+	EPSG: 
+	proj4: +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs +type=crs
+	WKT: PROJCRS["unknown",BASEGEOGCRS["unknown",DATUM["Unknown based on Normal Sphere (r=6370997) ellipsoid",ELLIPSOID["Normal Sphere (r=6370997)",6370997,0,LENGTHUNIT["metre",1,ID["EPSG",9001]]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8901]]],CONVERSION["unknown",METHOD["Lambert Azimuthal Equal Area (Spherical)",ID["EPSG",1027]],PARAMETER["Latitude of natural origin",45,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8801]],PARAMETER["Longitude of natural origin",-100,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8802]],PARAMETER["False easting",0,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1,ID["EPSG",9001]]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1,ID["EPSG",9001]]]]
+	Datum: Unknown based on Normal Sphere (r=6370997) ellipsoid
+	Geographic: FALSE
+	Projected: TRUE
+```
+
 To specify which data layers to include in the data download, you can construct
 a dataframe or tibble listing the dataset ID with variable IDs. 
 
 ```r
-# 1, Query the GeoCDL to list all datasets
-list_datasets()
-
-# 2. View a dataset's metadata
-view_metadata("MODIS_NDVI")
-view_metadata("PRISM")
-
-# 3. Format datasets and variables
+# Format datasets and variables
 dsvars <- tibble(dataset = c("PRISM","MODIS_NDVI"),
                  variables = c("ppt","NDVI"))
 
@@ -279,6 +323,15 @@ subset_files <- download_polygon_subset(dsvars,
                                         ri_method = resample_method)
 subset_files
 
+```
+
+```
+[1] "10.1.1.80:8000/subset_polygon?datasets=MODIS_NDVI%3ANDVI%3BPRISM%3Appt&years=2008&months=7:8&grain_method=finer&validate_method=strict&geom_guid=da61639a-80f3-4932-b2dc-94d34a345328&resample_method=bilineart&resolution=1000&output_format=geotiff"
+ [1] "./subset3a96d3ebd7555-1/metadata.json"                  "./subset3a96d3ebd7555-1/MODIS_NDVI_NDVI_2008-07-07.tif"
+ [3] "./subset3a96d3ebd7555-1/MODIS_NDVI_NDVI_2008-07-15.tif" "./subset3a96d3ebd7555-1/MODIS_NDVI_NDVI_2008-07-23.tif"
+ [5] "./subset3a96d3ebd7555-1/MODIS_NDVI_NDVI_2008-07-31.tif" "./subset3a96d3ebd7555-1/MODIS_NDVI_NDVI_2008-08-08.tif"
+ [7] "./subset3a96d3ebd7555-1/MODIS_NDVI_NDVI_2008-08-16.tif" "./subset3a96d3ebd7555-1/MODIS_NDVI_NDVI_2008-08-24.tif"
+ [9] "./subset3a96d3ebd7555-1/PRISM_ppt_2008-07.tif"          "./subset3a96d3ebd7555-1/PRISM_ppt_2008-08.tif"  
 ```
 
 ## Step 3: Visualize the results
@@ -346,7 +399,6 @@ dsvars <- tibble(dataset = c("GTOPO30"),
 subset_files <- download_points_subset(dsvars, 
                                        t_geom = jer_stations,
                                        out_format = 'shapefile')
-subset_files
 
 subset_shp <- subset_files[grepl("shp",subset_files)]
 

@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 27 September 2022 <br />
+**Last Update:** 7 October 2022 <br />
 **Download RMarkdown**: [GRWG22_RasterTiles.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_RasterTiles.Rmd)
 
 ## Overview
@@ -21,16 +21,38 @@ approach with any calculation that is performed per cell/pixel without depending
 on the data in neighboring pixels (if neighboring data is needed, extra steps are 
 involved).
 
-This tutorial assumes you are running this Rmarkdown file in RStudio Server on 
-Ceres. The easiest way to do that is with 
-[Open OnDemand](http://ceres-ood.scinet.usda.gov/).  Select the following parameter 
-values when requesting a RStudio Server: Ceres app to be launched (all other 
-values can be left to their defaults):
+This tutorial assumes you are running this Rmarkdown file in RStudio Server. The 
+easiest way to do that is with Open OnDemand (OoD) on [Ceres](http://ceres-ood.scinet.usda.gov/)
+or [Atlas](https://atlas-ood.hpc.msstate.edu/). 
+Select the following parameter values when requesting a RStudio Server
+app to be launched depending on which cluster you choose. All other values can 
+be left to their defaults. Note: on Atlas, we are using the development partition
+so that we have internet access to download files since the regular compute nodes
+on the `atlas` partition do not have internet access.
 
+Ceres:
 * `Slurm Partition`: short
 * `R Version`: 4.2.0
 * `Number of cores`: 16
-* `Memory required`: 6G
+* `Memory required`: 24G
+
+Atlas:
+* `R Version`: 4.1.0
+* `Partition Name`: development 
+* `QOS`: normal
+* `Number of tasks`: 16
+* `Additional Slurm Parameters`: --mem=24G
+
+To download the Rmarkdown file for this tutorial to either cluster within OoD, 
+you can use the following lines:
+
+```r
+library(httr)
+tutorial_name <- 'GRWG22_RasterTiles.Rmd'
+GET(paste0('https://geospatial.101workbook.org/tutorials/',tutorial_name), 
+    write_disk(tutorial_name))
+```
+
 
 In this tutorial, parallelization is performed within R using the resources 
 allocated to the launched RStudio Server session. If you are interested in seeing
@@ -75,14 +97,16 @@ For this tutorial, we will use the `stars` package for one of its example
 datasets, the `terra` package for handling raster data, and the `doParallel` and 
 `foreach` packages together for distributing our calculations. The `stars` and 
 `terra` packages are each available in the R site library for RStudio Server on 
-Ceres Open OnDemand, though not in the R site library if you were to load an R 
-module in a shell. As of this writing, `foreach` and `doParallel` are not in the 
+Ceres and Atlas Open OnDemand, though not in the R site library if you were to load an R 
+module in a shell. However, the `terra` version on Atlas is not a recent enough 
+version for this tutorial, so we will install the latest version. As of this 
+writing, `foreach` and `doParallel` are not in the 
 site library and will need to be installed if you have not already done so. To 
 learn more about installing packages on Ceres, see 
 [this guide](https://scinet.usda.gov/guide/packageinstall/#installing-r-packages). 
 
 ```r
-install.packages('foreach','doParallel')
+install.packages(c('foreach','doParallel','terra'))
 ```
 
 
@@ -217,6 +241,11 @@ system.time({
 })
 ```
 
+```
+   user  system elapsed 
+ 10.277   0.296  12.665 
+```
+
 
 #### Parallel
 
@@ -239,6 +268,11 @@ system.time({
 })
 ```
 
+```
+   user  system elapsed 
+  9.144   1.426   8.189  
+```
+
 ### Step 3b: `parallel` 
 
 There is another similar approach using the `parallel` package, which comes with
@@ -258,6 +292,11 @@ system.time({
 
 ```
 
+```
+   user  system elapsed 
+ 10.302   0.260  12.746  
+```
+
 #### Parallel
 
 To use the parallel version of `lapply`, two changes are made to our
@@ -273,6 +312,11 @@ system.time({
   mclapply(nr_tiles, normalized_diff_r, mc.cores = prod(num_tiles))
 })
 
+```
+
+```
+   user  system elapsed 
+  6.226   1.213   7.670 
 ```
 
 

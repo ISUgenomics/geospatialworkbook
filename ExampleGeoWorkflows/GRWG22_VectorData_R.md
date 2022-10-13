@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
 ---
 
-**Last Update:** 8 September 2022 <br />
+**Last Update:** 7 October 2022 <br />
 **Download RMarkdown**: [GRWG22_VectorData.Rmd](https://geospatial.101workbook.org/tutorials/GRWG22_VectorData.Rmd)
 
 <!-- ToDo: would be great to have an R binder badge here -->
@@ -21,6 +21,38 @@ a dataset with point geometries representing air quality monitoring stations to
 determine which stations observed unhealthy concentrations of small particulate 
 matter (PM2.5) in the atmosphere around the time
 of the Camp Fire in northern CA in 2018. 
+
+This tutorial assumes you are running this Rmarkdown file in RStudio Server. The 
+easiest way to do that is with Open OnDemand (OoD) on [Ceres](http://ceres-ood.scinet.usda.gov/)
+or [Atlas](https://atlas-ood.hpc.msstate.edu/). 
+Select the following parameter values when requesting a RStudio Server
+app to be launched depending on which cluster you choose. All other values can 
+be left to their defaults. Note: on Atlas, we are using the development partition
+so that we have internet access to download files since the regular compute nodes
+on the `atlas` partition do not have internet access.
+
+Ceres:
+* `Slurm Partition`: short
+* `R Version`: 4.2.0
+* `Number of hours`: 1
+* `Number of cores`: 2
+
+Atlas:
+* `R Version`: 4.1.0
+* `Partition Name`: development 
+* `QOS`: normal
+* `Number of hours`: 1
+* `Number of tasks`: 2
+
+To download the Rmarkdown file for this tutorial to either cluster within OoD, 
+you can use the following lines:
+
+```r
+library(httr)
+tutorial_name <- 'GRWG22_VectorData.Rmd'
+GET(paste0('https://geospatial.101workbook.org/tutorials/',tutorial_name), 
+    write_disk(tutorial_name))
+```
 
 *Language:* `R`
 
@@ -67,13 +99,23 @@ of the Camp Fire in northern CA in 2018.
 
 
 ## Step 0: Import Libraries/Packages
+For this tutorial, we will use the `sf` package for handling vector data,
+the `USAboundaries` for including state boundaries in our maps, 
+`dplyr` for general tabular data manipulations, `ggplot2` for creating
+visuals, and `lubridate` for handling dates. Each package except `USAboundaries`
+is available from the site libraries accessible to RStudio Server on OoD for 
+both clusters. If you have not used `USAboundaries` before, you may install it 
+from CRAN with `install.packages(USAboundaries)` from within RStudio Server on OoD.
+To learn more about installing packages on Ceres, see 
+[this guide](https://scinet.usda.gov/guide/packageinstall/#installing-r-packages). 
+
 
 ```r
 library(sf)               # Handling vector data
 library(USAboundaries)    # Mapping administrative boundaries
 library(dplyr)            # General data manipulation
 library(ggplot2)          # Visualizations
-library(lubridate)        # Data manipulation
+library(lubridate)        # Date manipulation
 ```
 
 ## Step 1: Read in fire perimeter data and visualize
@@ -90,7 +132,7 @@ accurate.
 
 ```r
 fire_f <- 'Historic_Perimeters_Combined_2000-2018_GeoMAC_CA2018.geojson'
-dnld_url <- 'https://raw.githubusercontent.com/HeatherSavoy-USDA/geospatialworkbook/master/ExampleGeoWorkflows/assets/'
+dnld_url <- 'https://geospatial.101workbook.org/ExampleGeoWorkflows/assets/'
 httr::GET(paste0(dnld_url,fire_f),
           httr::write_disk(fire_f,
                            overwrite=TRUE))
@@ -127,7 +169,11 @@ fire_CA2018 %>%
 ![fire_map](assets/R_fire_map-1.png)
 
 Since this feature collection has several attributes, we can also visualize, 
-for example, when the fires occurred during the year.
+for example, when the fires occurred during the year. Note that the dates are
+when the fires' perimeters are established, not when the fires start. Since fires 
+can endure for many days and change their spatial extent over that time, this
+date is when the maximum extent of the fire was determined, which needs to be 
+at the end of the fire.
 
 ```r
 # Plotting when wildfires occurred throughout 2018
@@ -159,7 +205,8 @@ httr::GET(paste0(dnld_url,aq_zip),
                            overwrite=TRUE))
 unzip(aq_zip)
 
-ca_PM25 <- st_read(paste0(aq_base,'.shp'))
+ca_PM25 <- st_read(paste0(aq_base,'.shp')) %>%
+  st_transform(st_crs(fire_CA2018))
 ```
 
 ## Step 3: Find the air quality stations within 200km of the fire perimeter
@@ -196,15 +243,33 @@ time of this wildfire.
 ```r
 # Filter to 30 days from fire perimeter date
 air_near_fire <- air_fire %>%
-  mutate(date_shift = ymd(dat_lcl) - as.Date(perimeterdatetime),
+  mutate(dat_lcl = ymd(dat_lcl), # local date for air quality measurement
+         perimeterdate = as.Date(perimeterdatetime), # fire perimeter date
+         date_shift = dat_lcl - perimeterdate,
          PM25 = as.numeric(arthmt_),
          station_id = paste(stat_cd, cnty_cd, st_nmbr)) %>% 
   filter(abs(date_shift) <= 30)
+  
+# Define bounds of Camp Fire dates for illustrative purposes
+# Camp Fire burned for 17 days- add a polygon to graph to visualize temporal overlap with low air quality
+camp_dates <- ymd(c('2018-11-08','2018-11-25'))
+
+# Camp Fire's maximum perimeter established at end of fire
+fp_date <- unique(air_near_fire$perimeterdate)
+
 
 air_near_fire %>%
-  ggplot(aes(date_shift,PM25)) +
+  tidyr::complete(station_id, dat_lcl) %>%
+  ggplot(aes(dat_lcl,PM25)) +
+  annotate('rect', xmin = camp_dates[1], xmax = camp_dates[2],
+            ymin = -Inf, ymax = Inf,
+            fill = 'firebrick', alpha = 0.5) +
   geom_line(aes(group = station_id)) +
-  scale_x_continuous(name = 'Days before/after fire perimeter') +
+  geom_vline(xintercept = fp_date, 
+             color = 'red',
+             lwd = 1,
+             linetype = 'dashed') +
+  scale_x_date(name = '',date_breaks = "1 week",date_labels = "%m-%d-%y") +
   scale_y_continuous(name = 'PM2.5 [micrograms/cubic meter]')
 
 ```

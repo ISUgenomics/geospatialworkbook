@@ -257,6 +257,9 @@ identify this job in the queue.
 sbatch zonal_stats.sh
 ```
 
+```
+Submitted batch job 8145006
+```
 
 ## Step 4: Check results
 
@@ -269,6 +272,19 @@ with the `-u` parameter followed by their SCINet account name.
 
 ```bash
 squeue -u firstname.lastname
+```
+
+Below is a partial output for the queue showing this job array. You can see the
+JOBID column has job IDs that start with the submitted job ID printed above with
+`_X` after it indicating the tasks in our job array.  
+
+```
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+      8145006_2000     short zonal_st heather.  R       0:01      1 ceres19-compute-57
+      8145006_2001     short zonal_st heather.  R       0:01      1 ceres20-compute-3
+      8145006_2002     short zonal_st heather.  R       0:01      1 ceres20-compute-3
+      8145006_2003     short zonal_st heather.  R       0:01      1 ceres20-compute-3
+      8145006_2004     short zonal_st heather.  R       0:01      1 ceres20-compute-3
 ```
 
 If you see jobs listed in the queue: you have jobs currently in the queue and the status 
