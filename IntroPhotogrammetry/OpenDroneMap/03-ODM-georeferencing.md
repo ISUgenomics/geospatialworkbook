@@ -157,9 +157,185 @@ geo_x geo_y geo_z im_x im_y image_name [gcp_name] [extra1] [extra2]
 Use any software for tagging GCPs, e.g., the [GCP Editor Pro](https://uav4geo.com/software/gcpeditorpro) is a good match for the ODM. Download source code from the [GitHub](https://github.com/uav4geo/GCPEditorPro).
 
 
-# Automatic detection of ARUco targets
+# Automatic detection of ArUco targets
 
-<span style="color: #ff3870;font-weight: 600;">Section in development...</span>
+ArUco markers are a type of fiducial marker that are often used in computer vision applications. A fiducial marker is an object placed in the field of view of the camera which appears in the image with a known location, size, and appearance. <b>Aruco markers are square black-and-white patterns which can be easily detected</b>, identified, and used to calculate the camera's pose with respect to the marker.
+
+
+
+**Features of Aruco**
+
+| feature         | description |
+|-----------------|-------------|
+|Simple Structure | *Being just black and white squares, they are relatively easy and efficient to detect in an image.*|
+|Identification   | *Each Aruco marker has a unique identifier assigned based on its pattern, which allows the system to distinguish between different markers.*|
+|Flexibility      | *Aruco markers come in different dictionaries, or sets of markers. Each dictionary varies in the number of bits in the marker and the number of different markers. This allows for a balance between the total number of unique markers and the robustness against detection errors.*|
+|Pose Estimation  | *By knowing the real size of the marker and its position in the image, one can determine the position and orientation (pose) of the camera with respect to the marker.*|
+|Calibration      | *ArUco markers can be employed to calibrate cameras by capturing images of the markers from different orientations and positions.*|
+
+
+<div style="background: #dff5b3; padding: 15px;">
+<span style="font-weight:800;">NOTE:</span>
+<br><span style="font-style:italic;">Aruco markers originated from academic research, and the term "aruco" is derived from the name of the library that introduced and popularized these markers. The <b>ArUco library</b> was initially a standalone project but later got integrated into the <b>OpenCV (Open Source Computer Vision Library)</b>. Therefore, when you're looking to utilize ArUco functionalities, you'd typically access it through OpenCV's ArUco module.</span>
+</div><br>
+
+
+## Working with ArUco in Land Surveying Tasks
+
+The most official and widely recognized source for information and usage of Aruco markers is within the **OpenCV** (*Open Source Computer Vision Library*) library, which has integrated Aruco module functionalities. The OpenCV documentation provides detailed information on how to use Aruco markers, and you can access it via the [official OpenCV website](https://docs.opencv.org/master/d9/d6a/group__aruco.html).
+
+**OpenCV is one of the most popular and comprehensive libraries for computer vision and machine learning tasks.** It was initially developed by Intel and released in 2000. Since then, it has become a standard tool for computer vision researchers and developers due to its rich set of functionalities and performance optimizations.
+* **OpenCV is organized into modules**, each focused on a specific aspect of computer vision or image processing. This includes modules for:
+  * image filtering with `imgproc` module
+  * **pose estimation with** `aruco` **module**
+  * feature detection with `features2d` module
+  * object detection with `objdetect` module
+  * machine learning with `ml` module
+  * camera calibration with `calib3d` module
+  * motion analysis with `video` module
+  * and more.
+* While OpenCV was originally written in `C++`, it now has bindings for `Python`, `Java`, and several other languages. This makes it accessible to a wide range of developers. **The Python bindings have become extremely popular** enabling developers to create custom computer vision applications, such as [Find-GCP](https://github.com/zsiki/Find-GCP) utility for finding ArUco markers in digital photos.
+
+<span style="color: #ff3870;font-weight: 500;">Learn more about ArUco markers in OpenCV library: <a href="https://docs.opencv.org/3.2.0/d5/dae/tutorial_aruco_detection.html" target="_blank">https://docs.opencv.org/3.2.0/d5/dae/tutorial_aruco_detection.html</a></span>
+
+### Steps in the land surveying
+
+1. **Markers Generation:** Before the survey, ArUco markers are generated using specialized software or libraries, such as the `aruco_make.py` python utility *(using ArUco module in OpenCV library)*.
+
+2. **Printing and Placement:** Once generated, these markers are printed on sturdy material to withstand outdoor conditions. They're then placed strategically at known positions within the area to be surveyed.
+
+3. **Capturing Imagery:** Using drones, satellites, or handheld cameras, images of the area are taken. These images capture the terrain as well as the ArUco markers.
+
+4. **Detection and Analysis:** During the post-processing phase, software detects the ArUco markers in the captured images. Given the known size and ID of each marker, as well as its location in the image, software can estimate the camera's pose and the 3D position of the marker.
+
+5. **Georeferencing:** Knowing the real-world coordinates of each ArUco marker, the captured images can be georeferenced (assigned to a specific location in a spatial reference system). This ensures that the imagery aligns accurately with geographic coordinates.
+
+## Find-GCP python utility: installation
+
+**[Find-GCP](https://github.com/zsiki/Find-GCP)** is a Python tool leveraging the OpenCV library, designed to detect ArUco Ground Control Points in imagery and generate the corresponding GCP file required for photogrammetric programs such as Open Drone Map. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
+
+* [aruco_make.py](https://github.com/zsiki/Find-GCP#aruco_makepy) - generates aruco marker images using different standard dictionaries
+  * [dict_gen_3x3.py](https://github.com/zsiki/Find-GCP#dict_gen_3x3py) - generates 32 custom markers using specifically 3x3 ArUco dictionary
+
+
+* [gcp_find.py](https://github.com/zsiki/Find-GCP#gcp_findpy) - identifies Ground Control Points (GCP) in imagery
+* [gcp_check.py](https://github.com/zsiki/Find-GCP#gcp_checkpy) - helps the visual check of the found GCPs by `gcp_find.py`
+
+**INSTALLATION:**
+
+**A. On SCINet HPC (Atlas via ssh in terminal):**
+  1.  check available **conda** modules and load selected one:
+  ```
+  module avail conda
+  module load miniconda/4.12.0
+  ```
+  2. create python environment for geospatial analysis:
+  ```
+  conda create -n geospatial python=3.9
+  ```
+  3. activate this environment:
+  ```
+  source activate geospatial
+  ```
+  4. install required libraries:
+  ```
+  pip install opencv-python opencv-contrib-python Pillow numpy matplotlib
+  ```
+  5. clone the Find-GCP repo from GitHub:
+  ```
+  git clone https://github.com/zsiki/Find-GCP.git
+  ```
+  When you clone a repository from GitHub, it creates a new directory on your current path with the name of the repository. Inside this directory, you'll find the contents of the repository. Once you navigate into this directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
+  ```
+  cd Find-GCP
+  ls
+  ```
+
+  ![find_gcp_repo](../assets/images/find_gcp_repo.png)
+
+**B. On your local machine (alternatively):** <br>
+* If you already have the Conda environment manager installed, skip step 1 and proceed with the instructions outlined above.
+* For those unfamiliar with Conda, it's a valuable tool for computational tasks, and you can learn how to use it through the practical tutorials in the DataScience workbook: [Conda on Linux](https://datascience.101workbook.org/03-SetUpComputingMachine/03C-tutorial-installations-on-linux#conda), [Conda on macOS](https://datascience.101workbook.org/03-SetUpComputingMachine/03A-tutorial-installations-on-mac#-install-conda), [Python Setup on your computing machine](https://datascience.101workbook.org/04-DevelopmentEnvironment/02A-python-setup-locally#conda).
+* If you choose not to use Conda, you can jump directly to step 4 in the guide, though <u>this is not recommended</u> because the necessary libraries will install system-wide, rather than in an isolated environment.
+
+### Automatic generation of ArUco codes *(using Find-GCP)*
+
+*ArUco markers provide known reference points in the imagery, enhancing the accuracy of photogrammetric analysis. This ensures that data derived from the imagery correctly corresponds to actual locations on the ground.*
+
+#### Available ArUco dictionaries
+ArUco markers come in various dictionaries, where **each dictionary defines a set of distinct markers**. The choice of dictionary affects the size and resilience of the markers, as well as how many unique markers the dictionary contains.<br>
+In the naming convention like `DICT_4X4_100` or `DICT_6X6_250`: <br>
+**-** The first part (4X4 or 6X6) represents the size of the marker grid. For example, a 4X4 marker has a 4x4 grid of black or white squares, while a 6X6 marker has a 6x6 grid. <br>
+**-** The second part (100 or 250) indicates the number of unique markers available in that dictionary. So, DICT_4X4_100 has 100 unique 4x4 markers, while DICT_6X6_250 contains 250 unique 6x6 markers.
+
+***When choosing a dictionary,*** one must consider the application.
+* Smaller markers (like 4x4) can be detected at shorter distances and might be harder to distinguish at low resolutions or with noise.
+*Larger markers (like 6x6 or 7x7) can be detected from a greater distance, are generally more resilient to noise, but they also take up more space in the image. The number of unique markers needed will also influence the choice of dictionary.
+
+
+#### Generating markers using ready-made tools:
+
+**A. ArUco marker images in PNG** <br>
+To generate ArUco markers for your land surveying task, first get Find-GCP python utility installed ([see section above](#find-GCP-python-utility-installation)). In a directory of cloned **Find-GCP** repo, you will find the `aruco_make.py` and `dict_gen_3x3.py` python scripts. Use the first one to generate markers using the standard dictionaries (listed below) and use the second one to generate smaller markers of size 3 by 3 squares.
+* While in the **Find-GCP** directory, use `pwd` command to print the path on the screen. *You will need this path to run python scripts from another location in the file system.*
+
+
+* Navigate to the selected location in the file system and create the **markers** directory:
+```
+mkdir markers
+cd markers
+```
+
+
+* Then use the `aruco_make.py` script like this: <br>
+`python aruco_make.py -d <DICT> -s <START> -e <END> -v`, for example:
+```
+python aruco_make.py -d 1 -s 0 -e 9 -v
+```
+
+  ![aruco_make](../assets/images/aruco_make.png)
+
+  <i>This command will create 10 markers, numbered from 0 to 9 (e.g., marker0.png), using the dictionary DICT_4x4_100.</i><br>
+  * the number provided with the `-d` option determines the dictionary *(see the table below)*, default = 1
+  |code  | dictionary|code  | dictionary |code  | dictionary |code  | dictionary  |
+  |------|-----------|------|------------|------|------------|------|-------------|
+  |**0** |DICT_4X4_50|**1** |DICT_4X4_100|**2** |DICT_4X4_250|**3** |DICT_4X4_1000|
+  |**4** |DICT_5X5_50|**5** |DICT_5X5_100|**6** |DICT_5X5_250|**7** |DICT_5X5_1000|
+  |**8** |DICT_6X6_50|**9** |DICT_6X6_100|**10**|DICT_6X6_250|**11**|DICT_6X6_1000|
+  |**12**|DICT_7X7_50|**13**|DICT_7X7_100|**14**|DICT_7X7_250|**15**|DICT_7X7_1000|
+  |**16**|DICT_ARUCO_ORIGINAL|
+  |**17**|DICT_APRILTAG_16H5|**18**|DICT_APRILTAG_25H9|**19**|DICT_APRILTAG_36H10|**20**|DICT_APRILTAG_36H11|
+  |**99**|DICT_3X3_32 custom|
+  * the number provided with the `-s` option determines the index of the first marker, default = 0
+  * the number provided with the `-e` option determines the index of the last marker, default = -1 *(only one marker is generated with index 0)*
+  * the optional `-v` flag shows marker on monitor *(when applicable, e.g., when working on a local machine)*
+  * the optional `-g` flag generates black/gray marker *(instead black/white to reduce the effect of white burnt in)*
+    * the optional option `--value <VAL>` determines shade of background use with `-g`, default=95
+  * the optional option `-p <PAD>` determines border width around marker in inches, default= 0.5
+<br><br><br>
+* The `dict_gen_3x3.py` has no built-in options and generates 32 custom 3x3 ArUco dictionary markers in dict_3x3 subdirectory:
+```
+python dict_gen_3x3.py
+```
+
+**B. ArUco marker images in SVG** <br>
+There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadrone/gcp_aruco_generator), providing a simple python tool for generating ArUco markers with a real sizing of the image saved in SVG format. It also has a few more options, including `--print-id` in the corner of the marker and adding a watermark on the four borders. Follow the [Setup and use](https://github.com/qaptadrone/gcp_aruco_generator#setup-and-use) guide to get started with this tool. The generated ArUco markers are compatible with the Find-GCP tool, so you can use it after the flight to find the markers in your pictures.
+
+<div style="background: #cff4fc; padding: 15px;">
+<span style="font-weight:800;">PRO TIP:</span>
+<br><span style="font-style:italic;">For good size recommendations, please see <a href="http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html" target="_blank">http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html</a>.</span>
+</div><br>
+
+**C. ArUco marker images <u>generated online</u> (SVG or PDF)** <br>
+Finally, you can use the free online ArUco markers generator: [https://chev.me/arucogen/](https://chev.me/arucogen/) <br>
+*See the corresponding GitHub repo:* [https://github.com/okalachev/arucogen](https://github.com/okalachev/arucogen)
+
+### Automatic recognition of ArUco codes *(using Find-GCP)*
+
+
+
+
+
 
 ___
 # Further Reading
