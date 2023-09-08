@@ -358,17 +358,18 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
 
 <table>
 <tr style="width: 100%">
-<td style="border: 1px solid white; width: 600px">
-<div style="background: #cff4fc; padding: 15px; height: 150px;">
-<span style="font-weight:800;">PRO TIP:</span><br>
-<span style="font-style:italic;">For good size recommendations, please see <a href="http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html" target="_blank">http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html</a>.<br><br>The generated ArUco markers are compatible with the Find-GCP tool, so you can use it after the flight to find the markers in your pictures.</span>
-</div><br>
-<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
-<span style="font-weight:800;">WARNING:</span>
-<br><span style="font-style:italic;">When using the <b>gcp_aruco_generator</b> tool, be aware that the <b>ArUco marker IDs also start numbering from 0</b>, just like in standard ArUco dictionaries.</span>
-</div><br>
-</td>
-<td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:200px;"></td>
+  <td style="border: 1px solid white; width: 600px">
+    <div style="background: #cff4fc; padding: 15px; height: 150px;">
+    <span style="font-weight:800;">PRO TIP:</span><br>
+    <span style="font-style:italic;">For good size recommendations, please see <a href="http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html" target="_blank">http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html</a>.<br><br>The generated ArUco markers are compatible with the Find-GCP tool, so you can use it after the flight to find the markers in your pictures.</span>
+    </div><br>
+    <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+    <span style="font-weight:800;">WARNING:</span>
+    <br><span style="font-style:italic;">When using the <b>gcp_aruco_generator</b> tool, be aware that the <b>ArUco marker IDs also start numbering from 0</b>, just like in standard ArUco dictionaries.</span>
+    </div><br>
+  </td>
+  <td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:200px;"></td>
+</tr>
 </table>
 
 * generate a single marker from selected dictionary in size = 1000 mm (without margins):
