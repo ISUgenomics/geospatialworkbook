@@ -427,7 +427,7 @@ For automatic recognition of ArUco markers, it's optimal to have your **land sur
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span><br>
 <i><b>If your GCPs coordinate file uses custom IDs</b> (e.g., 131, 135, 143 when you used 4X4_50 ArUco dictionary)</i>, ensure you replace these with the appropriate ArUco marker IDs from the relevant dictionary before proceeding with automatic recognition of ArUco codes in your imagery.
-</div><br>
+</div>
 
 <div style="background: #cff4fc; padding: 15px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
@@ -442,7 +442,7 @@ For automatic recognition of ArUco markers, it's optimal to have your **land sur
 
 ### SCENARIO 1: GCP file with known ArUco IDs
 
-**i.e., Direct ArUco ID match**
+***i.e., Direct ArUco ID match***
 
 This approach is for those possessing a GCP file with recognized ArUco IDs:
 * by **inputting your imagery** and the `GCP_reference.txt` file along with the **known ArUco dictionary**,
@@ -515,60 +515,6 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   * Calculate the distance of each marker from the center of the image using the Euclidean distance formula.
   * Sort the images for each marker ID based on this distance in ascending order.
   * Select the top N images for each marker ID.
-
-<details><summary><b>Display the script:</b> <code>select_images.py</code></summary>
-
-```
-import csv
-import sys
-from collections import defaultdict
-from operator import itemgetter
-
-if len(sys.argv) != 5:
-    print("Usage: python select_images.py <data_file_path> <image_width> <image_height> <images_number>")
-    sys.exit(1)
-
-# Constants for image dimensions and center
-DATA_FILE = sys.argv[1]
-IMAGE_WIDTH = int(sys.argv[2])
-IMAGE_HEIGHT = int(sys.argv[3])
-N_IMAGES = int(sys.argv[4])
-CENTER_X = IMAGE_WIDTH // 2
-CENTER_Y = IMAGE_HEIGHT // 2
-
-def calculate_distance(x, y):
-    """Calculate the Euclidean distance from the center of the image."""
-    return ((x - CENTER_X)**2 + (y - CENTER_Y)**2)**0.5
-
-# Load data from file
-data = []
-with open(DATA_FILE, 'r') as f:
-    # Skip the EPSG line
-    next(f)
-
-    # Read the rest of the data
-    reader = csv.reader(f, delimiter=' ')
-    for row in reader:
-        # Calculate the distance from the center for each marker
-        distance = calculate_distance(int(row[3]), int(row[4]))
-        data.append(row + [distance])
-        # Group data by marker ID (7th column, index 6)
-        grouped_data = defaultdict(list)
-        for row in data:
-            marker_id = row[6]
-            grouped_data[marker_id].append(row)
-
-        # Select the top N images for each marker ID based on the distance
-        selected_data = []
-        for marker_id, rows in grouped_data.items():
-            sorted_rows = sorted(rows, key=itemgetter(-1))
-            selected_data.extend(sorted_rows[:N_IMAGES])
-
-        # Save the selected data to a new file or print it
-        for row in selected_data:
-            print(' '.join(row[:-1]))
-```
-</details><br>
 
 **Run the script with a syntax:**
 ```
