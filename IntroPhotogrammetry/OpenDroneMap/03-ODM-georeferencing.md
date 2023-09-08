@@ -358,8 +358,8 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
 
 <table>
 <tr style="width: 100%">
-  <td style="border: 1px solid white; width: 600px">
-    <div style="background: #cff4fc; padding: 15px; height: 150px;">
+  <td style="border: 1px solid white; width: 700px">
+    <div style="background: #cff4fc; padding: 15px; height: 200px;">
     <span style="font-weight:800;">PRO TIP:</span><br>
     <span style="font-style:italic;">For good size recommendations, please see <a href="http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html" target="_blank">http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html</a>.<br><br>The generated ArUco markers are compatible with the Find-GCP tool, so you can use it after the flight to find the markers in your pictures.</span>
     </div><br>
@@ -404,7 +404,7 @@ done
 Finally, you can use the free online ArUco markers generator: <a href="https://chev.me/arucogen/" target="_blank">https://chev.me/arucogen/</a> <br><br>
 <i>See the corresponding GitHub repo:</i> <a href="https://github.com/okalachev/arucogen" target="_blank">https://github.com/okalachev/arucogen</a>
 </td>
-<td style="border: 1px solid white;"><img src="../assets/images/online_generator.png" style="width:300px;"></td>
+<td style="border: 1px solid white;"><img src="../assets/images/online_generator.png" style="width:400px;"></td>
 </tr>
 </table>
 
