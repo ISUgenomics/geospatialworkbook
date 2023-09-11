@@ -439,6 +439,7 @@ For automatic recognition of ArUco markers, it's optimal to have your **land sur
 </ul>
 </div><br>
 
+---
 
 ### SCENARIO 1: GCP file with known ArUco IDs
 
@@ -524,6 +525,8 @@ Usage: python select_images.py <data_file_path> <image_width> <image_height> <im
 ```
 python select_images.py gcp_list.txt 6000 4000 10 > gcp_list_10.txt
 ```
+
+---
 
 ### SCENARIO 2: GCP file with custom IDs
 
@@ -684,10 +687,11 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
 
 **STEP 4.** The `gcp_find.py` tool is then utilized again as in [SCENARIO 1: GCP file with known ArUco IDs](#scenario-1-gcp-file-with-known-aruco-ids). The end output, `gcp_list.txt`, is compatible with ODM software, but it should be used cautiously due to limited precision of GCP matching in this approach.
 
+---
 
 ### SCENARIO 3: no GCP file
 
-**i.e., No GCP reference, pure detection of ArUco markers**
+***i.e., No GCP reference, pure detection of ArUco markers***
 
 In instances where no GCP file is available:
 * The goal here is straightforward: ***How many and which ArUco markers are detectable within your imagery?***
