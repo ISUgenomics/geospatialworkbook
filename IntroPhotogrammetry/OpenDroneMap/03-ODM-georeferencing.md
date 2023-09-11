@@ -452,7 +452,7 @@ This approach is for those possessing a GCP file with recognized ArUco IDs:
 1. Login to the Atlas cluster using SSH protocol (command line) or OOD access (web-based).
 2. Navigate to your project working directory. *Use the command below:*
 ```
-cd /project/<path_to_your_project_directory
+cd /project/<path_to_your_project_directory>
 ```
 3. Set paths as temporary variables or use them directly:
 ```
@@ -488,7 +488,7 @@ EPSG:32611
 
 You can further refine the output file by sorting the records based on the ArUco marker ID, allowing you to **choose a subset of 5-10 images for each marker, required by the ODM software**. While manually reviewing the images is the most reliable approach to select the best representations, you can initially narrow down the number of images per marker programmatically. After this automatic reduction, a visual review is recommended to address any ambiguous images.
 
-**Select representative images for a marker**
+### ***Select representative images for a marker***
 
 Optimally, a marker should be positioned near the center of the image. The marker's position in an image can be approximated using its target coordinates, which are located in the 4th and 5th columns of the output file, i.e., `gcp_list.txt`. <br>
 In some cases, you might find that a given marker is detected in several dozens to even hundreds of images.
@@ -527,16 +527,35 @@ python select_images.py gcp_list.txt 6000 4000 10 > gcp_list_10.txt
 
 ### SCENARIO 2: GCP file with custom IDs
 
-**i.e., Custom ID integration**
+***i.e., Custom ID integration***
 
 For cases where you have a GCP file with custom IDs, your inputs will be **the imagery**, a `GCP_reference.txt` file with <u>custom marker IDs</u>, a **known ArUco dictionary**, and the **EPSG code** for the registered GCPs.
+
+**EPSG**: 32611 <br>
+
+```
+# GCP_reference.txt
+131 523287.368 4779588.335 1397.823
+135 523305.976 4779572.588 1397.817
+137 523347.074 4779571.424 1397.653
+141 523364.648 4779587.932 1395.735
+134 523394.376 4779529.525 1398.728
+133 523363.938 4779530.027 1400.244
+138 523329.480 4779525.642 1400.983
+136 523350.181 4779492.395 1403.140
+140 523370.006 4779471.041 1403.857
+132 523289.018 4779469.252 1407.142
+142 523309.583 4779492.785 1404.733
+139 523292.432 4779530.710 1401.051
+143 523261.422 4779532.114 1401.978
+```
 
 **STEP 0.** Prepare your working space.
 
 1. Login to the Atlas cluster using SSH protocol (command line) or OOD access (web-based).
 2. Navigate to your project working directory. *Use the command below:*
 ```
-cd /project/<path_to_your_project_directory
+cd /project/<path_to_your_project_directory>
 ```
 3. Set paths as temporary variables or use them directly:
 ```
@@ -594,41 +613,80 @@ The output `representatives` should contain the representative image for each ma
 2993 2141 R0036789.JPG 10
 3120 2112 R0037136.JPG 11
 ```
-You can visually inspect the selected images to ensure they indeed showcase the distinct pattern of the detected ArUco marker ID and confirm that each image contains only one marker.<br><br>
+You can visually inspect the selected images to ensure they indeed showcase the distinct pattern of the detected ArUco marker ID and confirm that each image contains only one marker. *In my case, all detected markers match the pattern of a suggested ArUco ID.*
+
+![](../assets/images/aruco_detected.png) <br>
+
 Create a subdirectory and copy in or soft link the representative images:
 ```
 mkdir representative
-awk '{print $3}' < representatives > representative/list
+awk '{print $3}' < representatives > list
 for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representatives | awk -v A=$i '{if ($3==A) print $4}'` ; cp $INPUTS_PATH/$i representative/$k"_"$n.JPG; done
 ```
 <i>Now, the images should be copied into the <b>representative</b> subdirectory and their names should change from R0036737.JPG to R0036737<b>_0</b>.JPG denoting the ID of detected ArUco marker (which is required in the next step).</i>
 
 
 **STEP 2.** In the second step, a Python script `identify_gcp_id.py` automatically matches the GCP coordinates with the representative images (by calculating the distance between GCPs from reference file and GPS coordinates of each picture).
-  * If there's a coordinate system discrepancy between reference GCPs and imagery GPS, a conversion is carried out for the GCPs ***(so, that's why you must provide the correct EPSG code)***.
+  * If there's a coordinate system discrepancy between reference GCPs and imagery GPS, a conversion is carried out for the GCPs ***(so, that's why you must provide the correct EPSG code)***.<br>
 
+1. Download the Python script `identify_gcp_id.py` from the repo and place it in the location of your SOFTWARE or TOOLS for geospatial analysis (e.g., `project/<account>/<user>/TOOLS`):
+  ```
+  cd project/<account>/<user>/TOOLS
 
-**STEP 3.** Once the matches are made, a **new** `GCP_reference.txt` file replaces the custom IDs with ArUco IDs.
+  git clone /geo_utils
+  ```
 
-**STEP 4.** The `gcp_find.py` tool is then utilized as in SCENARIO 1. The end output, `gcp_list.txt`, is compatible with ODM software, but it should be used cautiously due to limited precision of GCP matching in this approach.
+2. Make sure you navigate back to the `representative` directory in your photogrammetry project. You can softlink the `identify_gcp_id.py` script for easy use:
+  ```
+  cd project/<account>/<user>/ODM/<project_X>/IMAGES/representative
 
+  ln -s project/<account>/<user>/TOOLS/geo_utils/identify_gcp_id.py ./
+  ```
 
-* `python identify_gcp_id_fixed_epsg.py` at **~/SOFTWARE/GCP_IDs**
-```
-Match found: GCP 131 (d=14.07) is likely in image R0036021_0.JPG with ArUco marker 0.
-Match found: GCP 132 (d=13.74) is likely in image R0036409_9.JPG with ArUco marker 9.
-Match found: GCP 132 (d=9.26) is likely in image R0036430_11.JPG with ArUco marker 11.
-Match found: GCP 133 (d=13.00) is likely in image R0036204_3.JPG with ArUco marker 3.
-Match found: GCP 134 (d=13.18) is likely in image R0036187_1.JPG with ArUco marker 1.
-Match found: GCP 135 (d=15.53) is likely in image R0036073_10.JPG with ArUco marker 10.
-Match found: GCP 136 (d=13.52) is likely in image R0036337_2.JPG with ArUco marker 2.
-Match found: GCP 137 (d=11.07) is likely in image R0036065_6.JPG with ArUco marker 6.
-Match found: GCP 138 (d=9.32) is likely in image R0036243_5.JPG with ArUco marker 5.
-Match found: GCP 139 (d=12.62) is likely in image R0036236_8.JPG with ArUco marker 8.
-Match found: GCP 141 (d=10.35) is likely in image R0036036_4.JPG with ArUco marker 4.
-Match found: GCP 143 (d=15.85) is likely in image R0036230_7.JPG with ArUco marker 7.
-```
+3. Run the `identify_gcp_id.py` script to match the GCP coordinates with the representative images:
 
+  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+  <span style="font-weight:800;">WARNING:</span>
+  <br><span style="font-style:italic;">Note that you should have activated a specific conda environment related to this project. See the <b>STEP 0</b> in this section. </span>
+  </div>
+
+  ```
+  python identify_gcp_id.py GCP_reference.txt > matching_results
+
+  grep "Match" < matching results | sort -nk4 > ID_matches
+  cat ID_matches
+  ```
+
+  ```
+  Match found: GCP 131 (d=16.84m) is likely in image R0036737_0.JPG with ArUco marker 0.
+  Match found: GCP 132 (d=12.69m) is likely in image R0037136_11.JPG with ArUco marker 11.
+  Match found: GCP 133 (d=1.64m) is likely in image R0036914_3.JPG with ArUco marker 3.
+  Match found: GCP 134 (d=1.00m) is likely in image R0036909_1.JPG with ArUco marker 1.
+  Match found: GCP 135 (d=3.09m) is likely in image R0036789_10.JPG with ArUco marker 10.
+  Match found: GCP 136 (d=18.49m) is likely in image R0036401_2.JPG with ArUco marker 2.
+  Match found: GCP 137 (d=25.80m) is likely in image R0036140_6.JPG with ArUco marker 6.
+  Match found: GCP 138 (d=15.18m) is likely in image R0036953_5.JPG with ArUco marker 5.
+  Match found: GCP 139 (d=4.29m) is likely in image R0036927_8.JPG with ArUco marker 8.
+  Match found: GCP 141 (d=5.95m) is likely in image R0036704_4.JPG with ArUco marker 4.
+  Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco marker 7.
+  ```
+
+**STEP 3.** Once the matches are made, create a **new** `GCP_reference.txt` file replacing the custom IDs with ArUco IDs.
+
+1. Create a 2-column `GCP_reference_aruco.txt` file with matching IDs: `GCP` `ArUco`
+  ```
+  awk '{print $4"_"$14}' < ID_matches > ../tmp
+  cd ../                               # navigate to the IMAGES dir with the GCP_reference.file
+
+  for i in `cat tmp`
+  do
+      old=`echo $i | awk -F"_" '{print $1}'`
+      new=`echo $i | awk -F"_" '{print $2}'`
+      awk -v A=$old -v B=$new '{if ($1==A) print B,$2,$3,$4}' < GCP_reference.txt >> GCP_reference_aruco.txt
+  done
+  ```
+
+**STEP 4.** The `gcp_find.py` tool is then utilized again as in [SCENARIO 1: GCP file with known ArUco IDs](#scenario-1-gcp-file-with-known-aruco-ids). The end output, `gcp_list.txt`, is compatible with ODM software, but it should be used cautiously due to limited precision of GCP matching in this approach.
 
 
 ### SCENARIO 3: no GCP file
@@ -642,14 +700,30 @@ In instances where no GCP file is available:
 
 **Identify marker IDs in the selected ArUco dictionary:**
 
+Run the `gcp_find.py` Python tool with basic settings to detect ArUco markers:
 ```
 $FIND_GCP_PATH/gcp_find.py -d 0 $INPUTS_PATH/*.JPG >> markers_detected.txt
 ```
 
+<i>Remember to use the correct ArUco dictionary with the <b>-d</b> option (for example, in this case, the -d 0 denotes the DICT_4x4_50 dictionary).</i>
+The output `markers_detected.txt` should looks like this (*columns:* `x` `y` `image` `aruco_id`):
+```
+5041 91 R0036021.JPG 0
+5190 1110 R0036023.JPG 0
+5462 1856 R0036024.JPG 0
+5680 2998 R0036026.JPG 0
+3170 60 R0036061.JPG 4
+624 700 R0036065.JPG 6
+539 1349 R0036066.JPG 6
+162 701 R0036073.JPG 10
+```
+Let's filter the output to include only the images with a single detected marker on them.
+```
+awk '{print $3}' markers_detected.txt | sort | uniq -c | awk '$1 == 1 {print $2}' | while read image; do grep "$image" markers_detected.txt; done > single_markers.txt
+```
 
-
-
-
+You can further refine your results by selecting the top 10 most representative images for each identified ArUco marker, as outlined in section
+[Select representative images for a marker](#select-representative-images-for-a-marker).
 
 
 
