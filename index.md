@@ -54,6 +54,12 @@ feature_row2:
     alt: "Geospatial Workflows"
     url: "ExampleGeoWorkflows/GRWGWorkshop"
     btn_label: "Learn More"
+    
+  - title: "Geospatial visualizations"
+    image_path: /assets/images/elena-mozhvilo-znhEe1cbbQE-unsplash-1200_800.jpg
+    alt: "Geospatial visualizations"
+    url: "Visualizations/Visualizations-LandingPage"
+    btn_label: "Learn More"
 
 ---
 
