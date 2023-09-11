@@ -632,14 +632,12 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
 1. Download the Python script `identify_gcp_id.py` from the repo and place it in the location of your SOFTWARE or TOOLS for geospatial analysis (e.g., `project/<account>/<user>/TOOLS`):
   ```
   cd project/<account>/<user>/TOOLS
-
   git clone /geo_utils
   ```
 
 2. Make sure you navigate back to the `representative` directory in your photogrammetry project. You can softlink the `identify_gcp_id.py` script for easy use:
   ```
   cd project/<account>/<user>/ODM/<project_X>/IMAGES/representative
-
   ln -s project/<account>/<user>/TOOLS/geo_utils/identify_gcp_id.py ./
   ```
 
@@ -652,7 +650,6 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
 
   ```
   python identify_gcp_id.py GCP_reference.txt > matching_results
-
   grep "Match" < matching results | sort -nk4 > ID_matches
   cat ID_matches
   ```
@@ -677,7 +674,6 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
   ```
   awk '{print $4"_"$14}' < ID_matches > ../tmp
   cd ../                               # navigate to the IMAGES dir with the GCP_reference.file
-
   for i in `cat tmp`
   do
       old=`echo $i | awk -F"_" '{print $1}'`
