@@ -216,7 +216,7 @@ Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z 
 3 523364.648 4779587.932 1395.735 <br>
 4 523394.376 4779529.525 1398.728 <br>
 5 523363.938 4779530.027 1400.244 <br>
-</div><br>
+</div>
 
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
@@ -233,7 +233,7 @@ Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z 
 
 **3. Capturing Imagery:** Using drones, satellites, or handheld cameras, images of the area are taken. These images capture the terrain as well as the ArUco markers.
 
-**4. Detection and Analysis:** During the post-processing phase, software detects the ArUco markers in the captured images. Given the known size and ID of each marker, as well as its location in the image, software can estimate the camera's pose and the 3D position of the marker. <span style="color: #ff3870;font-weight: 500;">To learn more, see section <a href="#automatic-recognition-of-aruco-codes" target="_blank">Automatic recognition of ArUco codes</a>.</span>
+**4. Detection and Analysis:** During the post-processing phase, software detects the ArUco markers in the captured images. Given the known size and ID of each marker, as well as its location in the image, software can estimate the camera's pose and the 3D position of the marker. <span style="color: #ff3870;font-weight: 500;"><br>To learn more, see section <a href="#automatic-recognition-of-aruco-codes" target="_blank">Automatic recognition of ArUco codes</a>.</span>
 
 **5. Georeferencing:** Knowing the real-world coordinates of each ArUco marker, the captured images can be georeferenced (assigned to a specific location in a spatial reference system). This ensures that the imagery aligns accurately with geographic coordinates.
 
@@ -358,7 +358,7 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
 
 <table>
 <tr style="width: 100%">
-  <td style="border: 1px solid white; width: 700px">
+  <td style="border: 1px solid white; width: 650px">
     <div style="background: #cff4fc; padding: 15px; height: 200px;">
     <span style="font-weight:800;">PRO TIP:</span><br>
     <span style="font-style:italic;">For good size recommendations, please see <a href="http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html" target="_blank">http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html</a>.<br><br>The generated ArUco markers are compatible with the Find-GCP tool, so you can use it after the flight to find the markers in your pictures.</span>
@@ -366,9 +366,9 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
     <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
     <span style="font-weight:800;">WARNING:</span>
     <br><span style="font-style:italic;">When using the <b>gcp_aruco_generator</b> tool, be aware that the <b>ArUco marker IDs also start numbering from 0</b>, just like in standard ArUco dictionaries.</span>
-    </div><br>
+    </div>
   </td>
-  <td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:200px;"></td>
+  <td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:250px;"></td>
 </tr>
 </table>
 
@@ -400,11 +400,11 @@ done
 
 <table>
 <tr style="width: 100%">
-<td style="border: 1px solid white; width: 500px">
-Finally, you can use the free online ArUco markers generator: <a href="https://chev.me/arucogen/" target="_blank">https://chev.me/arucogen/</a> <br><br>
+<td style="border: 1px solid white; width: 400px; font-size: 20px;">
+Finally, you can use the free online <br>ArUco markers generator: <a href="https://chev.me/arucogen/" target="_blank">https://chev.me/arucogen/</a> <br><br>
 <i>See the corresponding GitHub repo:</i> <a href="https://github.com/okalachev/arucogen" target="_blank">https://github.com/okalachev/arucogen</a>
 </td>
-<td style="border: 1px solid white;"><img src="../assets/images/online_generator.png" style="width:400px;"></td>
+<td style="border: 1px solid white;"><img src="../assets/images/online_generator.png" style="width:500px;"></td>
 </tr>
 </table>
 
@@ -415,7 +415,7 @@ For automatic recognition of ArUco markers, it's optimal to have your **land sur
 
 **INPUTS:** <br>
 **-** imagery in JPG format <br>
-**-** GCPs coordinate file, *e.g.,* `GCP_reference.txt`
+**-** GCPs coordinate file, *e.g.,* `GCP_reference.txt`:
 ```
 0 523287.368 4779588.335 1397.823
 1 523305.976 4779572.588 1397.817
@@ -441,7 +441,7 @@ For automatic recognition of ArUco markers, it's optimal to have your **land sur
 
 ---
 
-### SCENARIO 1: GCP file with known ArUco IDs
+### SCENARIO 1: *GCP file with known ArUco IDs*
 
 ***i.e., Direct ArUco ID match***
 
@@ -460,7 +460,7 @@ cd /project/<path_to_your_project_directory>
 FIND_GCP_PATH=/path/to/Find-GCP_repo
 INPUTS_PATH=/path/to/input_imagery
 ```
-4. Activate the Conda environment (if not activated yet). *You should activate a specific conda environment related to this project (e.g., the geospatial env created in section [Find-GCP python utility: installation](#find-gcp-python-utility-installation)):*
+4. Activate the Conda environment (if not activated yet). *You should activate a specific conda environment related to this project (e.g., the geospatial env created in section <br>[Find-GCP python utility: installation](#find-gcp-python-utility-installation)):*
 ```
 source activate geospatial
 ```
@@ -512,23 +512,23 @@ awk '{print $7}' < gcp_list.txt | sort | uniq -c
 ```
 
 A practical strategy is to first **employ an automated filter to narrow down to approximately 10 images per marker**, and subsequently perform a visual check to ensure accuracy.
-* To select the N=10 images per marker ID where the marker is placed closest to the center of the image, we can use a Python script `select_images.py`. Here's the outline of the steps:
+* To select the N=10 images per marker ID where the marker is placed closest to the center of the image, we can use a Python script `gcp_images_picker.py`. Here's the outline of the steps:
   * Calculate the distance of each marker from the center of the image using the Euclidean distance formula.
   * Sort the images for each marker ID based on this distance in ascending order.
   * Select the top N images for each marker ID.
 
 **Run the script with a syntax:**
 ```
-Usage: python select_images.py <data_file_path> <image_width> <image_height> <images_number>
+Usage: python gcp_images_picker.py <data_file_path> <image_width> <image_height> <images_number>
 ```
 *for example:*
 ```
-python select_images.py gcp_list.txt 6000 4000 10 > gcp_list_10.txt
+python gcp_images_picker.py gcp_list.txt 6000 4000 10 > gcp_list_10.txt
 ```
 
 ---
 
-### SCENARIO 2: GCP file with custom IDs
+### SCENARIO 2: *GCP file with custom IDs*
 
 ***i.e., Custom ID integration***
 
@@ -629,22 +629,22 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
 <i>Now, the images should be copied into the <b>representative</b> subdirectory and their names should change from R0036737.JPG to R0036737<b>_0</b>.JPG denoting the ID of detected ArUco marker (which is required in the next step).</i>
 
 
-**STEP 2.** In the second step, a Python script `identify_gcp_id.py` automatically matches the GCP coordinates with the representative images (by calculating the distance between GCPs from reference file and GPS coordinates of each picture).
-  * If there's a coordinate system discrepancy between reference GCPs and imagery GPS, a conversion is carried out for the GCPs ***(so, that's why you must provide the correct EPSG code)***.<br>
+**STEP 2.** In the second step, a Python script `gcp_to_aruco_mapper.py` automatically matches the GCP coordinates with the representative images (by calculating the distance between GCPs from reference file and GPS coordinates of each picture).
+  * If there's a coordinate system difference between reference GCPs and imagery GPS, a conversion is carried out for the GCPs. <br>***(So, that's why you must provide the correct EPSG code.)***<br>
 
-1. Download the Python script `identify_gcp_id.py` from the repo and place it in the location of your SOFTWARE or TOOLS for geospatial analysis (e.g., `project/<account>/<user>/TOOLS`):
+1. Download the Python script `gcp_to_aruco_mapper.py` from the **[geo_utils repo](https://github.com/ISUgenomics/geo_utils/tree/main)** and place it in the location of your SOFTWARE or TOOLS for geospatial analysis (e.g., `project/<account>/<user>/TOOLS`):
   ```
-  cd project/<account>/<user>/TOOLS
-  git clone /geo_utils
+  cd project/<account>/<user>/SOFTWARE
+  git clone https://github.com/ISUgenomics/geo_utils.git
   ```
 
-2. Make sure you navigate back to the `representative` directory in your photogrammetry project. You can softlink the `identify_gcp_id.py` script for easy use:
+2. Make sure you navigate back to the `representative` directory in your photogrammetry project. You can softlink the `gcp_to_aruco_mapper.py` script for easy use:
   ```
   cd project/<account>/<user>/ODM/<project_X>/IMAGES/representative
-  ln -s project/<account>/<user>/TOOLS/geo_utils/identify_gcp_id.py ./
+  ln -s project/<account>/<user>/SOFTWARE/geo_utils/TOOLS/gcp_to_aruco_mapper.py ./
   ```
 
-3. Run the `identify_gcp_id.py` script to match the GCP coordinates with the representative images:
+3. Run the `gcp_to_aruco_mapper.py` script to match the GCP coordinates with the representative images:
 
   <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
   <span style="font-weight:800;">WARNING:</span>
@@ -652,7 +652,7 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
   </div>
 
   ```
-  python identify_gcp_id.py GCP_reference.txt > matching_results
+  python3 gcp_to_aruco_mapper.py -g gcp_list.txt -i "./" -z 11 -o matching_results -d 50 > out_distances
   grep "Match" < matching results | sort -nk4 > ID_matches
   cat ID_matches
   ```
