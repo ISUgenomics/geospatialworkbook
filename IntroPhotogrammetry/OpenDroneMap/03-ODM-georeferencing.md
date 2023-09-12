@@ -149,6 +149,7 @@ _____ _____ _____ ____ ____ __________ __________ ________ ________
 geo_x geo_y geo_z im_x im_y image_name [gcp_name] [extra1] [extra2]
 ```
 
+---
 
 # Software for manual detection of (any) GCPs
 
@@ -156,6 +157,7 @@ geo_x geo_y geo_z im_x im_y image_name [gcp_name] [extra1] [extra2]
 
 Use any software for tagging GCPs, e.g., the [GCP Editor Pro](https://uav4geo.com/software/gcpeditorpro) is a good match for the ODM. Download source code from the [GitHub](https://github.com/uav4geo/GCPEditorPro).
 
+---
 
 # Automatic detection of ArUco targets
 
@@ -206,7 +208,7 @@ You can generate GCP (Ground Control Point) markers ranging from 1 to up to 1000
 
 **2. Printing and Placement:** Once generated, these markers are printed on sturdy material to withstand outdoor conditions. They're then placed strategically at known positions within the area to be surveyed.
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 When recording the exact positions of the placed Ground Control Points (GCPs), <b>always note which GCP corresponds to which ArUco marker ID</b><i> (e.g., create GCP_reference.txt file)</i>; this association will be crucial when pinpointing them on the images during post-processing. <br>
 Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z </b><br>
@@ -237,6 +239,8 @@ Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z 
 
 **5. Georeferencing:** Knowing the real-world coordinates of each ArUco marker, the captured images can be georeferenced (assigned to a specific location in a spatial reference system). This ensures that the imagery aligns accurately with geographic coordinates.
 
+---
+
 # Create env for geospatial analysis
 
 Creating a Conda environment for geospatial analyses streamlines your workflow by isolating installations and dependencies specific to selected geospatial tools. This offers the advantage of consistency, compatibility and convenience, beneficial for both High-Performance Computing (HPC) and local machines.
@@ -261,15 +265,49 @@ Isolating installations and dependencies ensures that you can **effortlessly int
   ```
   4. install required libraries:
   ```
-  pip install opencv-python opencv-contrib-python Pillow numpy matplotlib
+  pip install numpy==1.22.2 opencv-python==4.8.0.76 opencv-contrib-python==4.8.0.76 Pillow==10.0.0 pyproj==3.6.0 Shapely==1.8.1.post1 svgwrite==1.4.1
   ```
-  <i>This command installs a foundational set of dependencies crucial for the Python utilities detailed below (sourced from GitHub repos). With these dependencies in place and the environment activated, these tools are set to operate immediately post-cloning, eliminating the need of further setup.</i><br><br>
-  In the future, if you seek to augment this environment with more packages, you can effortlessly do so at any point using either `conda install` or `pip install` commands.
+  <i>This command installs a foundational set of dependencies crucial for the Python utilities detailed below (sourced from GitHub repos). With these dependencies in place and the environment activated, these tools are set to operate immediately post-cloning, eliminating the need of further setup.</i><br>
+
+  <div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
+  <span style="font-weight:800;">PRO TIP:</span>
+  <br><span style="font-style:italic;">
+  In the future, if you seek to augment this environment with more packages, you can effortlessly do so at any point using either <b>conda install</b> or <b>pip install</b> commands in the activated environment.
+  </span>
+  </div>
 
   5. deactivate this environment *(if you no longer intend to use it for this session)*:
   ```
   conda deactivate
   ```
+
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+Before starting to use Conda on HPC cluster <i>(e.g. Atlas or Ceres)</i>, it’s advisable to change the default location (your home directory) where Conda will install your customized libraries. Installing a lot of Python libraries may contribute to the default 5G soft limit quota on your home directory being surpassed. To overcome this issue you can <b>move .conda directory from your home directory to your project directory and create a symbolic link to the new location</b>.
+</span>
+</div>
+
+**Change storage location of your Conda envs:** <br>
+<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> All your Conda envs are stored in .conda dir by default.)</span><br>
+*Remember to replace the placeholders in <> with the appropriate paths from your file system.*
+```
+cd ~
+mkdir /project/<your_project_dir>/<account_name>
+mv .conda /project/<your_project_dir>/<account_name>/
+chgrp -R proj-<your_project_dir> /project/<your_project_dir>/<account_name>/.conda
+chmod -R g+s /project/<your_project_dir>/<account_name>/.conda
+ln -s /project/<your_project_dir>/<account_name>/.conda .conda
+```
+*The* `mv` *and* `chgrp` *commands may take longer time depending on how much data you have in the <b>.conda</b> directory.*
+
+<div style="background: #cff4fc; padding: 15px;">
+<span style="font-weight:800;">PRO TIP:</span>
+<br><span style="font-style:italic;">
+If you're unsure whether you've moved your <b>.conda directory</b> from <i>home</i> to the <i>project</i>, run <b>ls -lha</b> in your <i>home</i> directory to see the actual locations of all files, including the (eventually) <b>soft-linked .conda</b>.
+</span>
+</div><br><br>
+
 
 **B. On your local machine (alternatively):** <br>
 * If you already have the Conda environment manager installed, skip step 1 and proceed with the instructions outlined above.
@@ -292,10 +330,9 @@ Isolating installations and dependencies ensures that you can **effortlessly int
 * [gcp_images_picker.py](https://github.com/ISUgenomics/geo_utils/tree/main#gcp-images-picker) - automatically selects the representative images for each GCP, minimizing manual inspection
 
 
-
 ## **Find-GCP** python utility: installation
 
-**[Find-GCP](https://github.com/zsiki/Find-GCP)** is a Python tool leveraging the OpenCV library, designed to detect ArUco Ground Control Points in imagery and generate the corresponding GCP file required for photogrammetric programs such as Open Drone Map. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
+**[Find-GCP](https://github.com/zsiki/Find-GCP)** is a Python tool leveraging the OpenCV library, designed to detect ArUco Ground Control Points in imagery and generate the corresponding GCP file required for photogrammetric programs such as Open Drone Map. The GitHub repo contains a few small utilities useful in land surveying tasks:
 
 * [aruco_make.py](https://github.com/zsiki/Find-GCP#aruco_makepy) - generates aruco marker images using different standard dictionaries
 * [gcp_find.py](https://github.com/zsiki/Find-GCP#gcp_findpy) - identifies Ground Control Points (GCP) in imagery
