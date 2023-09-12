@@ -517,14 +517,46 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   * Sort the images for each marker ID based on this distance in ascending order.
   * Select the top N images for each marker ID.
 
-**Run the script with a syntax:**
-```
-Usage: python gcp_images_picker.py <data_file_path> <image_width> <image_height> <images_number>
-```
-*for example:*
-```
-python gcp_images_picker.py gcp_list.txt 6000 4000 10 > gcp_list_10.txt
-```
+1. Download the Python script `gcp_images_picker.py` from the **[geo_utils repo](https://github.com/ISUgenomics/geo_utils)** and place it in the location of your SOFTWARE or TOOLS for geospatial analysis (e.g., `project/<account>/<user>/TOOLS`):
+  ```
+  cd project/<account>/<user>/SOFTWARE
+  git clone https://github.com/ISUgenomics/geo_utils.git
+  ```
+
+2. Make sure you navigate back to the IMAGES directory in your photogrammetry project. You can softlink the `gcp_images_picker.py` script for easy use:
+  ```
+  cd project/<account>/<user>/ODM/IMAGES/<project_X>
+  ln -s project/<account>/<user>/SOFTWARE/geo_utils/TOOLS/gcp_images_picker.py ./
+  ```
+
+3. Run the `gcp_images_picker.py` script to automate selection of representative GCP images, minimizing manual inspection:
+  ```
+  # Usage:
+  python gcp_images_picker.py -i <data_file_path> -w <image_width> -l <image_height> -n <images_number> -o <custom_outfile>
+  ```
+  *for example:*
+  ```
+  python3 gcp_images_picker.py -i gcp_list.txt -w 6000 -l 4000 -n 10
+  ```
+  *The script will write the selected data to the file specified by the -o option. If the option isn't provided, it defaults to* `gcp_list_selected.txt`.
+  ```
+  523394.376 4779529.525 1398.728 3420 1497 R0036704.JPG 4
+  523394.376 4779529.525 1398.728 2236 1940 R0036753.JPG 4
+  523394.376 4779529.525 1398.728 2329 1549 R0036752.JPG 4
+  523394.376 4779529.525 1398.728 3526 1127 R0036703.JPG 4
+  523394.376 4779529.525 1398.728 3924 1274 R0036038.JPG 4
+  523394.376 4779529.525 1398.728 4216 1930 R0036039.JPG 4
+  523394.376 4779529.525 1398.728 4372 2125 R0036678.JPG 4
+  523394.376 4779529.525 1398.728 4302 1536 R0036677.JPG 4
+  523394.376 4779529.525 1398.728 4364 2421 R0036040.JPG 4
+  523394.376 4779529.525 1398.728 4216 1199 R0036676.JPG 4
+  ```
+
+  <div style="background: #cff4fc; padding: 15px;">
+  <span style="font-weight:800;">PRO TIP:</span><br>
+  While the script does a job of pre-selecting images, it's recommended taking a moment to <b>visually inspect the chosen images</b>. This ensures that markers are clearly visible and that the annotations with ArUco ID align with the correct pattern. A brief manual check can help enhance the accuracy and reliability of your dataset. <br>
+  <i>Automation aids efficiency, but a human touch ensures precision!</i>
+  </div><br>
 
 ---
 
