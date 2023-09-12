@@ -385,7 +385,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   python gcp_to_aruco_mapper.py [-h] -g GCP_FILE -i IMAGERY_PATH -z ZONE [-o OUTPUT] [-d MAX_DIST]
   ```
 
-  <div style="background: #cff4fc; padding: 15px;">
+  <div style="background: #cff4fc; padding: 15px; margin-left: 5px;">
   <span style="font-weight:800;">PRO TIP:</span>
   <br><span style="font-style:italic;">
   To gain practical experience with the use of these scripts, please follow the instructions provided in the subsequent sections of this tutorial.
@@ -395,7 +395,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
 
 ## **Find-GCP** python utility: installation
 
-**[Find-GCP](https://github.com/zsiki/Find-GCP)** is a Python tool leveraging the OpenCV library, designed to detect ArUco Ground Control Points in imagery and generate the corresponding GCP file required for photogrammetric programs such as Open Drone Map. The GitHub repo contains a few small utilities useful in land surveying tasks:
+**[Find-GCP](https://github.com/zsiki/Find-GCP)** (GitHub repo) is a Python tool leveraging the OpenCV library, designed to detect ArUco Ground Control Points in imagery and generate the corresponding GCP file required for photogrammetric programs such as Open Drone Map. The GitHub repo contains a few small utilities useful in land surveying tasks:
 
 * [aruco_make.py](https://github.com/zsiki/Find-GCP#aruco_makepy) - generates aruco marker images using different standard dictionaries
 * [gcp_find.py](https://github.com/zsiki/Find-GCP#gcp_findpy) - identifies Ground Control Points (GCP) in imagery
@@ -430,20 +430,20 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   ```
   pip install opencv-python opencv-contrib-python PIL pil.imagetk numpy matplotlib
   ```
-  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 5px;">
   <span style="font-weight:800;">WARNING:</span>
   <br><span style="font-style:italic;">
   Installing packages without specifying a version usually installs the latest version, which may be incompatible with older required ones, potentially causing scripts to malfunction.
   </span>
   </div>
 
-  6. start using the scripts from the repo! *(they are placed directly in the directory)* <br>
-  Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
-  ```
-  cd Find-GCP
-  ls
-  ```
-  ![find_gcp_repo](../assets/images/find_gcp_repo.png)
+Start using the scripts from the repo! *(they are placed directly in the directory)* <br>
+Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
+```
+cd Find-GCP
+ls
+```
+![find_gcp_repo](../assets/images/find_gcp_repo.png)
 
 
 ## **Automatic generation of ArUco codes**
@@ -462,7 +462,7 @@ In the naming convention like `DICT_4X4_100` or `DICT_6X6_250`: <br>
 <li> Smaller markers (like 4x4) can be detected at shorter distances and might be harder to distinguish at low resolutions or with noise. Nevertheless, 4x4 markers are a popular and often sufficient choice for the majority of land surveying applications. <i>The contents of the 4X4_50 dictionary are displayed below.</i></li>
 <li> Larger markers (like 6x6 or 7x7) can be detected from a greater distance, are generally more resilient to noise, but they also take up more space in the image. The number of unique markers needed will also influence the choice of dictionary.</li>
 <li>In ArUco marker dictionaries, <b>each larger grid size includes all markers from its smaller counterparts in the same order</b>; <i>for example, the first 50 markers in all 4x4 dictionaries will be identical, and any additional markers in larger dictionaries are unique and extend the set.</i></li>
-</div><br>
+</div>
 
 ![aruco_dict](../assets/images/aruco_dict.png)
 
@@ -471,7 +471,7 @@ In the naming convention like `DICT_4X4_100` or `DICT_6X6_250`: <br>
 <br><span style="font-style:italic;"><b>ArUco markers within each dictionary are numbered starting from zero.</b> For accurate reference and data processing, always save both the selected marker's ID and the type of the source dictionary used.</span>
 </div><br>
 
-**Generating markers using ready-made tools** <br>
+<span style="font-size: 20px;"><b>Generating markers using ready-made tools<b></span> <br>
 
 **A. ArUco marker images in PNG** <br>
 To produce ArUco markers for your land surveying project, start by installing the Find-GCP Python utility ([refer to the section above](#find-gcp-python-utility-installation)). Within the cloned Find-GCP repository directory, you'll locate the `aruco_make.py`. This tool assists you in generating markers from standard dictionaries, as well as more compact 3x3 square markers.
@@ -497,7 +497,7 @@ conda deactivate                   # deactivate env when you are done with Find-
   ![aruco_make](../assets/images/aruco_make.png)
 
   <i>This command will create 10 markers, numbered from 0 to 9 (e.g., marker0.png), using the dictionary DICT_4x4_100.</i><br>
-  * the number provided with the `-d` option determines the dictionary *(see the table below)*, default = 1
+  * `-d <int>` option, the number determines the dictionary *(see the table below)*, default = 1
 
   |code  | dictionary|code  | dictionary |code  | dictionary |code  | dictionary  |
   |------|-----------|------|------------|------|------------|------|-------------|
@@ -509,12 +509,12 @@ conda deactivate                   # deactivate env when you are done with Find-
   |**17**|DICT_APRILTAG_16H5|**18**|DICT_APRILTAG_25H9|**19**|DICT_APRILTAG_36H10|**20**|DICT_APRILTAG_36H11|
   |**99**|DICT_3X3_32 custom|
 
-  * the number provided with the `-s` option determines the index of the first marker, default = 0
-  * the number provided with the `-e` option determines the index of the last marker, default = -1 *(only one marker is generated with index 0)*
-  * the optional `-v` flag shows marker on monitor *(when applicable, e.g., when working on a local machine)*
-  * the optional `-g` flag generates black/gray marker *(instead black/white to reduce the effect of white burnt in)*
-    * the optional option `--value <VAL>` determines shade of background use with `-g`, default=95
-  * the optional option `-p <PAD>` determines border width around marker in inches, default= 0.5
+  * `-s <int>` option, the number determines the index of the first marker, default = 0
+  * `-e <int>` option, the number determines the index of the last marker, default = -1 *(only one marker is generated with index 0)*
+  * `-v` flag (optional) shows marker on monitor *(when applicable, e.g., when working on a local machine)*
+  * `-g` flag (optional) generates black/gray marker *(instead black/white to reduce the effect of white burnt in)*
+    * the optional `--value <VAL>` determines shade of background use with `-g`, default=95
+  * `-p <PAD>` (optional) determines border width around marker in inches, default= 0.5
 <br><br>
 
 **B. ArUco marker images in SVG** <br>
@@ -522,7 +522,7 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
 
 <table>
 <tr style="width: 100%">
-  <td style="border: 1px solid white; width: 650px">
+  <td style="border: 1px solid white; width: 640px">
     <div style="background: #cff4fc; padding: 15px; height: 200px;">
     <span style="font-weight:800;">PRO TIP:</span><br>
     <span style="font-style:italic;">For good size recommendations, please see <a href="http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html" target="_blank">http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html</a>.<br><br>The generated ArUco markers are compatible with the Find-GCP tool, so you can use it after the flight to find the markers in your pictures.</span>
@@ -532,7 +532,7 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
     <br><span style="font-style:italic;">When using the <b>gcp_aruco_generator</b> tool, be aware that the <b>ArUco marker IDs also start numbering from 0</b>, just like in standard ArUco dictionaries.</span>
     </div>
   </td>
-  <td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:250px;"></td>
+  <td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:260px;"></td>
 </tr>
 </table>
 
