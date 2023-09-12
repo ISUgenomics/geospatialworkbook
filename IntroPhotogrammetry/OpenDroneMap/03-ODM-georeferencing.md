@@ -249,7 +249,8 @@ Isolating installations and dependencies ensures that you can **effortlessly int
 
 *Give it a shot! It's an investment that pays off!*
 
-**A. On SCINet HPC: Atlas** (via ssh in CLI terminal or via OOD in JupyterLab Terminal app)
+<span style="font-size: 20px;"><b>A. On SCINet HPC: Atlas</b></span> <br>
+*(via ssh in CLI terminal or via OOD in JupyterLab Terminal app)*
   1.  check available **conda** modules and load selected one:
   ```
   module avail conda
@@ -289,7 +290,7 @@ Before starting to use Conda on HPC cluster <i>(e.g. Atlas or Ceres)</i>, it’s
 </div>
 
 **Change storage location of your Conda envs:** <br>
-<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> All your Conda envs are stored in .conda dir by default.)</span><br>
+<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> All your Conda envs are stored in .conda dir by default. )</span><br>
 *Remember to replace the placeholders in <> with the appropriate paths from your file system.*
 ```
 cd ~
@@ -309,7 +310,17 @@ If you're unsure whether you've moved your <b>.conda directory</b> from <i>home<
 </div><br><br>
 
 
-**B. On your local machine (alternatively):** <br>
+**Create the storage directory for custom software and GitHub repos:** <br>
+<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> You can keep all your self-installed useful tools here. )</span>
+
+You can establish a SOFTWARE or TOOLS directory within your `/project/<account>` location on the cluster, ensuring a well-organized repository for your custom tools, making them easily locatable in the future.
+```
+cd /project/<your_project_dir>/
+mkdir SOFTWARE
+```
+*We will use this location later in this tutorial to* `git clone` *a few GitHub repositories with python utilities useful in land surveying tasks. You can also add your customized software here.*
+
+<span style="font-size: 20px;"><b>B. On your local machine (alternatively):</b></span> <br>
 * If you already have the Conda environment manager installed, skip step 1 and proceed with the instructions outlined above.
   * **NOTE:** On a local machine you will use `conda activate geospatial` instead of `source` command.
 
@@ -319,15 +330,67 @@ If you're unsure whether you've moved your <b>.conda directory</b> from <i>home<
 
 * If you choose not to use Conda, you can jump directly to step 4 in the guide, though <u>this is not recommended</u> because the necessary libraries will install system-wide, rather than in an isolated environment.
 
+---
 
+<span style="font-size: 24px;">A few tips before working with Conda and GitHub repos</span>
+
+Once you've set up the `geospatial` environment, theoretically all the necessary dependencies for the repos listed below should already be installed. However, dependencies may change over time.
+* If there are updates or changes to the repository, ensure that you activate the geospatial environment and install all the new requirements. The installation should be done once initially, or after each `git pull` from the repo.
+* For subsequent usage of the repo's scripts, simply **activate the geospatial environment and execute the scripts**; there's no need to reinstall requirements every time you use them.
 
 ## **geo_utils** python utility: installation
 
-**[geo_utils](https://github.com/ISUgenomics/geo_utils)** is an evolving collection of Python utilities tailored for geospatial analysis, developed at ISU as a part of the virtual research support for the USDA scientist. These utilities are designed to complement photogrammetry analysis using ODM software, enhancing the robustness of processing pipelines especially when calculations are executed on an HPC cluster. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
+**[geo_utils](https://github.com/ISUgenomics/geo_utils)** (GitHub repo) is an evolving collection of Python utilities tailored for geospatial analysis, developed at ISU as a part of the virtual research support for the USDA scientist. These utilities are designed to complement photogrammetry analysis using ODM software, enhancing the robustness of processing pipelines especially when calculations are executed on an HPC cluster. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
 
 * [gcp_to_aruco_mapper.py](https://github.com/ISUgenomics/geo_utils/tree/main#gcp-to-aruco-mapper) - maps custom GCP IDs to corresponding ArUco marker IDs in imagery based on the distance between GCP coordinates and image GPS
 
 * [gcp_images_picker.py](https://github.com/ISUgenomics/geo_utils/tree/main#gcp-images-picker) - automatically selects the representative images for each GCP, minimizing manual inspection
+
+**INSTALLATION:** <span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> <i>The cloned repo will persist in your file system.</i>)</span>
+
+**On SCINet HPC: Atlas** (via ssh in CLI terminal or via OOD in JupyterLab Terminal app)
+
+  1. navigate to the **SOFTWARE** directory in your `/project/<your_project_dir>/` path:
+  ```
+  cd /project/<your_project_dir>/SOFTWARE
+  ```
+
+  2. clone the geo_utils repo from GitHub:
+  ```
+  git clone https://github.com/ISUgenomics/geo_utils
+  ```
+  When you clone a repository from GitHub, it creates a new directory on your current path with the name of the repository. Inside this directory, you'll find the contents of the repository.
+
+  3.  check available **conda** modules and load selected one *(if not loaded yet in this session)*:
+  ```
+  module avail conda
+  module load miniconda/4.12.0
+  ```
+
+  4. activate your `geospatial` environment *(if not activated yet in this session)*:
+  ```
+  source activate geospatial
+  ```
+
+  5. install required libraries *(optionally, initially or after* `git pull`*)*:
+  ```
+  pip install -r requirements.txt
+  ```
+
+  6. start using the scripts from the repo! *(they are located in the TOOLS subdir)*
+  ```
+  # GCP images picker
+  python gcp_images_picker.py [-h] -i DATA_FILE_PATH -w IMAGE_WIDTH -l IMAGE_HEIGHT [-n IMAGES_NUMBER] [-o OUTPUT]
+  # GCP to ArUco mapper
+  python gcp_to_aruco_mapper.py [-h] -g GCP_FILE -i IMAGERY_PATH -z ZONE [-o OUTPUT] [-d MAX_DIST]
+  ```
+
+  <div style="background: #cff4fc; padding: 15px;">
+  <span style="font-weight:800;">PRO TIP:</span>
+  <br><span style="font-style:italic;">
+  To gain practical experience with the use of these scripts, please follow the instructions provided in the subsequent sections of this tutorial.
+  </span>
+  </div>
 
 
 ## **Find-GCP** python utility: installation
@@ -338,34 +401,49 @@ If you're unsure whether you've moved your <b>.conda directory</b> from <i>home<
 * [gcp_find.py](https://github.com/zsiki/Find-GCP#gcp_findpy) - identifies Ground Control Points (GCP) in imagery
 * [gcp_check.py](https://github.com/zsiki/Find-GCP#gcp_checkpy) - helps the visual check of the found GCPs by `gcp_find.py`
 
-**INSTALLATION:**
+**INSTALLATION:** <span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> <i>The cloned repo will persist in your file system.</i>)</span>
 
-**A. On SCINet HPC: Atlas** (via ssh in CLI terminal or via OOD in JupyterLab Terminal app)
-  1.  check available **conda** modules and load selected one:
+**On SCINet HPC: Atlas** (via ssh in CLI terminal or via OOD in JupyterLab Terminal app)
+
+  1. navigate to the **SOFTWARE** directory in your `/project/<your_project_dir>/` path:
+  ```
+  cd /project/<your_project_dir>/SOFTWARE
+  ```
+
+  2. clone the geo_utils repo from GitHub:
+  ```
+  git clone https://github.com/zsiki/Find-GCP.git
+  ```
+
+  3.  check available **conda** modules and load selected one *(if not loaded yet in this session)*:
   ```
   module avail conda
   module load miniconda/4.12.0
   ```
-  2. activate your `geospatial` environment:
+
+  4. activate your `geospatial` environment *(if not activated yet in this session)*:
   ```
   source activate geospatial
   ```
-  3. clone the Find-GCP repo from GitHub:
+
+  5. install required libraries *(optionally, initially or after* `git pull`*)*:
   ```
-  git clone https://github.com/zsiki/Find-GCP.git
+  pip install opencv-python opencv-contrib-python PIL pil.imagetk numpy matplotlib
   ```
-  When you clone a repository from GitHub, it creates a new directory on your current path with the name of the repository. Inside this directory, you'll find the contents of the repository. Once you navigate into this directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
+  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+  <span style="font-weight:800;">WARNING:</span>
+  <br><span style="font-style:italic;">
+  Installing packages without specifying a version usually installs the latest version, which may be incompatible with older required ones, potentially causing scripts to malfunction.
+  </span>
+  </div>
+
+  6. start using the scripts from the repo! *(they are placed directly in the directory)* <br>
+  Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
   ```
   cd Find-GCP
   ls
   ```
   ![find_gcp_repo](../assets/images/find_gcp_repo.png)
-
-  4. install required libraries:
-  ```
-  pip install opencv-python opencv-contrib-python Pillow numpy matplotlib
-  ```
-
 
 
 ## **Automatic generation of ArUco codes**
