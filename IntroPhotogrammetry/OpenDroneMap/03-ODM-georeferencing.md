@@ -237,15 +237,13 @@ Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z 
 
 **5. Georeferencing:** Knowing the real-world coordinates of each ArUco marker, the captured images can be georeferenced (assigned to a specific location in a spatial reference system). This ensures that the imagery aligns accurately with geographic coordinates.
 
-## Find-GCP python utility: installation
+# Create env for geospatial analysis
 
-**[Find-GCP](https://github.com/zsiki/Find-GCP)** is a Python tool leveraging the OpenCV library, designed to detect ArUco Ground Control Points in imagery and generate the corresponding GCP file required for photogrammetric programs such as Open Drone Map. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
+Creating a Conda environment for geospatial analyses streamlines your workflow by isolating installations and dependencies specific to selected geospatial tools. This offers the advantage of consistency, compatibility and convenience, beneficial for both High-Performance Computing (HPC) and local machines.
 
-* [aruco_make.py](https://github.com/zsiki/Find-GCP#aruco_makepy) - generates aruco marker images using different standard dictionaries
-* [gcp_find.py](https://github.com/zsiki/Find-GCP#gcp_findpy) - identifies Ground Control Points (GCP) in imagery
-* [gcp_check.py](https://github.com/zsiki/Find-GCP#gcp_checkpy) - helps the visual check of the found GCPs by `gcp_find.py`
+Isolating installations and dependencies ensures that you can **effortlessly integrate ready-made packages and Python utilities**, such as those for marker detection in imagery for further analysis with ODM. With a **one-time setup of a unified "geospatial" environment**, you can seamlessly utilize a suite of tools from various GitHub repositories, significantly streamlining your daily tasks.
 
-**INSTALLATION:**
+*Give it a shot! It's an investment that pays off!*
 
 **A. On SCINet HPC: Atlas** (via ssh in CLI terminal or via OOD in JupyterLab Terminal app)
   1.  check available **conda** modules and load selected one:
@@ -265,7 +263,57 @@ Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z 
   ```
   pip install opencv-python opencv-contrib-python Pillow numpy matplotlib
   ```
-  5. clone the Find-GCP repo from GitHub:
+  <i>This command installs a foundational set of dependencies crucial for the Python utilities detailed below (sourced from GitHub repos). With these dependencies in place and the environment activated, these tools are set to operate immediately post-cloning, eliminating the need of further setup.</i><br><br>
+  In the future, if you seek to augment this environment with more packages, you can effortlessly do so at any point using either `conda install` or `pip install` commands.
+
+  5. deactivate this environment *(if you no longer intend to use it for this session)*:
+  ```
+  conda deactivate
+  ```
+
+**B. On your local machine (alternatively):** <br>
+* If you already have the Conda environment manager installed, skip step 1 and proceed with the instructions outlined above.
+  * **NOTE:** On a local machine you will use `conda activate geospatial` instead of `source` command.
+
+
+* For those unfamiliar with Conda, it's a valuable tool for computational tasks, and you can learn how to use it through the practical tutorials in the DataScience workbook: [Conda on Linux](https://datascience.101workbook.org/03-SetUpComputingMachine/03C-tutorial-installations-on-linux#conda), [Conda on macOS](https://datascience.101workbook.org/03-SetUpComputingMachine/03A-tutorial-installations-on-mac#-install-conda), [Python Setup on your computing machine](https://datascience.101workbook.org/04-DevelopmentEnvironment/02A-python-setup-locally#conda).
+
+
+* If you choose not to use Conda, you can jump directly to step 4 in the guide, though <u>this is not recommended</u> because the necessary libraries will install system-wide, rather than in an isolated environment.
+
+
+
+## **geo_utils** python utility: installation
+
+**[geo_utils](https://github.com/ISUgenomics/geo_utils)** is an evolving collection of Python utilities tailored for geospatial analysis, developed at ISU as a part of the virtual research support for the USDA scientist. These utilities are designed to complement photogrammetry analysis using ODM software, enhancing the robustness of processing pipelines especially when calculations are executed on an HPC cluster. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
+
+* [gcp_to_aruco_mapper.py](https://github.com/ISUgenomics/geo_utils/tree/main#gcp-to-aruco-mapper) - maps custom GCP IDs to corresponding ArUco marker IDs in imagery based on the distance between GCP coordinates and image GPS
+
+* [gcp_images_picker.py](https://github.com/ISUgenomics/geo_utils/tree/main#gcp-images-picker) - automatically selects the representative images for each GCP, minimizing manual inspection
+
+
+
+## **Find-GCP** python utility: installation
+
+**[Find-GCP](https://github.com/zsiki/Find-GCP)** is a Python tool leveraging the OpenCV library, designed to detect ArUco Ground Control Points in imagery and generate the corresponding GCP file required for photogrammetric programs such as Open Drone Map. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
+
+* [aruco_make.py](https://github.com/zsiki/Find-GCP#aruco_makepy) - generates aruco marker images using different standard dictionaries
+* [gcp_find.py](https://github.com/zsiki/Find-GCP#gcp_findpy) - identifies Ground Control Points (GCP) in imagery
+* [gcp_check.py](https://github.com/zsiki/Find-GCP#gcp_checkpy) - helps the visual check of the found GCPs by `gcp_find.py`
+
+**INSTALLATION:**
+
+**A. On SCINet HPC: Atlas** (via ssh in CLI terminal or via OOD in JupyterLab Terminal app)
+  1.  check available **conda** modules and load selected one:
+  ```
+  module avail conda
+  module load miniconda/4.12.0
+  ```
+  2. activate your `geospatial` environment:
+  ```
+  source activate geospatial
+  ```
+  3. clone the Find-GCP repo from GitHub:
   ```
   git clone https://github.com/zsiki/Find-GCP.git
   ```
@@ -274,15 +322,16 @@ Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z 
   cd Find-GCP
   ls
   ```
-
   ![find_gcp_repo](../assets/images/find_gcp_repo.png)
 
-**B. On your local machine (alternatively):** <br>
-* If you already have the Conda environment manager installed, skip step 1 and proceed with the instructions outlined above.
-* For those unfamiliar with Conda, it's a valuable tool for computational tasks, and you can learn how to use it through the practical tutorials in the DataScience workbook: [Conda on Linux](https://datascience.101workbook.org/03-SetUpComputingMachine/03C-tutorial-installations-on-linux#conda), [Conda on macOS](https://datascience.101workbook.org/03-SetUpComputingMachine/03A-tutorial-installations-on-mac#-install-conda), [Python Setup on your computing machine](https://datascience.101workbook.org/04-DevelopmentEnvironment/02A-python-setup-locally#conda).
-* If you choose not to use Conda, you can jump directly to step 4 in the guide, though <u>this is not recommended</u> because the necessary libraries will install system-wide, rather than in an isolated environment.
+  4. install required libraries:
+  ```
+  pip install opencv-python opencv-contrib-python Pillow numpy matplotlib
+  ```
 
-## Automatic generation of ArUco codes
+
+
+## **Automatic generation of ArUco codes**
 
 *ArUco markers provide known reference points in the imagery, enhancing the accuracy of photogrammetric analysis. This ensures that data derived from the imagery correctly corresponds to actual locations on the ground.*
 
@@ -409,7 +458,7 @@ Finally, you can use the free online <br>ArUco markers generator: <a href="https
 </table>
 
 
-## Automatic recognition of ArUco codes
+## **Automatic recognition of ArUco codes**
 
 For automatic recognition of ArUco markers, it's optimal to have your **land surveying imagery in the JPG format**. It's presumed that you've utilized printed ArUco markers as your Ground Control Points and **have diligently recorded GCPs precise positions**. This data should be saved in a text file, for instance, `GCP_reference.txt`. This file should feature four columns: `aruco_id`, `x`, `y`, and `z`, representing the marker ID and its three-dimensional coordinates respectively.
 
@@ -441,7 +490,7 @@ For automatic recognition of ArUco markers, it's optimal to have your **land sur
 
 ---
 
-### SCENARIO 1: *GCP file with known ArUco IDs*
+### **SCENARIO 1:** *GCP file with known ArUco IDs*
 
 ***i.e., Direct ArUco ID match***
 
@@ -560,7 +609,7 @@ A practical strategy is to first **employ an automated filter to narrow down to 
 
 ---
 
-### SCENARIO 2: *GCP file with custom IDs*
+### **SCENARIO 2:** *GCP file with custom IDs*
 
 ***i.e., Custom ID integration***
 
@@ -721,7 +770,7 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
 
 ---
 
-### SCENARIO 3: no GCP file
+### **SCENARIO 3:** *no GCP file*
 
 ***i.e., No GCP reference, pure detection of ArUco markers***
 
