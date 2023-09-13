@@ -201,10 +201,10 @@ The most official and widely recognized source for information and usage of ArUc
 
 **1. Markers Generation:** Before the survey, ArUco markers are generated using specialized software or libraries, such as the `aruco_make.py` python utility *(using ArUco module in OpenCV library)*. <br>
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 30px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 You can generate GCP (Ground Control Point) markers ranging from 1 to up to 1000 using various ArUco dictionaries by leveraging OpenCV's built-in ArUco module. <span style="color: #ff3870;font-weight: 500;"> To learn more, see section <a href="#automatic-generation-of-aruco-codes ">Automatic generation of ArUco codes </a>.</span>
-</div><br>
+</div>
 
 **2. Printing and Placement:** Once generated, these markers are printed on sturdy material to withstand outdoor conditions. They're then placed strategically at known positions within the area to be surveyed.
 
@@ -225,7 +225,7 @@ Expected format of the <i>GCP_reference.txt</i> is 4-columns: <b>ArUco_ID x y z 
 <br><span style="font-style:italic;">When using ArUco markers for Ground Control Points (GCPs), it's strongly recommended to <b>avoid using custom IDs</b>. If custom IDs are unavoidable, make sure to maintain an accurate reference that matches your custom IDs with the corresponding ArUco marker ID or type <i>(i.e., marker's pattern)</i>.</span>
 </div>
 
-<table style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<table style="background: mistyrose; padding: 15px; margin-bottom: 30px;">
 <tr><th style="width: 500px;">WARNING:</th><th>digital marker: ID 9</th><th>printed marker</th></tr>
 <tr><td><b>Always verify that the printed marker matches the digital version.</b> Printing errors can occasionally distort the marker, leading to recognition issues during post-processing of land surveying imagery. <br><br><i>In the given example, the printed marker is missing one black square. This omission can greatly hinder its recognition, making it challenging to correctly identify it as an ArUco marker with ID 9.</i></td>
 <td><img src="../assets/images/marker9.png" style="width:200px;"></td>
@@ -251,6 +251,7 @@ Isolating installations and dependencies ensures that you can **effortlessly int
 
 <span style="font-size: 24px;"><b>A. On SCINet HPC: Atlas</b></span> <br>
 *(via ssh in CLI terminal or via OOD in JupyterLab Terminal app)*
+
 **1.**  check available **conda** modules and load selected one:
 ```
 module avail conda
@@ -282,14 +283,14 @@ In the future, if you seek to augment this environment with more packages, you c
 conda deactivate
 ```
 
-<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 25px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 Before starting to use Conda on HPC cluster <i>(e.g. Atlas or Ceres)</i>, it’s advisable to change the default location (your home directory) where Conda will install your customized libraries. Installing a lot of Python libraries may contribute to the default 5G soft limit quota on your home directory being surpassed. To overcome this issue you can <b>move .conda directory from your home directory to your project directory and create a symbolic link to the new location</b>.
 </span>
 </div>
 
-<span style="font-size:20px;"><b>6.* Change storage location of your Conda envs:</b></span> <br>
+<span style="font-size:24px;"><b>6.* Change storage location of your Conda envs:</b></span> <br>
 <span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> <i>All your Conda envs are stored in .conda dir by default.</i> )</span><br>
 *Remember to replace the placeholders in <> with the appropriate paths from your file system.*
 ```
@@ -302,17 +303,15 @@ ln -s /project/<your_project_dir>/<account_name>/.conda .conda
 ```
 *The* `mv` *and* `chgrp` *commands may take longer time depending on how much data you have in the <b>.conda</b> directory.*
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">PRO TIP:</span>
 <br><span style="font-style:italic;">
 If you're unsure whether you've moved your <b>.conda directory</b> from <i>home</i> to the <i>project</i>, run <b>ls -lha</b> in your <i>home</i> directory to see the actual locations of all files, including the (eventually) <b>soft-linked .conda</b>.
 </span>
-</div><br>
+</div>
 
-
-<span style="font-size:20px;"><b>7.* Create the storage directory for custom software and GitHub repos:</b></span> <br>
-<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> <i>You can keep all your self-installed useful tools here.</i> )</span>
-
+<span style="font-size:24px;"><b>7.* Create the storage directory for custom software and GitHub repos:</b></span> <br>
+<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> <i>You can keep all your self-installed useful tools here.</i> )</span> <br>
 You can establish a SOFTWARE or TOOLS directory within your `/project/<account>` location on the cluster, ensuring a well-organized repository for your custom tools, making them easily locatable in the future.
 ```
 cd /project/<your_project_dir>/
@@ -340,7 +339,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
 
 ## **geo_utils** python utility: installation
 
-**[geo_utils](https://github.com/ISUgenomics/geo_utils)** (GitHub repo) is an evolving collection of Python utilities tailored for geospatial analysis, developed at ISU as a part of the virtual research support for the USDA scientist. These utilities are designed to complement photogrammetry analysis using ODM software, enhancing the robustness of processing pipelines especially when calculations are executed on an HPC cluster. The GitHub repo contains a few small utilities useful in Land Surveying Tasks:
+**[geo_utils](https://github.com/ISUgenomics/geo_utils)** (GitHub repo) is an evolving collection of Python utilities tailored for geospatial analysis, developed at ISU as a part of the virtual research support for the USDA scientist. These utilities are designed to complement photogrammetry analysis using ODM software, enhancing the robustness of processing pipelines especially when calculations are executed on an HPC cluster. The GitHub repo contains a few small utilities useful in land surveying tasks:
 
 * [gcp_to_aruco_mapper.py](https://github.com/ISUgenomics/geo_utils/tree/main#gcp-to-aruco-mapper) - maps custom GCP IDs to corresponding ArUco marker IDs in imagery based on the distance between GCP coordinates and image GPS
 
@@ -385,7 +384,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   python gcp_to_aruco_mapper.py [-h] -g GCP_FILE -i IMAGERY_PATH -z ZONE [-o OUTPUT] [-d MAX_DIST]
   ```
 
-  <div style="background: #cff4fc; padding: 15px; margin-left: 20px;">
+  <div style="background: #cff4fc; padding: 15px; margin-left: 30px;">
   <span style="font-weight:800;">PRO TIP:</span>
   <br><span style="font-style:italic;">
   To gain practical experience with the use of these scripts, please follow the instructions provided in the subsequent sections of this tutorial.
@@ -430,15 +429,15 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   ```
   pip install opencv-python opencv-contrib-python PIL pil.imagetk numpy matplotlib
   ```
-  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 20px;">
+  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 30px;">
   <span style="font-weight:800;">WARNING:</span>
   <br><span style="font-style:italic;">
   Installing packages without specifying a version usually installs the latest version, which may be incompatible with older required ones, potentially causing scripts to malfunction.
   </span>
   </div>
 
-<span style="margin-left:10px;">6. Start using the scripts from the repo! <i>(they are placed directly in the directory)</i> </span><br>
-<span style="margin-left:20px;">Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
+<span style="margin-left:10px;">6. start using the scripts from the repo! <i>(they are placed directly in the directory)</i> </span><br>
+Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. These .py files are the **Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks**.
 ```
 cd Find-GCP
 ls
@@ -451,12 +450,12 @@ ls
 *ArUco markers provide known reference points in the imagery, enhancing the accuracy of photogrammetric analysis. This ensures that data derived from the imagery correctly corresponds to actual locations on the ground.*
 
 **Available ArUco dictionaries** <br>
-***ArUco markers come in various dictionaries that defines a set of distinct markers.*** The choice of dictionary affects the size and resilience of the markers, as well as how many unique markers the dictionary contains.<br>
+<span style="color: #ff3870;font-weight: 400;">ArUco markers come in various dictionaries that defines a set of distinct markers.</span> The choice of dictionary affects the size and resilience of the markers, as well as how many unique markers the dictionary contains.
 In the naming convention like `DICT_4X4_100` or `DICT_6X6_250`: <br>
-**-** The first part (4X4 or 6X6) represents the size of the marker grid. <br>*For example, a 4X4 marker has a 4x4 grid of black or white squares, while a 6X6 marker has a 6x6 grid.* <br>
-**-** The second part (100 or 250) indicates the number of unique markers available in that dictionary. <br>*So, DICT_4X4_100 has 100 unique 4x4 markers, while DICT_6X6_250 contains 250 unique 6x6 markers.*
+* The first part (4X4 or 6X6) represents the size of the marker grid. *For example, a 4X4 marker has a 4x4 grid of black or white squares, while a 6X6 marker has a 6x6 grid.* <br>
+* The second part (100 or 250) indicates the number of unique markers available in that dictionary. *So, DICT_4X4_100 has 100 unique 4x4 markers, while DICT_6X6_250 contains 250 unique 6x6 markers.*
 
-<div style="background: #cff4fc; padding: 15px;">
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 10px;">
 <span style="font-weight:800;">PRO TIP:</span><br>
 <b><i>When choosing a dictionary,</i></b> one must consider the application.
 <li> Smaller markers (like 4x4) can be detected at shorter distances and might be harder to distinguish at low resolutions or with noise. Nevertheless, 4x4 markers are a popular and often sufficient choice for the majority of land surveying applications. <i>The contents of the 4X4_50 dictionary are displayed below.</i></li>
@@ -466,7 +465,7 @@ In the naming convention like `DICT_4X4_100` or `DICT_6X6_250`: <br>
 
 ![aruco_dict](../assets/images/aruco_dict.png)
 
-<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 30px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;"><b>ArUco markers within each dictionary are numbered starting from zero.</b> For accurate reference and data processing, always save both the selected marker's ID and the type of the source dictionary used.</span>
 </div>
@@ -510,10 +509,10 @@ conda deactivate                   # deactivate env when you are done with Find-
   |**99**|DICT_3X3_32 custom|
 
   * `-s <int>` option, the number determines the index of the first marker, default = 0
-  * `-e <int>` option, the number determines the index of the last marker, default = -1 *(only one marker is generated with index 0)*
-  * `-v` flag (optional) shows marker on monitor *(when applicable, e.g., when working on a local machine)*
-  * `-g` flag (optional) generates black/gray marker *(instead black/white to reduce the effect of white burnt in)*
-    * the optional `--value <VAL>` determines shade of background use with `-g`, default=95
+  * `-e <int>` option, the number determines the index of the last marker, default = -1 <br> *(only one marker is generated with index 0)*
+  * `-v` flag (optional) shows marker on monitor <br>*(when applicable, e.g., when working on a local machine)*
+  * `-g` flag (optional) generates black/gray marker <br>*(instead black/white to reduce the effect of white burnt in)*
+    * the optional `--value <VAL>` determines shade of background <br>*(use with `-g`, default=95)*
   * `-p <PAD>` (optional) determines border width around marker in inches, default= 0.5
 <br><br>
 
@@ -564,11 +563,12 @@ done
 
 <table>
 <tr style="width: 100%">
-<td style="border: 1px solid white; width: 400px; font-size: 20px;">
+<td style="border: 1px solid white; width: 500px; font-size: 20px;">
 Finally, you can use the free online <br>ArUco markers generator: <a href="https://chev.me/arucogen/" target="_blank">https://chev.me/arucogen/</a> <br><br>
-<i>See the corresponding GitHub repo:</i> <a href="https://github.com/okalachev/arucogen" target="_blank">https://github.com/okalachev/arucogen</a>
+<i>See the corresponding GitHub repo:</i> <a href="https://github.com/okalachev/arucogen" target="_blank">https://github.com/okalachev/arucogen</a> <hr>
+Save this marker as SVG, or open standard browser's print dialog to print or get the PDF.
 </td>
-<td style="border: 1px solid white;"><img src="../assets/images/online_generator.png" style="width:500px;"></td>
+<td style="border: 1px solid white;"><img src="../assets/images/online_generator.png" style="width:400px;"></td>
 </tr>
 </table>
 
@@ -681,10 +681,9 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   * Sort the images for each marker ID based on this distance in ascending order.
   * Select the top N images for each marker ID.
 
-1. Download the Python script `gcp_images_picker.py` from the **[geo_utils repo](https://github.com/ISUgenomics/geo_utils)** and place it in the location of your SOFTWARE or TOOLS for geospatial analysis (e.g., `project/<account>/<user>/TOOLS`):
+1. Make sure you have your local copy of the **[geo_utils](https://github.com/ISUgenomics/geo_utils)** GitHub repository, placed in your SOFTWARE or TOOLS directory on Atlas (e.g., `project/<account>/<user>/SOFTWARE`). *(You can follow the instructions in section [geo_utils Python utility: installation](#geo_utils-python-utility-installation) to download this repository.)* We will use the Python script `gcp_images_picker.py` located in the TOOLS subdir of this repo:
   ```
-  cd project/<account>/<user>/SOFTWARE
-  git clone https://github.com/ISUgenomics/geo_utils.git
+  ls project/<account>/<user>/SOFTWARE
   ```
 
 2. Make sure you navigate back to the IMAGES directory in your photogrammetry project. You can softlink the `gcp_images_picker.py` script for easy use:
@@ -716,7 +715,7 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   523394.376 4779529.525 1398.728 4216 1199 R0036676.JPG 4
   ```
 
-  <div style="background: #cff4fc; padding: 15px; margin-left: 20px;">
+  <div style="background: #cff4fc; padding: 15px; margin-left: 30px;">
   <span style="font-weight:800;">PRO TIP:</span><br>
   While the script does a job of pre-selecting images, it's recommended taking a moment to <b>visually inspect the chosen images</b>. This ensures that markers are clearly visible and that the annotations with ArUco ID align with the correct pattern. A brief manual check can help enhance the accuracy and reliability of your dataset. <br>
   <i>Automation aids efficiency, but a human touch ensures precision!</i>
@@ -827,10 +826,9 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
 **STEP 2.** In the second step, a Python script `gcp_to_aruco_mapper.py` automatically matches the GCP coordinates with the representative images (by calculating the distance between GCPs from reference file and GPS coordinates of each picture).
   * If there's a coordinate system difference between reference GCPs and imagery GPS, a conversion is carried out for the GCPs. <br>***(So, that's why you must provide the correct EPSG code.)***<br>
 
-1. Download the Python script `gcp_to_aruco_mapper.py` from the **[geo_utils repo](https://github.com/ISUgenomics/geo_utils/tree/main)** and place it in the location of your SOFTWARE or TOOLS for geospatial analysis (e.g., `project/<account>/<user>/TOOLS`):
+1. Make sure you have your local copy of the **[geo_utils](https://github.com/ISUgenomics/geo_utils)** GitHub repository, placed in your SOFTWARE or TOOLS directory on Atlas (e.g., `project/<account>/<user>/SOFTWARE`). *(You can follow the instructions in section [geo_utils Python utility: installation](#geo_utils-python-utility-installation) to download this repository.)* We will use the Python script `gcp_to_aruco_mapper.py` located in the TOOLS subdir of this repo:
   ```
-  cd project/<account>/<user>/SOFTWARE
-  git clone https://github.com/ISUgenomics/geo_utils.git
+  ls project/<account>/<user>/SOFTWARE
   ```
 
 2. Make sure you navigate back to the `representative` directory in your photogrammetry project. You can softlink the `gcp_to_aruco_mapper.py` script for easy use:
@@ -859,7 +857,7 @@ Match found: GCP 141 (d=5.95m) is likely in image R0036704_4.JPG with ArUco mark
 Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco marker 7.
 ```
 
-<div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 20px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 30px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">Note that you should have activated a specific conda environment related to this project. See the <b>STEP 0</b> in this section. </span>
 </div>
