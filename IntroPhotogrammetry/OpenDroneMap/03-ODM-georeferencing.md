@@ -384,7 +384,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   python gcp_to_aruco_mapper.py [-h] -g GCP_FILE -i IMAGERY_PATH -z ZONE [-o OUTPUT] [-d MAX_DIST]
   ```
 
-  <div style="background: #cff4fc; padding: 15px; margin-left: 30px;">
+  <div style="background: #cff4fc; padding: 15px; margin-left: 35px;">
   <span style="font-weight:800;">PRO TIP:</span>
   <br><span style="font-style:italic;">
   To gain practical experience with the use of these scripts, please follow the instructions provided in the subsequent sections of this tutorial.
@@ -429,15 +429,15 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   ```
   pip install opencv-python opencv-contrib-python PIL pil.imagetk numpy matplotlib
   ```
-  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 30px;">
+  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 35px;">
   <span style="font-weight:800;">WARNING:</span>
   <br><span style="font-style:italic;">
   Installing packages without specifying a version usually installs the latest version, which may be incompatible with older required ones, potentially causing scripts to malfunction.
   </span>
   </div>
 
-<span style="margin-left:10px;">6. start using the scripts from the repo! <i>(they are placed directly in the directory)</i> </span><br>
-Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. These .py files are the **Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks**.
+<span style="margin-left:10px;">6. &nbsp; start using the scripts from the repo! <i>(they are placed directly in the directory)</i> </span><br>
+Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. These `.py` files are the **Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks**.
 ```
 cd Find-GCP
 ls
@@ -715,7 +715,7 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   523394.376 4779529.525 1398.728 4216 1199 R0036676.JPG 4
   ```
 
-  <div style="background: #cff4fc; padding: 15px; margin-left: 30px;">
+  <div style="background: #cff4fc; padding: 15px; margin-left: 35px;">
   <span style="font-weight:800;">PRO TIP:</span><br>
   While the script does a job of pre-selecting images, it's recommended taking a moment to <b>visually inspect the chosen images</b>. This ensures that markers are clearly visible and that the annotations with ArUco ID align with the correct pattern. A brief manual check can help enhance the accuracy and reliability of your dataset. <br>
   <i>Automation aids efficiency, but a human touch ensures precision!</i>
@@ -857,7 +857,7 @@ Match found: GCP 141 (d=5.95m) is likely in image R0036704_4.JPG with ArUco mark
 Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco marker 7.
 ```
 
-<div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 30px;">
+<div style="background: mistyrose; padding: 15px; margin-bottom: 25px; margin-left: 35px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">Note that you should have activated a specific conda environment related to this project. See the <b>STEP 0</b> in this section. </span>
 </div>
