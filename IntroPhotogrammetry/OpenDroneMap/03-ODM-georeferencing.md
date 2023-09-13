@@ -249,38 +249,38 @@ Isolating installations and dependencies ensures that you can **effortlessly int
 
 *Give it a shot! It's an investment that pays off!*
 
-<span style="font-size: 20px;"><b>A. On SCINet HPC: Atlas</b></span> <br>
+<span style="font-size: 24px;"><b>A. On SCINet HPC: Atlas</b></span> <br>
 *(via ssh in CLI terminal or via OOD in JupyterLab Terminal app)*
-  1.  check available **conda** modules and load selected one:
-  ```
-  module avail conda
-  module load miniconda/4.12.0
-  ```
-  2. create python environment for geospatial analysis:
-  ```
-  conda create -n geospatial python=3.9
-  ```
-  3. activate this environment:
-  ```
-  source activate geospatial
-  ```
-  4. install required libraries:
-  ```
-  pip install numpy==1.22.2 opencv-python==4.8.0.76 opencv-contrib-python==4.8.0.76 Pillow==10.0.0 pyproj==3.6.0 Shapely==1.8.1.post1 svgwrite==1.4.1
-  ```
-  <i>This command installs a foundational set of dependencies crucial for the Python utilities detailed below (sourced from GitHub repos). With these dependencies in place and the environment activated, these tools are set to operate immediately post-cloning, eliminating the need of further setup.</i><br>
+**1.**  check available **conda** modules and load selected one:
+```
+module avail conda
+module load miniconda/4.12.0
+```
+**2.** create python environment for geospatial analysis:
+```
+conda create -n geospatial python=3.9
+```
+**3.** activate this environment:
+```
+source activate geospatial
+```
+**4.** install required libraries:
+```
+pip install numpy==1.22.2 opencv-python==4.8.0.76 opencv-contrib-python==4.8.0.76 Pillow==10.0.0 pyproj==3.6.0 Shapely==1.8.1.post1 svgwrite==1.4.1
+```
+<i>This command installs a foundational set of dependencies crucial for the Python utilities detailed below (sourced from GitHub repos). With these dependencies in place and the environment activated, these tools are set to operate immediately post-cloning, eliminating the need of further setup.</i><br>
 
-  <div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
-  <span style="font-weight:800;">PRO TIP:</span>
-  <br><span style="font-style:italic;">
-  In the future, if you seek to augment this environment with more packages, you can effortlessly do so at any point using either <b>conda install</b> or <b>pip install</b> commands in the activated environment.
-  </span>
-  </div>
+<div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
+<span style="font-weight:800;">PRO TIP:</span>
+<br><span style="font-style:italic;">
+In the future, if you seek to augment this environment with more packages, you can effortlessly do so at any point using either <b>conda install</b> or <b>pip install</b> commands in the activated environment.
+</span>
+</div>
 
-  5. deactivate this environment *(if you no longer intend to use it for this session)*:
-  ```
-  conda deactivate
-  ```
+**5.** deactivate this environment *(if you no longer intend to use it for this session)*:
+```
+conda deactivate
+```
 
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
@@ -289,8 +289,8 @@ Before starting to use Conda on HPC cluster <i>(e.g. Atlas or Ceres)</i>, it’s
 </span>
 </div>
 
-**Change storage location of your Conda envs:** <br>
-<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> All your Conda envs are stored in .conda dir by default. )</span><br>
+<span style="font-size:20px;"><b>6.* Change storage location of your Conda envs:</b></span> <br>
+<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> <i>All your Conda envs are stored in .conda dir by default.</i> )</span><br>
 *Remember to replace the placeholders in <> with the appropriate paths from your file system.*
 ```
 cd ~
@@ -307,11 +307,11 @@ ln -s /project/<your_project_dir>/<account_name>/.conda .conda
 <br><span style="font-style:italic;">
 If you're unsure whether you've moved your <b>.conda directory</b> from <i>home</i> to the <i>project</i>, run <b>ls -lha</b> in your <i>home</i> directory to see the actual locations of all files, including the (eventually) <b>soft-linked .conda</b>.
 </span>
-</div><br><br>
+</div><br>
 
 
-**Create the storage directory for custom software and GitHub repos:** <br>
-<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> You can keep all your self-installed useful tools here. )</span>
+<span style="font-size:20px;"><b>7.* Create the storage directory for custom software and GitHub repos:</b></span> <br>
+<span style="color: #ff3870;font-weight: 500;">( <b>Do it only once!</b> <i>You can keep all your self-installed useful tools here.</i> )</span>
 
 You can establish a SOFTWARE or TOOLS directory within your `/project/<account>` location on the cluster, ensuring a well-organized repository for your custom tools, making them easily locatable in the future.
 ```
@@ -320,7 +320,7 @@ mkdir SOFTWARE
 ```
 *We will use this location later in this tutorial to* `git clone` *a few GitHub repositories with python utilities useful in land surveying tasks. You can also add your customized software here.*
 
-<span style="font-size: 20px;"><b>B. On your local machine (alternatively):</b></span> <br>
+<br><span style="font-size: 24px;"><b>B. On your local machine</b> <i>(alternatively)</i>:</span> <br>
 * If you already have the Conda environment manager installed, skip step 1 and proceed with the instructions outlined above.
   * **NOTE:** On a local machine you will use `conda activate geospatial` instead of `source` command.
 
@@ -332,10 +332,10 @@ mkdir SOFTWARE
 
 ---
 
-<span style="font-size: 24px;">A few tips before working with Conda and GitHub repos</span>
+<br><span style="font-size: 24px;">A few tips before working with Conda and GitHub repos</span>
 
 Once you've set up the `geospatial` environment, theoretically all the necessary dependencies for the repos listed below should already be installed. However, dependencies may change over time.
-* If there are updates or changes to the repository, ensure that you activate the geospatial environment and install all the new requirements. The installation should be done once initially, or after each `git pull` from the repo.
+* If there are updates or changes to the repository, ensure that you activate the geospatial environment and install all the new requirements. The installation should be done once initially, or after each `git pull` (updates) from the repo.
 * For subsequent usage of the repo's scripts, simply **activate the geospatial environment and execute the scripts**; there's no need to reinstall requirements every time you use them.
 
 ## **geo_utils** python utility: installation
@@ -372,7 +372,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   source activate geospatial
   ```
 
-  5. install required libraries *(optionally, initially or after* `git pull`*)*:
+  5. install required libraries *(optionally after* `git pull`*)*:
   ```
   pip install -r requirements.txt
   ```
@@ -385,7 +385,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   python gcp_to_aruco_mapper.py [-h] -g GCP_FILE -i IMAGERY_PATH -z ZONE [-o OUTPUT] [-d MAX_DIST]
   ```
 
-  <div style="background: #cff4fc; padding: 15px; margin-left: 5px;">
+  <div style="background: #cff4fc; padding: 15px; margin-left: 20px;">
   <span style="font-weight:800;">PRO TIP:</span>
   <br><span style="font-style:italic;">
   To gain practical experience with the use of these scripts, please follow the instructions provided in the subsequent sections of this tutorial.
@@ -426,19 +426,19 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   source activate geospatial
   ```
 
-  5. install required libraries *(optionally, initially or after* `git pull`*)*:
+  5. install required libraries *(optionally after* `git pull`*)*:
   ```
   pip install opencv-python opencv-contrib-python PIL pil.imagetk numpy matplotlib
   ```
-  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 5px;">
+  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 20px;">
   <span style="font-weight:800;">WARNING:</span>
   <br><span style="font-style:italic;">
   Installing packages without specifying a version usually installs the latest version, which may be incompatible with older required ones, potentially causing scripts to malfunction.
   </span>
   </div>
 
-Start using the scripts from the repo! *(they are placed directly in the directory)* <br>
-Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
+<span style="margin-left:10px;">6. Start using the scripts from the repo! <i>(they are placed directly in the directory)</i> </span><br>
+<span style="margin-left:20px;">Once you navigate into the newly created Find-GCP directory, you should see 6 files with the `.py` extension. **These .py files are the Find-GCP python utilities for working with ArUco markers in Land Surveying Tasks.**
 ```
 cd Find-GCP
 ls
@@ -469,9 +469,9 @@ In the naming convention like `DICT_4X4_100` or `DICT_6X6_250`: <br>
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;"><b>ArUco markers within each dictionary are numbered starting from zero.</b> For accurate reference and data processing, always save both the selected marker's ID and the type of the source dictionary used.</span>
-</div><br>
+</div>
 
-<span style="font-size: 20px;"><b>Generating markers using ready-made tools<b></span> <br>
+<span style="font-size: 24px;"><b>Generating markers using ready-made tools</b></span> <br>
 
 **A. ArUco marker images in PNG** <br>
 To produce ArUco markers for your land surveying project, start by installing the Find-GCP Python utility ([refer to the section above](#find-gcp-python-utility-installation)). Within the cloned Find-GCP repository directory, you'll locate the `aruco_make.py`. This tool assists you in generating markers from standard dictionaries, as well as more compact 3x3 square markers.
@@ -522,7 +522,7 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
 
 <table>
 <tr style="width: 100%">
-  <td style="border: 1px solid white; width: 640px">
+  <td style="border: 1px solid white; width: 630px">
     <div style="background: #cff4fc; padding: 15px; height: 200px;">
     <span style="font-weight:800;">PRO TIP:</span><br>
     <span style="font-style:italic;">For good size recommendations, please see <a href="http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html" target="_blank">http://www.agt.bme.hu/on_line/gsd_calc/gsd_calc.html</a>.<br><br>The generated ArUco markers are compatible with the Find-GCP tool, so you can use it after the flight to find the markers in your pictures.</span>
@@ -532,7 +532,7 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
     <br><span style="font-style:italic;">When using the <b>gcp_aruco_generator</b> tool, be aware that the <b>ArUco marker IDs also start numbering from 0</b>, just like in standard ArUco dictionaries.</span>
     </div>
   </td>
-  <td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:260px;"></td>
+  <td style="border: 1px solid white;"><img src="../assets/images/gcp_aruco_generator.png" style="width:270px;"></td>
 </tr>
 </table>
 
@@ -716,7 +716,7 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   523394.376 4779529.525 1398.728 4216 1199 R0036676.JPG 4
   ```
 
-  <div style="background: #cff4fc; padding: 15px;">
+  <div style="background: #cff4fc; padding: 15px; margin-left: 20px;">
   <span style="font-weight:800;">PRO TIP:</span><br>
   While the script does a job of pre-selecting images, it's recommended taking a moment to <b>visually inspect the chosen images</b>. This ensures that markers are clearly visible and that the annotations with ArUco ID align with the correct pattern. A brief manual check can help enhance the accuracy and reliability of your dataset. <br>
   <i>Automation aids efficiency, but a human touch ensures precision!</i>
@@ -812,11 +812,10 @@ The output `representatives` should contain the representative image for each ma
 2993 2141 R0036789.JPG 10
 3120 2112 R0037136.JPG 11
 ```
-You can visually inspect the selected images to ensure they indeed showcase the distinct pattern of the detected ArUco marker ID and confirm that each image contains only one marker. *In my case, all detected markers match the pattern of a suggested ArUco ID.*
-
+4. You can visually inspect the selected images to ensure they indeed showcase the distinct pattern of the detected ArUco marker ID and confirm that each image contains only one marker. *In my case, all detected markers match the pattern of a suggested ArUco ID.*
 ![](../assets/images/aruco_detected.png) <br>
 
-Create a subdirectory and copy in or soft link the representative images:
+5. Create a subdirectory and copy in or soft link the representative images:
 ```
 mkdir representative
 awk '{print $3}' < representatives > list
@@ -841,44 +840,44 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
   ```
 
 3. Run the `gcp_to_aruco_mapper.py` script to match the GCP coordinates with the representative images:
+```
+python3 gcp_to_aruco_mapper.py -g gcp_list.txt -i "./" -z 11 -o matching_results -d 50 > out_distances
+grep "Match" < matching results | sort -nk4 > ID_matches
+cat ID_matches
+```
+```
+Match found: GCP 131 (d=16.84m) is likely in image R0036737_0.JPG with ArUco marker 0.
+Match found: GCP 132 (d=12.69m) is likely in image R0037136_11.JPG with ArUco marker 11.
+Match found: GCP 133 (d=1.64m) is likely in image R0036914_3.JPG with ArUco marker 3.
+Match found: GCP 134 (d=1.00m) is likely in image R0036909_1.JPG with ArUco marker 1.
+Match found: GCP 135 (d=3.09m) is likely in image R0036789_10.JPG with ArUco marker 10.
+Match found: GCP 136 (d=18.49m) is likely in image R0036401_2.JPG with ArUco marker 2.
+Match found: GCP 137 (d=25.80m) is likely in image R0036140_6.JPG with ArUco marker 6.
+Match found: GCP 138 (d=15.18m) is likely in image R0036953_5.JPG with ArUco marker 5.
+Match found: GCP 139 (d=4.29m) is likely in image R0036927_8.JPG with ArUco marker 8.
+Match found: GCP 141 (d=5.95m) is likely in image R0036704_4.JPG with ArUco marker 4.
+Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco marker 7.
+```
 
-  <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
-  <span style="font-weight:800;">WARNING:</span>
-  <br><span style="font-style:italic;">Note that you should have activated a specific conda environment related to this project. See the <b>STEP 0</b> in this section. </span>
-  </div>
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 20px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">Note that you should have activated a specific conda environment related to this project. See the <b>STEP 0</b> in this section. </span>
+</div>
 
-  ```
-  python3 gcp_to_aruco_mapper.py -g gcp_list.txt -i "./" -z 11 -o matching_results -d 50 > out_distances
-  grep "Match" < matching results | sort -nk4 > ID_matches
-  cat ID_matches
-  ```
-
-  ```
-  Match found: GCP 131 (d=16.84m) is likely in image R0036737_0.JPG with ArUco marker 0.
-  Match found: GCP 132 (d=12.69m) is likely in image R0037136_11.JPG with ArUco marker 11.
-  Match found: GCP 133 (d=1.64m) is likely in image R0036914_3.JPG with ArUco marker 3.
-  Match found: GCP 134 (d=1.00m) is likely in image R0036909_1.JPG with ArUco marker 1.
-  Match found: GCP 135 (d=3.09m) is likely in image R0036789_10.JPG with ArUco marker 10.
-  Match found: GCP 136 (d=18.49m) is likely in image R0036401_2.JPG with ArUco marker 2.
-  Match found: GCP 137 (d=25.80m) is likely in image R0036140_6.JPG with ArUco marker 6.
-  Match found: GCP 138 (d=15.18m) is likely in image R0036953_5.JPG with ArUco marker 5.
-  Match found: GCP 139 (d=4.29m) is likely in image R0036927_8.JPG with ArUco marker 8.
-  Match found: GCP 141 (d=5.95m) is likely in image R0036704_4.JPG with ArUco marker 4.
-  Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco marker 7.
-  ```
 
 **STEP 3.** Once the matches are made, create a **new** `GCP_reference.txt` file replacing the custom IDs with ArUco IDs.
 
-1. Create a 2-column `GCP_reference_aruco.txt` file with matching IDs: `GCP` `ArUco`
-  ```
-  awk '{print $4"_"$14}' < ID_matches > ../tmp
-  cd ../                               # navigate to the IMAGES dir with the GCP_reference.file
-  for i in `cat tmp`
-  do
-      old=`echo $i | awk -F"_" '{print $1}'`
-      new=`echo $i | awk -F"_" '{print $2}'`
-      awk -v A=$old -v B=$new '{if ($1==A) print B,$2,$3,$4}' < GCP_reference.txt >> GCP_reference_aruco.txt
-  done
+Create a 2-column `GCP_reference_aruco.txt` file with matching IDs: `GCP` `ArUco`
+```
+awk '{print $4"_"$14}' < ID_matches > ../tmp
+cd ../                               # navigate to the IMAGES dir with the GCP_reference.file
+
+for i in `cat tmp`
+do
+    old=`echo $i | awk -F"_" '{print $1}'`
+    new=`echo $i | awk -F"_" '{print $2}'`
+    awk -v A=$old -v B=$new '{if ($1==A) print B,$2,$3,$4}' < GCP_reference.txt >> GCP_reference_aruco.txt
+done
   ```
 
 **STEP 4.** The `gcp_find.py` tool is then utilized again as in [SCENARIO 1: GCP file with known ArUco IDs](#scenario-1-gcp-file-with-known-aruco-ids). The end output, `gcp_list.txt`, is compatible with ODM software, but it should be used cautiously due to limited precision of GCP matching in this approach.
