@@ -769,7 +769,9 @@ A practical strategy is to first **employ an automated filter to narrow down to 
 
 ### ***Visual check of representative images for a marker***
 
-<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+Ensuring that selected images are truly representative for each Ground Control Point (GCP) is a crucial step for accurate georeferencing. The `gcp_check.py` tool (from [Find-GCP repo](https://github.com/zsiki/Find-GCP)) offers a **user-friendly graphical interface to facilitate the visual check** of GCPs detected by `gcp_find.py`.
+
+<div style="background: mistyrose; padding: 15px; margin-bottom: 30px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 Proceeding with this section <b>requires the use of Secure SHell (SSH) paired with X11 forwarding</b>. X11 forwarding enables graphical applications run on the cluster to manifest visually on your local machine. <br><br>
@@ -783,13 +785,11 @@ If the cluster doesn't permit the use of X11 forwarding and OOD also didn't work
 3. Then continue with the subsequent steps of this section. <br>
 *<i>Be sure to modify the paths to align with your local filesystem during this process.</i>
 </span>
-</div><br>
-
-Ensuring that selected images are truly representative for each Ground Control Point (GCP) is a crucial step for accurate georeferencing. The `gcp_check.py` tool (from [Find-GCP repo](https://github.com/zsiki/Find-GCP)) offers a **user-friendly graphical interface to facilitate the visual check** of GCPs detected by `gcp_find.py`.
+</div>
 
 If you've followed this tutorial, you should have already cloned the Find-GCP repository (see section [Find-GCP Python utility: installation](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/03-ODM-georeferencing#find-gcp-python-utility-installation)). As a result, the `gcp_check.py` utility would be included within your cloned repo, ready for use.
 
-Check your SOFTWARE path on the Atlas cluster (for reference, see step 7 "Create the storage directory for custom software and GitHub repos" in section [Create env for geospatial analysis](#create-env-for-geospatial-analysis)):
+Check your `SOFTWARE` path on the Atlas cluster (for reference, see step 7 *"Create the storage directory for custom software and GitHub repos"* in section [Create env for geospatial analysis](#create-env-for-geospatial-analysis)):
 ```
 ls /project/<your_project_dir>/SOFTWARE
 ```
@@ -803,8 +803,9 @@ FIND_GCP_PATH=/project/<your_project_dir>/SOFTWARE/Find-GCP
 source activate geospatial
 ```
 
-**The output file of the** `gcp_find.py` **is the input file of this program.**
-* `gcp_list.txt` file *(output from the gcp_find.py)*
+**INPUTS:**
+* `project-X` directory with the complete imagery
+* `gcp_list.txt` file *(The output file of the* `gcp_find.py` *is the input file of this program.)*
 
 ```
 EPSG:32611
@@ -818,14 +819,12 @@ EPSG:32611
 523364.648 4779587.932 1395.735 4216 1930 R0036039.JPG 4
 ```
 
-* `project-X` directory with the complete imagery
-
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">
 Please be cautious: the script <b>gcp_check.py can NOT be executed within the directory containing the input images</b>. Instead, navigate one level up in the directory structure before running it.
 </span>
-</div><br>
+</div>
 
 Let's assume you store your `gcp_list.txt` file along with your imagery at the `IMAGES/<project-X>` path. If so, navigate one level up:
 ```
