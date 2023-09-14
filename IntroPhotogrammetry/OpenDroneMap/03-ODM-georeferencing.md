@@ -257,17 +257,23 @@ Isolating installations and dependencies ensures that you can **effortlessly int
 module avail conda
 module load miniconda/4.12.0
 ```
+![load_miniconda.png](../assets/images/load_miniconda.png)
+
 **2.** create python environment for geospatial analysis:
 ```
 conda create -n geospatial python=3.9
 ```
+![create_geospatial_env.png](../assets/images/create_geospatial_env.png)
+
 **3.** activate this environment:
 ```
 source activate geospatial
 ```
+![activate_geospatial_env.png](../assets/images/activate_geospatial_env.png)
+
 **4.** install required libraries:
 ```
-pip install numpy==1.22.2 opencv-python==4.8.0.76 opencv-contrib-python==4.8.0.76 Pillow==10.0.0 pyproj==3.6.0 Shapely==1.8.1.post1 svgwrite==1.4.1
+pip install numpy==1.22.2 opencv-python==4.8.0.76 opencv-contrib-python==4.8.0.76 Pillow==10.0.0 pyproj==3.6.0 Shapely==1.8.1.post1 svgwrite==1.4.1 matplotlib pandas
 ```
 <i>This command installs a foundational set of dependencies crucial for the Python utilities detailed below (sourced from GitHub repos). With these dependencies in place and the environment activated, these tools are set to operate immediately post-cloning, eliminating the need of further setup.</i><br>
 
@@ -297,16 +303,17 @@ Before starting to use Conda on HPC cluster <i>(e.g. Atlas or Ceres)</i>, it’s
 cd ~
 mkdir /project/<your_project_dir>/<account_name>
 mv .conda /project/<your_project_dir>/<account_name>/
-chgrp -R proj-<your_project_dir> /project/<your_project_dir>/<account_name>/.conda
 chmod -R g+s /project/<your_project_dir>/<account_name>/.conda
 ln -s /project/<your_project_dir>/<account_name>/.conda .conda
 ```
-*The* `mv` *and* `chgrp` *commands may take longer time depending on how much data you have in the <b>.conda</b> directory.*
+*The* `mv` *command may take longer time depending on how much data you have in the <b>.conda</b> directory.* <br>
+![move_conda_dir.png](../assets/images/move_conda_dir.png)
 
 <div style="background: #cff4fc; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">PRO TIP:</span>
 <br><span style="font-style:italic;">
-If you're unsure whether you've moved your <b>.conda directory</b> from <i>home</i> to the <i>project</i>, run <b>ls -lha</b> in your <i>home</i> directory to see the actual locations of all files, including the (eventually) <b>soft-linked .conda</b>.
+If you're unsure whether you've moved your <b>.conda directory</b> from <i>home</i> to the <i>project</i>, run <b>ls -lha</b> in your <i>home</i> directory to see the actual locations of all files, including the (eventually) <b>soft-linked .conda</b>. <br>
+<img style="margin-top: 10px;" src="../assets/images/check_conda_location.png">
 </span>
 </div>
 
@@ -317,6 +324,7 @@ You can establish a SOFTWARE or TOOLS directory within your `/project/<account>`
 cd /project/<your_project_dir>/
 mkdir SOFTWARE
 ```
+![create_software_dir.png](../assets/images/create_software_dir.png) <br>
 *We will use this location later in this tutorial to* `git clone` *a few GitHub repositories with python utilities useful in land surveying tasks. You can also add your customized software here.*
 
 <br><span style="font-size: 24px;"><b>B. On your local machine</b> <i>(alternatively)</i>:</span> <br>
@@ -354,11 +362,12 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   cd /project/<your_project_dir>/SOFTWARE
   ```
 
-  2. clone the geo_utils repo from GitHub:
+  2. clone the `geo_utils` repo from GitHub:
   ```
   git clone https://github.com/ISUgenomics/geo_utils
   ```
-  When you clone a repository from GitHub, it creates a new directory on your current path with the name of the repository. Inside this directory, you'll find the contents of the repository.
+  When you clone a repository from GitHub, it creates a new directory on your current path with the name of the repository. Inside this directory, you'll find the contents of the repository. <br>
+  ![git_clone_geo_utils.png](../assets/images/git_clone_geo_utils.png)
 
   3.  check available **conda** modules and load selected one *(if not loaded yet in this session)*:
   ```
@@ -371,8 +380,9 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   source activate geospatial
   ```
 
-  5. install required libraries *(optionally after* `git pull`*)*:
+  5. \*install required libraries *(optionally after* `git pull`*)*:
   ```
+  cd geo_utils
   pip install -r requirements.txt
   ```
 
@@ -383,6 +393,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   # GCP to ArUco mapper
   python gcp_to_aruco_mapper.py [-h] -g GCP_FILE -i IMAGERY_PATH -z ZONE [-o OUTPUT] [-d MAX_DIST]
   ```
+  ![geo_utils_usage.png](../assets/images/geo_utils_usage.png)
 
   <div style="background: #cff4fc; padding: 15px; margin-left: 37px;">
   <span style="font-weight:800;">PRO TIP:</span>
@@ -409,10 +420,11 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   cd /project/<your_project_dir>/SOFTWARE
   ```
 
-  2. clone the geo_utils repo from GitHub:
+  2. clone the `Find-GCP` repo from GitHub:
   ```
   git clone https://github.com/zsiki/Find-GCP.git
   ```
+  ![git_clone_find_gcp.png](../assets/images/git_clone_find_gcp.png)
 
   3.  check available **conda** modules and load selected one *(if not loaded yet in this session)*:
   ```
@@ -425,7 +437,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
   source activate geospatial
   ```
 
-  5. install required libraries *(optionally after* `git pull`*)*:
+  5. \*install required libraries *(optionally after* `git pull`*)*:
   ```
   pip install opencv-python opencv-contrib-python PIL pil.imagetk numpy matplotlib
   ```
@@ -441,8 +453,10 @@ Once you navigate into the newly created Find-GCP directory, you should see 6 fi
 ```
 cd Find-GCP
 ls
+python gcp_find.py -h
 ```
-![find_gcp_repo](../assets/images/find_gcp_repo.png)
+![find_gcp_repo](../assets/images/find_gcp_repo.png)<br><br>
+![find_gcp_usage.png](../assets/images/find_gcp_usage.png)
 
 
 ## **Automatic generation of ArUco codes**
@@ -476,14 +490,15 @@ In the naming convention like `DICT_4X4_100` or `DICT_6X6_250`: <br>
 To produce ArUco markers for your land surveying project, start by installing the Find-GCP Python utility ([refer to the section above](#find-gcp-python-utility-installation)). Within the cloned Find-GCP repository directory, you'll locate the `aruco_make.py`. This tool assists you in generating markers from standard dictionaries, as well as more compact 3x3 square markers.
 
 * While in the **Find-GCP** directory, use `pwd` command to print the path on the screen. *You will need this path to run python scripts from another location in the file system.*
-
+![keep_software_path.png](../assets/images/keep_software_path.png)
 
 * Navigate to the selected location in the file system and create the **markers** directory:
 ```
+cd /project/<your_project_dir>/<user_account>/geospatial
 mkdir markers
 cd markers
 ```
-
+![dir_for_markers.png](../assets/images/dir_for_markers.png)
 
 * Then use the `aruco_make.py` script like this: <br>
 `python aruco_make.py -d <DICT> -s <START> -e <END> -v`, for example:
@@ -615,15 +630,42 @@ This approach is for those possessing a GCP file with recognized ArUco IDs:
   * ***This output file is ready for immediate use with OpenDroneMap (ODM) software.***
 
 1. Login to the Atlas cluster using SSH protocol (command line) or OOD access (web-based).
-2. Navigate to your project working directory. *Use the command below:*
+2. Navigate to your ODM working directory. *Use the command below:*
 ```
-cd /project/<path_to_your_project_directory>
+cd /project/<path_to_your_project_directory>/ODM
 ```
+![navigate_to_odm.png](../assets/images/navigate_to_odm.png)
+<b>PRO TIP:</b> <i>If you haven't set up the ODM directory structure yet, please follow the guide provided in section [Create File Structure](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/02-ODM-modules#create-file-structure) in the tutorial [Command-line ODM modules](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/02-ODM-modules).</i> <br>
+Create a subdirectory for your new project in the IMAGES directory and create soft links for your imagery and (eventually) the `GCP_reference.txt` file:
+```
+cd IMAGES
+mkdir project-X
+cd project-X
+ln -s <source_path_to_imagery>/* ./
+ls | head -10
+pwd                                  # copy this path in the next step as the INPUTS_PATH variable
+```
+![/set_up_inputs.png](../assets/images/set_up_inputs.png) <br><br>
+<i>If your GCP reference file (here: gcp_epsg32611_2021_wbs1_coresite.csv)</i> has format different than <b>space-separated 4 columns: aruco_ID X Y Z</b>, then you should adjust it accordingly to get something like this:</i>
+```
+0 523287.368 4779588.335 1397.823
+1 523305.976 4779572.588 1397.817
+2 523347.074 4779571.424 1397.653
+3 523364.648 4779587.932 1395.735
+4 523394.376 4779529.525 1398.728
+5 523363.938 4779530.027 1400.244
+```
+<i>You can use</i> `awk` *command to easily extract the columns you need.* <b>Note that GCP_reference.txt file should not have a header.</b>
+![adjust_gcp_reference.png](../assets/images/adjust_gcp_reference.png)
+
 3. Set paths as temporary variables or use them directly:
 ```
 FIND_GCP_PATH=/path/to/Find-GCP_repo
 INPUTS_PATH=/path/to/input_imagery
 ```
+<i>In my case the path variables look like this:</i>
+![paths_as_variables.png](../assets/images/paths_as_variables.png)
+
 4. Activate the Conda environment (if not activated yet). *You should activate a specific conda environment related to this project (e.g., the geospatial env created in section <br>[Find-GCP python utility: installation](#find-gcp-python-utility-installation)):*
 ```
 source activate geospatial
@@ -636,7 +678,10 @@ python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --
 ```
 python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --epsg 32611 -d 0 -o gcp_list.txt $INPUTS_PATH/*.JPG
 ```
-*This will search the ArUco markers from DICT_4x4_50 in your imagery and match them with corresponding IDs provided in your GCP_reference.txt file. Providing the exact EPSG code will ensure the returned coordinates of the GCPs detected in the imagery are in the correct coordinate system. The list of images with detected GCPs is saved to the gcp_list.txt file, which looks like this:*
+![run_gcp_find.png](../assets/images/run_gcp_find.png)
+
+This will search the ArUco markers from DICT_4x4_50 in your imagery and match them with corresponding IDs provided in your `GCP_reference.txt` file. Providing the exact EPSG code will ensure the returned coordinates of the GCPs detected in the imagery are in the correct coordinate system. The list of images with detected GCPs is saved to the `gcp_list.txt` file, which looks like this:
+
 ```
 EPSG:32611
 523287.368 4779588.335 1397.823 5041 91 R0036021.JPG 0
@@ -683,13 +728,13 @@ A practical strategy is to first **employ an automated filter to narrow down to 
 
 1. Make sure you have your local copy of the **[geo_utils](https://github.com/ISUgenomics/geo_utils)** GitHub repository, placed in your SOFTWARE or TOOLS directory on Atlas (e.g., `project/<account>/<user>/SOFTWARE`). *(You can follow the instructions in section [geo_utils Python utility: installation](#geo_utils-python-utility-installation) to download this repository.)* We will use the Python script `gcp_images_picker.py` located in the TOOLS subdir of this repo:
   ```
-  ls project/<account>/<user>/SOFTWARE
+  ls /project/<your_project_dir>/<user_account>/SOFTWARE
   ```
 
 2. Make sure you navigate back to the IMAGES directory in your photogrammetry project. You can softlink the `gcp_images_picker.py` script for easy use:
   ```
-  cd project/<account>/<user>/ODM/IMAGES/<project_X>
-  ln -s project/<account>/<user>/SOFTWARE/geo_utils/TOOLS/gcp_images_picker.py ./
+  cd project/<your_project_dir>/<user_account>/ODM/IMAGES/<project-X>
+  ln -s /project/<your_project_dir>/<user_account>/SOFTWARE/geo_utils/TOOLS/gcp_images_picker.py ./
   ```
 
 3. Run the `gcp_images_picker.py` script to automate selection of representative GCP images, minimizing manual inspection:
@@ -699,7 +744,7 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   ```
   *for example:*
   ```
-  python3 gcp_images_picker.py -i gcp_list.txt -w 6000 -l 4000 -n 10
+  python gcp_images_picker.py -i gcp_list.txt -w 6000 -l 4000 -n 10
   ```
   *The script will write the selected data to the file specified by the -o option. If the option isn't provided, it defaults to* `gcp_list_selected.txt`.
   ```
@@ -720,6 +765,86 @@ A practical strategy is to first **employ an automated filter to narrow down to 
   While the script does a job of pre-selecting images, it's recommended taking a moment to <b>visually inspect the chosen images</b>. This ensures that markers are clearly visible and that the annotations with ArUco ID align with the correct pattern. A brief manual check can help enhance the accuracy and reliability of your dataset. <br>
   <i>Automation aids efficiency, but a human touch ensures precision!</i>
   </div><br>
+
+
+### ***Visual check of representative images for a marker***
+
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+Proceeding with this section <b>requires the use of Secure SHell (SSH) paired with X11 forwarding</b>. X11 forwarding enables graphical applications run on the cluster to manifest visually on your local machine. <br><br>
+When connecting via SSH, use the -X (or -Y, which is less secure but more permissive) option to enable X11 forwarding. <br>
+<i>(For me, the -Y variant worked. Note it may be slow!)</i><br>
+<b>ssh -Y user.name@atlas-login.hpc.msstate.edu</b><br><br>
+Using <a href="https://atlas-ood.hpc.msstate.edu" target="_blank">Atlas Open OnDemand (OOD)  ⤴</a> (in-browser access) can offer a more responsive experience compared to traditional SSH with X11 forwarding, especially over slower connections. <br><br>
+If the cluster doesn't permit the use of X11 forwarding and OOD also didn't work for you, you'll need to take a detour:<br>
+1. Download the relevant images (only those from gcp_list.txt) to your local machine. <br>
+2. Clone the Find-GCP repository again but this time on your local setup. <br>
+3. Then continue with the subsequent steps of this section. <br>
+*<i>Be sure to modify the paths to align with your local filesystem during this process.</i>
+</span>
+</div><br>
+
+Ensuring that selected images are truly representative for each Ground Control Point (GCP) is a crucial step for accurate georeferencing. The `gcp_check.py` tool (from [Find-GCP repo](https://github.com/zsiki/Find-GCP)) offers a **user-friendly graphical interface to facilitate the visual check** of GCPs detected by `gcp_find.py`.
+
+If you've followed this tutorial, you should have already cloned the Find-GCP repository (see section [Find-GCP Python utility: installation](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/03-ODM-georeferencing#find-gcp-python-utility-installation)). As a result, the `gcp_check.py` utility would be included within your cloned repo, ready for use.
+
+Check your SOFTWARE path on the Atlas cluster (for reference, see step 7 "Create the storage directory for custom software and GitHub repos" in section [Create env for geospatial analysis](#create-env-for-geospatial-analysis)):
+```
+ls /project/<your_project_dir>/SOFTWARE
+```
+If you have the **Find-GCP** repo cloned already:
+* set up its path as a local variable *(remember to adjuct the path)*:
+```
+FIND_GCP_PATH=/project/<your_project_dir>/SOFTWARE/Find-GCP
+```
+* activate your `geospatial` Conda environment *(if not activated yet)* or follow the guide provided in section [reate env for geospatial analysis](#create-env-for-geospatial-analysis) to make up for this step.
+```
+source activate geospatial
+```
+
+**The output file of the** `gcp_find.py` **is the input file of this program.**
+* `gcp_list.txt` file *(output from the gcp_find.py)*
+
+```
+EPSG:32611
+523287.368 4779588.335 1397.823 5041 91 R0036021.JPG 0
+523287.368 4779588.335 1397.823 5190 1110 R0036023.JPG 0
+523287.368 4779588.335 1397.823 5462 1856 R0036024.JPG 0
+523287.368 4779588.335 1397.823 5680 2998 R0036026.JPG 0
+523364.648 4779587.932 1395.735 3611 96 R0036036.JPG 4
+523364.648 4779587.932 1395.735 3714 535 R0036037.JPG 4
+523364.648 4779587.932 1395.735 3924 1274 R0036038.JPG 4
+523364.648 4779587.932 1395.735 4216 1930 R0036039.JPG 4
+```
+
+* `project-X` directory with the complete imagery
+
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+Please be cautious: the script <b>gcp_check.py can NOT be executed within the directory containing the input images</b>. Instead, navigate one level up in the directory structure before running it.
+</span>
+</div><br>
+
+Let's assume you store your `gcp_list.txt` file along with your imagery at the `IMAGES/<project-X>` path. If so, navigate one level up:
+```
+cd /project/<your_project_dir>/<user_account>/ODM/IMAGES
+```
+
+Now, you can launch the `gcp_check.py` GUI by executing this command in the terminal:
+```
+python FIND_GCP_PATH/gcp_check.py --path ./<project-X>/ --edgewidth 5 --fontsize 300 ./<project-X>/gcp_list.txt
+```
+<i>To modify how detected markers are highlighted,<b> explore the command-line parameters</b> outlined in the [official documentation](https://github.com/zsiki/Find-GCP#gcp_checkpy).</i>
+
+After executing the command, a window showcasing the GUI will appear. Within this interface, you can use:
+* forward and backward buttons (on the top) to navigate between images
+* the mouse wheel to zoom in or out
+* the left mouse button to pan across the image
+
+![check_gcp.png](../assets/images/check_gcp.png) <br>
+<i>The tool is designed to automatically identify markers within images. Once detected, it highlights these markers with a circle and displays the corresponding ArUco ID. This setup aids in easy visual verification, ensuring that markers are correctly recognized and labeled.</i>
 
 ---
 
@@ -753,13 +878,28 @@ For cases where you have a GCP file with custom IDs, your inputs will be **the i
 1. Login to the Atlas cluster using SSH protocol (command line) or OOD access (web-based).
 2. Navigate to your project working directory. *Use the command below:*
 ```
-cd /project/<path_to_your_project_directory>
+cd /project/<path_to_your_project_directory>/ODM
 ```
+![navigate_to_odm.png](../assets/images/navigate_to_odm.png)
+<b>PRO TIP:</b> <i>If you haven't set up the ODM directory structure yet, please follow the guide provided in section [Create File Structure](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/02-ODM-modules#create-file-structure) in the tutorial [Command-line ODM modules](https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/02-ODM-modules).</i> <br>
+Create a subdirectory for your new project in the IMAGES directory and create soft links for your imagery and (eventually) the `GCP_reference.txt` file:
+```
+cd IMAGES
+mkdir project-X
+cd project-X
+ln -s <source_path_to_imagery>/* ./
+ls | head -10
+pwd                                  # copy this path in the next step as the INPUTS_PATH variable
+```
+
 3. Set paths as temporary variables or use them directly:
 ```
 FIND_GCP_PATH=/path/to/Find-GCP_repo
 INPUTS_PATH=/path/to/input_imagery
 ```
+<i>In my case the path variables look like this:</i>
+![paths_as_variables.png](../assets/images/paths_as_variables.png)
+
 4. Activate the Conda environment (if not activated yet). *You should activate a specific conda environment related to this project (e.g., the geospatial env created in section [Find-GCP python utility: installation](#find-gcp-python-utility-installation)):*
 ```
 source activate geospatial
@@ -787,17 +927,20 @@ Let's filter the output to include only the images with a single detected marker
 ```
 awk '{print $3}' markers_detected.txt | sort | uniq -c | awk '$1 == 1 {print $2}' | while read image; do grep "$image" markers_detected.txt; done > single_markers.txt
 ```
+<i>The </i> `single_markers.txt` *has the same data structure but contains filtered records.*
 
 2. Extract unique ArUco marker IDs from the 4th column:
 ```
 awk '{print $4}' < markers_detected.txt | sort -n | uniq > marker_ids
 ```
+<i>The </i> `marker_ids` *file contains unique marker IDs stored in a column.*
+
 3. For each marker ID, select representative image, i.e., the image where the marker is placed closest to the center:
 ```
 for i in `cat marker_ids`; do awk -v A=$i '{if ($4==A) print $0}' < single_markers.txt | awk 'BEGIN {min_dist = 1000000000} {dist = sqrt(($1-3000)^2 + ($2-2000)^2); if(dist < min_dist) {min_dist = dist; closest = $0}} END {print closest}' >> representatives; done
 ```
 <i>This assumes that the image dimensions are 6000x4000 px, so the coordinates of the center of the picture are (x = 6000/2 = <b>3000</b>, y = 4000/2 = <b>2000</b>). <b>Remember to adjust the command for your values.</b></i><br>
-The output `representatives` should contain the representative image for each marker ID:
+The output `representatives` should contain the representative image for each marker ID: <br>*(with marker's XY coordinates in the image provided in the first 2 columns)*
 ```
 3546 1937 R0036737.JPG 0
 3631 2017 R0036909.JPG 1
@@ -820,7 +963,8 @@ mkdir representative
 awk '{print $3}' < representatives > list
 for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representatives | awk -v A=$i '{if ($3==A) print $4}'` ; cp $INPUTS_PATH/$i representative/$k"_"$n.JPG; done
 ```
-<i>Now, the images should be copied into the <b>representative</b> subdirectory and their names should change from R0036737.JPG to R0036737<b>_0</b>.JPG denoting the ID of detected ArUco marker (which is required in the next step).</i>
+<i>Now, the images should be copied into the <b>representative</b> subdirectory and their names should change from R0036737.JPG to R0036737<b>_0</b>.JPG denoting the ID of detected ArUco marker (which is required in the next step).</i><br>
+![selected_representatives.png](../assets/images/selected_representatives.png)
 
 
 **STEP 2.** In the second step, a Python script `gcp_to_aruco_mapper.py` automatically matches the GCP coordinates with the representative images (by calculating the distance between GCPs from reference file and GPS coordinates of each picture).
@@ -828,19 +972,20 @@ for i in `cat list`; do k=`echo $i | awk -F"." '{print $1}'`; n=`cat representat
 
 1. Make sure you have your local copy of the **[geo_utils](https://github.com/ISUgenomics/geo_utils)** GitHub repository, placed in your SOFTWARE or TOOLS directory on Atlas (e.g., `project/<account>/<user>/SOFTWARE`). *(You can follow the instructions in section [geo_utils Python utility: installation](#geo_utils-python-utility-installation) to download this repository.)* We will use the Python script `gcp_to_aruco_mapper.py` located in the TOOLS subdir of this repo:
   ```
-  ls project/<account>/<user>/SOFTWARE
+  ls project/<your_project_dir>/<user_account>/SOFTWARE
   ```
 
 2. Make sure you navigate back to the `representative` directory in your photogrammetry project. You can softlink the `gcp_to_aruco_mapper.py` script for easy use:
   ```
-  cd project/<account>/<user>/ODM/<project_X>/IMAGES/representative
-  ln -s project/<account>/<user>/SOFTWARE/geo_utils/TOOLS/gcp_to_aruco_mapper.py ./
+  cd project/<your_project_dir>/<user_account>/ODM/<project_X>/IMAGES/representative
+  ln -s project/<your_project_dir>/<user_account>/SOFTWARE/geo_utils/TOOLS/gcp_to_aruco_mapper.py ./
   ```
+  ![softlink_tool.png](../assets/images/softlink_tool.png)
 
 3. Run the `gcp_to_aruco_mapper.py` script to match the GCP coordinates with the representative images:
 ```
-python3 gcp_to_aruco_mapper.py -g gcp_list.txt -i "./" -z 11 -o matching_results -d 50 > out_distances
-grep "Match" < matching results | sort -nk4 > ID_matches
+python gcp_to_aruco_mapper.py -g ../GCP_reference.txt -i "./" -z 11 -o matching_results -d 50 > out_distances
+grep "Match" < matching_results | sort -nk4 > ID_matches
 cat ID_matches
 ```
 ```
@@ -865,9 +1010,9 @@ Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco mark
 
 **STEP 3.** Once the matches are made, create a **new** `GCP_reference.txt` file replacing the custom IDs with ArUco IDs.
 
-Create a 2-column `GCP_reference_aruco.txt` file with matching IDs: `GCP` `ArUco`
+Create a one column `tmp` file with matching IDs in a format `GCP_ArUco`. Then, replace the custom GCP ID with the corresponding ArUco ID in your original `GCP_reference.txt` file.
 ```
-awk '{print $4"_"$14}' < ID_matches > ../tmp
+awk '{print $4"_"$14}' < ID_matches | tr '.' ' ' > ../tmp
 cd ../                               # navigate to the IMAGES dir with the GCP_reference.file
 
 for i in `cat tmp`
@@ -876,7 +1021,21 @@ do
     new=`echo $i | awk -F"_" '{print $2}'`
     awk -v A=$old -v B=$new '{if ($1==A) print B,$2,$3,$4}' < GCP_reference.txt >> GCP_reference_aruco.txt
 done
-  ```
+```
+<i>The output from this operation is the </i> `GCP_reference_aruco.txt` file which should be used in STEP 4.
+```
+0 523287.368 4779588.335 1397.823
+11 523289.018 4779469.252 1407.142
+3 523363.938 4779530.027 1400.244
+1 523394.376 4779529.525 1398.728
+10 523305.976 4779572.588 1397.817
+2 523350.181 4779492.395 1403.14
+6 523347.074 4779571.424 1397.653
+5 523329.48 4779525.642 1400.983
+8 523292.432 4779530.71 1401.051
+4 523364.648 4779587.932 1395.735
+7 523261.422 4779532.114 1401.978
+```
 
 **STEP 4.** The `gcp_find.py` tool is then utilized again as in [SCENARIO 1: GCP file with known ArUco IDs](#scenario-1-gcp-file-with-known-aruco-ids). The end output, `gcp_list.txt`, is compatible with ODM software, but it should be used cautiously due to limited precision of GCP matching in this approach.
 
