@@ -13,16 +13,18 @@ header:
 
 ## <span style="color: #8997c1;">Table of contents</span>
 
-### **<a href="OpenDroneMap/00-IntroODM" style="color: #24376b;">1. Open Drone Map Overview</a>**
-* <a href="OpenDroneMap/01-WebODM" style="color: #3f5a8a;">1.1 WebODM: web-based graphical user interface</a>
-* <a href="OpenDroneMap/02-ODM-modules" style="color: #3f5a8a;">1.2 Command-line ODM modules</a>
-* <a href="OpenDroneMap/03-ODM-georeferencing" style="color: #3f5a8a;">1.3 Geolocation data for the ODM workflow</a>
+| Tutorial | Python | R | Jupyter Notebook| GitHub repo |
+|:--|:--|:--|:--|:--|
+| **<a href="OpenDroneMap/00-IntroODM" style="color: #24376b; font-size: 20px;">1. Open Drone Map Overview</a>** | *NA* | *NA* | *NA* | *NA* |
+|<a href="OpenDroneMap/01-WebODM" style="color: #3f5a8a;">1.1 WebODM: web-based graphical user interface</a>| *NA* | *NA* | *NA* | *NA* |
+|<a href="OpenDroneMap/02-ODM-modules" style="color: #3f5a8a;">1.2 Command-line ODM modules</a>| **YES** | *NA* | *NA* | *NA* |
+|<a href="OpenDroneMap/03-ODM-georeferencing" style="color: #3f5a8a;">1.3 Geolocation data for the ODM workflow</a>| **YES** | *NA* | *NA* | <a href="https://github.com/ISUgenomics/geo_utils" target="_blank">geo_utils  ⤴</a> |
 
-### **<a href="Metashape/01-AgisoftMetashapeOverview" style="color: #24376b;">2. Agisoft Metashape Overview</a>**
 
-* <a href="Metashape/02-MetashapeOnAtlasHPC" style="color: #3f5a8a;">2.1 Access Metashape on Atlas HPC</a>
-* <a href="Metashape/03-MetashapePythonScripts" style="color: #3f5a8a;">2.2 Metashape Python Scripting</a>
-  * <a href="Metashape/03-Tutorial-Photogrammetry" style="color: #3f5a8a;">Tutorial: A photogrammetry protocol for mapping land areas</a>
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
+<span style="font-weight:800;">NOTE:</span>
+<br><span style="font-style:italic;">Agisoft Metashape was uninstalled from all SCINet computing resources in early 2022 for security reasons. The corresponding tutorials are no longer available in the Geospatial Workbook. The recommended software is an open-source Open Drone Map (ODM).</span>
+</div><br>
 
 
 
