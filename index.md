@@ -67,6 +67,12 @@ feature_row2:
     url: "Visualizations/Visualizations-LandingPage"
     btn_label: "Learn More"
 
+  - title: "Spatial modeling"
+    image_path: assets/images/conny-schneider-pREq0ns_p_E-unsplash-1200_800.jpg
+    alt: "Spatial modeling"
+    url: "SpatialModeling/SpatialModeling-LandingPage"
+    btn_label: "Learn More"
+
 ---
 
 
