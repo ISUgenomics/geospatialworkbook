@@ -55,6 +55,24 @@ feature_row2:
     url: "ExampleGeoWorkflows/GRWGWorkshop"
     btn_label: "Learn More"
 
+  - title: "Geospatial file formats"
+    image_path: /assets/images/hans-isaacson-hAJhORQHk94-unsplash-1200_800.jpg
+    alt: "Geospatial file formats"
+    url: "FileFormats/FileFormats-LandingPage"
+    btn_label: "Learn More"
+    
+  - title: "Geospatial visualizations"
+    image_path: /assets/images/elena-mozhvilo-znhEe1cbbQE-unsplash-1200_800.jpg
+    alt: "Geospatial visualizations"
+    url: "Visualizations/Visualizations-LandingPage"
+    btn_label: "Learn More"
+
+  - title: "Spatial modeling"
+    image_path: assets/images/conny-schneider-pREq0ns_p_E-unsplash-1200_800.jpg
+    alt: "Spatial modeling"
+    url: "SpatialModeling/SpatialModeling-LandingPage"
+    btn_label: "Learn More"
+
 ---
 
 
