@@ -8,7 +8,7 @@ header:
   overlay_image: /assets/images/elena-mozhvilo-znhEe1cbbQE-unsplash-1200_800.jpg
 ---
 
-**Last Update:** 11 September 2023 <br /> **Download RMarkdown**:
+**Last Update:** 17 September 2023 <br /> **Download RMarkdown**:
 [GRWG\_Maps.Rmd](https://geospatial.101workbook.org/tutorials/GRWG_Maps.Rmd)
 
 ## Overview
@@ -41,16 +41,25 @@ To download the Rmarkdown file for this tutorial to your local machine
 
 ## Data Details
 
--   Data:
--   Link: []()
--   Other Details:
+* Data: FS National Forests Dataset (US Forest Service Proclaimed Forests)
+* Link: [https://www.geoplatform.gov/metadata/bd04f8d8-96cc-5eac-96af-566bea975ba3](https://www.geoplatform.gov/metadata/bd04f8d8-96cc-5eac-96af-566bea975ba3)
+* Other Details: The FS National Forests Dataset (US Forest Service Proclaimed 
+  Forests) is a depiction of the boundaries encompassing the National Forest 
+  System (NFS) lands.
+  
+* Data: 3DEP Bare Earth Digital Elevation Model
+* Link [https://www.usgs.gov/3d-elevation-program](https://www.usgs.gov/3d-elevation-program)
+* Other Details: To respond to growing needs for high-quality elevation data, 
+  the goal of 3DEP is to complete acquisition of nationwide lidar (IfSAR in AK) 
+  to provide the first-ever national baseline of consistent high-resolution 
+  topographic elevation data – both bare earth and 3D point clouds.
 
 ## Steps
 
 -   Acquire data:
-    -   Access informational boundaries.
-    -   Define study area and points.
-    -   Download raster to fill study area.
+    -   Access informational boundaries
+    -   Define study area and points
+    -   Download raster to fill study area
 -   Incrementally plot:
     -   Map background
     -   Raster
@@ -117,17 +126,15 @@ making your map. This can affect the plotted map.
     ggplot() +
       geom_sf(data=my_area_tcrs) 
 
-![](../Visualizations/assets/R_study_area_5070-1.png) 
+![](../Visualizations/assets/R_study_area_5070-1.png)
 
-The plot
-coordinate system depends on the order of the `geom_sf()` calls, or
-what’s specifically stated in `coord_sf()`.
+The plot coordinate system depends on the order of the `geom_sf()`
+calls, or what’s specifically stated in `coord_sf()`.
 
 Let’s now consider another vector dataset we’d like to plot within our
 study area. We can use the GeoPlatform API to download a subset of the
 *FS National Forests Dataset (US Forest Service Proclaimed Forests)*
 dataset from the US Forest Service.
-
 
     # GeoPlatform API url
     api_url <- 'https://geoapi.geoplatform.gov'
@@ -156,30 +163,25 @@ dataset from the US Forest Service.
     ggplot() +
       geom_sf(data=collection_sf)
 
-![](../Visualizations/assets/R_forests-1.png) 
+![](../Visualizations/assets/R_forests-1.png)
 
-Now let’s plot both this
-forest dataset and our study area.
+Now let’s plot both this forest dataset and our study area.
 
     ggplot() +
       geom_sf(data=my_area_tcrs) +
       geom_sf(data=collection_sf)
 
-![](../Visualizations/assets/R_forest_study_area-1.png) 
+![](../Visualizations/assets/R_forest_study_area-1.png)
 
-First, it is
-hard to distinguish the two vector datasets with the default coloring.
-Second, we requested forests within a bounding box of our study area. So
-let’s find the intersection of our forests and study area, and color the
-forests polygons.
-
+First, it is hard to distinguish the two vector datasets with the
+default coloring. Second, we requested forests within a bounding box of
+our study area. So let’s find the intersection of our forests and study
+area, and color the forests polygons.
 
     my_forests_tcrs <- collection_sf %>%
       st_transform(target_crs) %>%
       st_buffer(1) %>%
       st_intersection(my_area_tcrs)
-    #> Warning: attribute variables are assumed to be spatially constant throughout all geometries
-
 
     ggplot() +
       geom_sf(data=my_area_tcrs) +
@@ -189,8 +191,8 @@ forests polygons.
 ![](../Visualizations/assets/R_forests_study_area_clear-1.png)
 
 And let’s also get a raster dataset to fill in our study area. We will
-grab some elevation from The National Map. Again, we will use our study
-area bounding box to define our subset.
+download some elevation from The National Map. Again, we will use our
+study area bounding box to define our subset.
 
     tnm_url <- 'https://elevation.nationalmap.gov/arcgis/rest/services/'
     my_raster <- 'elev.tiff'
@@ -203,12 +205,11 @@ area bounding box to define our subset.
     # Visualize with default terra plotting function for rasters
     plot(elev)
 
-![](../Visualizations/assets/R_elev-1.png) 
+![](../Visualizations/assets/R_elev-1.png)
 
-We will reproject this raster
-into our target CRS and apply a mask defined by our study area. Then, we
-will also convert this `terra` object into a `data.frame` to help with
-our `ggplot`ting.
+We will reproject this raster into our target CRS and apply a mask
+defined by our study area. Then, we will also convert this `terra`
+object into a `data.frame` to help with our `ggplot`ting.
 
     elev_masked <- elev %>%
       project(target_crs_str) %>%
@@ -217,26 +218,48 @@ our `ggplot`ting.
     elev_df <- elev_masked %>%
       as.data.frame(xy=TRUE)
 
+With the default color scale, the elevation is difficult to distinguish
+across the study area.
+
     elev_df %>%
       ggplot(aes(x,y,fill=elev)) +
       geom_raster()
 
 ![](../Visualizations/assets/R_raster-1.png)
 
+There is an option to apply transformations within the fill color scale,
+`scale_fill_continuous`, e.g., the square-root transform which can
+increase the visual contrast in the elevation raster. However, there are
+areas below sea level in our study area so these pixels will become `NA`
+after the square-root transform.
+
     elev_df %>%
       ggplot(aes(x,y,fill=elev)) +
       geom_raster() +
       scale_fill_continuous(trans = 'sqrt')
+
     #> Warning in self$trans$transform(x): NaNs produced
+
     #> Warning: Transformation introduced infinite values in discrete y-axis
 
 ![](../Visualizations/assets/R_raster_bad_transform-1.png)
+
+You can also manually modify your raster variable being plotted to
+perform similar transformations, including more flexibility like an
+offset for our case to deal with the below sea level values. The
+down-side is you would also have to manually edit the legend to make it
+more interpretable.
 
     elev_df %>%
       ggplot(aes(x,y,fill=sqrt(elev+50))) +
       geom_raster()
 
 ![](../Visualizations/assets/R_raster_manual_transform-1.png)
+
+Another option is to break up your fill color scale into bins. One
+option for binning continous values in `ggplot2` is the
+`scale_*_fermenter` function that relies on the `RColorBrewer` package.
+Here, we will use this option and set manual breaks in our elevation.
 
     ggplot() +
       geom_raster(aes(x,y,fill=elev),
@@ -246,6 +269,9 @@ our `ggplot`ting.
                            breaks = c(-50,0,50,250,500,750))
 
 ![](../Visualizations/assets/R_raster_binned-1.png)
+
+So here is the current state of our map with the elevation raster and
+the study area and forest polygons:
 
     ggplot() +
       geom_raster(aes(x,y,fill=elev),
@@ -262,7 +288,10 @@ our `ggplot`ting.
 
 Now, we can add some nice map background layers and annotations. First,
 let’s build a background to show the context of neighboring states and
-water.
+water. We use the `USABoundaries` package again to create a US states
+background and fill those states with a light green color (`#e3f7dc`).
+We also set the panel background fill color with a light blue
+(`#afdbed`) since this represents the water areas in the map.
 
     all_states <- us_states() %>%
       st_transform(target_crs_str)
@@ -284,8 +313,9 @@ water.
 
 ![](../Visualizations/assets/R_background-1.png)
 
-Everything together, plus some annotations!
-
+Now, let’s combine all of our incremental steps into one plot. We can
+also add some annotations like a north arrow, a scale bar, and some
+arrows.
 
     # Define points between which to draw an arrow
     arrow_pts <- data.frame(x = c(-82,-89.25),
@@ -335,6 +365,6 @@ Everything together, plus some annotations!
                              width = unit(1, "cm")) +
       theme(panel.background = element_rect(fill = alpha('#afdbed', 0.5)),
             panel.grid.major = element_line(color = 'white', linewidth = 0.3)) 
-    #> Warning: Removed 23 rows containing missing values (`geom_raster()`).
+
 
 ![](../Visualizations/assets/R_final-1.png)
