@@ -715,7 +715,7 @@ usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <b
 
 <table>
   <tr style="background-color:#f0f0f0; border-bottom: 1px solid black;">
-    <th width="170">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+    <th width="180">flag</th><th>values</th><th>default</th><th width="250">description</th><th>notes</th></tr>
   <tr>
     <td>-h <br>--help</td><td> </td><td> </td><td>show this help message and exit</td><td> </td></tr>
   <tr>
@@ -733,7 +733,7 @@ usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <b
   <tr>
     <td>-s SEPARATOR <br>--separator SEP</td><td>' ' , </td><td><i>space</i></td><td>input file separator</td><td><i>If you notice issues with reading your input file, double-check that the specified separator matches the one used in your file.</i></td></tr>
   <tr>
-    <td>-v <br>--verbose</td><td> </td><td><i>off</i></td><td>verbose output to stdout</td><td><i>Use this option if you want detailed logs during processing. It can help with troubleshooting.></i></td></tr>
+    <td>-v <br>--verbose</td><td> </td><td><i>off</i></td><td>verbose output to stdout</td><td><i>Use this option if you want detailed logs during processing. It can help with troubleshooting.</i></td></tr>
   <tr>
     <td>--debug</td><td> </td><td><i>off</i></td><td>show detected markers on image</td><td><i>This is particularly helpful for visual verification. When activated, you'll get images showing where markers were detected. Works on a local machine or with X11 forwarding.</i></td></tr>
   <tr>
@@ -744,27 +744,28 @@ usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <b
 
 <br><b>optional arguments (more customization):</b><br>
 <a href="https://github.com/zsiki/Find-GCP#gcp_findpy" target="_blank">Additional customization options  ⤴</a> allow users to adjust color schemes, define marker styles and attributes, set font characteristics for debug images, limit record output, reorder coordinates, detect inverted markers, fine-tune adaptive thresholding, specify marker characteristics, determine marker-border relations, and refine marker detection through various parameters such as accuracy, error rates, and iteration limits.
-</details><br>
+</details>
 
+<div style="margin-left: 37px; margin-top: 10px;">
 ![run_gcp_find.png](../assets/images/run_gcp_find.png)
 
-This will search the ArUco markers from DICT_4x4_50 in your imagery and match them with corresponding IDs provided in your `GCP_reference.txt` file. Providing the exact EPSG code will ensure the returned coordinates of the GCPs detected in the imagery are in the correct coordinate system. The list of images with detected GCPs is saved to the `gcp_list.txt` file, which looks like this:
+This will search the ArUco markers from DICT_4x4_50 in your imagery and match them with corresponding IDs provided in your <b>GCP_reference.txt</b> file. Providing the exact EPSG code will ensure the returned coordinates of the GCPs detected in the imagery are in the correct coordinate system. The list of images with detected GCPs is saved to the <b>gcp_list.txt</b> file, which looks like this: <br>
+<div style="background: #e6f0f0; padding: 15px;">
+EPSG:32611 <br>
+523287.368 4779588.335 1397.823 5041 91 R0036021.JPG 0 <br>
+523287.368 4779588.335 1397.823 5190 1110 R0036023.JPG 0 <br>
+523287.368 4779588.335 1397.823 5462 1856 R0036024.JPG 0 <br>
+523287.368 4779588.335 1397.823 5680 2998 R0036026.JPG 0 <br>
+523364.648 4779587.932 1395.735 3170 60 R0036061.JPG 4 <br>
+523347.074 4779571.424 1397.653 624 700 R0036065.JPG 6 <br>
+523347.074 4779571.424 1397.653 539 1349 R0036066.JPG 6 <br>
+523305.976 4779572.588 1397.817 162 701 R0036073.JPG 10 <br>
+523305.976 4779572.588 1397.817 87 1597 R0036074.JPG 10 <br>
+523364.648 4779587.932 1395.735 4892 3940 R0036042.JPG 4 <br>
+</div><br>
+You can further refine the output file by sorting the records based on the ArUco marker ID, allowing you to <b>choose a subset of 5-10 images for each marker, required by the ODM software</b>. While manually reviewing the images is the most reliable approach to select the best representations, you can initially narrow down the number of images per marker programmatically. After this automatic reduction, a visual review is recommended to address any ambiguous images.
+</div>
 
-```
-EPSG:32611
-523287.368 4779588.335 1397.823 5041 91 R0036021.JPG 0
-523287.368 4779588.335 1397.823 5190 1110 R0036023.JPG 0
-523287.368 4779588.335 1397.823 5462 1856 R0036024.JPG 0
-523287.368 4779588.335 1397.823 5680 2998 R0036026.JPG 0
-523364.648 4779587.932 1395.735 3170 60 R0036061.JPG 4
-523347.074 4779571.424 1397.653 624 700 R0036065.JPG 6
-523347.074 4779571.424 1397.653 539 1349 R0036066.JPG 6
-523305.976 4779572.588 1397.817 162 701 R0036073.JPG 10
-523305.976 4779572.588 1397.817 87 1597 R0036074.JPG 10
-523364.648 4779587.932 1395.735 4892 3940 R0036042.JPG 4
-```
-
-You can further refine the output file by sorting the records based on the ArUco marker ID, allowing you to **choose a subset of 5-10 images for each marker, required by the ODM software**. While manually reviewing the images is the most reliable approach to select the best representations, you can initially narrow down the number of images per marker programmatically. After this automatic reduction, a visual review is recommended to address any ambiguous images.
 
 ### ***Select representative images for a marker***
 
