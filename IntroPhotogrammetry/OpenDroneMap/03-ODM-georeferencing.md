@@ -550,6 +550,13 @@ There is another GitHub repo, [gcp_aruco_generator](https://github.com/qaptadron
 </tr>
 </table>
 
+<div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-top: 0px;">
+<span style="font-weight:800;">WARNING:</span>
+<br><span style="font-style:italic;">
+If you're using <b>gcp_aruco_generator</b> to create ArUco codes for detection with the Find_GCP tool, <b>avoid using codes with IDs 9, 12, and 19</b>, as they are missing the central black square compared to the reference codes from the OpenCV library and will not be detectable. Check the repository's issue tracker (<a href="https://github.com/qaptadrone/gcp_aruco_generator/issues/3" target="_blank">issue #3</a>) to see if the developers have addressed this concern.
+</span>
+</div>
+
 * generate a single marker from selected dictionary in size = 1000 mm (without margins):
 ```
 python path/marker_generator.py -b -d 4X4_50 -s 1000 --id 0 --print-id
