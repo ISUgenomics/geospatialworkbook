@@ -1110,7 +1110,7 @@ do
     awk -v A=$old -v B=$new '{if ($1==A) print B,$2,$3,$4}' < GCP_reference.txt >> GCP_reference_aruco.txt
 done
 ```
-<i>The output from this operation is the </i> `GCP_reference_aruco.txt` file which should be used in STEP 4.
+<i>The output from this operation is the </i> `GCP_reference_aruco.txt` file, used in STEP 4.
 ```
 0 523287.368 4779588.335 1397.823
 11 523289.018 4779469.252 1407.142
