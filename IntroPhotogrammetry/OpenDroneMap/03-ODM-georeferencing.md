@@ -604,11 +604,12 @@ For automatic recognition of ArUco markers, it's optimal to have your **land sur
 **-** GCPs coordinate file, *e.g.,* `GCP_reference.txt`:
 ```
 0 523287.368 4779588.335 1397.823
-1 523305.976 4779572.588 1397.817
-2 523347.074 4779571.424 1397.653
-3 523364.648 4779587.932 1395.735
-4 523394.376 4779529.525 1398.728
-5 523363.938 4779530.027 1400.244
+1 523394.376 4779529.525 1398.728
+2 523350.181 4779492.395 1403.140
+3 523363.938 4779530.027 1400.244
+4 523364.648 4779587.932 1395.735
+5 523329.480 4779525.642 1400.983
+6 523347.074 4779571.424 1397.653
 ```
 <div style="background: mistyrose; padding: 15px; margin-bottom: 20px;">
 <span style="font-weight:800;">WARNING:</span><br>
@@ -653,14 +654,15 @@ ls | head -10
 pwd                                  # copy this path in the next step as the INPUTS_PATH variable
 ```
 ![/set_up_inputs.png](../assets/images/set_up_inputs.png) <br><br>
-<i>If your GCP reference file (here: gcp_epsg32611_2021_wbs1_coresite.csv)</i> has format different than <b>space-separated 4 columns: aruco_ID X Y Z</b>, then you should adjust it accordingly to get something like this:</i>
+<i>If your GCP reference file (here: gcp_epsg32611_2021_wbs1_coresite.csv) has format different than <b>space-separated 4 columns: aruco_ID X Y Z</b>, then you should adjust it accordingly to get something like this:</i>
 ```
 0 523287.368 4779588.335 1397.823
-1 523305.976 4779572.588 1397.817
-2 523347.074 4779571.424 1397.653
-3 523364.648 4779587.932 1395.735
-4 523394.376 4779529.525 1398.728
-5 523363.938 4779530.027 1400.244
+1 523394.376 4779529.525 1398.728
+2 523350.181 4779492.395 1403.140
+3 523363.938 4779530.027 1400.244
+4 523364.648 4779587.932 1395.735
+5 523329.480 4779525.642 1400.983
+6 523347.074 4779571.424 1397.653
 ```
 <i>You can use</i> `awk` *command to easily extract the columns you need.* <b>Note that GCP_reference.txt file should not have a header.</b>
 ![adjust_gcp_reference.png](../assets/images/adjust_gcp_reference.png)
@@ -685,6 +687,64 @@ python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --
 ```
 python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --epsg 32611 -d 0 -o gcp_list.txt $INPUTS_PATH/*.JPG
 ```
+
+<details><summary style="color: #ff3870;font-weight: 500;"><b>Explore all options:</b></summary>
+
+<div style="background: #e6f0f0; padding: 5px; margin-top: 10px;">
+usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <br>
+&emsp; &emsp; &emsp; [-s SEPARATOR] [-v] [--debug | --multi] [-l] [--epsg EPSG] <br>
+&emsp; &emsp; &emsp; [-a] [--markersize MARKERSIZE] [--markerstyle MARKERSTYLE] <br>
+&emsp; &emsp; &emsp; [--markerstyle1 MARKERSTYLE1] [--edgecolor EDGECOLOR] <br>
+&emsp; &emsp; &emsp; [--edgewidth EDGEWIDTH] [--fontsize FONTSIZE] <br>
+&emsp; &emsp; &emsp; [--fontcolor FONTCOLOR] [--fontcolor1 FONTCOLOR1] <br>
+&emsp; &emsp; &emsp; [--fontweight FONTWEIGHT] [--fontweight1 FONTWEIGHT1] <br>
+&emsp; &emsp; &emsp; [--limit LIMIT] [--nez] [-r] [--winmin WINMIN] <br>
+&emsp; &emsp; &emsp; [--winmax WINMAX] [--winstep WINSTEP] [--thres THRES] <br>
+&emsp; &emsp; &emsp; [--minrate MINRATE] [--maxrate MAXRATE] [--poly POLY] <br>
+&emsp; &emsp; &emsp; [--corner CORNER] [--markerdist MARKERDIST] <br>
+&emsp; &emsp; &emsp; [--borderdist BORDERDIST] [--borderbits BORDERBITS] <br>
+&emsp; &emsp; &emsp; [--otsu OTSU] [--persp PERSP] [--ignore IGNORE] <br>
+&emsp; &emsp; &emsp; [--error ERROR] [--correct CORRECT] <br>
+&emsp; &emsp; &emsp; [--refinement REFINEMENT] [--refwin REFWIN] <br>
+&emsp; &emsp; &emsp; [--maxiter MAXITER] [--minacc MINACC] <br>
+&emsp; &emsp; &emsp; [file_names [file_names ...]]
+</div><br>
+<b>positional arguments:</b><br>
+&emsp; file_names &emsp; &emsp; &emsp; image files to process <br><br>
+<b>optional arguments (common):</b><br>
+<table>
+  <tr style="background-color:#f0f0f0; border-bottom: 1px solid black;">
+    <th width="170">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
+  <tr>
+    <td>-h <br>--help</td><td> </td><td> </td><td>show this help message and exit</td><td> </td></tr>
+  <tr>
+    <td><b>-d DICT <br>--dict DICT</b></td><td>integer</td><td>1</td><td>marker dictionary ID, default=1 (DICT_4X4_100)</td><td><i>ID determines which set of markers the program will recognize. Ensure you match this with the markers you're using. </i></td></tr>
+  <tr>
+    <td>-l <br>--list</td><td> </td><td> </td><td>output dictionary names and ids and exit</td><td><i>This is a quick way to view available dictionaries. It's useful if you're unsure which dictionary ID to use.</i></td></tr>
+  <tr>
+    <td><b>-o FILE <br>--output FILE</b></td><td>filename</td><td><i>stdout</i></td><td>name of output GCP list file, default stdout</td><td><i> If no output file name is specified, the results will be printed directly to the terminal (stdout).</i></td></tr>
+  <tr>
+    <td><b>-t {ODM,VisualSfM} <br>--type {ODM,VisualSfM}</b></td><td>ODM, VisualSfM</td><td> </td><td>target program ODM or VisualSfM, default</td><td><i>Make sure to select the target program that aligns with your project needs. Both ODM (OpenDroneMap) and VisualSfM have different formats.</i></td></tr>
+  <tr>
+    <td><b>-i GCP_FILE <br>--input GCP_FILE</b></td><td> </td><td><i>4-col file</i></td><td>name of input GCP coordinate file, default None</td><td><i>If not provided, the tool won't assign the reference coordinates to detected markers.</i></td></tr>
+  <tr>
+    <td><b>--epsg EPSG</b></td><td> </td><td> </td><td>epsg code for gcp coordinates, default None</td><td><i>Ensure the EPSG code matches the coordinate system of your GCPs. This ensures that coordinates are interpreted correctly.</i></td></tr>
+  <tr>
+    <td>-s SEPARATOR <br>--separator SEP</td><td>' ' , </td><td><i>space</i></td><td>input file separator</td><td><i>If you notice issues with reading your input file, double-check that the specified separator matches the one used in your file.</i></td></tr>
+  <tr>
+    <td>-v <br>--verbose</td><td> </td><td><i>off</i></td><td>verbose output to stdout</td><td><iUse this option if you want detailed logs during processing. It can help with troubleshooting.></i></td></tr>
+  <tr>
+    <td>--debug</td><td> </td><td><i>off</i></td><td>show detected markers on image</td><td><i>This is particularly helpful for visual verification. When activated, you'll get images showing where markers were detected. Works on a local machine or with X11 forwarding.</i></td></tr>
+  <tr>
+    <td>--multi</td><td> </td><td><i>off</i></td><td>process images paralel</td><td><i>Use this for faster processing if you're working with multiple images, as it processes them in parallel.</i></td></tr>
+  <tr>
+    <td>-r, --inverted</td><td> </td><td><i>off</i></td><td>detect inverted markers</td><td><i>This ensures the tool will recognize markers even if they're inverted, increasing the robustness of your detection process.</i></td></tr>
+</table><br>
+
+<b>optional arguments (more customization):</b><br>
+<a href="https://github.com/zsiki/Find-GCP#gcp_findpy" target="_blank">Additional customization options  ⤴</a> allow users to adjust color schemes, define marker styles and attributes, set font characteristics for debug images, limit record output, reorder coordinates, detect inverted markers, fine-tune adaptive thresholding, specify marker characteristics, determine marker-border relations, and refine marker detection through various parameters such as accuracy, error rates, and iteration limits.
+</details><br>
+
 ![run_gcp_find.png](../assets/images/run_gcp_find.png)
 
 This will search the ArUco markers from DICT_4x4_50 in your imagery and match them with corresponding IDs provided in your `GCP_reference.txt` file. Providing the exact EPSG code will ensure the returned coordinates of the GCPs detected in the imagery are in the correct coordinate system. The list of images with detected GCPs is saved to the `gcp_list.txt` file, which looks like this:
@@ -695,12 +755,12 @@ EPSG:32611
 523287.368 4779588.335 1397.823 5190 1110 R0036023.JPG 0
 523287.368 4779588.335 1397.823 5462 1856 R0036024.JPG 0
 523287.368 4779588.335 1397.823 5680 2998 R0036026.JPG 0
-523394.376 4779529.525 1398.728 3170 60 R0036061.JPG 4
-523329.480 4779525.642 1400.983 624 700 R0036065.JPG 6
-523329.480 4779525.642 1400.983 539 1349 R0036066.JPG 6
-523309.583 4779492.785 1404.733 162 701 R0036073.JPG 10
-523309.583 4779492.785 1404.733 87 1597 R0036074.JPG 10
-523394.376 4779529.525 1398.728 1322 1028 R0036109.JPG 4
+523364.648 4779587.932 1395.735 3170 60 R0036061.JPG 4
+523347.074 4779571.424 1397.653 624 700 R0036065.JPG 6
+523347.074 4779571.424 1397.653 539 1349 R0036066.JPG 6
+523305.976 4779572.588 1397.817 162 701 R0036073.JPG 10
+523305.976 4779572.588 1397.817 87 1597 R0036074.JPG 10
+523364.648 4779587.932 1395.735 4892 3940 R0036042.JPG 4
 ```
 
 You can further refine the output file by sorting the records based on the ArUco marker ID, allowing you to **choose a subset of 5-10 images for each marker, required by the ODM software**. While manually reviewing the images is the most reliable approach to select the best representations, you can initially narrow down the number of images per marker programmatically. After this automatic reduction, a visual review is recommended to address any ambiguous images.
@@ -872,9 +932,7 @@ For cases where you have a GCP file with custom IDs, your inputs will be **the i
 133 523363.938 4779530.027 1400.244
 138 523329.480 4779525.642 1400.983
 136 523350.181 4779492.395 1403.140
-140 523370.006 4779471.041 1403.857
 132 523289.018 4779469.252 1407.142
-142 523309.583 4779492.785 1404.733
 139 523292.432 4779530.710 1401.051
 143 523261.422 4779532.114 1401.978
 ```
@@ -1012,6 +1070,29 @@ Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco mark
 <span style="font-weight:800;">WARNING:</span>
 <br><span style="font-style:italic;">Note that you should have activated a specific conda environment related to this project. See the <b>STEP 0</b> in this section. </span>
 </div>
+
+*  ***You might be curious about the success rate of matching GCPs with image GPS.***<br> Thankfully, I got reference data where GCPs were paired with ArUco codes during land surveying. As you can see below, the `gcp_to_aruco_mapper.py` accurately matched all GCPs with their corresponding ArUco markers. Thus, <b>this method serves as a reliable fallback when you're unsure of the ArUco IDs for your ground control coordinates.</b>
+```
+# programmatic detection                   | reference created during land surveying
+GCP 131 (d=16.84m) with ArUco marker  0    |  0 523287.368 4779588.335 1397.823 131
+GCP 132 (d=12.69m) with ArUco marker 11    | 11 523289.018 4779469.252 1407.142 132
+GCP 133  (d=1.64m) with ArUco marker  3    |  3 523363.938 4779530.027 1400.244 133
+GCP 134  (d=1.00m) with ArUco marker  1    |  1 523394.376 4779529.525 1398.728 134
+GCP 135  (d=3.09m) with ArUco marker 10    | 10 523305.976 4779572.588 1397.817 135
+GCP 136 (d=18.49m) with ArUco marker  2    |  2 523350.181 4779492.395 1403.140 136
+GCP 137 (d=25.80m) with ArUco marker  6    |  6 523347.074 4779571.424 1397.653 137
+GCP 138 (d=15.18m) with ArUco marker  5    |  5 523329.480 4779525.642 1400.983 138
+GCP 139  (d=4.29m) with ArUco marker  8    |  8 523292.432 4779530.710 1401.051 139
+GCP 141  (d=5.95m) with ArUco marker  4    |  4 523364.648 4779587.932 1395.735 141
+GCP 143  (d=7.09m) with ArUco marker  7    |  7 523261.422 4779532.114 1401.978 143
+```
+
+<div style="background: #cff4fc; padding: 15px;  margin-bottom: 25px; margin-left: 37px;">
+<span style="font-weight:800;">PRO TIP:</span>
+<br><span style="font-style:italic;">
+<b>Always create a GCP-to-ArUco reference during land surveying.</b> This crucial step simplifies your geospatial analysis and georeferencing, allowing you to easily adhere to the guidelines outlined in [SCENARIO 1: GCP file with known ArUco IDs](#scenario-1-gcp-file-with-known-aruco-ids).
+</span>
+</div><br>
 
 
 **STEP 3.** Once the matches are made, create a **new** `GCP_reference.txt` file replacing the custom IDs with ArUco IDs.
