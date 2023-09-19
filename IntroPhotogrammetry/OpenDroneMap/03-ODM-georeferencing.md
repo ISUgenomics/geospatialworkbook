@@ -712,6 +712,7 @@ usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <b
 <b>positional arguments:</b><br>
 &emsp; file_names &emsp; &emsp; &emsp; image files to process <br><br>
 <b>optional arguments (common):</b><br>
+
 <table>
   <tr style="background-color:#f0f0f0; border-bottom: 1px solid black;">
     <th width="170">flag</th><th>values</th><th>default</th><th>description</th><th>notes</th></tr>
@@ -732,16 +733,16 @@ usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <b
   <tr>
     <td>-s SEPARATOR <br>--separator SEP</td><td>' ' , </td><td><i>space</i></td><td>input file separator</td><td><i>If you notice issues with reading your input file, double-check that the specified separator matches the one used in your file.</i></td></tr>
   <tr>
-    <td>-v <br>--verbose</td><td> </td><td><i>off</i></td><td>verbose output to stdout</td><td><iUse this option if you want detailed logs during processing. It can help with troubleshooting.></i></td></tr>
+    <td>-v <br>--verbose</td><td> </td><td><i>off</i></td><td>verbose output to stdout</td><td><i>Use this option if you want detailed logs during processing. It can help with troubleshooting.></i></td></tr>
   <tr>
     <td>--debug</td><td> </td><td><i>off</i></td><td>show detected markers on image</td><td><i>This is particularly helpful for visual verification. When activated, you'll get images showing where markers were detected. Works on a local machine or with X11 forwarding.</i></td></tr>
   <tr>
     <td>--multi</td><td> </td><td><i>off</i></td><td>process images paralel</td><td><i>Use this for faster processing if you're working with multiple images, as it processes them in parallel.</i></td></tr>
   <tr>
     <td>-r, --inverted</td><td> </td><td><i>off</i></td><td>detect inverted markers</td><td><i>This ensures the tool will recognize markers even if they're inverted, increasing the robustness of your detection process.</i></td></tr>
-</table><br>
+</table>
 
-<b>optional arguments (more customization):</b><br>
+<br><b>optional arguments (more customization):</b><br>
 <a href="https://github.com/zsiki/Find-GCP#gcp_findpy" target="_blank">Additional customization options  ⤴</a> allow users to adjust color schemes, define marker styles and attributes, set font characteristics for debug images, limit record output, reorder coordinates, detect inverted markers, fine-tune adaptive thresholding, specify marker characteristics, determine marker-border relations, and refine marker detection through various parameters such as accuracy, error rates, and iteration limits.
 </details><br>
 
