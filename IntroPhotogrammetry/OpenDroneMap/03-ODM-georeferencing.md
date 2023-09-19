@@ -688,7 +688,7 @@ python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --
 python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --epsg 32611 -d 0 -o gcp_list.txt $INPUTS_PATH/*.JPG
 ```
 
-<details><summary style="color: #ff3870;font-weight: 500;"><b>Explore all options:</b></summary>
+<details><summary style="color: #ff3870;font-weight: 500; margin-left: 37px;"><b>Explore all options:</b></summary>
 
 <div style="background: #e6f0f0; padding: 5px; margin-top: 10px;">
 usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <br>
