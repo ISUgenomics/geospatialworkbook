@@ -1075,27 +1075,26 @@ Match found: GCP 143 (d=7.09m) is likely in image R0036933_7.JPG with ArUco mark
 
 *  ***You might be curious about the success rate of matching GCPs with image GPS.***<br> Thankfully, I got reference data where GCPs were paired with ArUco codes during land surveying. As you can see below, the `gcp_to_aruco_mapper.py` accurately matched all GCPs with their corresponding ArUco markers. Thus, <b>this method serves as a reliable fallback when you're unsure of the ArUco IDs for your ground control coordinates.</b>
 ```
-# programmatic detection                   | reference created during land surveying
-GCP 131 (d=16.84m) with ArUco marker  0    |  0 523287.368 4779588.335 1397.823 131
-GCP 132 (d=12.69m) with ArUco marker 11    | 11 523289.018 4779469.252 1407.142 132
-GCP 133  (d=1.64m) with ArUco marker  3    |  3 523363.938 4779530.027 1400.244 133
-GCP 134  (d=1.00m) with ArUco marker  1    |  1 523394.376 4779529.525 1398.728 134
-GCP 135  (d=3.09m) with ArUco marker 10    | 10 523305.976 4779572.588 1397.817 135
-GCP 136 (d=18.49m) with ArUco marker  2    |  2 523350.181 4779492.395 1403.140 136
-GCP 137 (d=25.80m) with ArUco marker  6    |  6 523347.074 4779571.424 1397.653 137
-GCP 138 (d=15.18m) with ArUco marker  5    |  5 523329.480 4779525.642 1400.983 138
-GCP 139  (d=4.29m) with ArUco marker  8    |  8 523292.432 4779530.710 1401.051 139
-GCP 141  (d=5.95m) with ArUco marker  4    |  4 523364.648 4779587.932 1395.735 141
-GCP 143  (d=7.09m) with ArUco marker  7    |  7 523261.422 4779532.114 1401.978 143
+# programmatic detection                  |  reference created during land surveying
+GCP 131 (d=16.84m) with ArUco marker  0   |   0 523287.368 4779588.335 1397.823 131
+GCP 132 (d=12.69m) with ArUco marker 11   |  11 523289.018 4779469.252 1407.142 132
+GCP 133  (d=1.64m) with ArUco marker  3   |   3 523363.938 4779530.027 1400.244 133
+GCP 134  (d=1.00m) with ArUco marker  1   |   1 523394.376 4779529.525 1398.728 134
+GCP 135  (d=3.09m) with ArUco marker 10   |  10 523305.976 4779572.588 1397.817 135
+GCP 136 (d=18.49m) with ArUco marker  2   |   2 523350.181 4779492.395 1403.140 136
+GCP 137 (d=25.80m) with ArUco marker  6   |   6 523347.074 4779571.424 1397.653 137
+GCP 138 (d=15.18m) with ArUco marker  5   |   5 523329.480 4779525.642 1400.983 138
+GCP 139  (d=4.29m) with ArUco marker  8   |   8 523292.432 4779530.710 1401.051 139
+GCP 141  (d=5.95m) with ArUco marker  4   |   4 523364.648 4779587.932 1395.735 141
+GCP 143  (d=7.09m) with ArUco marker  7   |   7 523261.422 4779532.114 1401.978 143
 ```
 
 <div style="background: #cff4fc; padding: 15px;  margin-bottom: 25px; margin-left: 37px;">
 <span style="font-weight:800;">PRO TIP:</span>
 <br><span style="font-style:italic;">
-<b>Always create a GCP-to-ArUco reference during land surveying.</b> This crucial step simplifies your geospatial analysis and georeferencing, allowing you to easily adhere to the guidelines outlined in [SCENARIO 1: GCP file with known ArUco IDs](#scenario-1-gcp-file-with-known-aruco-ids).
+<b>Always create a GCP-to-ArUco reference during land surveying.</b> This crucial step simplifies your geospatial analysis and georeferencing, allowing you to easily adhere to the guidelines outlined in <a href="https://geospatial.101workbook.org/IntroPhotogrammetry/OpenDroneMap/03-ODM-georeferencing#scenario-1-gcp-file-with-known-aruco-ids">SCENARIO 1: GCP file with known ArUco IDs</a>.
 </span>
-</div><br>
-
+</div>
 
 **STEP 3.** Once the matches are made, create a **new** `GCP_reference.txt` file replacing the custom IDs with ArUco IDs.
 
