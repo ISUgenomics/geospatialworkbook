@@ -688,7 +688,7 @@ python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --
 python $FIND_GCP_PATH/gcp_find.py -v -t ODM -i $INPUTS_PATH/GCP_reference.txt --epsg 32611 -d 0 -o gcp_list.txt $INPUTS_PATH/*.JPG
 ```
 
-<details><summary style="color: #ff3870;font-weight: 500; margin-left: 37px;"><b>Explore all options:</b></summary>
+<details><summary style="color: #ff3870;font-weight: 500; margin-left: 37px;"><b>Explore all options</b></summary>
 
 <div style="background: #e6f0f0; padding: 5px; margin-top: 10px;">
 usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <br>
@@ -747,7 +747,7 @@ usage: gcp_find.py [-h] [-d DICT] [-o OUTPUT] [-t {ODM,VisualSfM}] [-i INPUT] <b
 </details>
 
 <div style="margin-left: 37px; margin-top: 10px;">
-![run_gcp_find.png](../assets/images/run_gcp_find.png)
+<img src="../assets/images/run_gcp_find.png" alt="run_gcp_find.png">
 
 This will search the ArUco markers from DICT_4x4_50 in your imagery and match them with corresponding IDs provided in your <b>GCP_reference.txt</b> file. Providing the exact EPSG code will ensure the returned coordinates of the GCPs detected in the imagery are in the correct coordinate system. The list of images with detected GCPs is saved to the <b>gcp_list.txt</b> file, which looks like this: <br>
 <div style="background: #e6f0f0; padding: 15px;">
