@@ -439,7 +439,7 @@ Once you've set up the `geospatial` environment, theoretically all the necessary
 
   5. \*install required libraries *(optionally after* `git pull`*)*:
   ```
-  pip install opencv-python opencv-contrib-python PIL pil.imagetk numpy matplotlib
+  pip install opencv-python opencv-contrib-python Pillow pil.imagetk numpy matplotlib
   ```
   <div style="background: mistyrose; padding: 15px; margin-bottom: 20px; margin-left: 37px;">
   <span style="font-weight:800;">WARNING:</span>
@@ -874,7 +874,7 @@ source activate geospatial
 
 **INPUTS:**
 * `project-X` directory with the complete imagery
-* `gcp_list.txt` file *(The output file of the* `gcp_find.py` *is the input file of this program.)*
+* `gcp_list_selected.txt` file *(The (filtered) output file of the* `gcp_find.py` *is the input file of this program.)*
 
 ```
 EPSG:32611
@@ -902,7 +902,7 @@ cd /project/<your_project_dir>/<user_account>/ODM/IMAGES
 
 Now, you can launch the `gcp_check.py` GUI by executing this command in the terminal:
 ```
-python FIND_GCP_PATH/gcp_check.py --path ./<project-X>/ --edgewidth 5 --fontsize 300 ./<project-X>/gcp_list.txt
+python FIND_GCP_PATH/gcp_check.py --path ./<project-X>/ --edgewidth 5 --fontsize 300 ./<project-X>/gcp_list_selected.txt
 ```
 <i>To modify how detected markers are highlighted,<b> explore the command-line parameters</b> outlined in the [official documentation](https://github.com/zsiki/Find-GCP#gcp_checkpy).</i>
 
@@ -1054,6 +1054,7 @@ python gcp_to_aruco_mapper.py -g ../GCP_reference.txt -i "./" -z 11 -o matching_
 grep "Match" < matching_results | sort -nk4 > ID_matches
 cat ID_matches
 ```
+<i>In this command, the <b>-g</b> argument specifies the GCP file with custom IDs, the <b>-b</b> option provides the path with selected representative images for unique ArUco codes detected, <b>-z</b> option expects you to provide the UTM zone (e.g., if EPSG is 32611 then the UTM zone is 11), <b>-d</b> option determines the maximum distance threshold between GCP coordinates and image GPS.</i>
 ```
 Match found: GCP 131 (d=16.84m) is likely in image R0036737_0.JPG with ArUco marker 0.
 Match found: GCP 132 (d=12.69m) is likely in image R0037136_11.JPG with ArUco marker 11.
