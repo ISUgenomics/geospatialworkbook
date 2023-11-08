@@ -263,9 +263,10 @@ nano run_odm_latest.sh           # nano, vim, mcedit are good text file editors
 # job standard output will go to the file slurm-%j.out (where %j is the job ID)
 # DEFINE SLURM VARIABLES
 #SBATCH --job-name="geo-odm"                   # custom SLURM job name visible in the queue
-#SBATCH --partition=atlas                      # partition: atlas, gpu, bigmem, service
+##SBATCH --partition=atlas                      # partition on Atlas: atlas, gpu, bigmem, service
+#SBATCH --partition=short                      # partition on Ceres: short, medium, long, mem, longmem
 #SBATCH --nodes=1                              # number of nodes
-#SBATCH --ntasks=48                            # 24 processor core(s) per node X 2 threads per core
+#SBATCH --ntasks=48                            # logical cores: 48 on atlas, 72 on short (Ceres)
 #SBATCH --time=04:00:00                        # walltime limit (HH:MM:SS)
 #SBATCH --account=<project_account>            # EDIT ACCOUNT, provide your SCINet project account
 #SBATCH --mail-user=user.name@usda.gov         # EDIT EMAIL, provide your email address
@@ -275,12 +276,13 @@ nano run_odm_latest.sh           # nano, vim, mcedit are good text file editors
 
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
-module load singularity                        # load container dependency
-module load python/3.9.2                       # load phython 3.9 (default)
+module load apptainer                        # load container dependency
 
 # DEFINE CODE VARIABLES
 workdir=/project/<project_account>/.../ODM     # EDIT PATH, path to your ODM directory; use `pwd` if the script is in ODM workdir
 project=PROJECT-1                              # EDIT PROJECT NAME, name of the directory with input JPG imagery
+ODM=3.3.0
+
 tag=$SLURM_JOB_ID                              # EDIT CUSTOM TAG, by default it is a SLURM job ID
 #tag=`date +%Y%b%d-%T | tr ':' '.'`            # alternative TAG, use date in format 2022Aug16-16.57.59 to make the name unique
 images_dir=$workdir/IMAGES/$project            # automatically generated path to input images when stored in ~/ODM/IMAGES; otherwise provide absolute path
@@ -288,7 +290,7 @@ output_dir=$workdir/RESULTS/$project-$tag      # automatically generated path to
 mkdir -p $output_dir/code/images               # automatically generated images directory
 ln -s $images_dir/* $output_dir/code/images/   # automatically linked input imagery
 cp $BASH_SOURCE $output_dir/submit_odm.sh      # automatically copied the SLURM script into the outputs directory (e.g., for future reuse or reference of used options)
-odm=/reference/containers/opendronemap/2.8.3/opendronemap-2.8.3.sif        # pre-configured odm image on Atlas
+odm=/reference/containers/opendronemap/2.8.3/opendronemap-$ODM.sif        # pre-configured odm image on Atlas
 
 # DEFINE ODM COMMAND
 singularity run --writable-tmpfs $odm  \
@@ -298,9 +300,8 @@ singularity run --writable-tmpfs $odm  \
 --gcp $output_dir/code/images/gcp_list.txt \
 --dsm --dtm --dem-resolution 1 --smrf-threshold 0.4 --smrf-window 24 \
 --build-overviews \
---use-hybrid-bundle-adjustment --max-concurrency 16 \
---project-path $output_dir --ignore-gsd \
---time
+--use-hybrid-bundle-adjustment --max-concurrency 72 \
+--project-path $output_dir --ignore-gsd
 ```
 
 <p align="center"><img width="800" src="../assets/images/create_script.gif"></p>
