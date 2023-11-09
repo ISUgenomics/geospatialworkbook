@@ -290,7 +290,7 @@ output_dir=$workdir/RESULTS/$project-$tag      # automatically generated path to
 mkdir -p $output_dir/code/images               # automatically generated images directory
 ln -s $images_dir/* $output_dir/code/images/   # automatically linked input imagery
 cp $BASH_SOURCE $output_dir/submit_odm.sh      # automatically copied the SLURM script into the outputs directory (e.g., for future reuse or reference of used options)
-odm=/reference/containers/opendronemap/2.8.3/opendronemap-$ODM.sif        # pre-configured odm image on Atlas
+odm=/reference/containers/opendronemap/$ODM/opendronemap-$ODM.sif        # pre-configured odm image on Atlas
 
 # DEFINE ODM COMMAND
 apptainer run --writable-tmpfs $odm  \
