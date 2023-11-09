@@ -293,7 +293,7 @@ cp $BASH_SOURCE $output_dir/submit_odm.sh      # automatically copied the SLURM 
 odm=/reference/containers/opendronemap/2.8.3/opendronemap-$ODM.sif        # pre-configured odm image on Atlas
 
 # DEFINE ODM COMMAND
-singularity run --writable-tmpfs $odm  \
+apptainer run --writable-tmpfs $odm  \
 --feature-quality ultra --min-num-features 10000 --matcher-type flann \
 --pc-quality ultra --pc-classify --pc-rectify --pc-las \
 --mesh-octree-depth 12 \
