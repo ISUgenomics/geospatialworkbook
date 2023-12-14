@@ -12,11 +12,11 @@ Materials modified from the [USDA ARS AI Workshop 2020](https://kerriegeil.githu
 
 | Tutorial | Python | R | Jupyter Notebook|
 |:--|:--|:--|:--|
-| 01 - Image Processing Essentials | [view](Tutorial1_Image_Processing_Essentials_Boucheron.md) |[view](R_Image_Processing.md) |[download](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/2021-05_session/Tutorial1_Image_Processing_Essentials.ipynb)
-| 02 - Classical Machine Learning | [view](Tutorial2_Classical_Machine_Learning_Boucheron.md)| |[https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/2021-05_session/Tutorial2_Classical_Machine_Learning.ipynb)|
-| 03 - Deep Learning for Images | [view](Tutorial3_Deep_Learning_for_Images_Boucheron.md) | |[download](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/2021-05_session/Tutorial3_Deep_Learning_for_Images.ipynb)|
-| 04 - Visualizing and Modifying Deep Learning Networks | [view](Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.md) | |[download](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/2021-05_session/Tutorial4_Visualizing_and_Modifying_DL_Networks.ipynb)|
-| 05 - Advanced Deep Learning Networks | [view](Tutorial5_Advanced_DL_Networks.md)| |[download](https://kerriegeil.github.io/NMSU-USDA-ARS-AI-Workshops/tutorials/2021-05_session/Tutorial5_Advanced_DL_Networks_complete.ipynb)|
+| 01 - Image Processing Essentials | [view](Tutorial1_Image_Processing_Essentials_Boucheron.md) |[view](R_Image_Processing.md) |[download](../tutorials/Tutorial1_Image_Processing_Essentials_Boucheron.ipynb)
+| 02 - Classical Machine Learning | [view](Tutorial2_Classical_Machine_Learning_Boucheron.md)| |[download](../tutorials/Tutorial2_Classical_Machine_Learning.ipynb)|
+| 03 - Deep Learning for Images | [view](Tutorial3_Deep_Learning_for_Images_Boucheron.md) | |[download](../tutorials/Tutorial3_Deep_Learning_for_Images_Boucheron.ipynb)|
+| 04 - Visualizing and Modifying Deep Learning Networks | [view](Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.md) | |[download](../tutorials/Tutorial4_Visualizing_and_Modifying_DL_Networks_Boucheron.ipynb)|
+| 05 - Advanced Deep Learning Networks | [view](Tutorial5_Advanced_DL_Networks.md)| |[download](../tutorials/Tutorial5_Advanced_DL_Networks.ipynb)|
 
 <!--
 
