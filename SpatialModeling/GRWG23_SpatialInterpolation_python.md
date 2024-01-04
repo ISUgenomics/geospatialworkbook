@@ -529,7 +529,7 @@ tuned_RFsp.best_params_
 
 
 
-We can now use our testing subset of the data to quantify the model performance, i.e. how well did the model predict the remaining observed values? There are many potential metrics - see all the metrics `scikit-learn` supports [here](https://scikit-learn.org/stable/modules/model_evaluation.html#). The two we show below are the coefficient of determination ($R^2$) and the root mean square error ($RMSE$), two metrics that are likely familiar from outside machine learning as well.
+We can now use our testing subset of the data to quantify the model performance, i.e. how well did the model predict the remaining observed values? There are many potential metrics - see all the metrics `scikit-learn` supports [here](https://scikit-learn.org/stable/modules/model_evaluation.html#). The two we show below are the coefficient of determination (*R*<sup>*2*</sup>) and the root mean square error (*RMSE*), two metrics that are likely familiar from outside machine learning as well.
 
 
 ```python
@@ -539,7 +539,7 @@ print_metrics(RFsp_y_test, tuned_RFsp.predict(RFsp_X_test))
     R^2 = 0.50, RMSE =   286
 
 
-Our $R^2$ is not awesome! We typically want $R^2$ values closer to $1$ and RMSE values closer to $0$. Note: $RMSE$ is in the units of the target variable, so our zinc concentrations. You can see the range of values of zinc concentrations in the legend in the figure above, from which you can get a sense of our error.  
+Our *R*<sup>*2*</sup> is not awesome! We typically want *R*<sup>*2*</sup> values closer to 1 and *RMSE* values closer to 0. Note: *RMSE* is in the units of the target variable, so our zinc concentrations. You can see the range of values of zinc concentrations in the legend in the figure above, from which you can get a sense of our error.  
 
 **Excercise:** Modify the `param_distributions` and `n_iter` values above - can you improve the metrics? Note that you may also increase the processing time.
 
@@ -1008,7 +1008,7 @@ meuse_grid_long = pd.melt(meuse_grid, id_vars= 'geometry', value_vars=['pred_RFs
 This dataset has three covariates supplied with the grid and the observations:
 * dist: the distance to the river
 * ffreq: a category describing the flooding frequency
-* soil: a cateogory of soil type
+* soil: a category of soil type
 
 We can extend this spatial interpolation task into a more general spatial prediction task by including these co-located observations and gridded covariates. Let's visualize the flooding frequency: 
 
@@ -1031,7 +1031,7 @@ We can extend this spatial interpolation task into a more general spatial predic
 
 
 
-**Exercise**: Also visualize the other covariates. (Either one at a time, or try `melt`ing like above to use facets!). Do you expect these variables to improve the model?
+Also visualize the other covariates. (Either one at a time, or try `melt`ing like above to use facets!). Do you expect these variables to improve the model?
 
 Adding these covariates to the RF model, either method, is straightforward. We will stick to just the *RFSI* model here. All that needs to be done is to concatenate these three columns to our distance (and observed values) dataset and repeat the modeling fitting process.
 
