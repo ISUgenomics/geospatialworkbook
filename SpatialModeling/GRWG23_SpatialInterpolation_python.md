@@ -9,7 +9,7 @@ header:
 ---
 
 **Last Update:** 4 January 2024 <br />
-**Download Jupyter Notebook**: [GRWG23_spatial_modeling_ml.ipynb](https://geospatial.101workbook.org/tutorials/GRWG23_spatial_modeling_ml.ipynb)
+**Download Jupyter Notebook**: [GRWG23_SpatialInterpolation_python.ipynb](https://geospatial.101workbook.org/tutorials/GRWG23_SpatialInterpolation_python.ipynb)
 
 ## Overview
 
