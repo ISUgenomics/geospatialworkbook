@@ -10,4 +10,4 @@ header:
 
 | Tutorial | Python | R |
 |:--|:--|:--|
-| Spatial interpolation methods: geostatistics to machine learning | Coming soon | [view](GRWG_SpatialInterpolation_R) [download](../tutorials/GRWG_SpatialInterpolation.Rmd) | 
+| Spatial interpolation methods: geostatistics to machine learning | [view](GRWG23_SpatialInterpolation_python) [download](../tutorials/GRWG23_SpatialInterpolation_python.ipynb) | [view](GRWG_SpatialInterpolation_R) [download](../tutorials/GRWG_SpatialInterpolation.Rmd) | 
