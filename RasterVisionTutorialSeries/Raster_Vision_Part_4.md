@@ -1,7 +1,17 @@
+---
+title: "Raster Vision Tutorial Series Part 4: Exploring the Dataset and Problem Space"
+layout: single
+author: Noa Mills
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+
 # Semantic Segmentation of Aerial Imagery with Raster Vision 
 ## Part 4: Exploring the Dataset and Problem Space
 
-This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.</br>
+This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.<br>
 
 *Primary Libraries and Tools*:
 
@@ -152,7 +162,7 @@ plot_raster_vector(rdata, vdata)
 
 
     
-![png](Raster_Vision_Part_4_files/Raster_Vision_Part_4_12_0.png)
+![png](output_12_0.png)
     
 
 

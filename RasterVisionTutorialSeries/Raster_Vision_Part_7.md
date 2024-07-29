@@ -1,7 +1,18 @@
+---
+title: "Raster Vision Tutorial Series Part 7: Evaluating Training Performance and Visualizing Predictions"
+layout: single
+author: Noa Mills
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+
+
 # Semantic Segmentation of Aerial Imagery with Raster Vision 
 ## Part 7: Evaluating training performance and visualizing predictions
 
-This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.</br>
+This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.<br>
 
 *Primary Libraries and Tools*:
 
@@ -111,7 +122,7 @@ display_conf_mat(output_dir)
 
 
     
-![png](Raster_Vision_Part_7_files/Raster_Vision_Part_7_8_0.png)
+![png](output_8_0.png)
     
 
 
@@ -158,13 +169,13 @@ plot_prediction(output_dir, 3)
 
 
     
-![png](Raster_Vision_Part_7_files/Raster_Vision_Part_7_12_0.png)
+![png](output_12_0.png)
     
 
 
-At first glance, we can see that our model most commonly predicts pixels incorrectly around the edges of buildings, but it tends to label the centers of buildings correctly.</br> </br>
+At first glance, we can see that our model most commonly predicts pixels incorrectly around the edges of buildings, but it tends to label the centers of buildings correctly.<br> <br>
 Take a look at the legend on the prediction raster. This has three levels: 0, 1 and 2. Levels 0 and 1 correspond to our ClassConfig's class ID's for the "building" and "background" classes respectively. Raster Vision includes a "null" class as well - this class is associated with source raster pixels with no data. On each prediction raster, we see that the model predicts the null class in the same place - a strip along the bottom and a strip along the right hand side. Our raster images have data in these areas, so initially it doesn't make sense why we are getting null values here. Here's what's going on: our images are all 650 by 650 pixels large, and our chip size is 300 by 300 pixels large. The "predict" stage of the Raster Vision pipeline creates chips out of our validation scenes in a sliding fashion from left to right and top to bottom. So, it doesn't reach the edges of the images, and thus predicts those areas as "null". Here's a visualization of how rastervision chips the prediction rasters. ![image](imgs/gridded300.png)
-</br> We will fix this in the next version of our code. Before we get to that, let's see how our training loss, validation loss, and building f1 score changed during the model training process.
+<br> We will fix this in the next version of our code. Before we get to that, let's see how our training loss, validation loss, and building f1 score changed during the model training process.
 
 #### 3. Analyzing Model Training Process
 
@@ -306,7 +317,7 @@ plot_metrics(output_dir)
 
 
     
-![png](Raster_Vision_Part_7_files/Raster_Vision_Part_7_19_0.png)
+![png](output_19_0.png)
     
 
 

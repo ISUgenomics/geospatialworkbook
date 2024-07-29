@@ -1,7 +1,18 @@
+---
+title: "Raster Vision Tutorial Series Part 6: Breakdown of Raster Vision Code Version 1"
+layout: single
+author: Noa Mills
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+
+
 # Semantic Segmentation of Aerial Imagery with Raster Vision 
 ## Part 6: Breakdown of Raster Vision Code Version 1
 
-This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.</br>
+This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.<br>
 
 *Primary Libraries and Tools*:
 
@@ -93,7 +104,7 @@ Here's what the header of the `get_config()` function looks like, including the 
 ```python
 def get_config(runner, output_uri) -> SemanticSegmentationConfig:
 ```
-The `runner` object allows us to run the steps in our pipeline. Every `get_config()` function takes a runner object as an input. We specify the value of the runner when we invoke the Raster Vision pipeline. We will discuss this more in section 3.3 when we describe the script we use to invoke the pipeline. </br>
+The `runner` object allows us to run the steps in our pipeline. Every `get_config()` function takes a runner object as an input. We specify the value of the runner when we invoke the Raster Vision pipeline. We will discuss this more in section 3.3 when we describe the script we use to invoke the pipeline. <br>
 
 We accept the `output_uri` variable as an input to the `get_config()`, but won't need to refer to it until the very end of our code in step 7.
 
@@ -299,21 +310,21 @@ Now that we have a better understanding of the code we use to specify how we wan
 
 From your project directory, navigate to the model directory and open up the `run_model1.sh` script in your favorite text editor (such as nano) as follows:
 
-`cd $project_dir/model` </br>
-`nano run_model1.sh` </br></br>
+`cd $project_dir/model` <br>
+`nano run_model1.sh` <br><br>
 You will now see the shell script we will use to invoke the Raster Vision pipeline in the text editor. 
 
 #### 3.1 SBATCH Header Lines
 At the very beginning, you will see:
 
-`#!/bin/bash -l` </br>
-`#SBATCH -t 150` </br>
-`#SBATCH -A geospatialworkshop` </br>
-`#SBATCH --mem=256gb` </br>
-`#SBATCH --partition=gpu-a100-mig7`</br>
-`#SBATCH --gres=gpu:a100_1g.10gb:1` </br>
-`#SBATCH -n 4` </br>
-`#SBATCH --cpus-per-task 2` </br>
+`#!/bin/bash -l` <br>
+`#SBATCH -t 150` <br>
+`#SBATCH -A geospatialworkshop` <br>
+`#SBATCH --mem=256gb` <br>
+`#SBATCH --partition=gpu-a100-mig7`<br>
+`#SBATCH --gres=gpu:a100_1g.10gb:1` <br>
+`#SBATCH -n 4` <br>
+`#SBATCH --cpus-per-task 2` <br>
 
 If you are not a part of the geospatialworkshop project group, go ahead and modify the line `#SBATCH -A geospsatialworkshop` to list a project group that you are a part of.
 

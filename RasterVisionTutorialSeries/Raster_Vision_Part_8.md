@@ -1,7 +1,18 @@
+---
+title: "Raster Vision Tutorial Series Part 8: Modifying Model Configuration - Hyperparameter Tuning"
+layout: single
+author: Noa Mills
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+
+
 # Semantic Segmentation of Aerial Imagery with Raster Vision 
 ## Part 8: Modifying Model Configuration - Hyperparameter Tuning
 
-This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.</br>
+This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.<br>
 
 *Primary Libraries and Tools*:
 
@@ -160,7 +171,7 @@ There are many hyperparameters that AI practitioners tune to optimize performanc
 - Number of chips generated per image (max_windows).
 - Number of epochs.
 - Learning rate.
-- Batch size. </br>
+- Batch size. <br>
 
 All of these parameters are defined within the `PytorchSemanticSegmentationConfig` object. In `tiny_spacenet1.py`, these values were hard-coded. Now that we have our arguments passed into the `get_config()` function, we just need to change the hard-coded values to the names of our variables. Here's what the `PytorchSemanticSegmentationConfig` object definition looks like in `tiny_spacenet2.py`:
 
@@ -184,7 +195,7 @@ backend = PyTorchSemanticSegmentationConfig(
 
 ###### Note: as of the time of writing, a new version of Raster Vision is under development to fix the issue of prediction raster coverage by automatically padding prediction rasters. Once that version of Raster Vision is live and stable, the changes in this section will not be relevant.
 
-In the last tutorial, we saw that our prediction rasters had edges of "null" class predictions 50 pixels in width along the right side and bottom of each image. In the average geospatial problem, we would use rasters that are much larger that 650x650 pixels, so the loss of prediction information at the edges of images would be proportionally much smaller. Plus, predictions on pixels close to the edges of images are generally less accurate than predictions on pixels further from the edges. In our situation, since the images in our dataset are already so small, we are losing a whopping 15% of the prediction space by not covering this 50 pixel buffer. This justifies prioritizing updating our model prediction process to ensure we cover the entire prediction space. As a reminder, here's an example of how chips are created from our prediction rasters.
+In the last tutorial, we saw that our prediction rasters had edges of "null" class predictions 50 pixels in width along the right side and bottom of each image. In the average geospatial problem, we would use rasters that are much larger that 650x650 pixels, so the loss of prediction information at the edges of images would be proportionally much smaller. Plus, predictions on pixels close to the edges of images are generally less accurate than predictions on pixels further from the edges. In our situation, since the images in our dataset are already so small, we are losing a whopping 15% of the prediction space by not covering this 50 pixel buffer. This justifies prioritizing updating our model prediction process to ensure we cover the entire prediction space. As a reminder, here's an example of how chips are created from our prediction rasters. <br>
 ![img](imgs/gridded300.png)
 
 There are many ways we could fix this issue. Here, we will discuss two variables we can adjust to affect the coverage of the prediction rasters either individually or in conjunction with each other:
@@ -249,8 +260,8 @@ return SemanticSegmentationConfig(
 
 Here's the combination of hyperparameter values we will use as the default for this tutorial. While it is best to try out different values of each of these hyperparameters, we propose a "good enough" set of values for these specific hyperparameters, as they don't have a very strong influence over the performance of our model. We choose to decrease the chip size from 300 to 220 to decrease our runtime. We also set our stride length to 215. This way, there is some overlap between chips, and all pixels in our prediction raster are covered. We encourage you to play around with different values of chip size and stride length on your own.
 
-Chip size: 220 </br>
-Stride length: 215 </br>
+Chip size: 220 <br>
+Stride length: 215 <br>
 
 Here's what this looks like:
 ![img](imgs/chip220_stride215.png)
@@ -461,7 +472,7 @@ plot_prediction(output_1e_minus_2, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_41_0.png)
+![png](output_41_0.png)
     
 
 
@@ -473,7 +484,7 @@ plot_prediction(output_1e_minus_3, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_42_0.png)
+![png](output_42_0.png)
     
 
 
@@ -485,7 +496,7 @@ plot_prediction(output_1e_minus_4, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_43_0.png)
+![png](output_43_0.png)
     
 
 
@@ -497,7 +508,7 @@ plot_prediction(output_1e_minus_5, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_44_0.png)
+![png](output_44_0.png)
     
 
 
@@ -515,7 +526,7 @@ display_conf_mat(output_1e_minus_2)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_47_0.png)
+![png](output_47_0.png)
     
 
 
@@ -527,7 +538,7 @@ display_conf_mat(output_1e_minus_3)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_48_0.png)
+![png](output_48_0.png)
     
 
 
@@ -539,7 +550,7 @@ display_conf_mat(output_1e_minus_4)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_49_0.png)
+![png](output_49_0.png)
     
 
 
@@ -551,7 +562,7 @@ display_conf_mat(output_1e_minus_5)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_50_0.png)
+![png](output_50_0.png)
     
 
 
@@ -572,7 +583,7 @@ plot_metrics([output_1e_minus_5, output_1e_minus_4, output_1e_minus_3, output_1e
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_54_0.png)
+![png](output_54_0.png)
     
 
 
@@ -618,7 +629,7 @@ plot_prediction(output_1e_minus_3, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_64_0.png)
+![png](output_64_0.png)
     
 
 
@@ -630,7 +641,7 @@ plot_prediction(output_5e_minus_3, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_65_0.png)
+![png](output_65_0.png)
     
 
 
@@ -642,7 +653,7 @@ plot_prediction(output_2e_minus_3, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_66_0.png)
+![png](output_66_0.png)
     
 
 
@@ -654,7 +665,7 @@ plot_prediction(output_8e_minus_2, val_index)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_67_0.png)
+![png](output_67_0.png)
     
 
 
@@ -670,7 +681,7 @@ display_conf_mat(output_1e_minus_3)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_70_0.png)
+![png](output_70_0.png)
     
 
 
@@ -682,7 +693,7 @@ display_conf_mat(output_5e_minus_3)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_71_0.png)
+![png](output_71_0.png)
     
 
 
@@ -694,7 +705,7 @@ display_conf_mat(output_2e_minus_3)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_72_0.png)
+![png](output_72_0.png)
     
 
 
@@ -706,7 +717,7 @@ display_conf_mat(output_8e_minus_2)
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_73_0.png)
+![png](output_73_0.png)
     
 
 
@@ -719,7 +730,7 @@ plot_metrics([output_1e_minus_3, output_5e_minus_3, output_2e_minus_3, output_8e
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_75_0.png)
+![png](output_75_0.png)
     
 
 
@@ -732,7 +743,7 @@ plot_metrics([output_1e_minus_3, output_5e_minus_3, output_2e_minus_3])
 
 
     
-![png](Raster_Vision_Part_8_files/Raster_Vision_Part_8_77_0.png)
+![png](output_77_0.png)
     
 
 

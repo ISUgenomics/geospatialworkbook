@@ -1,3 +1,14 @@
+---
+title: "Raster Vision Tutorial Series Part 5: Overview of Raster Vision Model Configuration and Setup"
+layout: single
+author: Noa Mills
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+
+
 # Semantic Segmentation of Aerial Imagery with Raster Vision 
 ## Part 5: Overview of Raster Vision Model Configuration and Setup
 
