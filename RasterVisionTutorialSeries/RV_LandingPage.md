@@ -7,7 +7,7 @@ header:
 ---
 
 # Tutorial Series Info
-This tutorial series is intended for USDA-ARS researchers with SCINet accounts. Code, data, and interactive versions on jupyter notebooks are available on Atlas.
+This tutorial series is intended for USDA-ARS researchers with SCINet accounts. Code, data, and interactive versions on jupyter notebooks are available on Atlas. The browser-viewable versions of tutorials are available here for reference. The intended workflow involves following the first tutorial in the browser to get all of the interactive tutorials on Atlas, and then following along the interactive tutorials (.ipynb files) on Atlas.
 
 ## Index
 

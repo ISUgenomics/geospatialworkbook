@@ -1,3 +1,13 @@
+---
+title: Image Processing Fundamentals
+layout: single
+author: Laura Boucheron
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+
 # Section 0: Preliminaries 
 
 ## Section 0.1 A reminder on Jupyter Notebooks
