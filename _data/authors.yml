@@ -77,3 +77,11 @@ Heather Savoy:
   twitter     : "someone"
   email       : "mailto:heather.savoy@usda.gov"
   website     : "https://scinet.usda.gov" 
+
+Noa Mills:
+  name        : "Noa Mills"
+  bio         : "Noa is an ORISE Research Fellow in the USDA-ARS SCINet Office. They got their bachelors in Computational Mathematics at UC Santa Cruz in 2020, and now work on a range of geospatial data science projects including satellite image analysis and the Geospatial Common Data Library project."
+  avatar      : "/assets/images/people/NoaMills.jpg"
+  twitter     : "someone"
+  email       : "mailto:noamills3.14@gmail.com"
+  website     : "https://scinet.usda.gov"

@@ -73,6 +73,12 @@ feature_row2:
     url: "SpatialModeling/SpatialModeling-LandingPage"
     btn_label: "Learn More"
 
+  - title: "Raster Vision Series"
+    image_path: assets/images/RV_cover.png
+    alt: "Raster Vision Series"
+    url: "RasterVisionTutorialSeries/RV_LandingPage"
+    btn_label: "Learn More"
+
 ---
 
 

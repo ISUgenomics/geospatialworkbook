@@ -62,3 +62,8 @@ Her PhD was in Bioinformatics and Computational Biology with a minor in Statisti
 
 ![Heather](../assets/images/people/HeatherSavoy.png){: .align-left-profile }
 Heather is a Computational Biologist (Data Scientist) in the USDA-ARS SCINet Office. Her research interests include applying informatics methods to multidisciplinary agro-ecosystem problems and building data science software tools for geospatial research. She received her Ph.D. in Civil and Environmental Engineering with an emphasis in Computational Data Science and Engineering from the University of California Berkeley. She also holds a B.S. in Environmental Science with a minor in Computational Mathematics from the Florida Institute of Technology.
+
+### Noa Mills
+
+![Noa](../assets/images/people/NoaMills.jpg){: .align-left-profile }
+Noa is an ORISE Research Fellow in the USDA-ARS SCINet Office. They got their bachelors in Computational Mathematics at UC Santa Cruz in 2020, and now work on a range of geospatial data science projects including satellite image analysis and the Geospatial Common Data Library project.

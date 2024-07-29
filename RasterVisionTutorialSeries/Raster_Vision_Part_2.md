@@ -1,7 +1,17 @@
+---
+title: "Raster Vision Tutorial Series Part 2: Overview of Deep Learning for Imagery and the Raster Vision Pipeline"
+layout: single
+author: Noa Mills
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+
 # Semantic Segmentation of Aerial Imagery with Raster Vision 
 ## Part 2: Overview of Deep Learning for Imagery and the Raster Vision Pipeline
 
-This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.</br>
+This tutorial series walks through an example of using [Raster Vision](https://rastervision.io/) to train a deep learning model to identify buildings in satellite imagery.<br>
 
 *Primary Libraries and Tools*:
 
@@ -34,7 +44,7 @@ This tutorial series walks through an example of using [Raster Vision](https://r
 # 1. Overview of Deep Learning for Imagery Concepts
 
 #### What is a Neural Network
-A neural network is essentially a complicated mathematical function that receives inputs, such as images, and outputs predictions, such as image classification. A neural network has very many, often millions of parameters that control its functionality. You can think of each parameter as a dial, and the process of training a model involves iteratively adjusting the dials to improve the model's performance. Each iteration of the model training process involves passing data through the model, observing the model's accuracy, applying slight adjustments to the parameters to improve model performance, and repeating. If you are interested in learning more about the inner workings of neural networks, you can find more information [here](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi). For this tutorial, we do not need an in depth understanding of the inner workings of a neural network, since we are not building and training a neural network from scratch. Raster Vision allows us to use a pre-defined model structure, which allows us to benefit from transfer learning.</br>
+A neural network is essentially a complicated mathematical function that receives inputs, such as images, and outputs predictions, such as image classification. A neural network has very many, often millions of parameters that control its functionality. You can think of each parameter as a dial, and the process of training a model involves iteratively adjusting the dials to improve the model's performance. Each iteration of the model training process involves passing data through the model, observing the model's accuracy, applying slight adjustments to the parameters to improve model performance, and repeating. If you are interested in learning more about the inner workings of neural networks, you can find more information [here](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi). For this tutorial, we do not need an in depth understanding of the inner workings of a neural network, since we are not building and training a neural network from scratch. Raster Vision allows us to use a pre-defined model structure, which allows us to benefit from transfer learning.<br>
 
 #### Process of training a neural network:
 - Acquire a fully-labeled dataset.
@@ -53,13 +63,13 @@ A neural network is essentially a complicated mathematical function that receive
 
 #### What is Transfer Learning
 
-Training a neural network from scratch requires a lot of time and computational resources because there are so many parameters in our model to tune. Transfer Learning is a very common approach used to decrease the time it takes to train a model. With transfer learning, we first find a model that has already been trained to perform a certain task. Then, we use that model as a starting point, and further train it to perform new task. For example, say we wish to build a model that can identify trucks in images. If we already have a model that is trained to identify cars in images, then we can use that model as the starting point of our training procedure, and further train our pre-trained model using a dataset of truck images. This will work a lot faster than building a new model from scratch. </br>
+Training a neural network from scratch requires a lot of time and computational resources because there are so many parameters in our model to tune. Transfer Learning is a very common approach used to decrease the time it takes to train a model. With transfer learning, we first find a model that has already been trained to perform a certain task. Then, we use that model as a starting point, and further train it to perform new task. For example, say we wish to build a model that can identify trucks in images. If we already have a model that is trained to identify cars in images, then we can use that model as the starting point of our training procedure, and further train our pre-trained model using a dataset of truck images. This will work a lot faster than building a new model from scratch. <br>
 
 For this tutorial, we will use the [ResNet50 model](https://arxiv.org/abs/1512.03385), which is pre-trained on the [ImageNet dataset](https://www.image-net.org/index.php). The ImageNet dataset contains over a million labeled images of objects in 1000 different classes, such as "canoe", "isopod", "acorn", and "miniature schnauzer". Since the ImageNet dataset contains a large breadth of image classes, the ResNet50 model can extract various image features and can thus be applied to diverse use cases.
 
 #### Hyperparameters
 
-<b>Parameters</b> are the "dials" within the model that are adjusted to improve the training accuracy. Parameter values are not directly set or updated by the analyst. Rather, they are initialized and updated through the model training process. <b>Hyperparameters</b>, on the other hand, are variables that control the process of training. Hyperparameters are set manually by the analyst, and analysts will often try a variety of different hyperparameter values to see which yields the best model. </br></br>
+<b>Parameters</b> are the "dials" within the model that are adjusted to improve the training accuracy. Parameter values are not directly set or updated by the analyst. Rather, they are initialized and updated through the model training process. <b>Hyperparameters</b>, on the other hand, are variables that control the process of training. Hyperparameters are set manually by the analyst, and analysts will often try a variety of different hyperparameter values to see which yields the best model. <br><br>
 Examples of hyperparameters include:
 - <b>Number of epochs</b>: the number of times we pass the entire training set through the model during model training.
 - <b>Batch size</b>: the number of individual samples (ie labeled image chips) we pass through the model before updating the model parameters. Through the training process, we pass a batch of data through the model, observe the model performance, update the model parameters, and repeat. Once we have passed all of the training data through the dataset, we have completed one epoch.
@@ -67,7 +77,7 @@ Examples of hyperparameters include:
 
 #### Image Chipping
 
-Each neural network expects a specific input data size. For image datasets, this input data size refers to the pixel dimensions of the image, and the number of channels (most commonly, red, green, and blue). In geospatial data science, we often have very large images from satellite or drone imagery datasets. Neural networks generally operate on much smaller input sizes, so instead of passing an entire satellite image through a neural network, we break up our large imagery into smaller, bite-sized pieces of consistent dimensions called "chips". Chips can be sampled from an image dataset either in a grid-like fashion, or by random sampling. The chip size is another hyperparameter chosen by the analyst to fit the problem context, and various chip sizes can be tried. </br>
+Each neural network expects a specific input data size. For image datasets, this input data size refers to the pixel dimensions of the image, and the number of channels (most commonly, red, green, and blue). In geospatial data science, we often have very large images from satellite or drone imagery datasets. Neural networks generally operate on much smaller input sizes, so instead of passing an entire satellite image through a neural network, we break up our large imagery into smaller, bite-sized pieces of consistent dimensions called "chips". Chips can be sampled from an image dataset either in a grid-like fashion, or by random sampling. The chip size is another hyperparameter chosen by the analyst to fit the problem context, and various chip sizes can be tried. <br>
 
 ###### Note: Some resources use the term "tile" instead of "chip". These terms mean the same thing.
 
@@ -79,29 +89,29 @@ For geospatial applications, we can build a model to classify chips of our datas
 
 #### Object Detection
 
-Object Detection allows us to find objects of interest within images. Image Classification can tell us, for example, that a picture is of a cat. Image Classification cannot tell us where in the image the cat is, or how many cats are in the image. An Object Detection model will output bounding boxes around objects of interest. </br>
+Object Detection allows us to find objects of interest within images. Image Classification can tell us, for example, that a picture is of a cat. Image Classification cannot tell us where in the image the cat is, or how many cats are in the image. An Object Detection model will output bounding boxes around objects of interest. <br>
 ![IC vs OD](http://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1522766480/1_6j34dAOTijqP6HDFnjxPFA_udggex.png)
-###### Image source: [DataCamp](https://www.datacamp.com/tutorial/object-detection-guide)</br>
+###### Image source: [DataCamp](https://www.datacamp.com/tutorial/object-detection-guide)<br>
 Geospatial example: Object Detection could be used to analyze traffic conditions by detecting and counting cars on roads.
 
 #### Semantic Segmentation
 
-Semantic Segmentation models provide classification for every pixel within an image. While semantic segmentation doesn't allow us to count individual instances of objects, it does provide us with more detailed outlines of where one class ends and the next begins.</br>
+Semantic Segmentation models provide classification for every pixel within an image. While semantic segmentation doesn't allow us to count individual instances of objects, it does provide us with more detailed outlines of where one class ends and the next begins.<br>
 
 ![SS ex](https://assets-global.website-files.com/614c82ed388d53640613982e/63f498f8d4fe7da3b3a60cc2_semantic%20segmentation%20vs%20instance%20segmentation.jpg) 
-###### Semantic Segmentation Image from [Li, Johnson, and Yeung](http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture11.pdf)</br>
+###### Semantic Segmentation Image from [Li, Johnson, and Yeung](http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture11.pdf)<br>
 Geospatial example: Semantic Segmentation could be used to identify buildings in satellite images.
 
 ## 2. The Raster Vision Pipeline
 
-##### "Raster Vision is an open source library and framework for Python developers building computer vision models on satellite, aerial, and other large imagery sets (including oblique drone imagery). There is built-in support for chip classification, object detection, and semantic segmentation using PyTorch." [(rastervision.io)](https://rastervision.io/) </br>
-Raster Vision is a geospatial software tool produced by the company [Azavea](https://www.azavea.com/) that can be used as either a framework or as a library. The Raster Vision framework abstracts away many technical details of geospatial deep learning, and allows users to customize and run a deep learning pipeline. Advanced python programmers can use the Raster Vision library to use pieces of Raster Vision code in their own projects. We will focus solely on how to use the Raster Vision framework in this tutorial. </br></br>
-Raster Vision is built on pytorch, which is a popular python library used for building and training neural networks. The Raster Vision framework utilizes a pipeline of execution that performs a series of steps to prepare the data, train the model, use the model to predict on the validation set, calculate evaluation metrics, and bundle the model for deployment. </br>
+##### "Raster Vision is an open source library and framework for Python developers building computer vision models on satellite, aerial, and other large imagery sets (including oblique drone imagery). There is built-in support for chip classification, object detection, and semantic segmentation using PyTorch." [(rastervision.io)](https://rastervision.io/) <br>
+Raster Vision is a geospatial software tool produced by the company [Azavea](https://www.azavea.com/) that can be used as either a framework or as a library. The Raster Vision framework abstracts away many technical details of geospatial deep learning, and allows users to customize and run a deep learning pipeline. Advanced python programmers can use the Raster Vision library to use pieces of Raster Vision code in their own projects. We will focus solely on how to use the Raster Vision framework in this tutorial. <br><br>
+Raster Vision is built on pytorch, which is a popular python library used for building and training neural networks. The Raster Vision framework utilizes a pipeline of execution that performs a series of steps to prepare the data, train the model, use the model to predict on the validation set, calculate evaluation metrics, and bundle the model for deployment. <br>
 
 ![RV pipeline](https://docs.rastervision.io/en/0.30/_images/rv-pipeline-overview.png) 
-###### Image Source: [Raster Vision](https://docs.rastervision.io/en/0.30/framework/pipelines.html)</br>
+###### Image Source: [Raster Vision](https://docs.rastervision.io/en/0.30/framework/pipelines.html)<br>
 
-Raster Vision is a low-code platform. Users will still need to write python code to specify how they want to build their model, however they will need to write much less code than if they were building the same model from scratch in pytorch. For example, users will not have to write code to chip the data or perform the training loop, but they will need to specify the chip size, the method for constructing chips, what model architecture to use, and which of the three supported Deep Learning tasks to perform (chip classification, object detection, or semantic segmentation). </br></br>
+Raster Vision is a low-code platform. Users will still need to write python code to specify how they want to build their model, however they will need to write much less code than if they were building the same model from scratch in pytorch. For example, users will not have to write code to chip the data or perform the training loop, but they will need to specify the chip size, the method for constructing chips, what model architecture to use, and which of the three supported Deep Learning tasks to perform (chip classification, object detection, or semantic segmentation). <br><br>
 
 Raster Vision is ideal for ARS researchers who:
 * Have large, fully labelled geospatial datasets they wish to expand to cover additional sites
@@ -114,4 +124,4 @@ Raster Vision is ideal for ARS researchers who:
 The most up-to-date documentation can be found at [rastervision.io](https://rastervision.io/).
 
 #### Conclusion
-You know have an understanding of what Deep Learning is, what the Raster Vision pipeline does, and what kinds of problems it can help you solve. In the next tutorial, you will explore the apptainer container we will use to run Raster Vision.
+You now have an understanding of what Deep Learning is, what the Raster Vision pipeline does, and what kinds of problems it can help you solve. In the next tutorial, you will explore the apptainer container we will use to run Raster Vision.
