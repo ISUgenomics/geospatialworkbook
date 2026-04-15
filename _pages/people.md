@@ -62,3 +62,8 @@ Her PhD was in Bioinformatics and Computational Biology with a minor in Statisti
 
 ![Heather](../assets/images/people/HeatherSavoy.png){: .align-left-profile }
 Heather is a Computational Biologist (Data Scientist) in the USDA-ARS SCINet Office. Her research interests include applying informatics methods to multidisciplinary agro-ecosystem problems and building data science software tools for geospatial research. She received her Ph.D. in Civil and Environmental Engineering with an emphasis in Computational Data Science and Engineering from the University of California Berkeley. She also holds a B.S. in Environmental Science with a minor in Computational Mathematics from the Florida Institute of Technology.
+
+### Emily Myers
+
+![Emily](../assets/images/people/){: .align-left-profile }
+Emily Myers joined Southeast Watershed Research Unit (Tifton, GA) as a Student Trainee (Biological Science) in 2022. 

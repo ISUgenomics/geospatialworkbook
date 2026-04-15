@@ -1,7 +1,7 @@
 ---
 title: "Importing Data From Santeniel 2 Satellite"
 layout: single
-author: Rowan Gaffney
+author: Emily Myers
 author_profile: true
 header:
   overlay_color: "444444"
