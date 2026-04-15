@@ -73,6 +73,12 @@ feature_row2:
     url: "SpatialModeling/SpatialModeling-LandingPage"
     btn_label: "Learn More"
 
+  - title: "PhenoCam Network"
+    image_path: assets/images/phenocam-network.png
+    alt: "PhenoCam Network"
+    url: "ImportingData/ImportingData-landingPage"
+    btn_label: "Learn More"
+
 ---
 
 
