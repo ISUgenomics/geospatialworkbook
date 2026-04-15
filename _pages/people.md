@@ -65,5 +65,5 @@ Heather is a Computational Biologist (Data Scientist) in the USDA-ARS SCINet Off
 
 ### Emily Myers
 
-![Emily](../assets/images/people/){: .align-left-profile }
+![Emily](../assets/images/people/profile.jpg){: .align-left-profile }
 Emily Myers joined Southeast Watershed Research Unit (Tifton, GA) as a Student Trainee (Biological Science) in 2022. 

@@ -76,4 +76,13 @@ Heather Savoy:
   avatar      : "/assets/images/people/HeatherSavoy.png"
   twitter     : "someone"
   email       : "mailto:heather.savoy@usda.gov"
-  website     : "https://scinet.usda.gov" 
+  website     : "https://scinet.usda.gov"
+
+
+Emily Myers:
+  name        : "Emily Myers"
+  bio         : "Emily Myers joined Southeast Watershed Research Unit (Tifton, GA) as a Student Trainee (Biological Science) in 2022."
+  avatar      : "/assets/images/people/profile.jpg"
+  twitter     : "someone"
+  email       : "mailto:"
+  website     : "https://scinet.usda.gov"
