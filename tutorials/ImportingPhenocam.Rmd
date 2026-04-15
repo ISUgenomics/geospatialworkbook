@@ -1,0 +1,257 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "assets/R_"
+)
+```
+
+```{=html}
+<!--
+---
+title: Importing Data from the PhenoCam Network
+layout: single
+author: Emily Myers
+author_profile: true
+header:
+  overlay_color: "444444"
+  overlay_image: /assets/images/margaret-weir-GZyjbLNOaFg-unsplash_dark.jpg
+---
+-->
+```
+**Last Update:** 3 July 2025 **Download RMarkdown**: [ImportingPhenocam.Rmd](https://geospatial.101workbook.org/tutorials/ImportingPhenocam.Rmd)
+
+## Overview
+
+The PhenoCam Network uses digital camera imagery to track vegetation seasonality (also called phenology) in a wide range of ecosystems around the world. Cameras that are a part of this network collect images at half-hour intervals every day between sunrise and sunset.
+
+Although it is possible to visually assess the timing of key changes (e.g. leaf emergence) by looking at the images, most larger-scale analyses of vegetation phenology rely on our ability to calculate canopy greenness from these images, and use changes in canopy greenness over time to estimate phenology.
+
+This tutorial covers the R package `phenocamr` for downloading near-surface canopy greenness data and estimating seasonal transition dates for sites in the PhenoCam Network. The content of this tutorial is modified from the [vignette](https://bluegreen-labs.github.io/phenocamr/articles/phenocamr-vignette.html) for the `phenocamr` package.
+
+This package is also described in the following paper: Hufkens, K., Basler, J., Milliman, T. Melaas, E., Richardson, A. 2018. [An integrated phenology modelling framework in R: Phenology modelling with phenor](https://doi.org/10.1111/2041-210X.12970). The PhenoCam standard data products, which we will download as a part of this tutorial, are described in detail in the following paper: Richardson, A., Hufkens, K., Milliman, T. et al. 2018. [Tracking vegetation phenology across diverse North American biomes using PhenoCam imagery](https://doi.org/10.1038/sdata.2018.28).
+
+*Language:* `R`
+
+*Primary Libraries/Packages:*
+
+| Name      | Description                                                      | Link                                          |
+|:----------|:-----------------------------------------------------------------|:----------------------------------------------|
+| phenocamr | R interface to PhenoCam Web Services                             | <https://github.com/bluegreen-labs/phenocamr> |
+| dplyr     | A Grammar of Data Manipulation                                   | <https://https://dplyr.tidyverse.org/>        |
+| ggplot2   | Create Elegant Data Visualizations Using the Grammar of Graphics | <https://ggplot2.tidyverse.org/>              |
+
+## Nomenclature
+
+-   *PhenoCam:* A digital camera mounted over a vegetation canopy that collects red, green, and blue (RGB) images of the canopy multiple times per day.
+-   *GCC:* The green chromatic coordinate (GCC) is a measure of canopy greenness. GCC is calculated by dividing the green channel brightness by the total brightness across the red, green, and blue channels.
+-   *ROI:* Region of interest within an image or series of images, over which calculations (like GCC) are performed.
+-   *Phenology:* The study of periodic events in biological life cycles and how these are influenced by seasonal and interannual variations in climate. In plants, examples include the date of leaf emergence near the start of the growing season and the date of leaf browning near the end of the growing season.
+-   *Growing season:* A full cycle of vegetation productivity, from dormancy to active growth, senescence, and then back to dormancy.
+-   *Start of season (SOS):* The start of the "greenness rising" stage for a full cycle of vegetation activity. Also referred to as "green-up".
+-   *End of season (EOS):* The end of the "greenness falling" stage for a full cycle of vegetation activity.
+
+## Data Details
+
+-   Data: PhenoCam Network GCC
+-   Link: <https://phenocam.nau.edu/webcam/>
+-   Other Details: The PhenoCam Network is a cooperative continental-scale phenological observatory that uses imagery from networked digital cameras to track vegetation phenology in a diverse range of ecosystems across North America and around the World. PhenoCam was established in 2008 and currently includes images of over 700 sites.
+
+## Analysis Steps
+
+-   Use the PhenoCam website or the built-in `list_sites` or `list_rois` functions to select PhenoCam sites of interest
+-   Download PhenoCam GCC data for sites of interest
+-   Read downloaded GCC time-series data using `read_phenocam`, and visualize it using `ggplot`
+-   Calculate and visualize seasonal transition dates
+
+## Step 0: Import Libraries/Packages
+
+```{r libraries}
+# phenocam data
+install.packages("phenocamr")
+library(phenocamr)
+
+# working with dataframes
+library(dplyr)
+
+# visualization and plotting
+library(ggplot2)
+```
+
+## Step 1: Select your phenocam sites
+
+More than 1000 cameras provide imagery to the PhenoCam network. You can browse PhenoCam network sites on the PhenoCam website, via the [gallery](https://phenocam.nau.edu/webcam/gallery/) or the [map of sites](https://phenocam.nau.edu/webcam/network/map/). Most sites have one or more associated ROIs, which are used to create GCC or NDVI time-series data. The [full list of GCC ROIs](https://phenocam.nau.edu/webcam/roi/search/) is also available on the PhenoCam website, under the Data tab.
+
+You can also view a full list of sites and associated metadata using the `list_sites` function in phenocamr.
+
+```{r sitelist}
+# Generate a full list of phenocam sites and their metadata
+phenocam_sites <- list_sites()
+
+# View the first six entries of the site table
+head(phenocam_sites)
+```
+
+Similarly, to view a list of ROIs, you can use the `list_rois` function.
+
+```{r roilist}
+# Generate a full list of phenocam ROIs and their metadata
+phenocam_rois <- list_rois()
+
+# View the first six entries of the roi table
+head(phenocam_rois)
+```
+
+You can also filter the site or ROI list to look for cameras or ROIs with specific attributes.
+
+```{r filter}
+# Using dplyr, filter the roi dataframe to look for ROIs with AG veg types and at least 9 years of data
+filter(phenocam_rois, veg_type=="AG", site_years>=9)
+```
+
+## Step 2: Download phenocam data
+
+Once you have selected a camera or ROI that you wish to download, you can use the `download_phenocam` function to download a PhenoCam time series for that site.
+
+The code chunk below shows the command for downloading a GCC time-series for a specific site and ROI. The function inputs are as follows:
+
+-   site: Specifies the phenocam site for download. In this case, we are downloading data from the [harvard](https://phenocam.nau.edu/webcam/sites/harvard/) site.
+-   veg_type: Specifies the vegetation type for the region of interest we are downloading. In this case, "DB" is "deciduous broadleaf".
+-   roi_id: Specifies which ROI we want to download, since some cameras have more than one. In this case, we are downloading harvard ROI [DB_1000](https://phenocam.nau.edu/webcam/roi/harvard/DB_1000/).
+-   frequency: Specifies the frequency of measurements. The default value of frequency is 3, meaning that the function will return GCC values aggregated over a 3-day moving window. You can also set frequency = 1 for daily data, but these data may be more noisy.
+-   outlier_detection: Specifies whether or not you want to apply the outlier detection routine to the downloaded GCC data. The routine automatically detects and filters out most outlier values in the GCC time series due to contamination by snow, rain, and mist. By default, outlier_detection is set to TRUE.
+-   smooth: Specifies whether or not you want to automatically smooth the data. By default, smooth is set to TRUE. Smoothed data are returned at a 1-day frequency, even if the data are initially downloaded at a 3-day frequency.
+-   out_dir: Specifies the output directory for the downloaded phenocam GCC. In this case, we are using "\~" to download data into our home directory. The default output directory is tempdir().
+
+```{r download1}
+# Download data for a single ROI for a single deciduous forest site (harvard)
+download_phenocam(site = "harvard$",
+                  veg_type = "DB",
+                  roi_id = "1000",
+                  frequency = 3,
+                  outlier_detection = TRUE,
+                  smooth = TRUE,
+                  out_dir = "~")
+```
+
+If you don't specify veg_type or roi_id in your function call, `download_phenocam` will download phenocam GCC for *all* existing ROIs for a particular site. The code chunk below will download phenocam GCC for all seven ROIs at the [ibp](https://phenocam.nau.edu/webcam/sites/ibp/) site, which includes two GR (grass) ROIs, four SH (shrub) ROIs, and one XX (landscape) ROI.
+
+Because frequency, outlier_detection, and smooth are not specified, the function will use the default values for these variables (frequency = 3, outlier_detection = TRUE, smooth = TRUE).
+
+```{r download2}
+# Download data for all ROIs for a single site (ibp)
+download_phenocam(site = "ibp$",
+                  out_dir = "~")
+```
+
+You may notice that both of the above calls to `download_phenocam` specify the site with a '\$' at the end of the name. This is intentional! If you fail to include the '\$', the function will download GCC for *all* phenocams with a site name that begins with the specified name. For example, site = "jergrassland" will download phenocam data for "jergrassland" and "jergrassland2" and site = "good" will downlaod phenocam data for "goodnow", "goodwater", and "goodwaterbau".
+
+Finally, we will also download phenocam data for an agricultural site, [jurong](https://phenocam.nau.edu/webcam/sites/jurong/).
+
+```{r download3}
+# Download data for an agricultural site (jurong)
+download_phenocam(site = "jurong$",
+                  veg_type = "AG",
+                  roi_id = "1000",
+                  out_dir = "~")
+```
+
+## Step 3: View GCC time-series data
+
+Let's take a look at the data we downloaded from our harvard site. We will be reading our CSV file in as a dataframe using the `read_phenocam` function in `phenocamr` and plotting it using `ggplot`.
+
+```{r readphenocam}
+# Read in the ibp GR 1000 csv
+ibp <- read_phenocam("~/ibp_GR_1000_3day.csv")
+
+# View the data
+print(str(ibp))
+```
+
+When we view the phenocamr object generated by the `read_phenocam` function, we can see that the first 8 elements contain higher-level information about the site, ROI, and data aggregation frequency. The "header" field (ibp\$header) contains header information captured from the first 24 rows of the downloaded csv file. The "data" field (ibp\$data) contains an R dataframe with time-series data for the ibp GR 1000 ROI. There are multiple data products, all described in the paper by Richardson et al. For this exercise, we will focus on the smooth_gcc_90, which is a smoothed and interpolated daily GCC product.
+
+```{r plotibp}
+# Plot the ibp GR 1000 GCC
+ggplot(data = filter(ibp$data, year>=2018, year<=2024), aes(x=as.Date(date),y=smooth_gcc_90)) +
+  geom_line() +
+  ylim(0.3, 0.5) +
+  xlab("Date") +
+  ylab("Smoothed GCC") +
+  ggtitle("ibp GR 1000")
+```
+
+For comparison, we will also load and plot data for the harvard and jurong sites.
+
+```{r plotharvard}
+# Read in the harvard DB 1000 csv
+harvard <- read_phenocam(file = "~/harvard_DB_1000_3day.csv")
+
+# Plot the harvard DB 1000 GCC
+ggplot(data = filter(harvard$data, year>=2018, year<=2024), aes(x=as.Date(date),y=smooth_gcc_90)) +
+  geom_line() +
+  ylim(0.3,0.5) +
+  xlab("Date") +
+  ylab("Smoothed GCC") +
+  ggtitle("harvard DB 1000")
+```
+
+```{r plotjurong}
+# Read in the jurong AG 1000 csv
+jurong <- read_phenocam(file = "~/jurong_AG_1000_3day.csv")
+
+# Plot the jurong AG 1000 GCC
+ggplot(data = filter(jurong$data, year>=2018, year<=2024), aes(x=as.Date(date),y=smooth_gcc_90)) +
+  geom_line() +
+  ylim(0.3, 0.5) +
+  xlab("Date") +
+  ylab("Smoothed GCC") +
+  ggtitle("jurong AG 1000")
+```
+
+You may notice that all three ROIs have spikes in GCC corresponding to growing season greenness, but that the timing, magnitude, and shape of these peaks vary significantly across sites. Many of the differences in GCC patterns can be attributed to differences in plant type and growing conditions.
+
+Among these sites, the ibp GR site exhibits the lowest overall GCC values and the most variability across years. The values of GCC at ibp are low because it is a dryland site with sparse plant cover (bare ground in the ROI lowers the GCC), and the high year-to-year variability in peak GCC is due to high variability in rainfall timing and amount, which drive the grass greenness response. The harvard DB site exhibits the highest overall GCC due to the high density and high biomass of the forest canopy. At the jurong AG site, two growing seasons are visible - a smaller GCC peak in the winter followed by a larger peak in the summer. If you look at the site description of jurong in our phenocam_sites dataframe (or on the phenocam website), you can see that this field is used to grow summer rice and winter wheat at different times of year.
+
+## Step 4: Calculate start and end of growing season
+
+The `phenocamr` package also includes functionality for calculating phenophases (e.g. start of growing season, end of growing season) from the smoothed GCC time-series data. You can use the `transition_dates` function to calculate start or end of season dates.
+
+```{r transitiondates}
+# Calculate the start of season dates for jurong AG 1000
+jurong_sos <- transition_dates(jurong)
+
+# Calculate the end of season dates for ibp GR 1000
+jurong_eos <- transition_dates(jurong, reverse = TRUE)
+
+# Plot the GCC time-series with 50% amplitude threshold values
+ggplot() +
+  geom_line(data = jurong$data, aes(x=as.Date(date), y=smooth_gcc_90)) +
+  geom_vline(xintercept = as.Date(jurong_sos$transition_50), color = 'darkgreen') +
+  geom_vline(xintercept = as.Date(jurong_eos$transition_50), color = 'brown') +
+  xlab("Date") +
+  ylab("Smoothed GCC") +
+  ggtitle("jurong AG 1000 with start and end of season")
+```
+
+You can also use the `phenophases` function to calculate start and end of season dates.
+
+```{r phenophases}
+# Calculate the start and end of season dates for harvard DB 1000
+harvard_phenology <- phenophases(harvard)
+
+# Plot the GCC time-series with 50% amplitude threshold values
+ggplot() +
+  geom_line(data = harvard$data, aes(x=as.Date(date), y=smooth_gcc_90)) +
+  geom_vline(xintercept = as.Date(harvard_phenology$rising$transition_50), color = 'darkgreen') +
+  geom_vline(xintercept = as.Date(harvard_phenology$falling$transition_50), color = 'brown') +
+  xlab("Date") +
+  ylab("Smoothed GCC") +
+  ggtitle("harvard DB 1000 with start and end of season")
+```
+
+Although the built-in functions typically return one growing season per calendar year, you may notice that irregular phenological behavior (e.g. multiple growing seasons per year, low or highly fluctuating peak greenness) can cause the algorithm to miss or misidentify seasonal transition dates, as it did with the end of season date identified for jurong in early 2024. It's always best to check the outputs for your site to make sure that they make sense, and to consider alternative methods to estimate seasonal transitions in GCC data that don't fit the underlying model assumptions.
+
+## Further reading
+
+To see another worked example using with manual outlier detection and smoothing, check out the [phenocamr vignette](https://bluegreen-labs.github.io/phenocamr/articles/phenocamr-vignette.html) that inspired this tutorial. For more information on the underlying models used in the `phenocamr` package, check out the [2018 paper by Hufkens et al](https://doi.org/10.1111/2041-210X.12970). For more information on the PhenoCam dataset, including information about 1- or 3-day aggregation intervals and descriptions of all of the time-series data products, check out the [2018 paper by Richardson et al](https://doi.org/10.1038/sdata.2018.28).
