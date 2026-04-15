@@ -74,7 +74,7 @@ feature_row2:
     btn_label: "Learn More"
 
   - title: "PhenoCam Network"
-    image_path: assets/images/phenocam-network.png
+    image_path: assets/images/phenocam-network.jpg
     alt: "PhenoCam Network"
     url: "ImportingData/ImportingData-landingPage"
     btn_label: "Learn More"
